@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Class XI - Full MCQ Practice | Smart Study Center</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a0533 0%,#4a1078 50%,#6a1b9a 100%);min-height:100vh;padding:20px}
+.container{max-width:960px;margin:0 auto;background:white;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.35);overflow:hidden;position:relative;z-index:1}
+.brand-header{background:linear-gradient(135deg,#1a0533 0%,#4a1078 50%,#6a1b9a 100%);color:white;padding:12px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.brand-logo{display:flex;align-items:center;gap:12px}
+.brand-logo-img{width:48px;height:48px;border-radius:10px;background:white;padding:3px;flex-shrink:0;box-shadow:0 3px 10px rgba(0,0,0,0.3)}
+.brand-text-group{display:flex;flex-direction:column}
+.brand-center{font-size:16px;color:#fff;font-weight:800;letter-spacing:.5px}
+.brand-credit{display:flex;align-items:center;gap:8px;margin-top:3px}
+.brand-name{font-size:12px;color:#ce93d8;font-weight:600;letter-spacing:.3px}
+.brand-contact{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:6px 16px;font-size:14px;font-weight:600;color:#e1bee7}
+.social-row{display:flex;justify-content:center;gap:12px;padding:10px;background:#0d0020;flex-wrap:wrap}
+.social-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:25px;font-size:13px;font-weight:700;text-decoration:none;color:white;transition:all .3s;border:none;cursor:pointer}
+.social-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.wa-btn{background:linear-gradient(135deg,#25d366,#128c7e)}
+.ig-btn{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)}
+.watermark-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;overflow:hidden}
+.watermark-overlay span{position:absolute;font-size:15px;font-weight:700;color:rgba(106,27,154,0.06);white-space:nowrap;transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase}
+.header{background:linear-gradient(135deg,#4a0072 0%,#6a1b9a 100%);color:white;padding:28px;text-align:center}
+.header h1{font-size:25px;margin-bottom:6px}
+.header p{opacity:.9;font-size:14px}
+.badge-row{display:flex;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700}
+.stats{display:flex;justify-content:space-around;padding:16px;background:#f3e5f5;border-bottom:2px solid #e1bee7;flex-wrap:wrap;gap:8px}
+.stat-item{text-align:center}
+.stat-label{font-size:11px;color:#6a1b9a;text-transform:uppercase;letter-spacing:1px}
+.stat-value{font-size:22px;font-weight:bold;color:#4a0072;margin-top:4px}
+.chapter-selector{padding:20px;background:#f3e5f5}
+.chapter-selector h3{margin-bottom:14px;color:#333;font-size:15px}
+.chapter-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.chapter-btn{padding:10px 14px;background:white;border:2px solid #6a1b9a;border-radius:8px;cursor:pointer;font-size:12px;transition:all .3s;color:#6a1b9a;font-weight:700;text-align:left}
+.chapter-btn:hover,.chapter-btn.active{background:#6a1b9a;color:white;transform:translateY(-2px);box-shadow:0 5px 15px rgba(106,27,154,.3)}
+.chapter-btn .q-count{display:block;font-size:11px;opacity:.75;margin-top:2px}
+.quiz-container{padding:25px;display:none}
+.quiz-container.active{display:block}
+.section-heading{padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;margin:22px 0 14px;letter-spacing:.5px;text-transform:uppercase}
+.sh-mcq{background:linear-gradient(135deg,#6a1b9a,#7b1fa2);color:white}
+.sh-summary{background:linear-gradient(135deg,#1565c0,#1976d2);color:white}
+.sh-concept{background:linear-gradient(135deg,#e65100,#f57c00);color:white}
+.question-card{background:#f8f9fa;border-radius:12px;padding:20px;margin-bottom:16px;border-left:5px solid #6a1b9a}
+.question-card.sum-card{border-left-color:#1565c0}
+.question-card.con-card{border-left-color:#e65100}
+.question-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.question-number{color:white;padding:4px 14px;border-radius:20px;font-weight:bold;font-size:12px;background:#6a1b9a}
+.question-card.sum-card .question-number{background:#1565c0}
+.question-card.con-card .question-number{background:#e65100}
+.question-type{color:white;padding:4px 10px;border-radius:15px;font-size:11px;font-weight:700}
+.t-mcq{background:#6a1b9a}
+.t-sum{background:#1565c0}
+.t-con{background:#e65100}
+.question-text{font-size:15px;color:#333;margin-bottom:14px;line-height:1.6}
+.options{display:grid;gap:9px}
+.option{padding:11px 16px;background:white;border:2px solid #dee2e6;border-radius:8px;cursor:pointer;transition:all .3s;font-size:14px}
+.option:hover{border-color:#6a1b9a;background:#f3e5f5}
+.option.selected{border-color:#6a1b9a;background:#e1bee7}
+.option.correct{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20;font-weight:600}
+.option.wrong{border-color:#c62828;background:#ffebee;color:#b71c1c}
+.option.disabled{cursor:not-allowed;opacity:.7}
+.check-btn{background:#6a1b9a;color:white;border:none;padding:9px 24px;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer;margin-top:11px;transition:all .3s}
+.check-btn:hover{background:#7b1fa2;transform:translateY(-2px)}
+.check-btn:disabled{background:#ccc;cursor:not-allowed;transform:none}
+.feedback{margin-top:11px;padding:11px;border-radius:8px;font-weight:bold;display:none;font-size:13px}
+.feedback.show{display:block}
+.feedback.correct{background:#e8f5e9;color:#1b5e20;border:2px solid #2e7d32}
+.feedback.wrong{background:#ffebee;color:#b71c1c;border:2px solid #c62828}
+.result-summary{background:linear-gradient(135deg,#4a0072 0%,#6a1b9a 100%);color:white;padding:28px;border-radius:12px;text-align:center;margin-top:22px}
+.result-summary h2{font-size:24px;margin-bottom:16px}
+.result-stats{display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap}
+.result-stat{text-align:center}
+.result-stat-value{font-size:32px;font-weight:bold}
+.result-stat-label{font-size:13px;opacity:.85}
+.reset-btn{background:rgba(255,255,255,0.2);color:white;border:2px solid white;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:bold;margin-top:16px;margin-right:8px;transition:all .3s}
+.reset-btn:hover{background:white;color:#6a1b9a}
+.brand-footer{background:linear-gradient(135deg,#1a0533,#6a1b9a);color:#ce93d8;text-align:center;padding:14px;font-size:13px}
+.footer-main{font-weight:700;color:white;margin-bottom:4px}
+.footer-sub{font-size:11px;opacity:.7;margin-bottom:8px}
+.footer-social{display:flex;justify-content:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.footer-social a{color:#ce93d8;text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(206,147,216,0.3);border-radius:15px;transition:all .3s}
+.footer-social a:hover{background:rgba(255,255,255,0.1);color:white}
+</style>
+</head>
+<body>
+<div id="watermarkOverlay" class="watermark-overlay"></div>
+<div class="container">
+<div class="brand-header">
+  <div class="brand-logo">
+    <svg class="brand-logo-img" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+      <rect width="48" height="48" rx="8" fill="#6a1b9a"/>
+      <text x="24" y="32" text-anchor="middle" font-size="22" font-weight="bold" fill="white">📖</text>
+    </svg>
+    <div class="brand-text-group">
+      <span class="brand-center">🎓 Smart Study Center</span>
+      <div class="brand-credit">
+        <span class="brand-name">✍️ English XI — Full Book MCQ Practice</span>
+      </div>
+    </div>
+  </div>
+  <span class="brand-contact">📞 0345-3090057</span>
+</div>
+<div class="social-row">
+  <a href="https://wa.me/923453090057" class="social-btn wa-btn">💬 WhatsApp</a>
+  <a href="https://instagram.com" class="social-btn ig-btn">📸 Instagram</a>
+</div>
+<div class="header">
+  <h1>📖 English Class XI</h1>
+  <p>Full Book MCQ Practice Worksheet — Smart Study Center | Sindh Board</p>
+  <div class="badge-row">
+    <span class="badge">📝 Past Paper MCQs</span>
+    <span class="badge">🌟 Prose &amp; Poetry</span>
+    <span class="badge">🎭 Play</span>
+    <span class="badge">📐 Grammar</span>
+    <span class="badge">✅ Instant Feedback</span>
+  </div>
+</div>
+<div class="stats">
+  <div class="stat-item"><div class="stat-label">Total Qs</div><div class="stat-value" id="totalQuestions">0</div></div>
+  <div class="stat-item"><div class="stat-label">Answered</div><div class="stat-value" id="answeredQuestions">0</div></div>
+  <div class="stat-item"><div class="stat-label">Correct</div><div class="stat-value" id="correctAnswers">0</div></div>
+  <div class="stat-item"><div class="stat-label">Score</div><div class="stat-value" id="scorePercentage">0%</div></div>
+</div>
+<div class="chapter-selector">
+  <h3>📚 Select a Unit / Section to Practice:</h3>
+  <div class="chapter-buttons" id="chapterButtons"></div>
+</div>
+<div class="quiz-container" id="quizContainer"></div>
+<div class="brand-footer">
+  <div class="footer-main">Smart Study Center — Sir Ahmer Javed</div>
+  <div class="footer-sub">English XI Full Book MCQ Practice | 0345-3090057</div>
+  <div class="footer-social">
+    <a href="https://wa.me/923453090057">💬 WhatsApp</a>
+    <a href="#">📸 Instagram</a>
+  </div>
+</div>
+</div>
+
+<script>
+const mcqData = {
+
+// ═══════════════════════════════════════════════════════════
+// PROSE UNITS
+// ═══════════════════════════════════════════════════════════
+
+"Unit 1 — Quaid's Speech": [
+  // BOOK / PAST PAPER MCQs
+  {q:"The Quaid-e-Azam was speaking to the Constituent Assembly at:", o:["national level","regional level","global level","provincial level"], c:0, t:"mcq"},
+  {q:"On 11th August 1947, Quaid-e-Azam was speaking to:", o:["already functioning assembly","first legislative body","whole nation","members of the provincial body"], c:1, t:"mcq"},
+  {q:"The first legislative body was bestowed with:", o:["full powers","limited powers","only make legislative powers","only powers to curb bribery"], c:1, t:"mcq"},
+  {q:"The first duty of a government according to the Quaid-e-Azam is to maintain:", o:["constitution","law and order","peace","discipline"], c:1, t:"mcq"},
+  {q:"According to the Quaid-e-Azam, the biggest poison (curse) is:", o:["black-marketing","bribery and corruption","nepotism","jobbery"], c:1, t:"mcq"},
+  {q:"The colossal crime monster mentioned in the speech is:", o:["bribery","black-marketing","favouritism","nepotism"], c:1, t:"mcq"},
+  {q:"The word 'Pakistan' was first used in a pamphlet named:", o:["Now or Never","Nonehal","The Muslim League","Our Demands"], c:0, t:"mcq"},
+  {q:"The Quaid's guiding principles were:", o:["support and cooperation","justice and fair play","prejudice and honour","equality and fraternity"], c:1, t:"mcq"},
+  {q:"The two main functions of the Constituent Assembly were:", o:["frame constitution & act as Federal Legislature","make laws & curb bribery","maintain law & defend borders","govern Pakistan & control media"], c:0, t:"mcq"},
+  {q:"According to the Quaid, which legacy has arrived along with other things after partition?", o:["bribery","nepotism and jobbery","starvation","black-marketing"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Word 'Pakistan' was coined by:", o:["Quaid-e-Azam","Liaquat Ali Khan","Chaudhry Rehmat Ali","Allama Iqbal"], c:2, t:"summary"},
+  {q:"The last Governor-General of British India was:", o:["Lord Mountbatten","Lord Curzon","Lord Irwin","Lord Wavell"], c:0, t:"summary"},
+  {q:"The first Governor General of Pakistan was:", o:["Liaquat Ali Khan","Quaid-e-Azam Muhammad Ali Jinnah","Khawaja Nazimuddin","Chaudhry Muhammad Ali"], c:1, t:"summary"},
+  {q:"The Quaid-e-Azam described the revolution as:", o:["violent","peaceful","unprecedented cyclonic","ordinary"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The phrase 'bury the hatchet' means:", o:["to make peace / stop fighting","to dig a hole","to hide weapons","to bury the dead"], c:0, t:"concept"},
+  {q:"The phrase 'with an iron hand' means:", o:["with a metallic glove","with full force","with kindness","with corruption"], c:1, t:"concept"},
+  {q:"What does 'nepotism' mean?", o:["bribery","favouritism shown to relatives","black-marketing","corruption in courts"], c:1, t:"concept"},
+  {q:"The Quaid emphasised that all citizens have equal rights regardless of:", o:["their wealth","religion, caste, or creed","their profession","their education"], c:1, t:"concept"},
+],
+
+"Unit 2 — Once More to the Lake": [
+  // BOOK / PAST PAPER MCQs
+  {q:"The writer in 'Once More to the Lake' is accompanied by his:", o:["brother","son","wife","pet"], c:1, t:"mcq"},
+  {q:"The writer in 'Once More to the Lake' has referred the word 'placidity' in the context of:", o:["weakness","calmness","loneliness","idleness"], c:1, t:"mcq"},
+  {q:"The writer used to visit the lake in the month of:", o:["June","July","August","September"], c:2, t:"mcq"},
+  {q:"The writer's son had seen lily pads only from:", o:["river banks","train windows","a boat","the school field"], c:1, t:"mcq"},
+  {q:"What tapped on the roof of the camp in the morning?", o:["mosquitoes","swam","squirrel","mouse"], c:2, t:"mcq"},
+  {q:"The lake the writer visited was located in:", o:["New York","Maine","Virginia","Maryland"], c:1, t:"mcq"},
+  {q:"The writer and his son caught how many fish the first morning?", o:["one","two","three","four"], c:1, t:"mcq"},
+  {q:"The only thing that was wrong about the lake now was the sound of:", o:["birds","outboard motors","crowds","children"], c:1, t:"mcq"},
+  {q:"The writer revisited the lake with his son in which season?", o:["summer","winter","autumn","spring"], c:0, t:"mcq"},
+  {q:"The writer characterizes himself in the beginning of the essay as:", o:["lake-water man","pond-water man","salt-water man","ordinary man"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"'Once More to the Lake' is written by:", o:["E.B. White","Mark Twain","Stephen Leacock","Ernest Hemingway"], c:0, t:"summary"},
+  {q:"The full name of E.B. White was:", o:["Edward Blunden White","Elwyn Brooks White","Edward Booker White","Eric Blake White"], c:1, t:"summary"},
+  {q:"The writer felt a 'creepy sensation' because:", o:["the lake was scary","he felt he was reliving his childhood / his son became him","the water was cold","the forest was dark"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The word 'placidity' most nearly means:", o:["excitement","calmness and peacefulness","sadness","confusion"], c:1, t:"concept"},
+  {q:"The word 'illusion' in the text means:", o:["reality","a false impression","a memory","a dream place"], c:1, t:"concept"},
+  {q:"What is the central theme of 'Once More to the Lake'?", o:["The danger of water","The passage of time and nostalgia","Fishing techniques","The beauty of Maine"], c:1, t:"concept"},
+],
+
+"Unit 3 — The Necklace": [
+  // BOOK / PAST PAPER MCQs
+  {q:"The main theme of 'The Necklace' is:", o:["We suffer for our vanities","It is unwise to borrow things","Parties can lead to trouble","Friends should be honest with each other"], c:0, t:"mcq"},
+  {q:"Loisel gives Mathilde four hundred francs to:", o:["buy outfits","go to theater","buy jewellery","help her friend"], c:0, t:"mcq"},
+  {q:"The name of Mathilde's rich friend was:", o:["Mrs. Frazer","Mme. de Forestier","Mademoiselle","Jessica"], c:1, t:"mcq"},
+  {q:"Mathilde borrowed a diamond necklace from:", o:["a jeweller","her mother","Mme. Forestier","a bank"], c:2, t:"mcq"},
+  {q:"The actual worth of the necklace was:", o:["four hundred francs","five hundred francs","six hundred francs","seven hundred francs"], c:1, t:"mcq"},
+  {q:"Mathilde bought a replacement necklace for:", o:["sixty thousand francs","thirty-six thousand francs","forty thousand francs","ten thousand francs"], c:1, t:"mcq"},
+  {q:"For how many years did the Loisels pay off the debt?", o:["five","seven","ten","twelve"], c:2, t:"mcq"},
+  {q:"Loisel had inherited how much money from his father?", o:["ten thousand francs","eighteen thousand francs","thirty thousand francs","five thousand francs"], c:1, t:"mcq"},
+  {q:"When Mathilde had to return the necklace, she was looking as:", o:["rich","proud","peasant","miserable"], c:2, t:"mcq"},
+  {q:"Throughout the story, Mme. Loisel values most:", o:["love","appearances","knowledge","wisdom"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"'The Necklace' is based on a story by:", o:["E.B. White","Guy de Maupassant","Ralph Waldo Emerson","Stephen Leacock"], c:1, t:"summary"},
+  {q:"Loisel worked in the:", o:["Ministry of Finance","Ministry of Education","Ministry of Health","Ministry of Interior"], c:1, t:"summary"},
+  {q:"Mathilde belonged to a:", o:["rich family","poor family","middle-class family","elite family"], c:2, t:"summary"},
+  {q:"What did the Loisels do to replace the necklace?", o:["They borrowed money from many sources","They sold their house","They worked abroad","They borrowed from one person only"], c:0, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The word 'elite' in the story means:", o:["the common people","the upper class / privileged group","the poor","the government"], c:1, t:"concept"},
+  {q:"The word 'shabby' means:", o:["luxurious","worn-out or in poor condition","brand new","expensive"], c:1, t:"concept"},
+  {q:"What is the irony at the end of 'The Necklace'?", o:["Mathilde became rich","The necklace was fake / not worth the sacrifice","Mme. Forestier forgave the debt","Loisel got a promotion"], c:1, t:"concept"},
+  {q:"The phrase 'burst into tears' means:", o:["to cry softly","to weep intensely","to laugh","to shout angrily"], c:1, t:"concept"},
+],
+
+"Unit 4 — Digital Revolution": [
+  // BOOK / PAST PAPER MCQs
+  {q:"Digital revolution mainly depends on:", o:["physical nature","improved life","hardware innovation","integrated circuit"], c:3, t:"mcq"},
+  {q:"During World War II, transmission of information was in this form:", o:["material","analogue","electric","catalogue"], c:1, t:"mcq"},
+  {q:"E-Learning can only be possible through:", o:["portals","internet","smart adaptation","analogue"], c:1, t:"mcq"},
+  {q:"Technology ensures public safety through:", o:["teleportation","telepresence","telemarketing","telepathy"], c:1, t:"mcq"},
+  {q:"Bits used to record or transmit information are in:", o:["binary (digital) form","material form","analogue form","logical form"], c:0, t:"mcq"},
+  {q:"People get medical information to help understand a condition through:", o:["internet","integrated apps","telemedicine","visual images"], c:2, t:"mcq"},
+  {q:"Which of the following is an example of a hydrological disaster?", o:["earthquake","hurricane","floods","wildfire"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"'Atoms' in the digital revolution context refers to:", o:["physical/analogue recording of information","nuclear energy","electronic chips","computer memory"], c:0, t:"summary"},
+  {q:"New generation 'Tele-pointers' have replaced:", o:["computers","pen and pencil and old models","telephones","books"], c:1, t:"summary"},
+  {q:"Telework means:", o:["working with telephone only","working remotely via internet technology","working in a telephone company","working in telecom sector"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"What does 'telepresence' mean?", o:["Being physically present somewhere","Using technology to appear/act in another location","Making telephone calls","Sending telegrams"], c:1, t:"concept"},
+  {q:"Binary digits consist of:", o:["0 and 1","A and B","+ and –","Yes and No"], c:0, t:"concept"},
+  {q:"The digital revolution transformed information from analogue to:", o:["binary / digital form","material form","physical form","printed form"], c:0, t:"concept"},
+],
+
+"Unit 5 — My Bank Account": [
+  // BOOK / PAST PAPER MCQs
+  {q:"In 'My Bank Account', the writer's salary was raised to:", o:["sixty dollars","fifty dollars","thirty dollars","fifty-six dollars"], c:1, t:"mcq"},
+  {q:"The author of 'My Bank Account' Stephen Leacock visited the bank:", o:["first time","monthly","yearly","daily"], c:0, t:"mcq"},
+  {q:"The writer held this amount in his pocket when he entered the bank:", o:["six dollars","fifty dollars","fifty-six dollars","sixty dollars"], c:2, t:"mcq"},
+  {q:"The accountant's name in the bank was:", o:["Mr. Johnson","Mr. Montgomery","Mr. Pinkerton","Mr. Rogers"], c:1, t:"mcq"},
+  {q:"Who did the bank manager think the writer was?", o:["a businessman","a Pinkerton's detective","a rich baron's son","a government official"], c:1, t:"mcq"},
+  {q:"After returning from the bank, Stephen Leacock kept his savings in:", o:["pocket","bank","sock","silver-box"], c:2, t:"mcq"},
+  {q:"The writer accidentally wrote this amount on his cheque instead of six dollars:", o:["sixty dollars","fifty dollars","fifty-six dollars","sixteen dollars"], c:2, t:"mcq"},
+  {q:"The text 'My Bank Account' is an example of a:", o:["detective tale","humorous tale","moral tale","fictitious tale"], c:1, t:"mcq"},
+  {q:"The bank manager asked the writer to sit in a:", o:["hall","private room","waiting area","lobby"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Stephen Leacock was a:", o:["banker","detective","respected university teacher and writer","government officer"], c:2, t:"summary"},
+  {q:"The writer asked to see the manager because:", o:["he wanted a loan","he felt anyone opening an account must consult the manager","he was afraid of the clerks","he had a complaint"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The word 'solemnly' means:", o:["quickly","seriously and formally","joyfully","nervously"], c:1, t:"concept"},
+  {q:"'How will you have it?' (the clerk's question) meant:", o:["How do you want to be treated?","In what denomination/form do you want your money?","Will you have it later?","Are you taking everything?"], c:1, t:"concept"},
+  {q:"The tone of 'My Bank Account' is:", o:["tragic","humorous and comic","serious","suspenseful"], c:1, t:"concept"},
+],
+
+"Unit 6 — Self-Reliance": [
+  // BOOK / PAST PAPER MCQs
+  {q:"According to Ralph Waldo Emerson's essay 'Self-Reliance', envy is:", o:["bliss","evil","suicide","ignorance"], c:3, t:"mcq"},
+  {q:"According to the author of 'Self-Reliance', imitation is:", o:["suicide","bliss","ignorance","envy"], c:0, t:"mcq"},
+  {q:"Society acquires new arts and loses old:", o:["ways","methods","instincts","approaches"], c:2, t:"mcq"},
+  {q:"A solstice is a:", o:["position of moon","position of sun","time of the day","period of year"], c:1, t:"mcq"},
+  {q:"The civilized man has lost the use of his feet because he has built:", o:["castle","crutches","coach","car"], c:2, t:"mcq"},
+  {q:"According to the author, it is ___ in the world to live after the world's opinion:", o:["important","difficult","easy","impossible"], c:2, t:"mcq"},
+  {q:"Every great man is:", o:["simple","unique","rare","common"], c:1, t:"mcq"},
+  {q:"In every work of genius, we recognize our own rejected:", o:["ideas","thoughts","concepts","motives"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"'Self-Reliance' is an essay by:", o:["E.B. White","Ralph Waldo Emerson","Stephen Leacock","Booker T. Washington"], c:1, t:"summary"},
+  {q:"Emerson says the great man is he who in the midst of the crowd keeps:", o:["the world's opinion","the independence of solitude","the popular view","silence"], c:1, t:"summary"},
+  {q:"According to Emerson, a man is happy when:", o:["he has put his heart into his work","he has become rich","he has imitated a great man","he follows society's rules"], c:0, t:"summary"},
+  {q:"According to Emerson, the civilized man has a fine watch but fails of the skill to:", o:["cook his food","tell the hour by the sun","read books","build a house"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"What does 'solitude' mean?", o:["a crowded place","the state of being alone","a form of punishment","a type of music"], c:1, t:"concept"},
+  {q:"The antonym of 'solitude' is:", o:["loneliness","isolation","company","silence"], c:2, t:"concept"},
+  {q:"The phrase 'Trust thyself' in the essay means:", o:["Do not trust others","Have confidence in your own abilities","Be suspicious of society","Follow the crowd"], c:1, t:"concept"},
+  {q:"What does 'aboriginal strength' mean in the essay?", o:["modern strength","original/natural physical strength","military strength","mental strength"], c:1, t:"concept"},
+],
+
+"Unit 7 — Struggle for Education": [
+  // BOOK / PAST PAPER MCQs
+  {q:"Lewis Ruffner wanted things to be done promptly and:", o:["quickly","happily","systematically","completely"], c:2, t:"mcq"},
+  {q:"The writer in 'Struggle for Education' worked at the house of:", o:["General Powers","General Lewis Ruffner","Mr. Montgomery","Captain Smith"], c:1, t:"mcq"},
+  {q:"At what salary did the writer work at General Lewis Ruffner's house?", o:["one dollar per day","five dollars per month","fifty dollars per month","fifty cents per month"], c:1, t:"mcq"},
+  {q:"The city that was eighty-two miles away from Hampton:", o:["Malden","Richmond","Washington","Virginia"], c:1, t:"mcq"},
+  {q:"The writer spent the first night of his journey to Hampton:", o:["in a large city hotel","at his step-father's house","under a sidewalk near the port","in the school"], c:2, t:"mcq"},
+  {q:"The writer worked for the captain of a vessel to earn money for:", o:["his fare","his breakfast","his clothing","his books"], c:1, t:"mcq"},
+  {q:"The head teacher asked the writer to sweep the:", o:["hallway","recitation room","dining room","library"], c:1, t:"mcq"},
+  {q:"'Struggle for Education' is written by:", o:["E.B. White","Lewis Ruffner","Booker T. Washington","Stephen Leacock"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The school in Virginia for coloured students also provided:", o:["only academic education","opportunities to learn a trade or industry","sports training","military training"], c:1, t:"summary"},
+  {q:"The distance from Malden to Hampton is about:", o:["two hundred miles","five hundred miles","eight hundred miles","one thousand miles"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The word 'pretentious' means:", o:["simple and humble","claiming importance greater than reality","very old","very expensive"], c:1, t:"concept"},
+  {q:"Lewis Ruffner's most important requirement was:", o:["speed","absolute honesty and frankness","artistic skill","physical strength"], c:1, t:"concept"},
+  {q:"Why did the head teacher not admit the writer immediately?", o:["He lacked documents","She tested him by asking him to clean the room","He was too young","He could not pay the fees"], c:1, t:"concept"},
+],
+
+"Unit 8 — Singapore": [
+  // BOOK / PAST PAPER MCQs
+  {q:"Singapore is called 'Mr. Clean' because of:", o:["its row of flowers","its grocery","its cleanliness","its beautiful sights"], c:2, t:"mcq"},
+  {q:"The statues of lions found everywhere in Singapore are made of:", o:["limestone","marble","granite","concrete"], c:2, t:"mcq"},
+  {q:"The city that is a quarter of a mile away from Singapore:", o:["Jakarta","Istanbul","Johor","Changi"], c:2, t:"mcq"},
+  {q:"The word 'Singapore' means:", o:["City of Water","City of Lion","City of Flowers","City of Trade"], c:1, t:"mcq"},
+  {q:"The government of Singapore spends this amount of its income on education:", o:["20%","25%","40%","50%"], c:1, t:"mcq"},
+  {q:"A group of people travelling together is called:", o:["sages","crew","caravan","shrewd men"], c:2, t:"mcq"},
+  {q:"Singapore is located at a:", o:["mountain crossroad","maritime crossroad","desert crossroad","river crossroad"], c:1, t:"mcq"},
+  {q:"The largest inland river of Singapore is only:", o:["one kilometre","a few miles","a quarter mile","half a mile"], c:0, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Singapore is a small island country that is like:", o:["a pearl on the ocean","a dot on the world map","a gem in Asia","a bridge between worlds"], c:1, t:"summary"},
+  {q:"The biggest and most beautiful mosque in Singapore:", o:["Sultan Mosque","Masjid Al-Falah","Arab Street Mosque","National Mosque"], c:0, t:"summary"},
+  {q:"Singapore is known as a shoppers' paradise because:", o:["things are free","one can buy almost anything there","there are no taxes","it has the largest market"], c:1, t:"summary"},
+  {q:"There is a bridge that connects Johor with:", o:["Indonesia","Singapore","Malaysia","Thailand"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The phrase 'Mr. Clean' for Singapore refers to:", o:["a cleaning product brand","Singapore's extreme cleanliness","the president's name","a popular slogan"], c:1, t:"concept"},
+  {q:"'Maritime crossroad' means:", o:["a busy road","a meeting point of sea routes","a mountain pass","an airport hub"], c:1, t:"concept"},
+],
+
+"Unit 9 — Choosing Career": [
+  // BOOK / PAST PAPER MCQs
+  {q:"A job is not exactly the same as that of a:", o:["profession","career","task","achievement"], c:1, t:"mcq"},
+  {q:"A career is this kind of journey:", o:["moderate","constant","short-term","long-term"], c:3, t:"mcq"},
+  {q:"A job is a ___ strategy:", o:["long-term","medium-term","short-term","permanent"], c:2, t:"mcq"},
+  {q:"An introverted person requires ___ social interaction:", o:["much","less","no","constant"], c:1, t:"mcq"},
+  {q:"Many students choose a particular field because of:", o:["prevailing social trends","insistence of family","peer pressure","all of these"], c:3, t:"mcq"},
+  {q:"Engineering may be a good field for someone who likes to do ___ work:", o:["practical","theoretical","analytical","creative"], c:0, t:"mcq"},
+  {q:"SAT stands for:", o:["Scholastic Assessment Test","School Aptitude Test","Scholarship Achievement Test","Selection & Admission Test"], c:0, t:"mcq"},
+  {q:"A professional career counsellor may:", o:["give you a job","decide your career","guide you","give you scholarship"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"For a career, one needs:", o:["only physical strength","a definite skill set or professional degree","a lot of money","political connections"], c:1, t:"summary"},
+  {q:"According to the text, a career is based on one's:", o:["passions, future growth, and personal advancement","family wishes","teacher's advice","salary expectations"], c:0, t:"summary"},
+  {q:"An extroverted person finds ___ workplace more appealing:", o:["independent and analytical","social and customer-oriented","isolated","technical"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The word 'speculative' means:", o:["confirmed and certain","based on guesswork or theory","practical","historical"], c:1, t:"concept"},
+  {q:"What does 'aptitude test' help determine?", o:["Your height and weight","Your suitability for a particular career","Your financial status","Your family background"], c:1, t:"concept"},
+  {q:"The difference between a job and a career is:", o:["A job is permanent, career is temporary","A career is long-term with growth; a job is short-term for earning","They are exactly the same","A career requires no education"], c:1, t:"concept"},
+],
+
+// ═══════════════════════════════════════════════════════════
+// POETRY
+// ═══════════════════════════════════════════════════════════
+
+"Poem 1 — Character of a Happy Life": [
+  // BOOK / PAST PAPER MCQs
+  {q:"'The Character of a Happy Life' is written by:", o:["William Wordsworth","Sir Henry Wotton","Edgar A. Guest","Douglas Malloch"], c:1, t:"mcq"},
+  {q:"A happy man does not serve another's:", o:["order","direction","wish","will"], c:3, t:"mcq"},
+  {q:"The strong retreat for a happy man is his:", o:["heart","thoughts","mind","conscience"], c:3, t:"mcq"},
+  {q:"A happy man's armour is his ___ thought:", o:["clever","honest","deep","lofty"], c:1, t:"mcq"},
+  {q:"A happy man's days are:", o:["joyful","carefree","harmless","playful"], c:2, t:"mcq"},
+  {q:"___ is the utmost skill of an honest man:", o:["truth","honesty","simplicity","wisdom"], c:0, t:"mcq"},
+  {q:"A happy man's soul is always prepared for:", o:["exam","fight","quarrel","death"], c:3, t:"mcq"},
+  {q:"According to the poet, the deepest wounds are always given by:", o:["back-biting","praise","trust","criticism"], c:1, t:"mcq"},
+  {q:"'The Character of a Happy Life' describes a happy man as lord of himself, though not of:", o:["lands","people","wealth","reputation"], c:0, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"How many stanzas does 'The Character of a Happy Life' have?", o:["four","five","six","seven"], c:2, t:"summary"},
+  {q:"The poem says a happy man prays to God for more:", o:["gifts","grace","wealth","fame"], c:1, t:"summary"},
+  {q:"The poem says a happy man is freed from:", o:["society","servile bands of hope to rise or fear to fall","poverty","illness"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"'Armour' in the poem means:", o:["a weapon to attack","a metallic covering to protect oneself","a shield of pride","a wall of silence"], c:1, t:"concept"},
+  {q:"The central theme of 'The Character of a Happy Life' is:", o:["wealth brings happiness","true happiness comes from inner virtue and independence","happiness is found in fame","happiness needs physical comfort"], c:1, t:"concept"},
+  {q:"The phrase 'having nothing, yet hath all' means:", o:["a poor man has everything","spiritual wealth is greater than material wealth","nothing matters in life","the man is confused"], c:1, t:"concept"},
+],
+
+"Poem 2 — Don't Quit": [
+  // BOOK / PAST PAPER MCQs
+  {q:"'Don't Quit' is written by:", o:["Sir Henry Wotton","William Wordsworth","Edgar A. Guest","Douglas Malloch"], c:2, t:"mcq"},
+  {q:"'No pain; no gain' is the theme of:", o:["Good Timber","Sur Khahoris","Lucy Gray","Don't Quit"], c:0, t:"mcq"},
+  {q:"In 'Don't Quit', the poet says when things go wrong, you should:", o:["give up","quit immediately","rest but don't quit","ask for help"], c:2, t:"mcq"},
+  {q:"The poem 'Don't Quit' says many a failure turns about when:", o:["he gets more money","he might have won had he stuck it out","he moves to another city","he changes his career"], c:1, t:"mcq"},
+  {q:"In 'Don't Quit', the road described as all uphill represents:", o:["a mountain path","challenges and difficulties in life","a real road","boredom"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"'Don't Quit' consists of how many stanzas?", o:["three","four","five","six"], c:0, t:"summary"},
+  {q:"The poem 'Don't Quit' is about:", o:["quitting habits","perseverance and determination","physical fitness","road safety"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The message of 'Don't Quit' is:", o:["Success comes only to the lucky","Give up when things are hard","Persist through difficulties because success may be near","Life is always easy"], c:2, t:"concept"},
+  {q:"'When the road you're trudging seems all uphill' uses which literary device?", o:["simile","alliteration","metaphor","personification"], c:2, t:"concept"},
+],
+
+"Poem 3 — Ozymandias": [
+  // BOOK / PAST PAPER MCQs
+  {q:"'Ozymandias' is written by:", o:["William Wordsworth","Percy Bysshe Shelley","Edgar A. Guest","Sir Henry Wotton"], c:1, t:"mcq"},
+  {q:"Ozymandias was a Greek name for the Egyptian:", o:["King","emperor","pharaoh","hero"], c:2, t:"mcq"},
+  {q:"The traveller told the poet that he had seen ___ in the desert:", o:["a statue","a sculptor","an oasis","a snake"], c:0, t:"mcq"},
+  {q:"'My name is Ozymandias — King of Kings;' is which literary device?", o:["Simile","Irony","Personification","Metaphor"], c:1, t:"mcq"},
+  {q:"'Ozymandias' depicts that life is:", o:["beautiful","transient","attractive","alluring"], c:1, t:"mcq"},
+  {q:"The words on the pedestal tell us that Ozymandias was a ___ king:", o:["kind","humble","proud","cruel"], c:2, t:"mcq"},
+  {q:"The traveller came from:", o:["an ancient land","abroad","a neighbouring country","a desert"], c:0, t:"mcq"},
+  {q:"Lucy Gray's parents became certain of her death when they saw her:", o:["footprints","body","lantern","shoes"], c:0, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The statue in 'Ozymandias' was found in:", o:["a river","a forest","a desert","a city"], c:2, t:"summary"},
+  {q:"The sculptor 'well those passions read' means:", o:["the sculptor read books","the sculptor skilfully captured the king's character","the sculptor was educated","the sculptor was a historian"], c:1, t:"summary"},
+  {q:"The phrase 'Nothing beside remains' means:", o:["nothing was built","all of the king's great works have been destroyed by time","nothing was in the desert","the poet left nothing behind"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The central message of 'Ozymandias' is:", o:["Kings are always remembered","All earthly power and glory are temporary","Statues last forever","Deserts are beautiful"], c:1, t:"concept"},
+  {q:"The word 'colossal' means:", o:["tiny","ancient","huge/enormous","old"], c:2, t:"concept"},
+  {q:"The word 'visage' means:", o:["a village","a face","a base","a statue"], c:1, t:"concept"},
+],
+
+"Poem 4 — Good Timber": [
+  // BOOK / PAST PAPER MCQs
+  {q:"'Good Timber' is written by:", o:["Edgar A. Guest","Douglas Malloch","Sir Henry Wotton","William Wordsworth"], c:1, t:"mcq"},
+  {q:"'By sun and cold, by rain and snow' — this line is which literary device?", o:["Metaphor","Oxymoron","Alliteration","Simile"], c:0, t:"mcq"},
+  {q:"In 'Good Timber', the poem discusses themes of:", o:["love and romance","struggle, hardship, and growth","wealth and power","peace and quiet"], c:1, t:"mcq"},
+  {q:"The tree that never had to fight for sun and sky:", o:["became the strongest tree","became a forest king","lived and died a scrubby thing","became good timber"], c:2, t:"mcq"},
+  {q:"'The stronger the wind, the stronger the trees' means:", o:["trees grow better in wind","hardship makes one stronger","wind is necessary for life","trees need good weather"], c:1, t:"mcq"},
+  {q:"Good timber grows where:", o:["there is no storm","the forest growth is thickest","it gets enough sunlight","there is no hardship"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The poem 'Good Timber' has how many stanzas?", o:["two","three","four","five"], c:2, t:"summary"},
+  {q:"In the poem, 'patriarchs of both' refers to:", o:["old kings","the greatest/oldest trees and men","young leaders","timber merchants"], c:1, t:"summary"},
+  {q:"'This is the common law of life' means:", o:["life follows legal rules","hardship and struggle are universal facts of life","timber has laws","storms always come"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The word 'toil' means:", o:["play","rest","hard work","travel"], c:2, t:"concept"},
+  {q:"The main message of 'Good Timber' is:", o:["Nature is beautiful","Easy lives produce weak people; struggle builds strength","Trees are important","Farmers work hard"], c:1, t:"concept"},
+  {q:"'Scars of many winds' in the poem symbolize:", o:["damage to trees","wounds from past hardships that show experience and strength","bad weather","broken branches only"], c:1, t:"concept"},
+],
+
+"Poem 5 — Lucy Gray": [
+  // BOOK / PAST PAPER MCQs
+  {q:"'Lucy Gray' is written by:", o:["Sir Henry Wotton","Percy Bysshe Shelley","William Wordsworth","Edgar A. Guest"], c:2, t:"mcq"},
+  {q:"Lucy's father asked her to go to the town with a lantern to bring back her:", o:["aunt","sister","mother","brother"], c:2, t:"mcq"},
+  {q:"The wooden bridge from Lucy's home was at a distance of:", o:["a mile","a furlong","a kilometre","a few feet"], c:1, t:"mcq"},
+  {q:"Lucy's parents became certain of her death when they saw her:", o:["footprints","body","lantern","shoes"], c:0, t:"mcq"},
+  {q:"People believe that Lucy can be seen doing these activities EXCEPT:", o:["looking straight","looking behind","singing a song","tripping along"], c:1, t:"mcq"},
+  {q:"The poet chanced to see Lucy:", o:["at the break of day","in the evening","in the afternoon","at night"], c:0, t:"mcq"},
+  {q:"Lucy sang a:", o:["sweet song","solitary song","melodious song","sad song"], c:1, t:"mcq"},
+  {q:"Lucy couldn't reach the town because:", o:["it was late","she didn't get conveyance","her mother reached home","she lost her way in storm"], c:3, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Where did Lucy live?", o:["in a city","on a wide moor","near a river","in a valley"], c:1, t:"summary"},
+  {q:"What did Lucy's parents find that led them to the bridge?", o:["her lantern","the print of Lucy's feet in the snow","her coat","her voice"], c:1, t:"summary"},
+  {q:"Some people maintain Lucy is still alive, that she can be seen:", o:["playing in the snow","upon the lonesome wild","in the forest","near the bridge"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The word 'solitary' in the poem means:", o:["happy","alone / lone","noisy","lost"], c:1, t:"concept"},
+  {q:"The theme of 'Lucy Gray' is:", o:["the joy of winter","the tragedy of a lost child","the beauty of nature","the importance of lanterns"], c:1, t:"concept"},
+  {q:"'Not blither is the mountain roe' — 'roe' means:", o:["a fish egg","a type of rock","a young deer","a mountain bird"], c:2, t:"concept"},
+],
+
+"Poem 6 — The Abbot of Canterbury": [
+  // BOOK / PAST PAPER MCQs
+  {q:"King John was jealous of the Abbot's housekeeping and high:", o:["character","respect","business","renown"], c:3, t:"mcq"},
+  {q:"The Abbot of Canterbury requested King John to give him space of:", o:["three weeks","one year","two months","four weeks"], c:0, t:"mcq"},
+  {q:"King John feared the Abbot was working against his:", o:["people","policies","crown","ministers"], c:2, t:"mcq"},
+  {q:"'For thirty pence our savior was sold' — this line is from:", o:["Ozymandias","Lucy Gray","Don't Quit","The Abbot of Canterbury"], c:3, t:"mcq"},
+  {q:"The poem says King John ruled England with:", o:["justice and peace","main and with might / great wrong and little right","love and mercy","wisdom and order"], c:1, t:"mcq"},
+  {q:"After listening to the King's questions, the Abbot rode to these universities:", o:["Oxford and California","Oxford and Canterbury","Oxford and Campbell","Oxford and Cambridge"], c:3, t:"mcq"},
+  {q:"While going back, the Abbot met a:", o:["farmer","friend","neighbour","shepherd"], c:3, t:"mcq"},
+  {q:"The shepherd answered the King's third question by revealing:", o:["a great secret","that he was the shepherd, not the Abbot","a riddle","the value of money"], c:1, t:"mcq"},
+  {q:"The ballad 'The Abbot of Canterbury' is narrated in ___ person:", o:["first","second","third","first and third"], c:3, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The shepherd told the King that he was worth:", o:["thirty pence","twenty-nine pence","thirty-six pence","one penny"], c:1, t:"summary"},
+  {q:"The King rode round the whole world in:", o:["one week","one month","twenty-four hours","seven days"], c:2, t:"summary"},
+  {q:"The King's offer to make the shepherd Lord Abbot was declined because:", o:["the shepherd was too proud","the shepherd could neither read nor write","the shepherd was busy","the shepherd was ill"], c:1, t:"summary"},
+  {q:"The King rewarded the shepherd with:", o:["lands","a title","four nobles a week","fifty gold chains"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The word 'renown' means:", o:["riches","fame","power","knowledge"], c:1, t:"concept"},
+  {q:"The main message of 'The Abbot of Canterbury' is:", o:["Kings are always right","Do not judge wisdom by appearance or profession","Education is the key","Rich people are smarter"], c:1, t:"concept"},
+  {q:"A 'ballad' is:", o:["a type of essay","a narrative poem/song that tells a story","a type of play","a scientific text"], c:1, t:"concept"},
+],
+
+"Poem 7 — Sur Khahoris": [
+  // BOOK / PAST PAPER MCQs
+  {q:"Khahoris trouble their bodies to attain their:", o:["class","goal","earning","wealth"], c:1, t:"mcq"},
+  {q:"Khahoris can be found even where there is no trace of:", o:["animals","cattle","birds","human beings"], c:2, t:"mcq"},
+  {q:"Khahoris' recognition is like:", o:["a caravan in desert","a raft in ocean","a guide in mountains","safety in jungle"], c:1, t:"mcq"},
+  {q:"'Sur Khahoris' is written by:", o:["Allama Iqbal","Shah Abdul Latif Bhitai","Sachal Sarmast","Faiz Ahmad Faiz"], c:1, t:"mcq"},
+  {q:"The word 'save' in the fourth stanza of Sur Khahoris is used in the sense of:", o:["safety","preservation","together","except"], c:3, t:"mcq"},
+  {q:"True seekers can only be known to those who are for:", o:["jungle dwelling","deserted abodes","mountain peaks","spiritual realm"], c:3, t:"mcq"},
+  {q:"Khahoris face severe ___ while achieving their goals:", o:["criticism","conditions","hardships","all of them"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"'Khahori' means:", o:["warriors","wandering ascetics / those who search","merchants","farmers"], c:1, t:"summary"},
+  {q:"The faces of Khahoris are described as:", o:["bright and shining","dry, with old torn slippers","happy and cheerful","pale and weak"], c:1, t:"summary"},
+  {q:"'Sur Khahoris' is from the poetry of Shah Abdul Latif Bhitai, originally written in:", o:["Urdu","Punjabi","Sindhi","Persian"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"An 'ascetic' is someone who:", o:["lives a life of luxury","leads a life of piety and discipline, giving up worldly pleasures","is a warrior","is a merchant"], c:1, t:"concept"},
+  {q:"The theme of 'Sur Khahoris' is:", o:["love and beauty","spiritual search and sacrifice in the path of devotion","material success","war and peace"], c:1, t:"concept"},
+  {q:"Khahoris light fire even where there is no trace of birds, which symbolizes:", o:["their warmth","they kindle hope and spiritual light where others cannot","they destroy nature","they enjoy camping"], c:1, t:"concept"},
+],
+
+// ═══════════════════════════════════════════════════════════
+// PLAY
+// ═══════════════════════════════════════════════════════════
+
+"Play — A Visit to a Small Planet": [
+  // BOOK / PAST PAPER MCQs
+  {q:"'A Visit to a Small Planet' is a:", o:["comedy","tragedy","fiction","science fiction"], c:3, t:"mcq"},
+  {q:"Kreton said that people on his planet did not:", o:["fight","talk","die","eat"], c:0, t:"mcq"},
+  {q:"Kreton's spaceship was of this shape:", o:["oval","elliptical","triangular","square"], c:1, t:"mcq"},
+  {q:"Kreton appears to be in his:", o:["twenties","thirties","forties","fifties"], c:2, t:"mcq"},
+  {q:"According to the alien, civilization on the earth is just:", o:["at the ending","at the beginning","in full bloom","creeping"], c:1, t:"mcq"},
+  {q:"Power accused Kreton of coming to earth:", o:["100 years too soon","to spread a mysterious disease","to discover natural resources","to reconnoiter before an invasion"], c:3, t:"mcq"},
+  {q:"Kreton mistakenly thought he had come to earth in this century:", o:["18th","19th","20th","21st"], c:1, t:"mcq"},
+  {q:"Kreton considers human civilization as:", o:["decent","primitive","modern","ancient"], c:1, t:"mcq"},
+  {q:"In John's farm, he grew:", o:["American walnuts","apples","English walnuts","roses"], c:0, t:"mcq"},
+  {q:"The spaceship landed in:", o:["the Spelding house","Mrs. Spelding's rose garden","a field","a street"], c:1, t:"mcq"},
+  {q:"Roger Spelding's occupation was:", o:["a farmer","a general","a TV broadcaster","a detective"], c:2, t:"mcq"},
+  {q:"Kreton said civilization on earth is only just:", o:["at the ending","at the beginning","in full bloom","advanced"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"'A Visit to a Small Planet' was originally written by Gore Vidal as:", o:["a novel","a stage play","a television script","a radio play"], c:2, t:"summary"},
+  {q:"Kreton intended to see the Civil War during:", o:["1776","1812","1861","1918"], c:2, t:"summary"},
+  {q:"Kreton landed in:", o:["California","New York","Manassas, Virginia","London"], c:2, t:"summary"},
+  {q:"The main characters of the play include all of the following EXCEPT:", o:["Kreton","Roger Spelding","General Powers","Albert Einstein"], c:3, t:"summary"},
+  {q:"Kreton was dressed in the fashion of:", o:["1960","1860","1760","1900"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"What is the theme of 'A Visit to a Small Planet'?", o:["Space exploration","Human civilization seen from an alien's perspective / satire on humanity","The love story of Ellen and John","War and peace"], c:1, t:"concept"},
+  {q:"Why did Kreton call Earth 'a small planet'?", o:["Earth is actually small","He meant it is insignificant compared to his advanced world","He confused it with Mars","He was joking"], c:1, t:"concept"},
+  {q:"The phrase 'reconnoiter before an invasion' means:", o:["to make peace","to scout/gather information before an attack","to visit as a tourist","to study the environment"], c:1, t:"concept"},
+  {q:"A 'science fiction' play is one that:", o:["is set in the past","involves scientific concepts, technology, or extraterrestrial beings","is a tragedy","has no dialogue"], c:1, t:"concept"},
+],
+
+// ═══════════════════════════════════════════════════════════
+// GRAMMAR
+// ═══════════════════════════════════════════════════════════
+
+"Grammar — Verbs & Language": [
+  // BOOK / PAST PAPER MCQs
+  {q:"Identify the irregular verb:", o:["call","talk","push","buy"], c:3, t:"mcq"},
+  {q:"Identify the regular verb:", o:["bring","walk","sleep","shake"], c:1, t:"mcq"},
+  {q:"In the sentence 'She has been reading for hours', the underlined verb (reading) is:", o:["transitive","intransitive","auxiliary","modal"], c:1, t:"mcq"},
+  {q:"In the sentence 'He is writing an article', the underlined verb (writing) is:", o:["transitive","intransitive","auxiliary","modal"], c:0, t:"mcq"},
+  {q:"In the sentence 'The car arrived late', the underlined verb (arrived) is:", o:["transitive","intransitive","modal","auxiliary"], c:1, t:"mcq"},
+  {q:"'May I come in?' Here the modal verb 'may' indicates:", o:["ability","obligation","advice","permission"], c:3, t:"mcq"},
+  {q:"'Ali sometimes eats fast food' — identify the adverb:", o:["food","fast","sometimes","Ali"], c:2, t:"mcq"},
+  {q:"The comparative degree of 'much' is:", o:["merries","many","more","most"], c:2, t:"mcq"},
+  {q:"The comparative degree of the word 'bad' is:", o:["more worse","worse","most worse","worst"], c:1, t:"mcq"},
+  {q:"The past participle of 'be' is:", o:["was","were","had","been"], c:3, t:"mcq"},
+  {q:"Identify the regular verb:", o:["take","write","fall","live"], c:3, t:"mcq"},
+  {q:"The cleaning stuff _infected_ the area. Choose the correct prefix of the underlined word:", o:["re","mis","dis","un"], c:2, t:"mcq"},
+  {q:"'He is the wisest fool of them all' — this sentence contains the literary device:", o:["alliteration","metaphor","oxymoron","simile"], c:2, t:"mcq"},
+  {q:"The word 'maxim' means:", o:["top","saying","climax","maximum"], c:3, t:"mcq"},
+  {q:"A career is a ___ journey:", o:["moderate","constant","short-term","long-term"], c:3, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"A transitive verb is one that:", o:["does not need an object","requires an object to complete its meaning","always uses 'to be' as auxiliary","is always in past tense"], c:1, t:"summary"},
+  {q:"An intransitive verb is one that:", o:["always takes an object","does not require an object","is always irregular","is always used in passive voice"], c:1, t:"summary"},
+  {q:"A modal verb expresses:", o:["action","time","ability, possibility, permission, or obligation","description"], c:2, t:"summary"},
+  {q:"Which of these is an irregular verb?", o:["walk","talk","sing","push"], c:2, t:"summary"},
+  {q:"An adverb modifies a:", o:["noun","pronoun","verb, adjective, or another adverb","article"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"In 'She opened the door', the verb 'opened' is:", o:["intransitive","transitive (door is the object)","auxiliary","modal"], c:1, t:"concept"},
+  {q:"Which sentence contains a modal verb?", o:["She runs fast","He should study harder","They walked home","I finished my work"], c:1, t:"concept"},
+  {q:"The antonym of 'solitude' is:", o:["loneliness","isolation","company","mob"], c:2, t:"concept"},
+  {q:"The phrase 'Golden Crown' means:", o:["wealth","power","victory","throne"], c:2, t:"concept"},
+  {q:"An Abbott is the head of a/an:", o:["institution","monastery","university","household"], c:1, t:"concept"},
+],
+
+};
+
+let currentChapter=null,userAnswers={},stats={total:0,answered:0,correct:0};
+function initializeApp(){generateWatermarks();createChapterButtons();updateStats();}
+function generateWatermarks(){
+  const o=document.getElementById('watermarkOverlay'),t="Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057";
+  for(let r=0;r<6;r++)for(let c=0;c<3;c++){const s=document.createElement('span');s.textContent=t;s.style.left=(c*38-5)+'%';s.style.top=(r*18-5)+'%';o.appendChild(s);}
+}
+function createChapterButtons(){
+  const container=document.getElementById('chapterButtons');
+  Object.keys(mcqData).forEach(ch=>{
+    const btn=document.createElement('button');btn.className='chapter-btn';
+    const qs=mcqData[ch],m=qs.filter(q=>q.t==='mcq').length,s=qs.filter(q=>q.t==='summary').length,c=qs.filter(q=>q.t==='concept').length;
+    btn.innerHTML=ch+'<span class="q-count">📖'+m+' 🌟'+s+' 💡'+c+' = '+qs.length+' Qs</span>';
+    btn.onclick=()=>loadChapter(ch);container.appendChild(btn);
+  });
+}
+function loadChapter(ch){
+  currentChapter=ch;userAnswers={};
+  document.querySelectorAll('.chapter-btn').forEach(b=>b.classList.toggle('active',b.innerHTML.startsWith(ch)));
+  const con=document.getElementById('quizContainer');con.innerHTML='';con.classList.add('active');
+  const qs=mcqData[ch];stats.total=qs.length;stats.answered=0;stats.correct=0;
+  let idx=0;
+  [{type:'mcq',label:'📖 Book & Past Paper MCQs',cls:'sh-mcq'},{type:'summary',label:'🌟 Summary — Key Points',cls:'sh-summary'},{type:'concept',label:'💡 Concept — Exam Likely',cls:'sh-concept'}].forEach(g=>{
+    const gqs=qs.filter(q=>q.t===g.type);if(!gqs.length)return;
+    const h=document.createElement('div');h.className='section-heading '+g.cls;h.textContent=g.label;con.appendChild(h);
+    gqs.forEach(q=>con.appendChild(createCard(q,idx++)));
+  });
+  const sum=document.createElement('div');sum.id='resultSummary';con.appendChild(sum);
+  updateStats();con.scrollIntoView({behavior:'smooth'});
+}
+function createCard(q,i){
+  const tl={mcq:'📖 MCQ',summary:'🌟 Summary',concept:'💡 Concept'}[q.t];
+  const tc2={mcq:'t-mcq',summary:'t-sum',concept:'t-con'}[q.t];
+  const card=document.createElement('div');
+  card.className='question-card'+(q.t==='summary'?' sum-card':q.t==='concept'?' con-card':'');
+  card.id='question-'+i;
+  card.innerHTML=`<div class="question-header"><span class="question-number">Q ${i+1}</span><span class="question-type ${tc2}">${tl}</span></div><div class="question-text">${q.q}</div><div class="options" id="options-${i}">${q.o.map((o,j)=>`<div class="option" onclick="selectOption(${i},${j})">${String.fromCharCode(97+j)}) ${o}</div>`).join('')}</div><button class="check-btn" onclick="checkAnswer(${i})" id="check-${i}">Check Answer</button><div class="feedback" id="feedback-${i}"></div>`;
+  return card;
+}
+function selectOption(qi,oi){
+  if(userAnswers[qi]?.checked)return;
+  document.querySelectorAll(`#options-${qi} .option`).forEach((o,i)=>o.classList.toggle('selected',i===oi));
+  userAnswers[qi]={selected:oi,checked:false};
+}
+function checkAnswer(qi){
+  const qs=mcqData[currentChapter];
+  const allQ=[];
+  [{type:'mcq'},{type:'summary'},{type:'concept'}].forEach(g=>{qs.filter(q=>q.t===g.type).forEach(q=>allQ.push(q));});
+  const q=allQ[qi],a=userAnswers[qi];
+  if(!a||a.checked)return;a.checked=true;
+  const ok=a.selected===q.c;if(ok)stats.correct++;stats.answered++;
+  document.querySelectorAll(`#options-${qi} .option`).forEach((o,i)=>{o.classList.add('disabled');if(i===q.c)o.classList.add('correct');else if(i===a.selected&&!ok)o.classList.add('wrong');});
+  const fb=document.getElementById(`feedback-${qi}`);
+  fb.className=`feedback show ${ok?'correct':'wrong'}`;
+  fb.textContent=ok?'✓ Correct! Well done!':`✗ Wrong! Correct: ${String.fromCharCode(97+q.c)}) ${q.o[q.c]}`;
+  document.getElementById(`check-${qi}`).disabled=true;updateStats();
+  if(stats.answered===stats.total)showResult();
+}
+function updateStats(){
+  document.getElementById('totalQuestions').textContent=stats.total;
+  document.getElementById('answeredQuestions').textContent=stats.answered;
+  document.getElementById('correctAnswers').textContent=stats.correct;
+  document.getElementById('scorePercentage').textContent=(stats.total>0?Math.round(stats.correct/stats.total*100):0)+'%';
+}
+function showResult(){
+  const p=Math.round(stats.correct/stats.total*100);
+  let g='D',m='Need More Practice! 💪';
+  if(p>=90){g='A+';m='Outstanding! 🌟';}else if(p>=80){g='A';m='Excellent! 🎉';}else if(p>=70){g='B';m='Good Job! 👍';}else if(p>=60){g='C';m='Keep Practicing! 📚';}
+  document.getElementById('resultSummary').innerHTML=`<div class="result-summary"><h2>${m}</h2><div class="result-stats"><div class="result-stat"><div class="result-stat-value">${stats.correct}/${stats.total}</div><div class="result-stat-label">Correct</div></div><div class="result-stat"><div class="result-stat-value">${p}%</div><div class="result-stat-label">Score</div></div><div class="result-stat"><div class="result-stat-value">${g}</div><div class="result-stat-label">Grade</div></div></div><button class="reset-btn" onclick="loadChapter('${currentChapter}')">🔄 Try Again</button><button class="reset-btn" onclick="location.reload()">📚 All Chapters</button></div>`;
+  document.getElementById('resultSummary').scrollIntoView({behavior:'smooth'});
+}
+initializeApp();
+</script>
+</body>
+</html>
