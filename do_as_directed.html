@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Do As Directed Class XI | Smart Study Center</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(135deg,#0d47a1 0%,#1565c0 50%,#1976d2 100%);min-height:100vh;padding:20px}
+.container{max-width:980px;margin:0 auto;background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.35);overflow:hidden}
+
+.brand-header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:12px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.brand-name{font-size:17px;font-weight:800}
+.brand-sub{font-size:12px;color:#a8b4d8;letter-spacing:1px;text-transform:uppercase}
+.brand-contact{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:6px 16px;font-size:14px;font-weight:600;color:#e0e6ff}
+
+.header{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:28px;text-align:center}
+.header h1{font-family:'Playfair Display',serif;font-size:26px;margin-bottom:6px;font-weight:900}
+.header p{opacity:.9;font-size:14px}
+.badge-row{display:flex;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700}
+
+.stats{display:flex;justify-content:space-around;padding:16px;background:#f8f9fa;border-bottom:2px solid #e9ecef;flex-wrap:wrap;gap:8px}
+.stat-item{text-align:center}
+.stat-label{font-size:11px;color:#6c757d;text-transform:uppercase;letter-spacing:1px}
+.stat-value{font-size:22px;font-weight:800;color:#0d47a1;margin-top:4px}
+
+.instructions{margin:20px 25px;padding:16px 20px;background:#fff8e1;border-left:5px solid #f9a825;border-radius:10px;font-size:13.5px;line-height:1.85;color:#5d4037}
+.instructions strong{color:#e65100}
+
+.section-title{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;margin:0 25px 18px;letter-spacing:.5px;display:flex;align-items:center;gap:10px}
+.section-sub{font-size:11px;opacity:.85;font-weight:400;font-style:italic}
+
+.quiz-area{padding:0 25px 10px}
+
+/* ── BLANK CARD (Auto-validated) ── */
+.q-card{background:#f8f9fa;border-radius:12px;padding:18px 20px;margin-bottom:16px;border-left:5px solid #0d47a1;display:flex;flex-direction:column;gap:10px;transition:border-color .3s}
+.q-card.solved{border-left-color:#2e7d32;background:#f0faf0}
+.q-card.revealed{border-left-color:#e65100;background:#fff9f5}
+.q-card.self-ok{border-left-color:#2e7d32;background:#f0faf0}
+.q-card.self-miss{border-left-color:#e65100;background:#fff9f5}
+.q-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.q-num{background:#0d47a1;color:#fff;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0}
+.q-card.solved .q-num{background:#2e7d32}
+.q-card.revealed .q-num{background:#e65100}
+.q-card.self-ok .q-num{background:#2e7d32}
+.q-card.self-miss .q-num{background:#e65100}
+.q-sentence{font-size:15px;line-height:2.2;color:#222;flex:1}
+.blank-wrap{display:inline-block;position:relative;vertical-align:middle}
+.blank-input{border:none;border-bottom:2.5px solid #0d47a1;background:transparent;font-family:'Source Sans 3',sans-serif;font-size:15px;font-weight:700;color:#0d47a1;width:130px;text-align:center;outline:none;padding:2px 4px;transition:border-color .3s,color .3s}
+.blank-input:focus{border-bottom-color:#1976d2}
+.blank-input.correct-in{border-bottom-color:#2e7d32;color:#2e7d32}
+.blank-input.wrong-in{border-bottom-color:#c62828;color:#c62828}
+.blank-input.revealed-in{border-bottom-color:#e65100;color:#e65100}
+.blank-input:disabled{cursor:not-allowed}
+.hint-word{font-size:13px;font-weight:700;color:#6a1b9a;background:#f3e5f5;padding:2px 10px;border-radius:12px;margin-left:8px;white-space:nowrap}
+
+.tag-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cat-tag{display:inline-block;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;color:#fff}
+.attempt-dots{display:flex;gap:5px;align-items:center}
+.dot{width:10px;height:10px;border-radius:50%;background:#dee2e6;transition:background .3s}
+.dot.used{background:#ef9a9a}
+.dot.correct{background:#81c784}
+
+.q-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.check-btn{background:#0d47a1;color:#fff;border:none;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.check-btn:hover:not(:disabled){background:#1565c0;transform:translateY(-1px)}
+.check-btn:disabled{background:#aaa;cursor:not-allowed}
+.clear-btn{background:#e8eaf6;color:#3949ab;border:none;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.clear-btn:hover:not(:disabled){background:#c5cae9}
+.clear-btn:disabled{display:none}
+.status-badge{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
+.status-badge.ok{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7}
+.status-badge.rev{background:#fff3e0;color:#e65100;border:1px solid #ffcc80}
+.attempts-left{font-size:12px;color:#666}
+
+.feedback{display:none;border-radius:9px;overflow:hidden;font-size:13.5px}
+.feedback.show{display:block}
+.fb-h{padding:9px 15px;font-weight:800;font-size:13px}
+.fb-h.wrong-h{background:#c62828;color:#fff}
+.fb-h.ok-h{background:#2e7d32;color:#fff}
+.fb-h.reveal-h{background:#5d4037;color:#fff}
+.fb-b{padding:13px 15px;border:1.5px solid #e0e0e0;border-top:none;border-radius:0 0 9px 9px;background:#fff;line-height:1.85;color:#333}
+.fb-b.wrong-b{border-color:#ef9a9a}
+.fb-b.ok-b{border-color:#a5d6a7}
+.fb-b.reveal-b{border-color:#ffcc80}
+.correct-word{color:#2e7d32;font-weight:800;font-size:15px}
+.revealed-word{color:#e65100;font-weight:800;font-size:15px}
+.rule-line{margin-top:8px;padding-top:8px;border-top:1px solid #e0e0e0;font-size:13px;color:#444;line-height:1.8}
+.try-note{margin-top:8px;padding:7px 12px;background:#fff8e1;border-radius:7px;font-size:12.5px;color:#e65100;font-weight:600;border:1px solid #ffe082}
+
+/* ── REVEAL CARD (Self-marked) ── */
+.reveal-q{background:#f8f9fa;border-radius:12px;padding:18px 20px;margin-bottom:16px;border-left:5px solid #0d47a1;display:flex;flex-direction:column;gap:10px;transition:border-color .3s}
+.reveal-q.self-ok{border-left-color:#2e7d32;background:#f0faf0}
+.reveal-q.self-miss{border-left-color:#e65100;background:#fff9f5}
+.rq-top{display:flex;align-items:flex-start;gap:10px}
+.rq-num{background:#0d47a1;color:#fff;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;margin-top:2px}
+.reveal-q.self-ok .rq-num{background:#2e7d32}
+.reveal-q.self-miss .rq-num{background:#e65100}
+.rq-content{flex:1}
+.rq-instruction{display:inline-block;font-size:11px;font-weight:700;color:#6a1b9a;background:#f3e5f5;padding:2px 10px;border-radius:12px;margin-bottom:6px}
+.rq-question{font-size:15px;color:#222;line-height:1.7;font-style:italic;padding:8px 12px;background:#e8eaf6;border-radius:8px;border-left:3px solid #3949ab}
+.ans-textarea{width:100%;border:2px solid #c5cae9;border-radius:8px;padding:10px 14px;font-size:13.5px;font-family:'Source Sans 3',sans-serif;resize:vertical;min-height:68px;color:#222;outline:none;transition:border-color .3s;margin-top:8px;line-height:1.7}
+.ans-textarea:focus{border-color:#0d47a1}
+.ans-textarea:disabled{background:#f5f5f5;cursor:not-allowed}
+.rq-btn-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:4px}
+.reveal-btn{background:#0d47a1;color:#fff;border:none;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.reveal-btn:hover:not(:disabled){background:#1565c0;transform:translateY(-1px)}
+.reveal-btn:disabled{background:#aaa;cursor:not-allowed}
+.self-yes{background:#2e7d32;color:#fff;border:none;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.self-yes:hover:not(:disabled){background:#388e3c}
+.self-yes:disabled{display:none}
+.self-no{background:#c62828;color:#fff;border:none;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.self-no:hover:not(:disabled){background:#d32f2f}
+.self-no:disabled{display:none}
+.model-answer-box{display:none;border-radius:9px;overflow:hidden;font-size:13.5px;margin-top:2px}
+.model-answer-box.show{display:block}
+.ma-head{padding:9px 15px;font-weight:800;font-size:13px}
+.ma-head-blue{background:#0d47a1;color:#fff}
+.ma-head-green{background:#2e7d32;color:#fff}
+.ma-head-orange{background:#e65100;color:#fff}
+.ma-body{padding:13px 15px;border:1.5px solid #e0e0e0;border-top:none;border-radius:0 0 9px 9px;background:#fff;line-height:1.9;color:#333;font-size:13.5px}
+.self-prompt{margin-top:10px;padding:10px 14px;background:#fff8e1;border-radius:8px;font-size:13px;color:#5d4037;border:1px solid #ffe082;font-weight:600}
+
+/* ── OVERALL RESULT ── */
+.overall-result{margin:0 25px 25px;padding:24px;background:linear-gradient(135deg,#0d47a1,#1565c0);border-radius:14px;color:#fff;text-align:center;display:none}
+.overall-result.show{display:block}
+.overall-result h3{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:8px}
+.ov-score{font-size:52px;font-weight:900;line-height:1.1}
+.ov-sub{font-size:14px;opacity:.85;margin-top:6px}
+.grade-pill{display:inline-block;margin-top:14px;padding:8px 24px;border-radius:20px;font-weight:800;font-size:15px;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.4)}
+.ov-boxes{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:16px}
+.ov-box{background:rgba(255,255,255,.15);border-radius:10px;padding:10px 18px;font-size:12px;text-align:center}
+.ov-box b{display:block;font-size:20px;font-weight:900;margin-bottom:2px}
+
+.brand-footer{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:16px 30px;text-align:center}
+.footer-main{font-size:14px;font-weight:700;color:#e0e6ff}
+.footer-sub{font-size:11px;color:#a8b4d8;margin-top:4px}
+.fdiv{margin:0 8px;opacity:.4}
+.wm{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
+.wm span{position:absolute;font-size:14px;font-weight:700;color:rgba(13,71,161,.055);white-space:nowrap;transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase}
+
+@media(max-width:600px){
+  .quiz-area{padding:0 14px 10px}
+  .section-title{margin-left:14px;margin-right:14px}
+  .instructions{margin-left:14px;margin-right:14px}
+  .q-sentence,.rq-question{font-size:14px}
+  .blank-input{width:110px;font-size:14px}
+}
+</style>
+</head>
+<body>
+<div class="wm" id="wm"></div>
+<div class="container">
+
+  <div class="brand-header">
+    <div><div class="brand-name">Sir Ahmer Javed</div><div class="brand-sub">Smart Study Center</div></div>
+    <div class="brand-contact">&#128222; 0345-3090057</div>
+  </div>
+
+  <div class="header">
+    <h1>&#9999;&#65039; English Language Class XI &mdash; Do As Directed</h1>
+    <p>Interactive Practice Worksheet &nbsp;|&nbsp; STBB Board Exam Preparation 2026</p>
+    <div class="badge-row">
+      <span class="badge">&#128203; 38 Questions</span>
+      <span class="badge">&#9989; Sections A &amp; B Auto-Validated</span>
+      <span class="badge">&#128065; Sections C&ndash;F Reveal &amp; Self-Mark</span>
+      <span class="badge">&#128202; Live Score</span>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-item"><div class="stat-label">Questions</div><div class="stat-value">38</div></div>
+    <div class="stat-item"><div class="stat-label">Auto Score</div><div class="stat-value" id="stAuto">0</div></div>
+    <div class="stat-item"><div class="stat-label">Self Score</div><div class="stat-value" id="stSelf">0</div></div>
+    <div class="stat-item"><div class="stat-label">Total</div><div class="stat-value" id="stTotal">0/38</div></div>
+    <div class="stat-item"><div class="stat-label">Progress</div><div class="stat-value" id="stPct">&mdash;</div></div>
+  </div>
+
+  <div class="instructions">
+    <strong>&#128204; Instructions &amp; Validation System:</strong><br>
+    &#10148; <strong>Section A (Degree of Adjective) &amp; Section B (Adverb Placement):</strong> Type your answer in the blank and click <strong>Check</strong> — fully auto-validated with hints on wrong attempts (3 tries).<br>
+    &#10148; <strong>Sections C–F (Voice, Conditionals, Compound, Punctuation):</strong> Write your full answer in the box &rarr; click <strong>Reveal Model Answer</strong> &rarr; honestly tick &#10003; Yes or &#10007; No to self-mark.<br>
+    &#10148; <strong>Wrong on 1st try (blank questions):</strong> Hint 1 — try again. <strong>Wrong on 2nd try:</strong> Hint 2 — one last chance. <strong>Wrong on 3rd try:</strong> Answer revealed.
+  </div>
+
+  <div id="mainArea"></div>
+
+  <div class="overall-result" id="overallResult">
+    <h3>&#127881; Worksheet Complete!</h3>
+    <div class="ov-score" id="ovScore"></div>
+    <div class="ov-sub" id="ovSub"></div>
+    <div class="ov-boxes">
+      <div class="ov-box"><b id="ovAuto">0/16</b>Auto-Validated<br>(Sec A + B)</div>
+      <div class="ov-box"><b id="ovSelf">0/22</b>Self-Marked<br>(Sec C–F)</div>
+    </div>
+    <div class="grade-pill" id="ovGrade"></div>
+  </div>
+
+  <div class="brand-footer">
+    <div class="footer-main">Sir Ahmer Javed <span class="fdiv">|</span> Smart Study Center <span class="fdiv">|</span> &#128222; 0345-3090057</div>
+    <div class="footer-sub">English Language Class XI &mdash; Do As Directed &nbsp;|&nbsp; STBB Board Exam Prep 2026</div>
+  </div>
+</div>
+
+<script>
+// ── CATEGORY TAG COLOURS ──────────────────────────────────────────────────────
+const TAG_COLORS = {
+  'Superlative Degree':'#1a237e','Comparative Degree':'#0d47a1',
+  'Irregular Comparative':'#880e4f','Irregular Superlative':'#880e4f',
+  'Frequency Adverb':'#2e7d32','Adverb of Manner':'#00695c',
+  'Adverb of Time':'#37474f'
+};
+
+// ── SECTIONS ──────────────────────────────────────────────────────────────────
+const SECTIONS = [
+  { id:'A', title:'Section A — Degree of Adjective',
+    sub:'Use the correct degree of the adjective given in brackets.', icon:'&#128202;',
+    type:'auto', color:'#1a237e' },
+  { id:'B', title:'Section B — Adverb Placement',
+    sub:'Put the adverb given in brackets in the correct position in the sentence.', icon:'&#128205;',
+    type:'auto', color:'#2e7d32' },
+  { id:'C', title:'Section C — Change the Voice',
+    sub:'Change the voice of the sentence (Active ↔ Passive). Write the complete transformed sentence.', icon:'&#128260;',
+    type:'reveal', color:'#6a1b9a' },
+  { id:'D', title:'Section D — Complete the Sentence',
+    sub:'Complete the conditional sentences meaningfully using the correct tense/form.', icon:'&#9999;&#65039;',
+    type:'reveal', color:'#e65100' },
+  { id:'E', title:'Section E — Make a Compound Sentence',
+    sub:'Join the two given sentences into one correct compound sentence using an appropriate conjunction.', icon:'&#128279;',
+    type:'reveal', color:'#00695c' },
+  { id:'F', title:'Section F — Punctuation',
+    sub:'Rewrite the sentence with correct punctuation marks and capitalization.', icon:'&#10003;&#65039;',
+    type:'reveal', color:'#37474f' },
+];
+
+// ── QUESTIONS ─────────────────────────────────────────────────────────────────
+const QS = [
+
+  // ─── SECTION A: DEGREE OF ADJECTIVE (8 questions) ───────────────────────
+  { sec:'A', type:'blank',
+    before:'His car is the', after:'of all.', hint:'(fast)',
+    tag:'Superlative Degree',
+    accepted:['fastest'], answer:'fastest',
+    exp:`<span class="correct-word">fastest</span> &mdash; Superlative Degree of "fast".<div class="rule-line">&#128218; Rule: For short adjectives (1 syllable), add <b>-est</b> to form the superlative.<br>fast &rarr; faster (comparative) &rarr; <b>fastest</b> (superlative).<br>&#128161; Key signal: <em>"of all"</em> always signals the superlative degree.</div>`,
+    hint1:`The phrase "of all" compares many things &mdash; this requires the <b>superlative degree</b>. For short one-syllable adjectives like "fast", simply add <b>-est</b>.`,
+    hint2:`fast &rarr; faster &rarr; <b>fast___</b>. Add "-est" to form the superlative. The answer is a 7-letter word.`
+  },
+  { sec:'A', type:'blank',
+    before:'This is the', after:'building in the city.', hint:'(tall)',
+    tag:'Superlative Degree',
+    accepted:['tallest'], answer:'tallest',
+    exp:`<span class="correct-word">tallest</span> &mdash; Superlative Degree of "tall".<div class="rule-line">&#128218; Rule: tall &rarr; taller &rarr; <b>tallest</b>. "In the city" signals we are comparing among many &rarr; superlative.<br>&#128161; Tip: "The ___ in/of..." is always a superlative pattern.</div>`,
+    hint1:`"The _____ building in the city" compares one building among all buildings in the city &mdash; superlative degree. For "tall" (one syllable), add <b>-est</b>.`,
+    hint2:`tall &rarr; taller &rarr; <b>tall___</b>. This 7-letter word ends in "-est". It's the superlative of "tall".`
+  },
+  { sec:'A', type:'blank',
+    before:'Mount Everest is', after:'than any other mountain in the world.', hint:'(high)',
+    tag:'Comparative Degree',
+    accepted:['higher'], answer:'higher',
+    exp:`<span class="correct-word">higher</span> &mdash; Comparative Degree of "high".<div class="rule-line">&#128218; Rule: high &rarr; <b>higher</b> (comparative) &rarr; highest (superlative). The phrase "than any other" signals comparative degree.<br>&#128161; Tip: "___er than" is always the comparative pattern for short adjectives.</div>`,
+    hint1:`The phrase "than any other mountain" signals that we are comparing two things &mdash; this calls for the <b>comparative degree</b>. For "high" (one syllable), add <b>-er</b>.`,
+    hint2:`high &rarr; <b>high___</b>. Add "-er" to form the comparative. The answer is a 6-letter word. "___ than any other" = comparative.`
+  },
+  { sec:'A', type:'blank',
+    before:'Ahmer is', after:'than his brother in mathematics.', hint:'(good)',
+    tag:'Irregular Comparative',
+    accepted:['better'], answer:'better',
+    exp:`<span class="correct-word">better</span> &mdash; Comparative Degree of "good" (Irregular).<div class="rule-line">&#128218; Irregular adjective: good &rarr; <b>better</b> (comparative) &rarr; best (superlative). These do NOT follow the normal -er/-est rules.<br>&#128161; Must memorise: good/well &rarr; better &rarr; best &nbsp;|&nbsp; bad &rarr; worse &rarr; worst &nbsp;|&nbsp; many/much &rarr; more &rarr; most</div>`,
+    hint1:`"Than his brother" signals <b>comparative degree</b>. But "good" is an <b>irregular adjective</b> &mdash; it does NOT become "gooder". It has a completely different comparative form.`,
+    hint2:`The irregular comparative of "good" is a 6-letter word starting with "b". good &rarr; <b>?</b> &rarr; best. Fill in the comparative.`
+  },
+  { sec:'A', type:'blank',
+    before:'This is the', after:'weather we have had all year.', hint:'(bad)',
+    tag:'Irregular Superlative',
+    accepted:['worst'], answer:'worst',
+    exp:`<span class="correct-word">worst</span> &mdash; Superlative Degree of "bad" (Irregular).<div class="rule-line">&#128218; Irregular adjective: bad &rarr; worse (comparative) &rarr; <b>worst</b> (superlative). "All year" signals superlative degree &mdash; comparing all instances.<br>&#128161; Must memorise: bad &rarr; worse &rarr; worst.</div>`,
+    hint1:`"All year" signals we are comparing across many times &mdash; superlative degree. "Bad" is an <b>irregular adjective</b>. It does NOT become "baddest".`,
+    hint2:`bad &rarr; worse &rarr; <b>?</b>. The irregular superlative of "bad" is a 5-letter word. bad &rarr; worse &rarr; _____`
+  },
+  { sec:'A', type:'blank',
+    before:'This phone is', after:'than the one I had before.', hint:'(expensive)',
+    tag:'Comparative Degree',
+    accepted:['more expensive'], answer:'more expensive',
+    exp:`<span class="correct-word">more expensive</span> &mdash; Comparative Degree of "expensive".<div class="rule-line">&#128218; Rule: For adjectives with <b>3+ syllables</b>, use <b>more/most</b> instead of -er/-est.<br>expensive &rarr; <b>more expensive</b> (comparative) &rarr; most expensive (superlative).<br>&#128161; Tip: ex-pen-sive = 3 syllables &rarr; always use "more/most".</div>`,
+    hint1:`"Than the one I had" signals <b>comparative degree</b>. "Expensive" has 3 syllables (ex-pen-sive) &mdash; for long adjectives, we do NOT add "-er". Instead, we use a two-word form.`,
+    hint2:`For 3-syllable adjectives, comparative = <b>"more + adjective"</b>. expensive &rarr; <b>more expensive</b>. Type both words: "more expensive".`
+  },
+  { sec:'A', type:'blank',
+    before:'Of the two brothers, Hamza is the', after:'student.', hint:'(intelligent)',
+    tag:'Comparative Degree',
+    accepted:['more intelligent'], answer:'more intelligent',
+    exp:`<span class="correct-word">more intelligent</span> &mdash; Comparative Degree of "intelligent".<div class="rule-line">&#128218; Rule: "Of the two" compares exactly TWO things &rarr; use <b>comparative degree</b>. For 4-syllable adjectives: use <b>more + adjective</b>.<br>in-tel-li-gent = 4 syllables &rarr; more intelligent (NOT "intelligentest").<br>&#128161; Tip: "of the two" = always comparative, NOT superlative.</div>`,
+    hint1:`"Of the two brothers" compares exactly <b>two</b> things &mdash; use the <b>comparative degree</b>. "Intelligent" is a long adjective (4 syllables) &rarr; use "more + adjective".`,
+    hint2:`Comparative of "intelligent" (4 syllables) = <b>more + intelligent</b>. Type: "more intelligent". Rule: of the two &rarr; comparative. Never use "most" for just two things.`
+  },
+  { sec:'A', type:'blank',
+    before:'She is', after:'than her sister at cooking.', hint:'(creative)',
+    tag:'Comparative Degree',
+    accepted:['more creative'], answer:'more creative',
+    exp:`<span class="correct-word">more creative</span> &mdash; Comparative Degree of "creative".<div class="rule-line">&#128218; Rule: cre-a-tive = 3 syllables &rarr; use <b>more/most</b>. creative &rarr; <b>more creative</b> (comparative) &rarr; most creative (superlative).<br>&#128161; General rule: 3+ syllables = always "more/most". Never add "-er" to long adjectives.</div>`,
+    hint1:`"Than her sister" signals <b>comparative degree</b>. "Creative" has 3 syllables (cre-a-tive) &mdash; we do NOT say "creativer". We use a two-word form.`,
+    hint2:`Comparative of "creative" (3 syllables) = <b>more creative</b>. For any adjective ending in "-ive", "-ful", "-ous", "-less", always use "more" for comparative.`
+  },
+
+  // ─── SECTION B: ADVERB PLACEMENT (8 questions) ──────────────────────────
+  { sec:'B', type:'blank',
+    before:'She', after:'studies seriously.', hint:'(seldom)',
+    tag:'Frequency Adverb',
+    accepted:['seldom'], answer:'seldom',
+    exp:`<span class="correct-word">She <u>seldom</u> studies seriously.</span><div class="rule-line">&#128218; Rule: Frequency adverbs (seldom, always, never, often, rarely, usually) are placed <b>before the main verb</b>.<br>&#128161; Pattern: Subject + <b>adverb</b> + main verb. "She <b>seldom</b> studies" &mdash; seldom goes before "studies".</div>`,
+    hint1:`"Seldom" is a frequency adverb. Rule: frequency adverbs go <b>before the main verb</b>. The main verb here is "studies". So: She _____ studies seriously.`,
+    hint2:`Frequency adverb + main verb: She <b>seldom</b> studies. Type "seldom" in the blank — it goes before the verb "studies".`
+  },
+  { sec:'B', type:'blank',
+    before:'I', after:'go to the park.', hint:'(rarely)',
+    tag:'Frequency Adverb',
+    accepted:['rarely'], answer:'rarely',
+    exp:`<span class="correct-word">I <u>rarely</u> go to the park.</span><div class="rule-line">&#128218; Rule: Frequency adverbs go <b>before the main verb</b>. "Go" is the main verb here.<br>&#128161; I <b>rarely</b> go = I do not go very often. Pattern: Subject + <b>adverb</b> + verb.</div>`,
+    hint1:`"Rarely" is a frequency adverb. Place it <b>before the main verb</b> "go". Subject + adverb + verb: I _____ go to the park.`,
+    hint2:`Frequency adverbs always come before the main verb: I <b>rarely</b> go. Type "rarely" — it slots between "I" and "go".`
+  },
+  { sec:'B', type:'blank',
+    before:'He', after:'speaks rudely to his teachers.', hint:'(always)',
+    tag:'Frequency Adverb',
+    accepted:['always'], answer:'always',
+    exp:`<span class="correct-word">He <u>always</u> speaks rudely to his teachers.</span><div class="rule-line">&#128218; Rule: Frequency adverbs go <b>before the main verb</b>. He always speaks = it is a habitual action.<br>&#128161; Remember: always, usually, often, sometimes, rarely, never &rarr; all go before the main verb.</div>`,
+    hint1:`"Always" is a frequency adverb &mdash; it goes <b>before the main verb</b> "speaks". Pattern: Subject + adverb + verb.`,
+    hint2:`He <b>always</b> speaks. Type "always" in the blank. It goes between the subject "He" and the verb "speaks".`
+  },
+  { sec:'B', type:'blank',
+    before:'She', after:'wakes up late.', hint:'(never)',
+    tag:'Frequency Adverb',
+    accepted:['never'], answer:'never',
+    exp:`<span class="correct-word">She <u>never</u> wakes up late.</span><div class="rule-line">&#128218; Rule: Frequency adverbs go <b>before the main verb</b>. Note: with phrasal verbs like "wake up", the adverb goes before the entire phrasal verb.<br>&#128161; She <b>never</b> wakes up = she does not wake up late at any time.</div>`,
+    hint1:`"Never" is a frequency adverb. It goes <b>before the main verb</b> (or phrasal verb). Here "wakes up" is the phrasal verb. She _____ wakes up late.`,
+    hint2:`She <b>never</b> wakes up. Type "never" &mdash; it goes before the phrasal verb "wakes up".`
+  },
+  { sec:'B', type:'blank',
+    before:'I', after:'exercise in the morning.', hint:'(regularly)',
+    tag:'Adverb of Manner',
+    accepted:['regularly'], answer:'regularly',
+    exp:`<span class="correct-word">I <u>regularly</u> exercise in the morning.</span><div class="rule-line">&#128218; Rule: Adverbs of manner/frequency typically go <b>before the main verb</b> in British English. "Regularly" can also go at the end, but before the verb is the most natural position here.<br>&#128161; I <b>regularly</b> exercise = it is a consistent habit.</div>`,
+    hint1:`"Regularly" is an adverb of frequency/manner. It goes <b>before the main verb</b> "exercise". Pattern: I _____ exercise.`,
+    hint2:`I <b>regularly</b> exercise. Type "regularly" &mdash; it goes between "I" and "exercise" to show that exercise is a habitual activity.`
+  },
+  { sec:'B', type:'blank',
+    before:'He', after:'tells lies to his parents.', hint:'(often)',
+    tag:'Frequency Adverb',
+    accepted:['often'], answer:'often',
+    exp:`<span class="correct-word">He <u>often</u> tells lies to his parents.</span><div class="rule-line">&#128218; Rule: Frequency adverbs (often, sometimes, always, usually...) go <b>before the main verb</b>.<br>&#128161; He <b>often</b> tells = the action of telling lies happens frequently.</div>`,
+    hint1:`"Often" is a frequency adverb. Rule: frequency adverbs go <b>before the main verb</b>. The main verb is "tells". He _____ tells lies.`,
+    hint2:`He <b>often</b> tells. Type "often" in the blank. It goes directly before the verb "tells".`
+  },
+  { sec:'B', type:'blank',
+    before:'My grandfather', after:'reads the newspaper.', hint:'(daily)',
+    tag:'Adverb of Time',
+    accepted:['daily'], answer:'daily',
+    exp:`<span class="correct-word">My grandfather <u>daily</u> reads the newspaper.</span><div class="rule-line">&#128218; Rule: "Daily" as an adverb goes <b>before the main verb</b>. (It can also go at the end: "reads the newspaper daily" — both are acceptable, but before the verb is the standard position in this exercise.)<br>&#128161; My grandfather <b>daily</b> reads = it is a daily routine.</div>`,
+    hint1:`"Daily" here is an adverb of time/frequency. In this sentence pattern, it goes <b>before the main verb</b> "reads". My grandfather _____ reads.`,
+    hint2:`My grandfather <b>daily</b> reads the newspaper. Type "daily" in the blank — it goes before "reads" to show a habitual action.`
+  },
+  { sec:'B', type:'blank',
+    before:'She', after:'checks her phone.', hint:'(constantly)',
+    tag:'Adverb of Manner',
+    accepted:['constantly'], answer:'constantly',
+    exp:`<span class="correct-word">She <u>constantly</u> checks her phone.</span><div class="rule-line">&#128218; Rule: Adverbs of manner/frequency go <b>before the main verb</b>. "Constantly" shows how often/in what manner she checks.<br>&#128161; She <b>constantly</b> checks = she checks without stopping, all the time.</div>`,
+    hint1:`"Constantly" is an adverb of manner/frequency. It goes <b>before the main verb</b> "checks". Pattern: She _____ checks her phone.`,
+    hint2:`She <b>constantly</b> checks. Type "constantly" in the blank — it goes between "She" and "checks".`
+  },
+
+  // ─── SECTION C: CHANGE THE VOICE (6 questions) ──────────────────────────
+  { sec:'C', type:'reveal',
+    instruction:'Change the Voice (Active → Passive)',
+    q:'The chef prepared a delicious meal.',
+    model:`<b>Passive:</b> A delicious meal <b>was prepared</b> by the chef.<div class="rule-line">&#128218; Rule (Active &rarr; Passive): Object becomes Subject &rarr; use "was/were + past participle" &rarr; "by + original subject".<br>Active: <em>The chef</em> [subject] + <em>prepared</em> [verb] + <em>a delicious meal</em> [object].<br>Passive: <em>A delicious meal</em> [subject] + <em>was prepared</em> [be + pp] + <em>by the chef</em> [by + agent].</div>`
+  },
+  { sec:'C', type:'reveal',
+    instruction:'Change the Voice (Passive → Active)',
+    q:'A letter was written by her.',
+    model:`<b>Active:</b> She <b>wrote</b> a letter.<div class="rule-line">&#128218; Rule (Passive &rarr; Active): Object of "by" becomes Subject &rarr; verb changes from "was/were + pp" to simple past &rarr; original subject becomes object.<br>Passive: <em>A letter</em> + <em>was written</em> + <em>by her</em>.<br>Active: <em>She</em> [subject] + <em>wrote</em> [simple past] + <em>a letter</em> [object].</div>`
+  },
+  { sec:'C', type:'reveal',
+    instruction:'Change the Voice (Active → Passive)',
+    q:'The manager approved the project.',
+    model:`<b>Passive:</b> The project <b>was approved</b> by the manager.<div class="rule-line">&#128218; "Approved" is simple past &rarr; passive uses <b>"was/were + past participle"</b>. "Approved" is both simple past and past participle here.<br>Active: The manager [S] + approved [V] + the project [O].<br>Passive: The project [S] + was approved [be+pp] + by the manager [agent].</div>`
+  },
+  { sec:'C', type:'reveal',
+    instruction:'Change the Voice (Active → Passive)',
+    q:'The jury announced the verdict.',
+    model:`<b>Passive:</b> The verdict <b>was announced</b> by the jury.<div class="rule-line">&#128218; Simple past active &rarr; "was/were + past participle" for passive.<br>Active: The jury [S] + announced [V] + the verdict [O].<br>Passive: The verdict [S] + was announced [be+pp] + by the jury [agent].</div>`
+  },
+  { sec:'C', type:'reveal',
+    instruction:'Change the Voice (Passive → Active)',
+    q:'The report will be submitted by the team tomorrow.',
+    model:`<b>Active:</b> The team <b>will submit</b> the report tomorrow.<div class="rule-line">&#128218; Future passive ("will be + pp") &rarr; Active uses <b>"will + base verb"</b>.<br>Passive: The report [O] + will be submitted [future passive] + by the team [agent] + tomorrow.<br>Active: The team [S] + will submit [future active] + the report [O] + tomorrow.</div>`
+  },
+  { sec:'C', type:'reveal',
+    instruction:'Change the Voice (Active → Passive)',
+    q:'The teacher will explain the lesson again.',
+    model:`<b>Passive:</b> The lesson <b>will be explained</b> by the teacher again.<div class="rule-line">&#128218; Future active ("will + base verb") &rarr; Future passive uses <b>"will be + past participle"</b>.<br>Active: The teacher [S] + will explain [future] + the lesson [O].<br>Passive: The lesson [S] + will be explained [future passive] + by the teacher [agent] + again.</div>`
+  },
+
+  // ─── SECTION D: COMPLETE THE SENTENCE — CONDITIONALS (6 questions) ──────
+  { sec:'D', type:'reveal',
+    instruction:'Complete the Sentence (Type 2 — Unreal Present)',
+    q:'If I won the lottery, ________________________.',
+    model:`<b>Model:</b> If I won the lottery, <b>I would travel the world / I would buy a house.</b><div class="rule-line">&#128218; Type 2 Conditional (Unreal Present): If + <b>past simple</b>, + subject + <b>would + base verb</b>.<br>Used for imaginary or unlikely present situations. "If I won" = imaginary situation &rarr; "I would" = imaginary result.<br>&#128161; Any logical completion using "would + base verb" is correct.</div>`
+  },
+  { sec:'D', type:'reveal',
+    instruction:'Complete the Sentence (Type 2 — Unreal / Advice)',
+    q:'If I were you, ________________________.',
+    model:`<b>Model:</b> If I were you, <b>I would study harder / I would see a doctor.</b><div class="rule-line">&#128218; Type 2 Conditional using "were" (NOT "was") for all subjects — this is a fixed grammar rule.<br>"If I were you" is a standard phrase for giving <b>advice</b>. Pattern: If I were you, I would + base verb.<br>&#128161; Note: Always use "were" (not "was") in this conditional &mdash; even for I/he/she/it.</div>`
+  },
+  { sec:'D', type:'reveal',
+    instruction:'Complete the Sentence (Type 1 — Real Future)',
+    q:'If it rains tomorrow, ________________________.',
+    model:`<b>Model:</b> If it rains tomorrow, <b>I will stay at home / we will cancel the picnic.</b><div class="rule-line">&#128218; Type 1 Conditional (Real/Possible Future): If + <b>present simple</b>, + subject + <b>will + base verb</b>.<br>Used for real and possible future situations. "If it rains" = possible future event &rarr; "will + verb" = likely result.<br>&#128161; Any logical completion using "will + base verb" is correct.</div>`
+  },
+  { sec:'D', type:'reveal',
+    instruction:'Complete the Sentence (Type 3 — Unreal Past)',
+    q:'If I had studied harder, ________________________.',
+    model:`<b>Model:</b> If I had studied harder, <b>I would have passed the exam.</b><div class="rule-line">&#128218; Type 3 Conditional (Unreal Past — regret): If + <b>past perfect</b>, + subject + <b>would have + past participle</b>.<br>Used for imagining a different past. "Had studied" = past perfect &rarr; "would have passed" = result that didn't happen.<br>&#128161; Pattern: If + had + pp, ... would have + pp.</div>`
+  },
+  { sec:'D', type:'reveal',
+    instruction:'Complete the Sentence (Unless + Conditional)',
+    q:'Unless you work hard, ________________________.',
+    model:`<b>Model:</b> Unless you work hard, <b>you will not succeed / you will fail.</b><div class="rule-line">&#128218; "Unless" = "if...not". Rule: Unless + <b>present simple</b>, + subject + <b>will + base verb</b>.<br>Unless you work hard = If you do not work hard &rarr; result in future = will + verb.<br>&#128161; Never use "will" in the "unless" clause itself. Present simple only.</div>`
+  },
+  { sec:'D', type:'reveal',
+    instruction:'Complete the Sentence (Type 0 — Scientific Fact)',
+    q:'If you mix blue and yellow, ________________________.',
+    model:`<b>Model:</b> If you mix blue and yellow, <b>you get green.</b><div class="rule-line">&#128218; Type 0 Conditional (General Truth / Scientific Fact): If + <b>present simple</b>, + <b>present simple</b>.<br>Used for facts, laws of nature and universal truths. No "will" or "would" — both clauses use present simple.<br>&#128161; If + present simple, present simple = always true, every time.</div>`
+  },
+
+  // ─── SECTION E: COMPOUND SENTENCES (5 questions) ────────────────────────
+  { sec:'E', type:'reveal',
+    instruction:'Make a Compound Sentence (using "so")',
+    q:'The road was blocked. We took another route.',
+    model:`<b>Compound:</b> The road was blocked, <b>so</b> we took another route.<div class="rule-line">&#128218; "So" = result/consequence. Rule: Use a comma before the coordinating conjunction in compound sentences.<br>Pattern: [Cause], <b>so</b> [Effect].<br>&#128161; Coordinating conjunctions (FANBOYS): For, And, Nor, But, Or, Yet, <b>So</b>.</div>`
+  },
+  { sec:'E', type:'reveal',
+    instruction:'Make a Compound Sentence (using "but")',
+    q:'She was tired. She kept on working.',
+    model:`<b>Compound:</b> She was tired, <b>but</b> she kept on working.<div class="rule-line">&#128218; "But" = contrast/opposition. Pattern: [Fact], <b>but</b> [contrasting fact].<br>The two ideas oppose each other (tired vs. kept working) &rarr; use "but".<br>&#128161; Always place a comma before "but" when joining two complete sentences.</div>`
+  },
+  { sec:'E', type:'reveal',
+    instruction:'Make a Compound Sentence (using "and")',
+    q:'She apologised. Her friend forgave her.',
+    model:`<b>Compound:</b> She apologised <b>and</b> her friend forgave her.<div class="rule-line">&#128218; "And" = addition. Two related events happening in sequence &rarr; use "and".<br>Pattern: [Event 1] <b>and</b> [Event 2].<br>&#128161; A comma before "and" is optional when joining two short clauses.</div>`
+  },
+  { sec:'E', type:'reveal',
+    instruction:'Make a Compound Sentence (using "but")',
+    q:'I called him. He did not answer.',
+    model:`<b>Compound:</b> I called him, <b>but</b> he did not answer.<div class="rule-line">&#128218; "But" shows contrast. I called (action) but he did not answer (unexpected opposite result) &rarr; use "but".<br>Pattern: [Action], <b>but</b> [unexpected result].<br>&#128161; Remember: comma + but joins two contrasting complete clauses.</div>`
+  },
+  { sec:'E', type:'reveal',
+    instruction:'Make a Compound Sentence (using "yet")',
+    q:'He was innocent. He was punished.',
+    model:`<b>Compound:</b> He was innocent, <b>yet</b> he was punished.<div class="rule-line">&#128218; "Yet" = strong contrast/unexpected outcome (stronger than "but").<br>Being innocent and being punished are opposites &rarr; "yet" emphasises the surprise/injustice.<br>&#128161; "Yet" as a conjunction = despite that, however. Always preceded by a comma.</div>`
+  },
+
+  // ─── SECTION F: PUNCTUATION (5 questions) ───────────────────────────────
+  { sec:'F', type:'reveal',
+    instruction:'Punctuate the Sentence',
+    q:'Sara said i need milk sugar flour and eggs to bake a cake',
+    model:`<b>Correct:</b> Sara said, <b>"I need milk, sugar, flour and eggs to bake a cake."</b><div class="rule-line">&#128218; Errors corrected: (1) Comma after "said" before quotation. (2) Opening and closing <b>inverted commas</b>. (3) Capital "I" (pronoun). (4) Commas after "milk" and "sugar" (items in a list). (5) Full stop inside the closing inverted comma.</div>`
+  },
+  { sec:'F', type:'reveal',
+    instruction:'Punctuate the Sentence',
+    q:'have you ever been to islamabad asked the teacher',
+    model:`<b>Correct:</b> <b>"Have</b> you ever been to Islamabad<b>?"</b> asked the teacher.<div class="rule-line">&#128218; Errors corrected: (1) Opening inverted comma before "Have". (2) Capital "H" (start of speech). (3) Capital "I" in "Islamabad" (proper noun). (4) Question mark before closing inverted comma. (5) Closing inverted comma after "?". (6) Lowercase "asked" (after a question mark in speech).</div>`
+  },
+  { sec:'F', type:'reveal',
+    instruction:'Punctuate the Sentence',
+    q:'oh what a surprise exclaimed zara i cant believe youre here',
+    model:`<b>Correct:</b> <b>"Oh, what a surprise!"</b> exclaimed Zara. <b>"I can't believe you're here!"</b><div class="rule-line">&#128218; Errors corrected: (1) Opening inverted comma. (2) Comma after "Oh". (3) Exclamation mark + closing inverted comma. (4) Capital "Z" in "Zara". (5) Full stop after "Zara". (6) New opening inverted comma for second speech. (7) Apostrophes: can't, you're. (8) Exclamation mark at end.</div>`
+  },
+  { sec:'F', type:'reveal',
+    instruction:'Punctuate the Sentence',
+    q:'the doctor asked the patient when did you first notice these symptoms',
+    model:`<b>Correct:</b> The doctor asked the patient, <b>"When did you first notice these symptoms?"</b><div class="rule-line">&#128218; Errors corrected: (1) Capital "T" at start. (2) Comma after "patient" before reported speech. (3) Opening inverted comma. (4) Capital "W" for start of speech. (5) Question mark before closing inverted comma. (6) Closing inverted comma.</div>`
+  },
+  { sec:'F', type:'reveal',
+    instruction:'Punctuate the Sentence',
+    q:'nadia asked her mother can i go to ainas birthday party this saturday',
+    model:`<b>Correct:</b> Nadia asked her mother, <b>"Can I go to Aina's birthday party this Saturday?"</b><div class="rule-line">&#128218; Errors corrected: (1) Capital "N" in "Nadia". (2) Comma after "mother". (3) Opening inverted comma. (4) Capital "C". (5) Capital "A" in "Aina's". (6) Apostrophe in "Aina's" (possessive). (7) Capital "S" in "Saturday" (proper noun). (8) Question mark + closing inverted comma.</div>`
+  },
+
+];
+
+// ── SCORE & STATE ─────────────────────────────────────────────────────────────
+const SC = { auto:0, self:0, done:0 };
+const TOTAL = QS.length; // 38
+const AUTO_MAX = QS.filter(q=>q.type==='blank').length; // 16
+const SELF_MAX = QS.filter(q=>q.type==='reveal').length; // 22
+
+// Per-blank state
+const BSTATE = {};
+
+function updateStats(){
+  document.getElementById('stAuto').textContent = SC.auto;
+  document.getElementById('stSelf').textContent = SC.self;
+  document.getElementById('stTotal').textContent = (SC.auto+SC.self)+'/'+TOTAL;
+  const pct = Math.round(SC.done/TOTAL*100);
+  document.getElementById('stPct').textContent = pct+'%';
+  if(SC.done===TOTAL) setTimeout(showOverall,600);
+}
+
+// ── NORMALISE ─────────────────────────────────────────────────────────────────
+function norm(s){
+  return s.trim().toLowerCase().replace(/\s+/g,' ');
+}
+
+// ── BUILD UI ──────────────────────────────────────────────────────────────────
+function buildUI(){
+  const area = document.getElementById('mainArea');
+  let curSec = null;
+
+  QS.forEach((q,idx)=>{
+    // Section title
+    if(q.sec !== curSec){
+      curSec = q.sec;
+      const sec = SECTIONS.find(s=>s.id===curSec);
+      const st = document.createElement('div');
+      st.className='section-title';
+      st.style.background=`linear-gradient(135deg,${sec.color},${sec.color}cc)`;
+      st.innerHTML=`<span>${sec.icon}</span><div><div>${sec.title}</div><div class="section-sub">${sec.sub}</div></div>`;
+      area.appendChild(st);
+      // Wrap in quiz-area
+      const qa = document.createElement('div');
+      qa.className='quiz-area'; qa.id='qawrap_'+sec.id;
+      area.appendChild(qa);
+    }
+
+    const secEl = document.getElementById('qawrap_'+curSec);
+    if(q.type==='blank') buildBlank(secEl,q,idx);
+    else buildReveal(secEl,q,idx);
+  });
+}
+
+// ── BLANK QUESTION ────────────────────────────────────────────────────────────
+function buildBlank(area,q,idx){
+  BSTATE[idx]={attempts:0,solved:false,revealed:false};
+  const tagColor = TAG_COLORS[q.tag]||'#0d47a1';
+  const card = document.createElement('div');
+  card.className='q-card'; card.id='card_'+idx;
+  card.innerHTML=`
+    <div class="q-top">
+      <div class="q-num" id="qnum_${idx}">${idx+1}</div>
+      <div class="q-sentence">
+        ${q.before}&nbsp;<div class="blank-wrap"><input class="blank-input" id="inp_${idx}" placeholder="…" onkeydown="if(event.key==='Enter')checkBlank(${idx})"></div>&nbsp;${q.after}
+        <span class="hint-word">${q.hint}</span>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="cat-tag" style="background:${tagColor}">${q.tag}</span>
+      <div class="attempt-dots">
+        <div class="dot" id="dot_${idx}_0"></div>
+        <div class="dot" id="dot_${idx}_1"></div>
+        <div class="dot" id="dot_${idx}_2"></div>
+      </div>
+    </div>
+    <div class="q-actions">
+      <button class="check-btn" id="cbtn_${idx}" onclick="checkBlank(${idx})">&#10003; Check</button>
+      <button class="clear-btn" id="clbtn_${idx}" onclick="clearBlank(${idx})">&#8635; Clear</button>
+      <span id="sbadge_${idx}" class="attempts-left"></span>
+    </div>
+    <div class="feedback" id="fb_${idx}"></div>
+  `;
+  area.appendChild(card);
+  updateAttLeft(idx);
+}
+
+function checkBlank(idx){
+  const q = QS[idx];
+  const bs = BSTATE[idx];
+  if(bs.solved||bs.revealed) return;
+  const val = norm(document.getElementById('inp_'+idx).value);
+  if(!val){ shake(idx); return; }
+  const correct = q.accepted.map(a=>norm(a)).includes(val);
+
+  if(correct){
+    bs.solved=true; SC.auto++; SC.done++; updateStats();
+    const inEl=document.getElementById('inp_'+idx);
+    inEl.value=q.accepted[0]; inEl.classList.add('correct-in'); inEl.disabled=true;
+    document.getElementById('cbtn_'+idx).disabled=true;
+    document.getElementById('clbtn_'+idx).disabled=true;
+    markDot(idx,bs.attempts,true);
+    document.getElementById('card_'+idx).classList.add('solved');
+    document.getElementById('qnum_'+idx).style.background='#2e7d32';
+    document.getElementById('sbadge_'+idx).innerHTML=bs.attempts===0
+      ?`<span class="status-badge ok">&#11088; Correct &mdash; First Try!</span>`
+      :`<span class="status-badge ok">&#10003; Correct!</span>`;
+    showFB(idx,`<div class="fb-h ok-h">&#10003; Correct! Well done!</div>`,q.exp,'ok-b');
+  } else {
+    bs.attempts++;
+    markDot(idx,bs.attempts-1,false);
+    updateAttLeft(idx);
+    if(bs.attempts===1){
+      showFB(idx,`<div class="fb-h wrong-h">&#10007; Not quite &mdash; Hint 1 of 2</div>`,
+        q.hint1+`<div class="try-note">&#128204; Try 1 used. You have <b>2 more tries</b>.</div>`,'wrong-b');
+      flashInput(idx);
+    } else if(bs.attempts===2){
+      showFB(idx,`<div class="fb-h wrong-h" style="background:#e65100">&#10007; Still incorrect &mdash; Hint 2 of 2</div>`,
+        q.hint2+`<div class="try-note">&#128204; Try 2 used. <b>One last chance!</b></div>`,'wrong-b');
+      flashInput(idx);
+    } else {
+      bs.revealed=true; SC.done++; updateStats();
+      const inEl=document.getElementById('inp_'+idx);
+      inEl.value=q.accepted[0]; inEl.classList.add('revealed-in'); inEl.disabled=true;
+      document.getElementById('cbtn_'+idx).disabled=true;
+      document.getElementById('clbtn_'+idx).disabled=true;
+      document.getElementById('card_'+idx).classList.add('revealed');
+      document.getElementById('qnum_'+idx).style.background='#e65100';
+      document.getElementById('sbadge_'+idx).innerHTML=`<span class="status-badge rev">&#128274; Revealed</span>`;
+      showFB(idx,`<div class="fb-h reveal-h">&#128274; Answer Revealed &mdash; Study carefully</div>`,
+        q.exp+`<div class="try-note" style="background:#fff3e0;border-color:#ffcc80;color:#5d4037">&#128218; Revise this rule and practise more sentences like this!</div>`,'reveal-b');
+    }
+  }
+}
+
+function clearBlank(idx){
+  const bs=BSTATE[idx];
+  if(bs.solved||bs.revealed) return;
+  const inEl=document.getElementById('inp_'+idx);
+  inEl.value=''; inEl.className='blank-input'; inEl.focus();
+}
+
+// ── REVEAL QUESTION ───────────────────────────────────────────────────────────
+function buildReveal(area,q,idx){
+  const secColors={'C':'#6a1b9a','D':'#e65100','E':'#00695c','F':'#37474f'};
+  const col = secColors[q.sec]||'#0d47a1';
+  const card = document.createElement('div');
+  card.className='reveal-q'; card.id='card_'+idx;
+  card.style.borderLeftColor=col;
+  card.innerHTML=`
+    <div class="rq-top">
+      <div class="rq-num" id="qnum_${idx}" style="background:${col}">${idx+1}</div>
+      <div class="rq-content">
+        <div class="rq-instruction" style="color:${col};background:${col}18">${q.instruction}</div>
+        <div class="rq-question">${q.q}</div>
+        <textarea class="ans-textarea" id="ta_${idx}" placeholder="Write your complete answer here…" rows="3"></textarea>
+        <div class="rq-btn-row">
+          <button class="reveal-btn" id="rbtn_${idx}" onclick="revealQ(${idx})" style="background:${col}">&#128065; Reveal Model Answer</button>
+          <span id="rsbadge_${idx}"></span>
+        </div>
+        <div class="model-answer-box" id="ma_${idx}">
+          <div class="ma-head ma-head-blue" id="mahead_${idx}" style="background:${col}">&#128218; Model Answer &amp; Rule</div>
+          <div class="ma-body">${q.model}</div>
+          <div class="self-prompt">
+            &#10067; Does your answer match the key points above?
+            <div class="rq-btn-row" style="margin-top:8px">
+              <button class="self-yes" id="syes_${idx}" onclick="selfMark(${idx},true)">&#10003; Yes — my answer is correct</button>
+              <button class="self-no" id="sno_${idx}" onclick="selfMark(${idx},false)">&#10007; No — I missed key points</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  area.appendChild(card);
+}
+
+function revealQ(idx){
+  document.getElementById('ta_'+idx).disabled=true;
+  document.getElementById('rbtn_'+idx).disabled=true;
+  const ma=document.getElementById('ma_'+idx);
+  ma.classList.add('show');
+  setTimeout(()=>{ ma.scrollIntoView({behavior:'smooth',block:'nearest'}); },80);
+}
+
+function selfMark(idx,correct){
+  document.getElementById('syes_'+idx).disabled=true;
+  document.getElementById('sno_'+idx).disabled=true;
+  const card=document.getElementById('card_'+idx);
+  const badge=document.getElementById('rsbadge_'+idx);
+  const maHead=document.getElementById('mahead_'+idx);
+  if(correct){
+    SC.self++; card.classList.add('self-ok');
+    document.getElementById('qnum_'+idx).style.background='#2e7d32';
+    badge.innerHTML=`<span class="status-badge ok">&#11088; +1 Mark</span>`;
+    maHead.className='ma-head ma-head-green';
+  } else {
+    card.classList.add('self-miss');
+    document.getElementById('qnum_'+idx).style.background='#e65100';
+    badge.innerHTML=`<span class="status-badge rev">&#128218; Study model answer</span>`;
+    maHead.className='ma-head ma-head-orange';
+  }
+  SC.done++; updateStats();
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function showFB(idx,header,body,bodyClass){
+  const el=document.getElementById('fb_'+idx);
+  el.innerHTML=`${header}<div class="fb-b ${bodyClass}">${body}</div>`;
+  el.classList.add('show');
+  setTimeout(()=>{ el.scrollIntoView({behavior:'smooth',block:'nearest'}); },80);
+}
+function markDot(idx,di,correct){
+  if(di>2) return;
+  const d=document.getElementById(`dot_${idx}_${di}`);
+  if(d) d.classList.add(correct?'correct':'used');
+}
+function updateAttLeft(idx){
+  const bs=BSTATE[idx];
+  const rem=2-bs.attempts;
+  const el=document.getElementById('sbadge_'+idx);
+  if(!el) return;
+  if(rem>0) el.textContent=`${rem+1} tr${rem+1===1?'y':'ies'} remaining`;
+  else el.textContent='Final try!';
+}
+function flashInput(idx){
+  const el=document.getElementById('inp_'+idx);
+  el.classList.add('wrong-in'); el.value='';
+  setTimeout(()=>{ el.classList.remove('wrong-in'); el.focus(); },600);
+}
+function shake(idx){
+  const el=document.getElementById('inp_'+idx);
+  el.style.borderBottomColor='#f44336';
+  setTimeout(()=>{ el.style.borderBottomColor=''; },500);
+}
+
+// ── OVERALL RESULT ────────────────────────────────────────────────────────────
+function showOverall(){
+  const total=SC.auto+SC.self;
+  const pct=Math.round(total/TOTAL*100);
+  let grade,msg;
+  if(SC.auto===AUTO_MAX&&pct>=90){grade='A+ &#127942;';msg='Exceptional! Mastery across all grammar topics.';}
+  else if(pct>=85){grade='A &#11088;';msg='Excellent! Very strong command of all grammar topics.';}
+  else if(pct>=70){grade='B &#128077;';msg='Good effort! Solid understanding with a few areas to revise.';}
+  else if(pct>=55){grade='C &#128218;';msg='Satisfactory. Review explanations and practise weaker sections.';}
+  else{grade='D &#128295;';msg='Needs revision. Re-study the rules in each section carefully.';}
+  document.getElementById('ovScore').textContent=total+' / '+TOTAL;
+  document.getElementById('ovSub').innerHTML=`Score: <b>${pct}%</b> &nbsp;|&nbsp; Auto (Sec A+B): <b>${SC.auto}/${AUTO_MAX}</b> &nbsp;|&nbsp; Self-Marked: <b>${SC.self}/${SELF_MAX}</b>`;
+  document.getElementById('ovAuto').textContent=SC.auto+'/'+AUTO_MAX;
+  document.getElementById('ovSelf').textContent=SC.self+'/'+SELF_MAX;
+  document.getElementById('ovGrade').innerHTML='Grade: '+grade+' — '+msg;
+  const el=document.getElementById('overallResult');
+  el.classList.add('show'); el.scrollIntoView({behavior:'smooth'});
+}
+
+// ── WATERMARK ─────────────────────────────────────────────────────────────────
+(function(){
+  const wm=document.getElementById('wm'); let h='';
+  for(let r=0;r<14;r++) for(let c=0;c<6;c++)
+    h+=`<span style="top:${r*120+40}px;left:${c*200+10}px">Smart Study Center</span>`;
+  wm.innerHTML=h;
+})();
+
+buildUI();
+</script>
+</body>
+</html>
