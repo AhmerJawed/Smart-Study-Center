@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Narration Class XI | Smart Study Center</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(135deg,#0d47a1,#1565c0,#1976d2);min-height:100vh;padding:20px}
+.container{max-width:980px;margin:0 auto;background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.35);overflow:hidden}
+
+/* BRAND */
+.brand-header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.brand-left .brand-name{font-size:17px;font-weight:800}
+.brand-left .brand-sub{font-size:11px;color:#a8b4d8;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.brand-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.soc-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;transition:opacity .2s}
+.soc-btn:hover{opacity:.85}
+.insta-btn{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
+.wa-btn{background:#25d366;color:#fff}
+.phone-tag{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:600;color:#e0e6ff}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:26px;text-align:center}
+.header h1{font-family:'Playfair Display',serif;font-size:25px;font-weight:900;margin-bottom:5px}
+.header p{opacity:.9;font-size:13.5px}
+.badge-row{display:flex;justify-content:center;gap:9px;margin-top:10px;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,.2);border-radius:20px;padding:4px 13px;font-size:12px;font-weight:700}
+
+/* STATS */
+.stats{display:flex;justify-content:space-around;padding:14px;background:#f8f9fa;border-bottom:2px solid #e9ecef;flex-wrap:wrap;gap:6px}
+.stat-item{text-align:center}
+.stat-label{font-size:10px;color:#6c757d;text-transform:uppercase;letter-spacing:1px}
+.stat-value{font-size:20px;font-weight:800;color:#0d47a1;margin-top:3px}
+
+/* INSTRUCTIONS */
+.instructions{margin:18px 24px;padding:15px 18px;background:#fff8e1;border-left:5px solid #f9a825;border-radius:10px;font-size:13px;line-height:1.9;color:#5d4037}
+.instructions strong{color:#e65100}
+
+.section-title{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:9px 18px;border-radius:8px;font-size:12.5px;font-weight:700;margin:0 24px 18px;letter-spacing:.5px;text-transform:uppercase}
+
+/* QUESTION CARDS */
+.quiz-area{padding:0 24px 24px}
+.q-card{background:#f8f9fa;border-radius:13px;padding:18px;margin-bottom:16px;border-left:5px solid #0d47a1;transition:border-color .3s,background .3s}
+.q-card.solved{border-left-color:#2e7d32;background:#f0faf0}
+.q-card.revealed{border-left-color:#e65100;background:#fff9f5}
+
+.q-top{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.q-letter{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:#0d47a1;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;margin-top:1px}
+.q-card.solved .q-letter{background:#2e7d32}
+.q-card.revealed .q-letter{background:#e65100}
+.q-content{flex:1}
+.direct-label{font-size:11px;font-weight:700;color:#0d47a1;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.direct-text{background:#fff;border:2px solid #dee2e6;border-radius:9px;padding:11px 14px;font-size:14.5px;line-height:1.85;color:#222;margin-bottom:10px}
+
+.meta-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.cat-tag{padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;color:#fff}
+.dots{display:flex;gap:5px}
+.dot{width:10px;height:10px;border-radius:50%;background:#dee2e6;transition:background .3s}
+.dot.wrong-dot{background:#e57373}
+.dot.ok-dot{background:#81c784}
+.att-info{font-size:12px;color:#666}
+
+.ans-label{font-size:12px;font-weight:700;color:#333;margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px}
+.ans-textarea{width:100%;min-height:72px;border:2.5px solid #0d47a1;border-radius:9px;padding:10px 13px;font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.75;resize:vertical;outline:none;color:#222;background:#fff;transition:border-color .25s,box-shadow .25s}
+.ans-textarea:focus{border-color:#1976d2;box-shadow:0 0 0 3px rgba(13,71,161,.1)}
+.ans-textarea.shake{animation:shake .3s}
+@keyframes shake{0%,100%{border-color:#f44336}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.ans-textarea.correct-ta{border-color:#2e7d32;background:#f0faf0}
+.ans-textarea.wrong-ta{border-color:#c62828}
+.ans-textarea.revealed-ta{border-color:#e65100;background:#fff9f5}
+.ans-textarea:disabled{cursor:not-allowed;opacity:.85}
+
+.btn-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.check-btn{background:#0d47a1;color:#fff;border:none;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.check-btn:hover:not(:disabled){background:#1565c0;transform:translateY(-1px)}
+.check-btn:disabled{background:#aaa;cursor:not-allowed}
+.clear-btn{background:#e8eaf6;color:#3949ab;border:none;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.clear-btn:hover:not(:disabled){background:#c5cae9}
+.clear-btn:disabled{display:none}
+.st-badge{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
+.st-badge.ok{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7}
+.st-badge.rev{background:#fff3e0;color:#e65100;border:1px solid #ffcc80}
+
+/* FEEDBACK */
+.feedback{display:none;border-radius:10px;overflow:hidden;margin-top:10px}
+.feedback.show{display:block}
+.fb-hd{padding:9px 16px;font-weight:800;font-size:13px}
+.fb-hd.h-wrong{background:#c62828;color:#fff}
+.fb-hd.h-hint2{background:#e65100;color:#fff}
+.fb-hd.h-ok{background:#2e7d32;color:#fff}
+.fb-hd.h-reveal{background:#5d4037;color:#fff}
+.fb-body{padding:14px 16px;border:1.5px solid #ddd;border-top:none;border-radius:0 0 10px 10px;background:#fff;font-size:13.5px;line-height:1.85;color:#333}
+.fb-body.b-wrong{border-color:#ef9a9a}
+.fb-body.b-ok{border-color:#a5d6a7}
+.fb-body.b-reveal{border-color:#ffcc80}
+.rule-line{margin-top:9px;padding-top:9px;border-top:1px solid #e0e0e0;font-size:13px;color:#444;line-height:1.85}
+.try-note{margin-top:9px;padding:7px 12px;background:#fff8e1;border:1px solid #ffe082;border-radius:7px;font-size:12.5px;color:#e65100;font-weight:600}
+
+/* OVERALL */
+.overall{margin:0 24px 24px;padding:22px;background:linear-gradient(135deg,#0d47a1,#1565c0);border-radius:14px;color:#fff;text-align:center;display:none}
+.overall.show{display:block}
+.overall h3{font-family:'Playfair Display',serif;font-size:21px;margin-bottom:8px}
+.ov-score{font-size:50px;font-weight:900;line-height:1.1}
+.ov-sub{font-size:13.5px;opacity:.85;margin-top:6px}
+.grade-pill{display:inline-block;margin-top:13px;padding:7px 22px;border-radius:20px;font-weight:800;font-size:14px;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.35)}
+
+/* FOOTER */
+.brand-footer{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:16px 24px;text-align:center}
+.footer-main{font-size:14px;font-weight:700;color:#e0e6ff;margin-bottom:8px}
+.footer-links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.footer-soc{display:inline-flex;align-items:center;gap:5px;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none}
+.footer-insta{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
+.footer-wa{background:#25d366;color:#fff}
+.footer-sub{font-size:11px;color:#a8b4d8;margin-top:8px}
+.fdiv{margin:0 6px;opacity:.4}
+
+/* WATERMARK */
+.wm{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
+.wm span{position:absolute;font-size:13px;font-weight:700;color:rgba(13,71,161,.05);white-space:nowrap;transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase}
+
+@media(max-width:600px){
+  .quiz-area,.section-title,.instructions{padding-left:14px;padding-right:14px}
+  .section-title{margin-left:14px;margin-right:14px}
+  .instructions{margin-left:14px;margin-right:14px}
+  .direct-text{font-size:13.5px}
+  .ans-textarea{font-size:13.5px}
+}
+</style>
+</head>
+<body>
+<div class="wm" id="wm"></div>
+<div class="container">
+
+  <!-- BRAND HEADER -->
+  <div class="brand-header">
+    <div class="brand-left">
+      <div class="brand-name">Sir Ahmer Javed</div>
+      <div class="brand-sub">Smart Study Center</div>
+    </div>
+    <div class="brand-right">
+      <a class="soc-btn insta-btn" href="https://www.instagram.com/smartstudycenter_khi/" target="_blank">&#128247; Instagram</a>
+      <a class="soc-btn wa-btn" href="https://wa.me/923453090057" target="_blank">&#128172; WhatsApp</a>
+      <span class="phone-tag">&#128222; 0345-3090057</span>
+    </div>
+  </div>
+
+  <!-- MAIN HEADER -->
+  <div class="header">
+    <h1>&#9999;&#65039; English Language Class XI &mdash; Narration</h1>
+    <p>Fill-in-the-Blank Practice Worksheet &nbsp;|&nbsp; STBB Board Exam Preparation</p>
+    <div class="badge-row">
+      <span class="badge">&#128203; 25 Sentences</span>
+      <span class="badge">&#128260; 3 Tries Per Question</span>
+      <span class="badge">&#128161; Hints + Rules</span>
+      <span class="badge">&#9989; Flexible Evaluation</span>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-item"><div class="stat-label">Total</div><div class="stat-value">25</div></div>
+    <div class="stat-item"><div class="stat-label">Correct</div><div class="stat-value" id="stC">0</div></div>
+    <div class="stat-item"><div class="stat-label">First Try</div><div class="stat-value" id="stF">0</div></div>
+    <div class="stat-item"><div class="stat-label">Revealed</div><div class="stat-value" id="stR">0</div></div>
+    <div class="stat-item"><div class="stat-label">Score</div><div class="stat-value" id="stS">&mdash;</div></div>
+  </div>
+
+  <!-- INSTRUCTIONS -->
+  <div class="instructions">
+    <strong>&#128204; Instructions:</strong> Read each direct speech sentence. Write the full <em>indirect (reported) speech</em> sentence in the answer box and click <strong>Check</strong>.<br>
+    &#10148; <strong>Wrong 1st try</strong>: A hint about the rule is shown &mdash; edit and try again!<br>
+    &#10148; <strong>Wrong 2nd try</strong>: A stronger hint with the exact pattern is shown &mdash; one last try!<br>
+    &#10148; <strong>Wrong 3rd try</strong>: The model answer and full explanation are revealed.<br>
+    &#10148; <strong>Note:</strong> Many correct variations exist in narration &mdash; the system evaluates key transformations, not exact wording.
+  </div>
+
+  <div class="section-title">&#128218; Topic 3: Narration &mdash; Change to Indirect Speech</div>
+
+  <div class="quiz-area" id="quizArea"></div>
+
+  <div class="overall" id="overall">
+    <h3>&#127881; Worksheet Complete!</h3>
+    <div class="ov-score" id="ovSc"></div>
+    <div class="ov-sub" id="ovSb"></div>
+    <div class="grade-pill" id="ovGr"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="brand-footer">
+    <div class="footer-main">Sir Ahmer Javed &nbsp;|&nbsp; Smart Study Center &nbsp;|&nbsp; &#128222; 0345-3090057</div>
+    <div class="footer-links">
+      <a class="footer-soc footer-insta" href="https://www.instagram.com/smartstudycenter_khi/" target="_blank">&#128247; @smartstudycenter_khi</a>
+      <a class="footer-soc footer-wa" href="https://wa.me/923453090057" target="_blank">&#128172; Chat on WhatsApp</a>
+    </div>
+    <div class="footer-sub">English Class XI &mdash; Narration Worksheet &nbsp;|&nbsp; STBB Board Exam Prep</div>
+  </div>
+</div>
+
+<script>
+// ── QUESTION DATA ──────────────────────────────────────────────────────────
+// required: array of OR-groups (every group must have at least one match)
+const QS = [
+  { // a
+    lbl:"a", cat:"Request", clr:"#e65100",
+    dir:`'Please turn down the music,' my roommate said.`,
+    req:[["requested","asked","begged","told","implored"],["turn down","lower the music","reduce the music","turn the music down"]],
+    model:"My roommate requested/asked me to turn down the music.",
+    exp:`<b>&#10003; Model Answer:</b> My roommate requested/asked me to turn down the music.<div class="rule-line">&#128218; <b>Rule &mdash; Request:</b> "Please + verb" = polite request.<br>&#8226; Reporting verb: "said" &#8594; <b>requested / asked</b><br>&#8226; Remove "Please" and add <b>to</b> before the verb<br>&#8226; "Please turn down" &#8594; "to turn down"<br>&#128161; Pattern: Subject + requested/asked + (object) + to + base verb</div>`,
+    h1:`"Please + verb" signals a <b>polite request</b>. Change the reporting verb to <b>requested</b> or <b>asked</b>. Drop "please" and add <b>"to"</b> before the verb: "turn down the music" &#8594; "to turn down the music".`,
+    h2:`Pattern: My roommate <b>requested/asked (me) to turn down the music</b>. Key: (1) "requested/asked", (2) remove "Please", (3) add "to" before "turn down". The object "me" is optional but good to include.`
+  },
+  { // b
+    lbl:"b", cat:"Yes/No Question", clr:"#6a1b9a",
+    dir:`The teacher asked the students, 'Can anyone tell me the capital of Italy?'`,
+    req:[["asked"],["if","whether"],["could","can"],["italy","capital of"]],
+    model:"The teacher asked the students if/whether anyone could tell him/her the capital of Italy.",
+    exp:`<b>&#10003; Model Answer:</b> The teacher asked the students if/whether anyone could tell him/her the capital of Italy.<div class="rule-line">&#128218; <b>Rule &mdash; Yes/No Question:</b><br>&#8226; Add <b>if / whether</b> after "asked"<br>&#8226; Modal: "Can" &#8594; <b>could</b><br>&#8226; Pronoun: "me" &#8594; "him/her"<br>&#8226; Remove the question mark; use statement word order<br>&#128161; Yes/No questions &#8594; always add "if" or "whether"</div>`,
+    h1:`This is a <b>Yes/No question</b>. In indirect speech, add <b>"if" or "whether"</b> after "asked". Modal: "Can" &#8594; <b>"could"</b>. Word order becomes statement order (no inversion). Remove the question mark.`,
+    h2:`Pattern: The teacher asked the students <b>if/whether</b> anyone <b>could</b> tell him/her the capital of Italy. Key: (1) "if/whether", (2) "Can" &#8594; "could", (3) "me" &#8594; "him/her", (4) no question mark.`
+  },
+  { // c
+    lbl:"c", cat:"Exclamatory (Joy)", clr:"#f57f17",
+    dir:`Hussain said, 'Wow! I have got the job!'`,
+    req:[["exclaimed","cried","shouted","said with joy","exclaimed with joy","exclaimed joyfully","said joyfully"],["had got","had gotten"],["job"]],
+    model:"Hussain exclaimed with joy that he had got the job.",
+    exp:`<b>&#10003; Model Answer:</b> Hussain exclaimed with joy that he had got the job.<div class="rule-line">&#128218; <b>Rule &mdash; Exclamatory (Wow = Joy):</b><br>&#8226; "Wow!" &#8594; reporting verb: <b>exclaimed with joy / exclaimed joyfully</b><br>&#8226; Pronoun: "I" &#8594; "he"<br>&#8226; Tense: "have got" &#8594; <b>had got</b> (present perfect &#8594; past perfect)<br>&#8226; Add "that"; remove exclamation marks<br>&#128161; Wow / Hurrah / Bravo &#8594; exclaimed with joy</div>`,
+    h1:`"Wow!" = joy. Reporting verb: <b>"exclaimed with joy"</b> or "exclaimed joyfully". Tense: "have got" &#8594; <b>"had got"</b> (present perfect &#8594; past perfect). Pronoun: "I" &#8594; "he".`,
+    h2:`Pattern: Hussain <b>exclaimed with joy that he had got the job</b>. Key: (1) "exclaimed with joy", (2) "I" &#8594; "he", (3) "have got" &#8594; "had got". Remove "Wow!" and both exclamation marks.`
+  },
+  { // d
+    lbl:"d", cat:"Suggestion", clr:"#2e7d32",
+    dir:`'Let's go to the beach this weekend,' he said to the family.`,
+    req:[["suggested","proposed"],["beach"],["should go","they go","they should go","they should","go to the beach"]],
+    model:"He suggested to the family that they should go to the beach that weekend.",
+    exp:`<b>&#10003; Model Answer:</b> He suggested to the family that they should go to the beach that weekend.<div class="rule-line">&#128218; <b>Rule &mdash; Suggestion (Let's):</b><br>&#8226; "Let's + verb" &#8594; reporting verb: <b>suggested / proposed</b><br>&#8226; Pattern: suggested + (to object) + that + they + <b>should</b> + base verb<br>&#8226; Time: "this weekend" &#8594; <b>"that weekend"</b><br>&#128161; All "Let's..." sentences use <b>suggested</b> as the reporting verb.</div>`,
+    h1:`"Let's + verb" = a <b>suggestion</b>. Reporting verb: <b>suggested</b> or <b>proposed</b>. Pattern: suggested that + <b>they should go</b>. Also change "this weekend" &#8594; "that weekend".`,
+    h2:`Pattern: He <b>suggested</b> to the family that <b>they should go</b> to the beach <b>that weekend</b>. Key: (1) "suggested", (2) "Let's go" &#8594; "they should go", (3) "this" &#8594; "that".`
+  },
+  { // e
+    lbl:"e", cat:"Statement", clr:"#1565c0",
+    dir:`Ali said, 'I am very tired today.'`,
+    req:[["said","told"],["he was","ali was"],["tired"]],
+    model:"Ali said that he was very tired that day.",
+    exp:`<b>&#10003; Model Answer:</b> Ali said that he was very tired that day.<div class="rule-line">&#128218; <b>Rule &mdash; Statement (Assertive):</b><br>&#8226; Reporting verb: "said" &#8594; <b>said that</b><br>&#8226; Pronoun: "I" &#8594; <b>he</b><br>&#8226; Tense: "am" &#8594; <b>was</b><br>&#8226; Time: "today" &#8594; <b>that day</b><br>&#128161; Tense table: am/is &#8594; was | are &#8594; were | will &#8594; would | can &#8594; could | have &#8594; had</div>`,
+    h1:`Simple statement. Use <b>"said that"</b>. Changes: (1) "I" &#8594; "he", (2) "am" &#8594; "was" (one tense back), (3) "today" &#8594; "that day".`,
+    h2:`Pattern: Ali <b>said that he was</b> very tired <b>that day</b>. Key: "I am" &#8594; "he was" | "today" &#8594; "that day". Reporting verb stays "said" (no listener mentioned).`
+  },
+  { // f
+    lbl:"f", cat:"WH Question", clr:"#6a1b9a",
+    dir:`She said to me, 'Where do you live?'`,
+    req:[["asked","enquired"],["where"],["i lived","where i lived","i live"]],
+    model:"She asked me where I lived.",
+    exp:`<b>&#10003; Model Answer:</b> She asked me where I lived.<div class="rule-line">&#128218; <b>Rule &mdash; WH Question:</b><br>&#8226; Reporting verb: "said to me" &#8594; <b>asked me</b><br>&#8226; WH word "Where" is kept<br>&#8226; <b>No inversion:</b> "where do you live" &#8594; <b>"where I lived"</b><br>&nbsp;&nbsp;(NOT "where did I live" &mdash; no auxiliary)<br>&#8226; Pronoun: "you" &#8594; "I"<br>&#8226; Tense: "do live" &#8594; <b>lived</b><br>&#128161; WH reported questions &#8594; statement word order (Subject + Verb)</div>`,
+    h1:`WH question. Keep "where". Reporting verb: "said to me" &#8594; <b>"asked me"</b>. IMPORTANT: No inversion &mdash; "where do you live" &#8594; <b>"where I lived"</b> (not "where did I live"). Pronoun: "you" &#8594; "I".`,
+    h2:`Pattern: She <b>asked me where I lived</b>. Key: (1) "asked me", (2) keep "where", (3) "you" &#8594; "I", (4) "do you live" &#8594; "I lived". No question mark. Statement word order after "where".`
+  },
+  { // g
+    lbl:"g", cat:"Negative Command", clr:"#880e4f",
+    dir:`The policeman said to the prisoner, 'Do not fight in the prison.'`,
+    req:[["ordered","told","warned","commanded","forbade","advised"],["not to fight"]],
+    model:"The policeman ordered/warned the prisoner not to fight in the prison.",
+    exp:`<b>&#10003; Model Answer:</b> The policeman ordered/warned the prisoner not to fight in the prison.<div class="rule-line">&#128218; <b>Rule &mdash; Negative Command:</b><br>&#8226; "Do not + verb" &#8594; reporting verb: <b>ordered / warned / commanded</b><br>&#8226; "Do not fight" &#8594; <b>"not to fight"</b><br>&#8226; Pattern: Subject + ordered/warned + object + <b>not to</b> + base verb<br>&#128161; Positive command = "to + verb" | Negative command = "not to + verb"</div>`,
+    h1:`"Do not + verb" = <b>negative command</b>. Reporting verb: <b>ordered / warned / commanded</b>. Change "Do not fight" &#8594; <b>"not to fight"</b>. Add "not to" before the verb.`,
+    h2:`Pattern: The policeman <b>ordered/warned the prisoner not to fight</b> in the prison. Key: (1) "ordered/warned", (2) "Do not fight" &#8594; "not to fight". Remember: "not to" replaces "do not".`
+  },
+  { // h
+    lbl:"h", cat:"Universal Truth", clr:"#37474f",
+    dir:`My mother said, 'The sun rises in the east.'`,
+    req:[["sun rises","rises in","the sun rises"],["east"]],
+    model:"My mother said that the sun rises in the east.",
+    exp:`<b>&#10003; Model Answer:</b> My mother said that the sun rises in the east.<div class="rule-line">&#128218; <b>Rule &mdash; Universal Truth / Scientific Fact:</b><br>&#8226; Tense does <b>NOT change</b> for universal truths and scientific facts!<br>&#8226; "rises" stays as <b>rises</b> (never changes to "rose")<br>&#8226; Only change: "said" &#8594; <b>"said that"</b><br>&#128161; Other examples: "The earth is round" / "Water boils at 100&deg;C"<br>&#128161; This is a <b>very common exam trap</b> &mdash; students wrongly change the tense!</div>`,
+    h1:`<b>IMPORTANT:</b> This is a <b>universal truth</b> &mdash; a permanent scientific fact. Rule: Universal truths do <b>NOT change tense</b>! "rises" stays as "rises" (never becomes "rose"). Only add "said that".`,
+    h2:`Pattern: My mother <b>said that the sun rises in the east</b>. Notice: "rises" stays in present tense &mdash; NO tense change! Only change is adding "said that". This is an exception to the backshifting rule.`
+  },
+  { // i
+    lbl:"i", cat:"Exclamatory (Sorrow)", clr:"#37474f",
+    dir:`Rida said, 'Ah! My cat is dead.'`,
+    req:[["exclaimed","cried","lamented","said with sorrow","said with grief","exclaimed with sorrow","exclaimed with grief","said sadly","wailed","mourned"],["her cat","rida","the cat"],["was dead","dead"]],
+    model:"Rida exclaimed with sorrow/grief that her cat was dead.",
+    exp:`<b>&#10003; Model Answer:</b> Rida exclaimed with sorrow/grief that her cat was dead.<div class="rule-line">&#128218; <b>Rule &mdash; Exclamatory (Ah = Sorrow):</b><br>&#8226; "Ah!" = grief/sorrow &#8594; <b>exclaimed with sorrow / exclaimed with grief / lamented</b><br>&#8226; Pronoun: "My cat" &#8594; <b>"her cat"</b><br>&#8226; Tense: "is dead" &#8594; <b>was dead</b><br>&#8226; Add "that"; remove "Ah!" and exclamation mark<br>&#128161; Interjection guide: Ah!/Alas! &#8594; sorrow | Oh! &#8594; surprise | Ugh! &#8594; disgust</div>`,
+    h1:`"Ah!" = <b>sorrow or grief</b>. Reporting verb: <b>"exclaimed with sorrow"</b> or <b>"exclaimed with grief"</b> or "lamented". Tense: "is dead" &#8594; "was dead". Pronoun: "My cat" &#8594; "her cat".`,
+    h2:`Pattern: Rida <b>exclaimed with sorrow/grief that her cat was dead</b>. Key: (1) "exclaimed with sorrow/grief", (2) "My" &#8594; "her", (3) "is" &#8594; "was". Remove "Ah!" and the exclamation mark.`
+  },
+  { // j
+    lbl:"j", cat:"Yes/No Question", clr:"#6a1b9a",
+    dir:`He asked his friend, 'Have you seen my bag anywhere?'`,
+    req:[["asked"],["if","whether"],["had seen"],["bag"]],
+    model:"He asked his friend if/whether he had seen his bag anywhere.",
+    exp:`<b>&#10003; Model Answer:</b> He asked his friend if/whether he had seen his bag anywhere.<div class="rule-line">&#128218; <b>Rule &mdash; Yes/No Question (Present Perfect &#8594; Past Perfect):</b><br>&#8226; Add <b>if / whether</b><br>&#8226; Pronoun: "you" &#8594; "he", "my" &#8594; "his"<br>&#8226; Tense: "Have you seen" &#8594; <b>had seen</b> (present perfect &#8594; past perfect)<br>&#8226; No inversion, no question mark<br>&#128161; have/has + past participle &#8594; had + past participle</div>`,
+    h1:`Yes/No question. Add <b>"if" or "whether"</b>. Tense: "Have you seen" &#8594; <b>"had seen"</b> (present perfect &#8594; past perfect). Pronouns: "you" &#8594; "he", "my" &#8594; "his". Statement word order.`,
+    h2:`Pattern: He asked his friend <b>if/whether he had seen his bag</b> anywhere. Key: (1) "if/whether", (2) "Have you seen" &#8594; "had seen", (3) "you" &#8594; "he", (4) "my" &#8594; "his".`
+  },
+  { // k
+    lbl:"k", cat:"Positive Command", clr:"#b71c1c",
+    dir:`The teacher said to the students, 'Respect your elders.'`,
+    req:[["told","advised","instructed","ordered","urged","asked"],["to respect","respect"],["elders"]],
+    model:"The teacher told/advised the students to respect their elders.",
+    exp:`<b>&#10003; Model Answer:</b> The teacher told/advised the students to respect their elders.<div class="rule-line">&#128218; <b>Rule &mdash; Positive Command (Imperative):</b><br>&#8226; Reporting verb: "said to" &#8594; <b>told / advised / instructed / ordered</b><br>&#8226; Add <b>to</b> before the verb: "Respect" &#8594; "to respect"<br>&#8226; Pronoun: "your" &#8594; <b>their</b><br>&#128161; Pattern: Subject + told/advised + object + <b>to</b> + base verb</div>`,
+    h1:`Positive command. Reporting verb: <b>told / advised / instructed</b>. Add <b>"to"</b> before "Respect": &#8594; "to respect". Pronoun: "your" &#8594; "their".`,
+    h2:`Pattern: The teacher <b>told/advised the students to respect their elders</b>. Key: (1) "told/advised/instructed", (2) "Respect" &#8594; "to respect", (3) "your" &#8594; "their".`
+  },
+  { // l
+    lbl:"l", cat:"Statement", clr:"#1565c0",
+    dir:`Sara said to her friend, 'I will meet you at the library tomorrow.'`,
+    req:[["told","said"],["would meet","she would"],["library"],["next day","following day","the day after","tomorrow"]],
+    model:"Sara told her friend that she would meet her at the library the next day.",
+    exp:`<b>&#10003; Model Answer:</b> Sara told her friend that she would meet her at the library the next day.<div class="rule-line">&#128218; <b>Rule &mdash; Statement (Future Tense):</b><br>&#8226; Reporting verb: "said to her friend" &#8594; <b>told her friend</b><br>&#8226; Pronoun: "I" &#8594; "she" | "you" &#8594; "her"<br>&#8226; Tense: "will" &#8594; <b>would</b><br>&#8226; Time: "tomorrow" &#8594; <b>the next day / the following day</b><br>&#128161; Time changes: today&#8594;that day | tomorrow&#8594;the next day | yesterday&#8594;the day before | here&#8594;there | this&#8594;that</div>`,
+    h1:`Statement with future tense. Tense: "will meet" &#8594; <b>"would meet"</b>. Pronouns: "I" &#8594; "she", "you" &#8594; "her". Time: "tomorrow" &#8594; <b>"the next day"</b>. Reporting verb: "said to" &#8594; "told".`,
+    h2:`Pattern: Sara <b>told</b> her friend that <b>she would meet her</b> at the library <b>the next day</b>. Key: (1) "told", (2) "will" &#8594; "would", (3) "I" &#8594; "she", (4) "tomorrow" &#8594; "the next day".`
+  },
+  { // m
+    lbl:"m", cat:"Exclamatory", clr:"#f57f17",
+    dir:`Eman said, 'What a beautiful house it is!'`,
+    req:[["exclaimed","cried","said"],["beautiful house","beautiful"],["was","it was","very beautiful"]],
+    model:"Eman exclaimed that it was a very beautiful house. OR: Eman exclaimed what a beautiful house it was.",
+    exp:`<b>&#10003; Both patterns are correct:</b><br>1. Eman exclaimed that it was a very beautiful house.<br>2. Eman exclaimed what a beautiful house it was.<div class="rule-line">&#128218; <b>Rule &mdash; "What a...!" Exclamatory:</b><br>&#8226; Reporting verb: <b>exclaimed</b><br>&#8226; Pattern 1: exclaimed + that + it was a very + adjective + noun<br>&#8226; Pattern 2: exclaimed + what a + adjective + noun + it was<br>&#8226; Tense: "is" &#8594; <b>was</b><br>&#128161; Both patterns are accepted in STBB exams.</div>`,
+    h1:`"What a beautiful house it is!" = <b>exclamatory sentence</b>. Reporting verb: <b>"exclaimed"</b>. Two valid patterns: (1) "exclaimed that it was a very beautiful house" OR (2) "exclaimed what a beautiful house it was". Tense: "is" &#8594; "was".`,
+    h2:`Pattern 1: Eman <b>exclaimed that it was a very beautiful house</b>.<br>Pattern 2: Eman <b>exclaimed what a beautiful house it was</b>.<br>Both are correct. Key change: "is" &#8594; "was".`
+  },
+  { // n
+    lbl:"n", cat:"WH Question", clr:"#6a1b9a",
+    dir:`Mother said to Noor, 'Why are you crying?'`,
+    req:[["asked","enquired","questioned"],["why"],["she was crying","was crying","noor was crying"]],
+    model:"Mother asked Noor why she was crying.",
+    exp:`<b>&#10003; Model Answer:</b> Mother asked Noor why she was crying.<div class="rule-line">&#128218; <b>Rule &mdash; WH Question:</b><br>&#8226; Reporting verb: "said to" &#8594; <b>asked</b><br>&#8226; WH word "Why" is kept<br>&#8226; <b>No inversion:</b> "why are you crying" &#8594; <b>"why she was crying"</b><br>&nbsp;&nbsp;(NOT "why was she crying")<br>&#8226; Pronoun: "you" &#8594; "she" (Noor)<br>&#8226; Tense: "are crying" &#8594; <b>was crying</b><br>&#128161; Reported WH questions always use statement order (no inversion).</div>`,
+    h1:`WH question with "Why". Reporting verb: <b>"asked"</b>. Keep "why". CRITICAL: No inversion &mdash; "why are you crying" &#8594; <b>"why she was crying"</b> (not "why was she crying"). Pronoun: "you" &#8594; "she".`,
+    h2:`Pattern: Mother <b>asked Noor why she was crying</b>. Key: (1) "asked", (2) keep "why", (3) "you" &#8594; "she", (4) "are crying" &#8594; "was crying". No inversion, no question mark.`
+  },
+  { // o
+    lbl:"o", cat:"Negative Command", clr:"#880e4f",
+    dir:`He said to me, 'Don't stay here anymore.'`,
+    req:[["told","ordered","warned","advised","asked","instructed"],["not to stay","not to remain"]],
+    model:"He told/ordered me not to stay there anymore.",
+    exp:`<b>&#10003; Model Answer:</b> He told/ordered me not to stay there anymore.<div class="rule-line">&#128218; <b>Rule &mdash; Negative Command:</b><br>&#8226; "Don't + verb" &#8594; reporting verb: <b>told / ordered / warned</b><br>&#8226; "Don't stay" &#8594; <b>"not to stay"</b><br>&#8226; Place: "here" &#8594; <b>there</b><br>&#128161; Pattern: Subject + told/ordered + me + <b>not to</b> + base verb</div>`,
+    h1:`"Don't stay" = <b>negative command</b>. Reporting verb: <b>told / ordered / warned</b>. Change "Don't stay" &#8594; <b>"not to stay"</b>. Place: "here" &#8594; "there".`,
+    h2:`Pattern: He <b>told/ordered me not to stay there</b> anymore. Key: (1) "told/ordered", (2) "Don't stay" &#8594; "not to stay", (3) "here" &#8594; "there". Structure "not to" replaces "don't".`
+  },
+  { // p
+    lbl:"p", cat:"Command (Advice)", clr:"#e65100",
+    dir:`The doctor advised him, 'Avoid oily food and exercise daily.'`,
+    req:[["advised","told","ordered","asked","instructed"],["to avoid","avoid"],["oily food"],["exercise"]],
+    model:"The doctor advised him to avoid oily food and exercise daily.",
+    exp:`<b>&#10003; Model Answer:</b> The doctor advised him to avoid oily food and exercise daily.<div class="rule-line">&#128218; <b>Rule &mdash; Command with Two Actions:</b><br>&#8226; Reporting verb: "advised" is already correct &mdash; keep it!<br>&#8226; "Avoid" &#8594; <b>"to avoid"</b> (add "to" before first verb)<br>&#8226; "exercise" (second verb after "and") &#8594; keep base form<br>&#8226; Pattern: advised + him + to + [verb1] + and + [verb2]<br>&#128161; When two commands are joined by "and", "to" is added before the first verb only.</div>`,
+    h1:`Two commands joined by "and". The reporting verb "advised" is already there &mdash; keep it! Add <b>"to"</b> before "avoid": &#8594; "to avoid oily food". The second verb "exercise" follows after "and" without extra "to".`,
+    h2:`Pattern: The doctor <b>advised him to avoid oily food and exercise daily</b>. Key: (1) "advised" stays, (2) "Avoid" &#8594; "to avoid", (3) "exercise" stays after "and". No pronoun change for "him".`
+  },
+  { // q
+    lbl:"q", cat:"Exclamatory (Joy)", clr:"#f57f17",
+    dir:`Ghazala said, 'Hurrah! I have passed my exams!'`,
+    req:[["exclaimed","cried","shouted","said with joy","exclaimed with joy","exclaimed joyfully"],["had passed","she had passed"],["exams"]],
+    model:"Ghazala exclaimed with joy that she had passed her exams.",
+    exp:`<b>&#10003; Model Answer:</b> Ghazala exclaimed with joy that she had passed her exams.<div class="rule-line">&#128218; <b>Rule &mdash; Exclamatory (Hurrah = Joy):</b><br>&#8226; "Hurrah!" &#8594; <b>exclaimed with joy / exclaimed joyfully</b><br>&#8226; Pronoun: "I" &#8594; "she" | "my" &#8594; "her"<br>&#8226; Tense: "have passed" &#8594; <b>had passed</b> (present perfect &#8594; past perfect)<br>&#8226; Add "that"; remove "Hurrah!" and exclamation marks<br>&#128161; Hurrah / Hurray / Bravo / Wow &#8594; exclaimed with joy</div>`,
+    h1:`"Hurrah!" = very strong <b>joy</b>. Reporting verb: <b>"exclaimed with joy"</b> or "exclaimed joyfully". Tense: "have passed" &#8594; <b>"had passed"</b>. Pronouns: "I" &#8594; "she", "my" &#8594; "her".`,
+    h2:`Pattern: Ghazala <b>exclaimed with joy that she had passed her exams</b>. Key: (1) "exclaimed with joy", (2) "I" &#8594; "she", (3) "have passed" &#8594; "had passed", (4) "my" &#8594; "her".`
+  },
+  { // r
+    lbl:"r", cat:"Yes/No Question", clr:"#6a1b9a",
+    dir:`The officer said to him, 'Did you submit your application on time?'`,
+    req:[["asked","enquired","questioned"],["if","whether"],["had submitted"],["application"]],
+    model:"The officer asked him if/whether he had submitted his application on time.",
+    exp:`<b>&#10003; Model Answer:</b> The officer asked him if/whether he had submitted his application on time.<div class="rule-line">&#128218; <b>Rule &mdash; Yes/No Question (Past &#8594; Past Perfect):</b><br>&#8226; Add <b>if / whether</b><br>&#8226; Pronoun: "you" &#8594; "he" | "your" &#8594; "his"<br>&#8226; Tense: "Did you submit" (past) &#8594; <b>had submitted</b> (past perfect)<br>&#8226; No inversion, no question mark<br>&#128161; Tense shift: did/past simple &#8594; had + past participle</div>`,
+    h1:`Yes/No question in past tense. Add <b>"if" or "whether"</b>. Tense: "Did you submit" &#8594; <b>"had submitted"</b> (past &#8594; past perfect). Pronouns: "you" &#8594; "he", "your" &#8594; "his". No inversion.`,
+    h2:`Pattern: The officer <b>asked him if/whether he had submitted his application on time</b>. Key: (1) "asked", (2) "if/whether", (3) "Did you submit" &#8594; "had submitted", (4) "your" &#8594; "his".`
+  },
+  { // s
+    lbl:"s", cat:"Exclamatory (Disgust)", clr:"#4e342e",
+    dir:`She said, 'Ugh! It's so dirty in here.'`,
+    req:[["exclaimed","cried","said with disgust","exclaimed with disgust","expressed disgust","expressed","said disgustedly"],["dirty"],["was","it was"]],
+    model:"She exclaimed with disgust that it was so dirty in there.",
+    exp:`<b>&#10003; Model Answer:</b> She exclaimed with disgust that it was so dirty in there.<div class="rule-line">&#128218; <b>Rule &mdash; Exclamatory (Ugh = Disgust):</b><br>&#8226; "Ugh!" &#8594; <b>exclaimed with disgust</b><br>&#8226; Tense: "It's" (it is) &#8594; <b>it was</b><br>&#8226; Place: "in here" &#8594; <b>in there</b><br>&#8226; Add "that"; remove "Ugh!" and exclamation mark<br>&#128161; Ugh / Yuck / Fie &#8594; exclaimed with disgust</div>`,
+    h1:`"Ugh!" = <b>disgust</b>. Reporting verb: <b>"exclaimed with disgust"</b>. Tense: "It's" &#8594; "it was". Place: "in here" &#8594; "in there". Add "that" after the reporting verb.`,
+    h2:`Pattern: She <b>exclaimed with disgust that it was</b> so dirty <b>in there</b>. Key: (1) "exclaimed with disgust", (2) "It's" &#8594; "it was", (3) "here" &#8594; "there". Remove "Ugh!".`
+  },
+  { // t
+    lbl:"t", cat:"Suggestion", clr:"#2e7d32",
+    dir:`Ali said to his friends, 'Let's start the project right away.'`,
+    req:[["suggested","proposed"],["project"],["should start","start the project","they start","they should","they should start"]],
+    model:"Ali suggested to his friends that they should start the project right away.",
+    exp:`<b>&#10003; Model Answer:</b> Ali suggested to his friends that they should start the project right away.<div class="rule-line">&#128218; <b>Rule &mdash; Suggestion (Let's):</b><br>&#8226; "Let's + verb" &#8594; <b>suggested / proposed</b><br>&#8226; "Let's start" &#8594; "that they <b>should</b> start"<br>&#8226; "right away" &#8594; stays (not a relative time expression)<br>&#128161; "Right away / immediately" do not change in indirect speech.</div>`,
+    h1:`"Let's start" = a <b>suggestion</b>. Reporting verb: <b>suggested</b> or <b>proposed</b>. Pattern: suggested that + <b>they should start</b> the project. "Right away" stays unchanged (it is not a time-relative expression).`,
+    h2:`Pattern: Ali <b>suggested to his friends that they should start the project right away</b>. Key: (1) "suggested", (2) "Let's start" &#8594; "they should start". "Right away" stays as is.`
+  },
+  { // u
+    lbl:"u", cat:"Statement", clr:"#1565c0",
+    dir:`He said, 'I visited Lahore last summer.'`,
+    req:[["said","told"],["had visited","visited lahore"],["lahore"]],
+    model:"He said that he had visited Lahore the previous summer.",
+    exp:`<b>&#10003; Model Answer:</b> He said that he had visited Lahore the previous summer.<div class="rule-line">&#128218; <b>Rule &mdash; Statement (Past Simple &#8594; Past Perfect):</b><br>&#8226; Reporting verb: "said" &#8594; <b>said that</b><br>&#8226; Pronoun: "I" &#8594; <b>he</b><br>&#8226; Tense: "visited" (past simple) &#8594; <b>had visited</b> (past perfect)<br>&#8226; Time: "last summer" &#8594; <b>the previous summer</b> / "the summer before"<br>&#128161; Time changes: last year &#8594; the previous year | last night &#8594; the previous night</div>`,
+    h1:`Statement. Tense: "visited" (past simple) &#8594; <b>"had visited"</b> (past perfect). Pronoun: "I" &#8594; "he". Time: "last summer" &#8594; <b>"the previous summer"</b> or "the summer before".`,
+    h2:`Pattern: He <b>said that he had visited Lahore the previous summer</b>. Key: (1) "said that", (2) "I visited" &#8594; "he had visited", (3) "last summer" &#8594; "the previous summer".`
+  },
+  { // v
+    lbl:"v", cat:"Greeting / Wish", clr:"#00838f",
+    dir:`They said to me, 'Eid Mubarak.'`,
+    req:[["wished","greeted","prayed","congratulated"],["eid mubarak","eid"]],
+    model:"They wished me Eid Mubarak.",
+    exp:`<b>&#10003; Model Answer:</b> They wished me Eid Mubarak.<div class="rule-line">&#128218; <b>Rule &mdash; Greeting / Wish (Special Case):</b><br>&#8226; Greetings do not follow standard tense/pronoun rules<br>&#8226; Reporting verb: "said to" &#8594; <b>wished / greeted / prayed</b><br>&#8226; The greeting phrase "Eid Mubarak" stays unchanged<br>&#8226; Pattern: Subject + <b>wished</b> + object + Eid Mubarak<br>&#128161; Examples: "Good morning" &#8594; wished him good morning | "Happy Birthday" &#8594; wished her happy birthday</div>`,
+    h1:`"Eid Mubarak" = a <b>greeting/wish</b>. Special case! The reporting verb changes to <b>"wished"</b> or "greeted". The greeting phrase stays unchanged. Pattern: They + wished + me + Eid Mubarak.`,
+    h2:`Pattern: They <b>wished me Eid Mubarak</b>. Key: (1) "said to me" &#8594; "wished me", (2) "Eid Mubarak" stays as is. Greetings do not follow the usual tense or pronoun change rules.`
+  },
+  { // w
+    lbl:"w", cat:"Positive Command", clr:"#b71c1c",
+    dir:`The manager said to the staff, 'Submit your reports before Friday.'`,
+    req:[["told","ordered","instructed","asked","directed","advised"],["to submit","submit their","submit the"],["reports"],["friday"]],
+    model:"The manager told/ordered/instructed the staff to submit their reports before Friday.",
+    exp:`<b>&#10003; Model Answer:</b> The manager told/ordered/instructed the staff to submit their reports before Friday.<div class="rule-line">&#128218; <b>Rule &mdash; Positive Command:</b><br>&#8226; Reporting verb: "said to" &#8594; <b>told / ordered / instructed</b><br>&#8226; "Submit" &#8594; <b>"to submit"</b> (add "to")<br>&#8226; Pronoun: "your" &#8594; <b>their</b><br>&#8226; "Friday" stays (specific days do not change)<br>&#128161; Pattern: Subject + told/ordered + object + to + base verb</div>`,
+    h1:`Positive command. Reporting verb: <b>told / ordered / instructed</b>. Add <b>"to"</b> before "Submit": &#8594; "to submit". Pronoun: "your" &#8594; "their". "Friday" stays unchanged.`,
+    h2:`Pattern: The manager <b>told/ordered the staff to submit their reports</b> before Friday. Key: (1) "told/ordered/instructed", (2) "Submit" &#8594; "to submit", (3) "your" &#8594; "their".`
+  },
+  { // x
+    lbl:"x", cat:"Statement", clr:"#1565c0",
+    dir:`She said to me, 'I have finished my homework.'`,
+    req:[["told","said"],["had finished","she had finished"],["homework"]],
+    model:"She told me that she had finished her homework.",
+    exp:`<b>&#10003; Model Answer:</b> She told me that she had finished her homework.<div class="rule-line">&#128218; <b>Rule &mdash; Statement (Present Perfect &#8594; Past Perfect):</b><br>&#8226; Reporting verb: "said to me" &#8594; <b>told me</b><br>&nbsp;&nbsp;(When there is an object/listener, use "told", not "said")<br>&#8226; Pronoun: "I" &#8594; "she" | "my" &#8594; <b>her</b><br>&#8226; Tense: "have finished" &#8594; <b>had finished</b> (present perfect &#8594; past perfect)<br>&#128161; Key rule: "said to me" &#8594; "told me" | "said to him" &#8594; "told him"</div>`,
+    h1:`IMPORTANT: Because there is an object "me", use <b>"told me"</b> instead of "said to me". Tense: "have finished" &#8594; <b>"had finished"</b>. Pronouns: "I" &#8594; "she", "my" &#8594; "her".`,
+    h2:`Pattern: She <b>told me that she had finished her homework</b>. Key: (1) "said to me" &#8594; "told me", (2) "have finished" &#8594; "had finished", (3) "I" &#8594; "she", (4) "my" &#8594; "her".`
+  },
+  { // y
+    lbl:"y", cat:"Suggestion / WH Question", clr:"#2e7d32",
+    dir:`'Why don't we take a short break?' she said to her colleagues.`,
+    req:[["suggested","proposed","asked","enquired","said"],["short break","a break","take a break"],["should take","take a","they take","why they","why they didn","why they don","they should"]],
+    model:"She suggested to her colleagues that they should take a short break.",
+    exp:`<b>&#10003; Both patterns are accepted:</b><br>1. She suggested to her colleagues that they should take a short break.<br>2. She asked her colleagues why they didn't take a short break.<div class="rule-line">&#128218; <b>Rule &mdash; "Why don't we...?" as Suggestion:</b><br>&#8226; "Why don't we...?" = a suggestion in question form<br>&#8226; Pattern 1 (Suggestion): <b>suggested</b> that they should take a short break<br>&#8226; Pattern 2 (WH Question): <b>asked</b> her colleagues why they didn't take a short break<br>&#128161; For STBB exams, Pattern 1 with "suggested" is the safest answer.</div>`,
+    h1:`"Why don't we...?" = a <b>suggestion in question form</b>. Two valid patterns: (1) As suggestion: <b>"suggested that they should take a short break"</b>. (2) As WH question: <b>"asked her colleagues why they didn't take a short break"</b>. Both are correct.`,
+    h2:`Pattern 1 (recommended): She <b>suggested to her colleagues that they should take a short break</b>.<br>Pattern 2: She <b>asked her colleagues why they didn't take a short break</b>.<br>For STBB exams, use Pattern 1 with "suggested" for safe marks.`
+  }
+];
+
+// ── STATE ──────────────────────────────────────────────────────────────────
+const gst = { correct:0, firstTry:0, revealed:0, done:0 };
+const qst = {}; // idx → { attempts:0, solved:false, revd:false }
+QS.forEach((_,i) => { qst[i] = { attempts:0, solved:false, revd:false }; });
+
+// ── KEYWORD CHECK ──────────────────────────────────────────────────────────
+function kwCheck(answer, groups){
+  const a = answer.toLowerCase();
+  return groups.every(grp => grp.some(kw => a.includes(kw.toLowerCase())));
+}
+
+// ── BUILD UI ───────────────────────────────────────────────────────────────
+function buildUI(){
+  const area = document.getElementById('quizArea');
+  let html = '';
+  QS.forEach((q,i) => {
+    html += `
+    <div class="q-card" id="qcard_${i}">
+      <div class="q-top">
+        <div class="q-letter">${q.lbl}</div>
+        <div class="q-content">
+          <div class="direct-label">&#128203; Direct Speech:</div>
+          <div class="direct-text">${q.dir}</div>
+          <div class="meta-row">
+            <span class="cat-tag" style="background:${q.clr}">${q.cat}</span>
+            <div class="dots">
+              <div class="dot" id="dot_${i}_0"></div>
+              <div class="dot" id="dot_${i}_1"></div>
+              <div class="dot" id="dot_${i}_2"></div>
+            </div>
+            <span class="att-info" id="attinfo_${i}">3 tries available</span>
+          </div>
+          <div class="ans-label">&#9998; Write the Indirect (Reported) Speech:</div>
+          <textarea class="ans-textarea" id="ta_${i}" placeholder="Write the full indirect speech sentence here…" rows="3"></textarea>
+          <div class="btn-row">
+            <button class="check-btn" id="chk_${i}" onclick="checkQ(${i})">&#10003; Check</button>
+            <button class="clear-btn" id="clr_${i}" onclick="clearQ(${i})">&#8635; Clear</button>
+            <span id="stbadge_${i}"></span>
+          </div>
+        </div>
+      </div>
+      <div class="feedback" id="fb_${i}"></div>
+    </div>`;
+  });
+  area.innerHTML = html;
+}
+
+// ── CHECK ──────────────────────────────────────────────────────────────────
+function checkQ(idx){
+  const s = qst[idx];
+  if(s.solved || s.revd) return;
+  const q = QS[idx];
+  const raw = document.getElementById(`ta_${idx}`).value;
+  if(!raw.trim()){ shakeTA(idx); return; }
+
+  const ok = kwCheck(raw, q.req);
+
+  if(ok){
+    markCorrect(idx, s.attempts === 0);
+  } else {
+    s.attempts++;
+    markDot(idx, s.attempts - 1, false);
+    const rem = 3 - s.attempts;
+    document.getElementById(`attinfo_${idx}`).textContent = rem > 0 ? `${rem} tr${rem===1?'y':'ies'} left` : 'Last chance used';
+    flashTA(idx);
+    if(s.attempts === 1){
+      showFB(idx,
+        `<div class="fb-hd h-wrong">&#10007; Not quite right &mdash; Hint 1 of 2</div>`,
+        `${q.h1}<div class="try-note">&#128204; Hint 1 given. <b>${3-s.attempts} tr${3-s.attempts===1?'y':'ies'}</b> remaining. Edit your answer and try again!</div>`,
+        'b-wrong'
+      );
+    } else if(s.attempts === 2){
+      showFB(idx,
+        `<div class="fb-hd h-hint2">&#10007; Still incorrect &mdash; Hint 2 of 2</div>`,
+        `${q.h2}<div class="try-note">&#128204; This is your <b>last try</b>. Think carefully before submitting!</div>`,
+        'b-wrong'
+      );
+    } else {
+      // reveal
+      s.revd = true;
+      gst.revealed++;
+      gst.done++;
+      updateStats();
+      doReveal(idx, q);
+    }
+  }
+}
+
+function markCorrect(idx, isFirst){
+  const s = qst[idx];
+  s.solved = true;
+  gst.correct++;
+  if(isFirst) gst.firstTry++;
+  gst.done++;
+  updateStats();
+  const ta = document.getElementById(`ta_${idx}`);
+  ta.classList.add('correct-ta');
+  ta.disabled = true;
+  document.getElementById(`chk_${idx}`).disabled = true;
+  document.getElementById(`clr_${idx}`).disabled = true;
+  markDot(idx, s.attempts, true);
+  document.getElementById(`attinfo_${idx}`).textContent = '';
+  const sb = document.getElementById(`stbadge_${idx}`);
+  sb.innerHTML = isFirst
+    ? `<span class="st-badge ok">&#11088; Correct &mdash; First Try!</span>`
+    : `<span class="st-badge ok">&#10003; Correct!</span>`;
+  document.getElementById(`qcard_${idx}`).classList.add('solved');
+  document.getElementById(`qcard_${idx}`).querySelector('.q-letter').style.background = '#2e7d32';
+  showFB(idx,
+    `<div class="fb-hd h-ok">&#10003; Excellent! Correct answer!</div>`,
+    QS[idx].exp, 'b-ok'
+  );
+  if(gst.done === QS.length) setTimeout(showOverall, 700);
+}
+
+function doReveal(idx, q){
+  const ta = document.getElementById(`ta_${idx}`);
+  ta.classList.add('revealed-ta');
+  ta.disabled = true;
+  document.getElementById(`chk_${idx}`).disabled = true;
+  document.getElementById(`clr_${idx}`).disabled = true;
+  document.getElementById(`attinfo_${idx}`).textContent = '';
+  document.getElementById(`stbadge_${idx}`).innerHTML = `<span class="st-badge rev">&#128274; Answer Revealed</span>`;
+  document.getElementById(`qcard_${idx}`).classList.add('revealed');
+  document.getElementById(`qcard_${idx}`).querySelector('.q-letter').style.background = '#e65100';
+  showFB(idx,
+    `<div class="fb-hd h-reveal">&#128274; Answer Revealed &mdash; Study this carefully!</div>`,
+    `${q.exp}<div class="try-note" style="background:#f3e5f5;border-color:#ce93d8;color:#6a1b9a">&#128218; Read the explanation carefully and practise writing this type of sentence again!</div>`,
+    'b-reveal'
+  );
+  if(gst.done === QS.length) setTimeout(showOverall, 700);
+}
+
+function clearQ(idx){
+  const s = qst[idx];
+  if(s.solved || s.revd) return;
+  document.getElementById(`ta_${idx}`).value = '';
+  document.getElementById(`ta_${idx}`).className = 'ans-textarea';
+  document.getElementById(`ta_${idx}`).focus();
+}
+
+// ── HELPERS ────────────────────────────────────────────────────────────────
+function showFB(idx, header, body, bodyClass){
+  const el = document.getElementById(`fb_${idx}`);
+  el.innerHTML = `${header}<div class="fb-body ${bodyClass}">${body}</div>`;
+  el.classList.add('show');
+  setTimeout(() => { el.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 100);
+}
+
+function markDot(idx, dotIdx, ok){
+  if(dotIdx > 2) return;
+  const d = document.getElementById(`dot_${idx}_${dotIdx}`);
+  if(d) d.classList.add(ok ? 'ok-dot' : 'wrong-dot');
+}
+
+function flashTA(idx){
+  const ta = document.getElementById(`ta_${idx}`);
+  ta.classList.add('wrong-ta');
+  setTimeout(() => { ta.classList.remove('wrong-ta'); }, 700);
+}
+
+function shakeTA(idx){
+  const ta = document.getElementById(`ta_${idx}`);
+  ta.classList.add('shake');
+  setTimeout(() => { ta.classList.remove('shake'); }, 400);
+}
+
+// ── STATS ──────────────────────────────────────────────────────────────────
+function updateStats(){
+  document.getElementById('stC').textContent = gst.correct;
+  document.getElementById('stF').textContent = gst.firstTry;
+  document.getElementById('stR').textContent = gst.revealed;
+  const pct = gst.done > 0 ? Math.round(gst.correct / QS.length * 100) : 0;
+  document.getElementById('stS').textContent = gst.done > 0 ? pct + '%' : '—';
+}
+
+// ── OVERALL ────────────────────────────────────────────────────────────────
+function showOverall(){
+  const c = gst.correct, f = gst.firstTry, t = QS.length;
+  const pct = Math.round(c / t * 100);
+  let grade, msg;
+  if(f === t){   grade='A+ &#127942;'; msg='Perfect! Every sentence correct on the very first try. Outstanding narration skill!'; }
+  else if(pct>=88){ grade='A';         msg='Excellent! Very strong command of narration rules.'; }
+  else if(pct>=72){ grade='B';         msg='Good effort! A solid understanding with a few areas to revise.'; }
+  else if(pct>=56){ grade='C';         msg='Satisfactory. Revise the rules for the questions that were revealed.'; }
+  else {           grade='D';         msg='Needs more revision. Re-read all explanations and practise each type again.'; }
+  document.getElementById('ovSc').textContent = `${c} / ${t}`;
+  document.getElementById('ovSb').innerHTML = `Score: <b>${pct}%</b> &nbsp;|&nbsp; First-try: <b>${f}</b> &nbsp;|&nbsp; Revealed: <b>${gst.revealed}</b>`;
+  document.getElementById('ovGr').innerHTML = `Grade: ${grade} &mdash; ${msg}`;
+  const el = document.getElementById('overall');
+  el.classList.add('show');
+  el.scrollIntoView({ behavior:'smooth' });
+}
+
+// ── WATERMARK ──────────────────────────────────────────────────────────────
+(function(){
+  const wm = document.getElementById('wm');
+  let h = '';
+  for(let r=0;r<14;r++) for(let c=0;c<6;c++)
+    h += `<span style="top:${r*130+40}px;left:${c*200+10}px">Smart Study Center</span>`;
+  wm.innerHTML = h;
+})();
+
+buildUI();
+</script>
+</body>
+</html>
