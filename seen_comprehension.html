@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seen Comprehension Class XI | Smart Study Center</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(135deg,#0d47a1 0%,#1565c0 50%,#1976d2 100%);min-height:100vh;padding:20px}
+.container{max-width:980px;margin:0 auto;background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.35);overflow:hidden}
+
+/* ── BRAND HEADER ── */
+.brand-header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:12px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.brand-name{font-size:17px;font-weight:800}
+.brand-sub{font-size:12px;color:#a8b4d8;letter-spacing:1px;text-transform:uppercase}
+.brand-contact{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:6px 16px;font-size:14px;font-weight:600;color:#e0e6ff}
+
+/* ── MAIN HEADER ── */
+.header{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:28px;text-align:center}
+.header h1{font-family:'Playfair Display',serif;font-size:26px;margin-bottom:6px;font-weight:900}
+.header p{opacity:.9;font-size:14px}
+.badge-row{display:flex;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700}
+
+/* ── STATS BAR ── */
+.stats{display:flex;justify-content:space-around;padding:16px;background:#f8f9fa;border-bottom:2px solid #e9ecef;flex-wrap:wrap;gap:8px}
+.stat-item{text-align:center}
+.stat-label{font-size:11px;color:#6c757d;text-transform:uppercase;letter-spacing:1px}
+.stat-value{font-size:22px;font-weight:800;color:#0d47a1;margin-top:4px}
+
+/* ── INSTRUCTIONS ── */
+.instructions{margin:20px 25px;padding:16px 20px;background:#fff8e1;border-left:5px solid #f9a825;border-radius:10px;font-size:13.5px;line-height:1.85;color:#5d4037}
+.instructions strong{color:#e65100}
+
+/* ── NAV PILLS ── */
+.nav-pills{display:flex;gap:8px;flex-wrap:wrap;padding:0 25px 16px;justify-content:center}
+.nav-pill{background:#e8eaf6;color:#3949ab;border:none;padding:7px 18px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;border:2px solid transparent}
+.nav-pill:hover{background:#c5cae9}
+.nav-pill.done-pill{background:#e8f5e9;color:#2e7d32;border-color:#a5d6a7}
+
+/* ── PASSAGE BLOCK ── */
+.passage-block{margin:0 25px 30px;border-radius:14px;overflow:hidden;border:2px solid #e3e8f0;box-shadow:0 4px 16px rgba(13,71,161,.08)}
+.passage-header{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.passage-label{font-family:'Playfair Display',serif;font-size:16px;font-weight:700}
+.passage-meta{font-size:12px;opacity:.85;background:rgba(255,255,255,.15);padding:4px 12px;border-radius:12px}
+.passage-marks{font-size:13px;font-weight:700;background:rgba(255,255,255,.2);padding:4px 14px;border-radius:12px}
+.passage-text-wrap{padding:20px;background:#f0f4ff;border-bottom:2px solid #e3e8f0}
+.passage-text-wrap p{font-size:14.5px;line-height:2;color:#1a1a2e;font-family:'Source Sans 3',sans-serif;text-align:justify}
+.passage-text-label{font-size:11px;font-weight:700;color:#0d47a1;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+
+/* ── QUESTION CARDS ── */
+.q-area{padding:16px 20px 20px}
+.q-card{background:#f8f9fa;border-radius:12px;padding:16px 18px;margin-bottom:14px;border-left:5px solid #0d47a1;transition:border-color .3s,background .3s}
+.q-card.q-correct{border-left-color:#2e7d32;background:#f0faf0}
+.q-card.q-revealed{border-left-color:#e65100;background:#fff9f5}
+.q-card.q-self-marked{border-left-color:#2e7d32;background:#f0faf0}
+.q-num-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.q-num{background:#0d47a1;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex-shrink:0}
+.q-card.q-correct .q-num,.q-card.q-self-marked .q-num{background:#2e7d32}
+.q-card.q-revealed .q-num{background:#e65100}
+.q-text{font-size:14.5px;color:#222;line-height:1.7;flex:1}
+.marks-tag{background:#0d47a1;color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;margin-left:auto;white-space:nowrap}
+.q-card.q-correct .marks-tag,.q-card.q-self-marked .marks-tag{background:#2e7d32}
+.q-card.q-revealed .marks-tag{background:#e65100}
+
+/* ── TEXTAREA ── */
+.ans-textarea{width:100%;border:2px solid #c5cae9;border-radius:8px;padding:10px 14px;font-size:13.5px;font-family:'Source Sans 3',sans-serif;resize:vertical;min-height:70px;color:#222;outline:none;transition:border-color .3s;margin-top:8px;line-height:1.7}
+.ans-textarea:focus{border-color:#0d47a1}
+.ans-textarea:disabled{background:#f5f5f5;cursor:not-allowed}
+
+/* ── REVEAL BUTTONS ── */
+.btn-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center}
+.reveal-btn{background:#0d47a1;color:#fff;border:none;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.reveal-btn:hover:not(:disabled){background:#1565c0;transform:translateY(-1px)}
+.reveal-btn:disabled{background:#aaa;cursor:not-allowed}
+.self-yes{background:#2e7d32;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.self-yes:hover:not(:disabled){background:#388e3c}
+.self-yes:disabled{display:none}
+.self-no{background:#c62828;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.self-no:hover:not(:disabled){background:#d32f2f}
+.self-no:disabled{display:none}
+.status-badge{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
+.status-ok{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7}
+.status-rev{background:#fff3e0;color:#e65100;border:1px solid #ffcc80}
+.status-wrong{background:#ffebee;color:#c62828;border:1px solid #ef9a9a}
+
+/* ── MODEL ANSWER BOX ── */
+.model-answer{display:none;border-radius:9px;overflow:hidden;margin-top:10px;font-size:13.5px}
+.model-answer.show{display:block}
+.ma-head{padding:9px 15px;font-weight:800;font-size:13px}
+.ma-head-blue{background:#0d47a1;color:#fff}
+.ma-head-green{background:#2e7d32;color:#fff}
+.ma-head-orange{background:#e65100;color:#fff}
+.ma-body{padding:13px 15px;border:1.5px solid #e0e0e0;border-top:none;border-radius:0 0 9px 9px;background:#fff;line-height:1.85;color:#333}
+.self-ask{margin-top:10px;padding:10px 14px;background:#fff8e1;border-radius:8px;font-size:13px;color:#5d4037;border:1px solid #ffe082;font-weight:600}
+
+/* ── WORD CLASS BUTTONS ── */
+.wc-word{font-size:15px;font-weight:700;color:#0d47a1;margin-bottom:10px;padding:6px 12px;background:#e8eaf6;border-radius:8px;display:inline-block}
+.wc-word.wc-correct{color:#2e7d32;background:#e8f5e9}
+.wc-word.wc-wrong{color:#c62828;background:#ffebee}
+.wc-word.wc-revealed{color:#e65100;background:#fff3e0}
+.wc-btn-grid{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+.wc-btn{background:#e8eaf6;color:#3949ab;border:2px solid #c5cae9;padding:7px 14px;border-radius:8px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.wc-btn:hover:not(:disabled):not(.wc-btn-used){background:#c5cae9;transform:translateY(-1px)}
+.wc-btn:disabled{cursor:not-allowed;opacity:.5}
+.wc-btn-used{opacity:.4}
+.wc-btn-correct{background:#2e7d32!important;color:#fff!important;border-color:#2e7d32!important;opacity:1!important}
+.wc-btn-wrong{background:#c62828!important;color:#fff!important;border-color:#c62828!important}
+.wc-btn-revealed{background:#e65100!important;color:#fff!important;border-color:#e65100!important;opacity:1!important}
+.wc-item{background:#fff;border-radius:10px;padding:14px;margin-bottom:12px;border:1.5px solid #e0e0e0}
+.wc-item.wc-item-done{border-color:#a5d6a7;background:#f0faf0}
+.wc-item.wc-item-revealed{border-color:#ffcc80;background:#fff9f5}
+.wc-dots{display:flex;gap:5px;margin-bottom:8px}
+.wc-dot{width:10px;height:10px;border-radius:50%;background:#dee2e6}
+.wc-dot.used{background:#ef9a9a}
+.wc-dot.correct{background:#81c784}
+.wc-feedback{display:none;border-radius:8px;overflow:hidden;font-size:13px;margin-top:8px}
+.wc-feedback.show{display:block}
+.wc-fb-h{padding:8px 13px;font-weight:800;font-size:12.5px}
+.wc-fb-h.fh-wrong{background:#c62828;color:#fff}
+.wc-fb-h.fh-ok{background:#2e7d32;color:#fff}
+.wc-fb-h.fh-rev{background:#5d4037;color:#fff}
+.wc-fb-b{padding:11px 13px;border:1.5px solid #e0e0e0;border-top:none;border-radius:0 0 8px 8px;background:#fff;line-height:1.8;color:#333}
+.wc-fb-b.fb-wrong-b{border-color:#ef9a9a}
+.wc-fb-b.fb-ok-b{border-color:#a5d6a7}
+.wc-fb-b.fb-rev-b{border-color:#ffcc80}
+.try-note{margin-top:8px;padding:7px 12px;background:#fff8e1;border-radius:7px;font-size:12px;color:#e65100;font-weight:600;border:1px solid #ffe082}
+
+/* ── MEANINGS SECTION ── */
+.meaning-item{background:#fff;border-radius:10px;padding:14px;margin-bottom:10px;border:1.5px solid #e0e0e0}
+.meaning-item.m-revealed{border-color:#ffcc80;background:#fff9f5}
+.meaning-item.m-correct{border-color:#a5d6a7;background:#f0faf0}
+.phrase-label{font-size:14px;font-weight:700;color:#0d47a1;margin-bottom:8px}
+.meaning-item.m-revealed .phrase-label{color:#e65100}
+.meaning-item.m-correct .phrase-label{color:#2e7d32}
+.meaning-input{width:100%;border:2px solid #c5cae9;border-radius:7px;padding:8px 12px;font-size:13.5px;font-family:'Source Sans 3',sans-serif;color:#222;outline:none;transition:border-color .3s}
+.meaning-input:focus{border-color:#0d47a1}
+.meaning-input:disabled{background:#f5f5f5;cursor:not-allowed}
+.m-reveal-btn{background:#0d47a1;color:#fff;border:none;padding:6px 14px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px;transition:all .2s}
+.m-reveal-btn:hover:not(:disabled){background:#1565c0}
+.m-reveal-btn:disabled{background:#aaa;cursor:not-allowed}
+.m-answer-box{display:none;margin-top:8px;padding:10px 13px;background:#f0faf0;border-radius:7px;border:1px solid #a5d6a7;font-size:13px;line-height:1.75;color:#1b5e20}
+.m-answer-box.show{display:block}
+.m-self-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center}
+
+/* ── PROGRESS BAR ── */
+.progress-wrap{margin:0 25px 10px;background:#e3e8f0;border-radius:8px;height:10px;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,#0d47a1,#1976d2);border-radius:8px;transition:width .5s}
+.progress-label{text-align:center;font-size:12px;color:#666;margin-bottom:14px}
+
+/* ── OVERALL RESULT ── */
+.overall-result{margin:0 25px 25px;padding:24px;background:linear-gradient(135deg,#0d47a1,#1565c0);border-radius:14px;color:#fff;text-align:center;display:none}
+.overall-result.show{display:block}
+.overall-result h3{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:8px}
+.ov-score{font-size:52px;font-weight:900;line-height:1.1}
+.ov-sub{font-size:14px;opacity:.85;margin-top:6px}
+.grade-pill{display:inline-block;margin-top:14px;padding:8px 24px;border-radius:20px;font-weight:800;font-size:15px;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.4)}
+.ov-breakdown{margin-top:16px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.ov-box{background:rgba(255,255,255,.15);border-radius:10px;padding:10px 20px;font-size:13px}
+.ov-box b{display:block;font-size:20px;font-weight:900}
+
+/* ── FOOTER ── */
+.brand-footer{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:16px 30px;text-align:center}
+.footer-main{font-size:14px;font-weight:700;color:#e0e6ff}
+.footer-sub{font-size:11px;color:#a8b4d8;margin-top:4px}
+.fdiv{margin:0 8px;opacity:.4}
+
+/* ── WATERMARK ── */
+.wm{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
+.wm span{position:absolute;font-size:14px;font-weight:700;color:rgba(13,71,161,.055);white-space:nowrap;transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase}
+
+@media(max-width:600px){
+  .passage-block{margin-left:14px;margin-right:14px}
+  .instructions{margin-left:14px;margin-right:14px}
+  .nav-pills{padding:0 14px 14px}
+  .passage-text-wrap p{font-size:13.5px}
+  .q-text{font-size:13.5px}
+}
+</style>
+</head>
+<body>
+<div class="wm" id="wm"></div>
+<div class="container">
+
+  <div class="brand-header">
+    <div><div class="brand-name">Sir Ahmer Javed</div><div class="brand-sub">Smart Study Center</div></div>
+    <div class="brand-contact">&#128222; 0345-3090057</div>
+  </div>
+
+  <div class="header">
+    <h1>&#128214; English Language Class XI &mdash; Seen Comprehension</h1>
+    <p>Interactive Practice Worksheet &nbsp;|&nbsp; STBB Board Exam Preparation 2026</p>
+    <div class="badge-row">
+      <span class="badge">&#128203; 6 Passages</span>
+      <span class="badge">&#127775; 10 Marks Each</span>
+      <span class="badge">&#9989; Word Class Auto-Validated</span>
+      <span class="badge">&#128202; Live Score</span>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-item"><div class="stat-label">Passages</div><div class="stat-value">6</div></div>
+    <div class="stat-item"><div class="stat-label">Auto Score</div><div class="stat-value" id="stAuto">0</div></div>
+    <div class="stat-item"><div class="stat-label">Self Score</div><div class="stat-value" id="stSelf">0</div></div>
+    <div class="stat-item"><div class="stat-label">Total</div><div class="stat-value" id="stTotal">0/60</div></div>
+    <div class="stat-item"><div class="stat-label">Done</div><div class="stat-value" id="stDone">0%</div></div>
+  </div>
+
+  <div class="instructions">
+    <strong>&#128204; Instructions &amp; Validation System:</strong><br>
+    &#10148; <strong>Questions i, ii, iii</strong> (Comprehension): Write your answer in the box &rarr; click <b>Reveal Model Answer</b> &rarr; honestly mark yourself ✓ or ✗.<br>
+    &#10148; <strong>Question iv</strong> (Word Class): Click the correct word class button &mdash; <b>fully auto-validated</b> with hints on wrong attempts.<br>
+    &#10148; <strong>Question v</strong> (Meanings): Write the meaning &rarr; click <b>Reveal</b> to compare &rarr; self-mark ✓ or ✗.<br>
+    &#10148; <strong>Attempts:</strong> Word class gets 3 tries with hints. All other questions: reveal when ready.
+  </div>
+
+  <div class="nav-pills" id="navPills"></div>
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 30 questions answered</div>
+
+  <div id="passageArea"></div>
+
+  <div class="overall-result" id="overallResult">
+    <h3>&#127881; All Passages Completed!</h3>
+    <div class="ov-score" id="ovScore"></div>
+    <div class="ov-sub" id="ovSub"></div>
+    <div class="ov-breakdown">
+      <div class="ov-box"><b id="ovAuto">0</b>Auto (Word Class)</div>
+      <div class="ov-box"><b id="ovSelfB">0</b>Self-Marked</div>
+    </div>
+    <div class="grade-pill" id="ovGrade"></div>
+  </div>
+
+  <div class="brand-footer">
+    <div class="footer-main">Sir Ahmer Javed <span class="fdiv">|</span> Smart Study Center <span class="fdiv">|</span> &#128222; 0345-3090057</div>
+    <div class="footer-sub">English Language Class XI &mdash; Seen Comprehension &nbsp;|&nbsp; STBB Board Exam Prep 2026</div>
+  </div>
+</div>
+
+<script>
+// ── PASSAGE DATA ──────────────────────────────────────────────────────────────
+const PASSAGES = [
+  {
+    num:1, label:"Passage 1 — Model Paper 2026", topic:"Life by the Lake",
+    text:`A school of fish swam by, each fish with its small, individual shadow, doubling the attendance, so clear and sharp in the sunlight. Some of the other campers were in swimming, along the shore, one of them with a cake of soap, and the water felt thin and clear and insubstantial. There had been peace and goodness and jollity.`,
+    qs:[
+      { type:'short', num:'i', marks:1,
+        q:'Write the title and the writer of the given passage.',
+        model:'<b>Title:</b> "Once More to the Lake" &nbsp;|&nbsp; <b>Writer:</b> E.B. White<br><small style="color:#555">The passage is an excerpt from E.B. White\'s famous personal essay describing a lakeside vacation.</small>' },
+      { type:'short', num:'ii', marks:1,
+        q:'Identify the two activities of the campers.',
+        model:'The two activities of the campers are: (1) <b>Swimming</b> along the shore, and (2) <b>Washing/bathing</b> using a cake of soap in the water.' },
+      { type:'short', num:'iii', marks:2,
+        q:'Which three features of the lake are praised by the writer?',
+        model:'The three features of the lake praised by the writer are: (1) <b>Thin</b> — the water felt remarkably light and pure. (2) <b>Clear</b> — the water was so transparent that fish shadows were visible. (3) <b>Insubstantial</b> — the water felt almost weightless and delicate. The writer also mentions <b>peace, goodness and jollity</b> as the emotional qualities of the scene.' },
+      { type:'wordclass', num:'iv', marks:3,
+        q:'Classify the word class of the following words:',
+        words:[
+          { word:'each', answer:'Adjective', alt:['Determiner'],
+            hint1:'This word comes directly before "fish" in "each fish". It modifies the noun — which class does that?',
+            hint2:'A word that modifies or describes a noun is an <b>Adjective</b> (or Determiner). "Each fish" — each tells us which fish we mean.',
+            exp:'"Each" is an <b>Adjective / Determiner</b>. It precedes and modifies the noun "fish", describing which fish is meant. Rule: words that modify nouns are adjectives (determiners).' },
+          { word:'and', answer:'Conjunction',
+            hint1:'This word appears between "peace", "goodness" and "jollity" — it joins these words together in a list.',
+            hint2:'A word that connects/joins words, phrases or clauses is a <b>Conjunction</b>. "Peace and goodness and jollity" — and joins all three.',
+            exp:'"And" is a <b>Conjunction</b> (specifically a Co-ordinating Conjunction). It joins words, phrases and clauses of equal rank. Here it connects "peace", "goodness" and "jollity".' },
+          { word:'water', answer:'Noun',
+            hint1:'This word names a substance — one of the most essential elements found in rivers, lakes and oceans.',
+            hint2:'A word that names a person, place, thing or substance is a <b>Noun</b>. "The water felt thin" — water is the thing being discussed.',
+            exp:'"Water" is a <b>Noun</b> (specifically a Common, Uncountable Noun). It names a substance/thing. Here it functions as the subject of "felt thin and clear".' }
+        ]
+      },
+      { type:'meanings', num:'v', marks:3,
+        q:'Define the following phrases as used in the passage:',
+        items:[
+          { phrase:'a school of fish', model:'A large group of fish swimming together in the same direction; a collective term for a group of fish.' },
+          { phrase:'in the sunlight', model:'Exposed to the direct light of the sun; in the bright natural light produced by the sun.' },
+          { phrase:'a cake of soap', model:'A solid, shaped bar or block of soap used for washing the body.' }
+        ]
+      }
+    ]
+  },
+  {
+    num:2, label:"Passage 2 — Deforestation", topic:"The Threat of Deforestation",
+    text:`Forests are the lungs of the Earth. They absorb carbon dioxide and release oxygen, making life possible for millions of species. However, deforestation is occurring at an alarming rate across the globe. Every minute, acres of forest land are cleared for farming, construction and industrial use. This destruction not only threatens the habitat of countless animals but also contributes significantly to climate change. Indigenous communities who have lived in forests for generations are losing their homes and their way of life. Scientists warn that if deforestation continues at its current pace, the consequences for our planet will be irreversible. It is therefore the collective responsibility of governments, industries and ordinary citizens to protect what remains of our forests before it is too late.`,
+    qs:[
+      { type:'short', num:'i', marks:1,
+        q:'What is the main idea of the given passage?',
+        model:'The main idea is that <b>deforestation is a serious global threat</b> that destroys animal habitats, displaces indigenous communities and accelerates climate change — making it the collective responsibility of everyone to protect forests.' },
+      { type:'short', num:'ii', marks:1,
+        q:'Why are forests described as "the lungs of the Earth"?',
+        model:'Forests are called "the lungs of the Earth" because, just like lungs process air for the body, <b>forests absorb carbon dioxide and release oxygen</b>, making life possible for millions of species.' },
+      { type:'short', num:'iii', marks:2,
+        q:'What are the two major consequences of deforestation mentioned in the passage?',
+        model:'(1) It <b>threatens the habitat of countless animals</b>, endangering their survival and biodiversity.<br>(2) It <b>contributes significantly to climate change</b>, worsening environmental conditions for the entire planet.' },
+      { type:'wordclass', num:'iv', marks:3,
+        q:'Classify the word class of the following words:',
+        words:[
+          { word:'alarming', answer:'Adjective',
+            hint1:'This word appears before "rate" — "alarming rate". It describes the rate. Which class describes nouns?',
+            hint2:'A word that describes or modifies a noun is an <b>Adjective</b>. "An alarming rate" — alarming tells us what kind of rate it is.',
+            exp:'"Alarming" is an <b>Adjective</b>. It modifies the noun "rate", describing its frightening nature. It comes from the verb "alarm" but functions as an adjective here.' },
+          { word:'however', answer:'Conjunction', alt:['Adverb'],
+            hint1:'This word begins a sentence that contrasts with the previous one. It links two opposing ideas together.',
+            hint2:'A word that joins contrasting ideas between sentences is a <b>Conjunction</b> (Conjunctive Adverb). "Forests are the lungs... However, deforestation is..." — however shows contrast.',
+            exp:'"However" is a <b>Conjunction / Conjunctive Adverb</b>. It connects contrasting ideas. Both "Conjunction" and "Adverb" are accepted at this level.' },
+          { word:'habitat', answer:'Noun',
+            hint1:'This word names the natural environment or home of animals. It is a concept/thing — which class names things?',
+            hint2:'A word that names a place, thing or concept is a <b>Noun</b>. "Habitat" names the natural home/environment of animals.',
+            exp:'"Habitat" is a <b>Noun</b> (Abstract/Common Noun). It names the concept of a natural environment — the place where animals naturally live and thrive.' },
+          { word:'collectively', answer:'Adverb',
+            hint1:'This word tells us HOW the responsibility is shared. It modifies an idea about responsibility — answering "how?"',
+            hint2:'A word that modifies a verb or adjective, answering "how?", is an <b>Adverb</b>. "Collectively responsible" — collectively tells us how.',
+            exp:'"Collectively" is an <b>Adverb</b>. It modifies the idea of shared responsibility, answering "how?" (How is it their responsibility? — Collectively / together as a group).' }
+        ]
+      },
+      { type:'meanings', num:'v', marks:3,
+        q:'Give the meaning of the following words as used in the passage:',
+        items:[
+          { phrase:'deforestation', model:'The large-scale clearing, cutting down or removal of forests, especially to use the land for farming, construction or industrial purposes.' },
+          { phrase:'irreversible', model:'Impossible to undo, reverse or return to a previous state; permanent and cannot be changed back.' },
+          { phrase:'indigenous', model:'Native or original to a particular region; referring to communities that have inhabited an area for thousands of years before others.' }
+        ]
+      }
+    ]
+  },
+  {
+    num:3, label:"Passage 3 — The Power of Reading", topic:"The Importance of Reading",
+    text:`Reading is one of the most powerful habits a person can develop. It not only improves vocabulary and language skills but also strengthens the ability to think critically and empathetically. When we read, we enter the minds of characters and experience worlds beyond our own. This develops imagination, broadens our perspective and makes us more understanding of others. Studies have shown that people who read regularly are less likely to suffer from stress and mental fatigue. Libraries and books are therefore not merely collections of pages — they are gateways to knowledge and growth. In an age dominated by screens and social media, the habit of reading a physical book is slowly disappearing. Educators and parents must actively encourage children to read from an early age so that this invaluable habit is not lost to future generations.`,
+    qs:[
+      { type:'short', num:'i', marks:1,
+        q:'Suggest a suitable title for the given passage.',
+        model:'Suitable titles include: <b>"The Power of Reading"</b> / <b>"Reading: A Gateway to Knowledge"</b> / <b>"The Importance of Reading"</b> / <b>"Books — Gateways to Growth"</b>' },
+      { type:'short', num:'ii', marks:1,
+        q:'According to the passage, what are two benefits of reading regularly?',
+        model:'(1) Reading <b>improves vocabulary, language skills and critical thinking</b>, and develops imagination and empathy.<br>(2) People who read regularly are <b>less likely to suffer from stress and mental fatigue</b>.' },
+      { type:'short', num:'iii', marks:2,
+        q:'What threat to the habit of reading does the writer identify, and what solution does he suggest?',
+        model:'<b>Threat:</b> In an age dominated by screens and social media, the habit of reading a physical book is slowly disappearing.<br><b>Solution:</b> Educators and parents must actively encourage children to read from an early age so that this invaluable habit is not lost to future generations.' },
+      { type:'wordclass', num:'iv', marks:3,
+        q:'Classify the word class of the following words:',
+        words:[
+          { word:'critically', answer:'Adverb',
+            hint1:'This word follows "think" — "think critically". It tells us HOW we should think. Which class answers "how?"',
+            hint2:'A word that modifies a verb and answers "how?" is an <b>Adverb</b>. "Think critically" — critically tells us how to think.',
+            exp:'"Critically" is an <b>Adverb</b>. It modifies the verb "think", answering the question "how?" (How should we think? — Critically / in a careful, analytical way).' },
+          { word:'invaluable', answer:'Adjective',
+            hint1:'This word describes "habit" — "invaluable habit". It tells us what kind of habit reading is.',
+            hint2:'A word that describes/modifies a noun is an <b>Adjective</b>. "Invaluable habit" — invaluable describes the habit as extremely precious.',
+            exp:'"Invaluable" is an <b>Adjective</b>. It modifies the noun "habit", meaning extremely valuable or priceless. Note: invaluable ≠ worthless; it means so valuable it cannot be measured.' },
+          { word:'merely', answer:'Adverb',
+            hint1:'This word limits or qualifies the statement — "not merely collections of pages". It tells us the extent/degree.',
+            hint2:'A word that qualifies a statement, meaning "only" or "just", is an <b>Adverb</b>. "Not merely collections" — merely limits what they are.',
+            exp:'"Merely" is an <b>Adverb</b>. It qualifies and limits the extent of the statement, meaning "only" or "simply". It modifies the noun phrase to reduce its scope.' },
+          { word:'dominated', answer:'Verb',
+            hint1:'This word describes what screens and social media have done to the age — "dominated by screens". It is an action/state.',
+            hint2:'A word that expresses an action, event or state is a <b>Verb</b>. "Dominated by screens" — dominated is the past tense verb showing what screens have done.',
+            exp:'"Dominated" is a <b>Verb</b> (past participle, used in passive voice). "An age dominated by screens" — it expresses the action/state of being controlled or overwhelmed by something.' }
+        ]
+      },
+      { type:'meanings', num:'v', marks:3,
+        q:'Define the following phrases as used in the passage:',
+        items:[
+          { phrase:'think critically', model:'To analyze, question and evaluate information carefully and logically, rather than accepting it at face value without thought.' },
+          { phrase:'gateways to knowledge', model:'Means, paths or entry points through which one gains access to knowledge, learning and intellectual growth.' },
+          { phrase:'mental fatigue', model:'A state of extreme mental tiredness or exhaustion caused by prolonged stress, intense thinking or emotional strain.' }
+        ]
+      }
+    ]
+  },
+  {
+    num:4, label:"Passage 4 — Water Scarcity", topic:"The Crisis of Water Scarcity",
+    text:`Water is the most precious resource on Earth, yet it is the most carelessly wasted. Nearly seventy-one percent of the Earth's surface is covered with water, but only a fraction of it is fresh and suitable for human consumption. Millions of people in developing countries walk miles every day simply to collect clean water for their families. Meanwhile, in wealthier nations, water is wasted through long showers, leaking pipes and unnecessary irrigation. Climate change is further threatening freshwater supplies by causing irregular rainfall and melting glaciers. Scientists predict that water scarcity will be one of the greatest crises of the twenty-first century. Governments must invest in water conservation technology, and individuals must adopt responsible habits in their daily lives. Every drop saved today is a life secured for tomorrow.`,
+    qs:[
+      { type:'short', num:'i', marks:1,
+        q:'What percentage of the Earth\'s surface is covered with water?',
+        model:'According to the passage, <b>nearly seventy-one percent (71%)</b> of the Earth\'s surface is covered with water — but only a small fraction of it is fresh and suitable for human consumption.' },
+      { type:'short', num:'ii', marks:1,
+        q:'How does the writer contrast the use of water in developing and wealthy nations?',
+        model:'In <b>developing countries</b>, millions of people walk miles every day just to collect clean water for basic survival.<br>In <b>wealthy nations</b>, water is carelessly wasted through long showers, leaking pipes and unnecessary irrigation.' },
+      { type:'short', num:'iii', marks:2,
+        q:'What two roles does the writer assign to governments and individuals in addressing water scarcity?',
+        model:'<b>Governments:</b> Must invest in water conservation technology to improve water management at a national and global level.<br><b>Individuals:</b> Must adopt responsible habits in their daily lives to reduce wastage and conserve this precious resource.' },
+      { type:'wordclass', num:'iv', marks:3,
+        q:'Classify the word class of the following words:',
+        words:[
+          { word:'precious', answer:'Adjective',
+            hint1:'This word describes "resource" — "precious resource". It tells us what kind of resource water is.',
+            hint2:'A word that describes/modifies a noun is an <b>Adjective</b>. "Precious resource" — precious describes the resource as extremely valuable.',
+            exp:'"Precious" is an <b>Adjective</b>. It modifies the noun "resource", describing water as extremely valuable and not to be wasted.' },
+          { word:'consumption', answer:'Noun',
+            hint1:'This word refers to the act of using or drinking something. It names a process/concept — which class names things?',
+            hint2:'A word that names an action, concept or process is a <b>Noun</b>. "Human consumption" — consumption names the concept of using or drinking.',
+            exp:'"Consumption" is a <b>Noun</b> (Abstract Noun). It names the process/concept of using up a resource. "Suitable for human consumption" = suitable for people to drink/use.' },
+          { word:'carelessly', answer:'Adverb',
+            hint1:'This word tells us HOW water is wasted — it modifies the verb "wasted". Which class answers "how?"',
+            hint2:'A word that modifies a verb, answering "how?", is an <b>Adverb</b>. "Carelessly wasted" — carelessly tells us the manner of wasting.',
+            exp:'"Carelessly" is an <b>Adverb</b>. It modifies the verb "wasted", answering "how?" (How is water wasted? — Carelessly / without thought or responsibility).' },
+          { word:'yet', answer:'Conjunction',
+            hint1:'This word joins two contrasting ideas in the same sentence: "most precious" and "most carelessly wasted".',
+            hint2:'A word that connects contrasting ideas within a sentence is a <b>Conjunction</b>. "Precious yet wasted" — yet joins opposite ideas.',
+            exp:'"Yet" is a <b>Conjunction</b> (Co-ordinating Conjunction). It joins two contrasting clauses, similar to "but". "Most precious resource... yet most carelessly wasted" shows a strong contrast.' }
+        ]
+      },
+      { type:'meanings', num:'v', marks:3,
+        q:'Give the meaning of the following words as used in the passage:',
+        items:[
+          { phrase:'scarcity', model:'A severe shortage or insufficient supply of something that is needed; a situation where there is not enough of something.' },
+          { phrase:'irrigation', model:'The artificial supply of water to agricultural land or crops through channels, pipes or sprinkler systems to support farming.' },
+          { phrase:'conservation', model:'The careful protection, management and preservation of natural resources to prevent their waste, damage or destruction.' }
+        ]
+      }
+    ]
+  },
+  {
+    num:5, label:"Passage 5 — Social Media", topic:"The Double-Edged Sword of Social Media",
+    text:`Social media has transformed the way people communicate, share information and view the world around them. Platforms such as Instagram, Twitter and Facebook have connected billions of people across continents and made the world a smaller, more accessible place. However, this connectivity comes at a cost. Young people, in particular, are spending excessive hours scrolling through carefully curated images of other people's lives, leading to feelings of inadequacy, anxiety and loneliness. Cyberbullying has also emerged as a serious threat, with individuals hiding behind anonymous profiles to harm others emotionally. Mental health experts warn that unrestricted use of social media is damaging the psychological wellbeing of an entire generation. Parents, schools and governments must work together to promote responsible and balanced use of technology so that its benefits can be enjoyed without surrendering one's mental peace.`,
+    qs:[
+      { type:'short', num:'i', marks:1,
+        q:'Name three social media platforms mentioned in the passage.',
+        model:'The three social media platforms mentioned are: (1) <b>Instagram</b>, (2) <b>Twitter</b>, and (3) <b>Facebook</b>.' },
+      { type:'short', num:'ii', marks:1,
+        q:'According to the passage, what negative effects does social media have on young people?',
+        model:'Social media causes young people to experience feelings of <b>inadequacy, anxiety and loneliness</b> due to excessive exposure to curated images. They also face the threat of <b>cyberbullying</b>, which causes serious emotional harm.' },
+      { type:'short', num:'iii', marks:2,
+        q:'What does the writer suggest as a solution to the problems caused by social media?',
+        model:'The writer suggests that <b>parents, schools and governments must work together</b> to promote responsible and balanced use of technology. The aim is to allow people to enjoy the benefits of social media without sacrificing their mental peace and psychological wellbeing.' },
+      { type:'wordclass', num:'iv', marks:3,
+        q:'Classify the word class of the following words:',
+        words:[
+          { word:'transformed', answer:'Verb',
+            hint1:'This word tells us what social media has done to the way people communicate. It describes an action/change.',
+            hint2:'A word that expresses an action or change is a <b>Verb</b>. "Has transformed the way" — transformed is the action verb showing what social media did.',
+            exp:'"Transformed" is a <b>Verb</b> (past participle). "Social media has transformed..." — it expresses the action/result of a major change. It functions as the main verb of the sentence.' },
+          { word:'anonymous', answer:'Adjective',
+            hint1:'This word describes "profiles" — "anonymous profiles". It tells us what kind of profiles individuals hide behind.',
+            hint2:'A word that describes/modifies a noun is an <b>Adjective</b>. "Anonymous profiles" — anonymous describes the nature of those profiles (hidden identity).',
+            exp:'"Anonymous" is an <b>Adjective</b>. It modifies the noun "profiles", describing them as having no known or identified owner — where the person\'s identity is hidden.' },
+          { word:'excessive', answer:'Adjective',
+            hint1:'This word describes "hours" — "excessive hours". It tells us what kind of hours young people spend on social media.',
+            hint2:'A word that describes/modifies a noun is an <b>Adjective</b>. "Excessive hours" — excessive describes the hours as being too many.',
+            exp:'"Excessive" is an <b>Adjective</b>. It modifies the noun "hours", meaning far too many — beyond what is reasonable or healthy.' },
+          { word:'however', answer:'Conjunction', alt:['Adverb'],
+            hint1:'This word introduces a contrasting idea. It links the positive (connectivity) with the negative (the cost).',
+            hint2:'A word that shows contrast between ideas is a <b>Conjunction</b> (Conjunctive Adverb). Both "Conjunction" and "Adverb" are accepted.',
+            exp:'"However" is a <b>Conjunction / Conjunctive Adverb</b>. It introduces contrast: "Connected the world... However, this comes at a cost." Both answers are correct at this level.' }
+        ]
+      },
+      { type:'meanings', num:'v', marks:3,
+        q:'Define the following phrases as used in the passage:',
+        items:[
+          { phrase:'curated images', model:'Carefully selected, edited and arranged pictures that present a particular — often idealized or perfect — version of someone\'s life.' },
+          { phrase:'psychological wellbeing', model:'The overall state of a person\'s mental and emotional health, including their happiness, peace of mind and ability to cope with stress.' },
+          { phrase:'anonymous profiles', model:'Online accounts where the real name and identity of the person behind them are hidden, unknown or deliberately concealed.' }
+        ]
+      }
+    ]
+  },
+  {
+    num:6, label:"Passage 6 — Exercise & Health", topic:"Exercise: The Key to Health",
+    text:`Exercise is not merely a tool for physical fitness — it is a cornerstone of overall human health. Regular physical activity strengthens the heart, improves blood circulation and helps maintain a healthy body weight. Beyond the body, exercise has profound effects on the mind. It releases chemicals called endorphins, which are natural mood-lifters that reduce stress, anxiety and symptoms of depression. Studies have consistently shown that individuals who exercise at least thirty minutes a day are significantly more productive, focused and emotionally stable than those who lead sedentary lives. Despite these well-documented benefits, a large proportion of the world's population remains physically inactive, largely due to busy schedules, lack of motivation and easy access to technology that encourages sitting. Incorporating even moderate physical activity into one's daily routine can bring about remarkable improvements in both the quality and the length of life.`,
+    qs:[
+      { type:'short', num:'i', marks:1,
+        q:'Suggest a suitable title for the given passage.',
+        model:'Suitable titles: <b>"Exercise: The Key to Health"</b> / <b>"The Benefits of Exercise"</b> / <b>"Exercise and Human Wellbeing"</b> / <b>"Move More, Live Better"</b>' },
+      { type:'short', num:'ii', marks:1,
+        q:'What are endorphins and what role do they play according to the passage?',
+        model:'Endorphins are <b>natural chemicals released by the body during exercise</b>. They act as natural mood-lifters and help <b>reduce stress, anxiety and symptoms of depression</b>, significantly improving a person\'s mental health.' },
+      { type:'short', num:'iii', marks:2,
+        q:'What reasons does the writer give for why people remain physically inactive?',
+        model:'The writer gives three reasons for physical inactivity:<br>(1) <b>Busy schedules</b> — people feel they have no time to exercise.<br>(2) <b>Lack of motivation</b> — people do not feel inspired to be active.<br>(3) <b>Easy access to technology</b> that encourages sitting and a sedentary lifestyle.' },
+      { type:'wordclass', num:'iv', marks:3,
+        q:'Classify the word class of the following words:',
+        words:[
+          { word:'sedentary', answer:'Adjective',
+            hint1:'This word describes "lives" — "sedentary lives". It tells us what kind of lives those people lead (inactive ones).',
+            hint2:'A word that describes/modifies a noun is an <b>Adjective</b>. "Sedentary lives" — sedentary describes the lives as inactive and involving little movement.',
+            exp:'"Sedentary" is an <b>Adjective</b>. It modifies the noun "lives", describing a lifestyle involving much sitting and little physical activity.' },
+          { word:'incorporating', answer:'Verb',
+            hint1:'This word shows an action — the act of including or adding something into one\'s routine.',
+            hint2:'A word that shows an action or ongoing process is a <b>Verb</b>. "Incorporating activity into routine" — incorporating is the action/process.',
+            exp:'"Incorporating" is a <b>Verb</b> (present participle). "Incorporating even moderate activity..." — it expresses the ongoing action of including something as part of a whole.' },
+          { word:'beyond', answer:'Preposition',
+            hint1:'This word shows the relationship between "the body" and the effects of exercise — it indicates going further than something.',
+            hint2:'A word that shows the relationship between a noun and another element (indicating position or extent) is a <b>Preposition</b>. "Beyond the body" — beyond shows the extent.',
+            exp:'"Beyond" is a <b>Preposition</b>. It shows the spatial/conceptual relationship: exercise works beyond (further than) just the physical body — it also affects the mind.' },
+          { word:'remarkably', answer:'Adverb',
+            hint1:'This word tells us to what degree the improvements happen. It qualifies the adjective describing improvements.',
+            hint2:'A word that modifies an adjective or verb, answering "to what extent?", is an <b>Adverb</b>. "Remarkably improvements" — remarkably tells us the degree.',
+            exp:'"Remarkably" is an <b>Adverb</b>. It modifies the noun phrase "improvements", answering "to what extent?" — the improvements are remarkably (extraordinarily) significant.' }
+        ]
+      },
+      { type:'meanings', num:'v', marks:3,
+        q:'Give the meaning of the following words as used in the passage:',
+        items:[
+          { phrase:'cornerstone', model:'A fundamental, central and essential element upon which everything else depends; the most important foundation of something.' },
+          { phrase:'sedentary', model:'Characterised by much sitting and very little physical movement or exercise; relating to an inactive lifestyle.' },
+          { phrase:'moderate', model:'Neither too much nor too little; at a reasonable, average or medium level; not extreme in any direction.' }
+        ]
+      }
+    ]
+  }
+];
+
+// ── WORD CLASS OPTIONS ────────────────────────────────────────────────────────
+const WC_OPTIONS = ['Noun','Verb','Adjective','Adverb','Pronoun','Conjunction','Preposition','Article','Determiner'];
+
+// ── SCORE STATE ───────────────────────────────────────────────────────────────
+const SC = { auto:0, self:0, done:0, total:30 };
+
+function updateStats(){
+  document.getElementById('stAuto').textContent = SC.auto;
+  document.getElementById('stSelf').textContent = SC.self;
+  document.getElementById('stTotal').textContent = (SC.auto + SC.self) + '/60';
+  const pct = Math.round(SC.done / SC.total * 100);
+  document.getElementById('stDone').textContent = pct + '%';
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = SC.done + ' of ' + SC.total + ' questions answered';
+  if(SC.done === SC.total) setTimeout(showOverall, 500);
+}
+
+function markDone(){ SC.done++; updateStats(); }
+
+// ── BUILD UI ─────────────────────────────────────────────────────────────────
+function buildUI(){
+  // Nav pills
+  const navEl = document.getElementById('navPills');
+  PASSAGES.forEach((p,i)=>{
+    const btn = document.createElement('button');
+    btn.className='nav-pill'; btn.id='navpill_'+i;
+    btn.textContent='P'+p.num+': '+p.topic.split(' ').slice(0,3).join(' ')+'…';
+    btn.onclick=()=>{ document.getElementById('block_'+i).scrollIntoView({behavior:'smooth'}); };
+    navEl.appendChild(btn);
+  });
+
+  // Passages
+  const area = document.getElementById('passageArea');
+  PASSAGES.forEach((p,pi)=>{
+    const block = document.createElement('div');
+    block.className='passage-block'; block.id='block_'+pi;
+
+    // Header
+    block.innerHTML=`
+      <div class="passage-header">
+        <div class="passage-label">&#128214; ${p.label}</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <div class="passage-meta">${p.topic}</div>
+          <div class="passage-marks">&#127775; 10 Marks</div>
+        </div>
+      </div>
+      <div class="passage-text-wrap">
+        <div class="passage-text-label">&#128221; Read the following passage carefully:</div>
+        <p>${p.text}</p>
+      </div>
+      <div class="q-area" id="qarea_${pi}"></div>
+    `;
+    area.appendChild(block);
+
+    // Questions
+    const qArea = block.querySelector('#qarea_'+pi);
+    p.qs.forEach((q,qi)=>{
+      if(q.type==='short') buildShortQ(qArea, p, pi, q, qi);
+      else if(q.type==='wordclass') buildWordClassQ(qArea, p, pi, q, qi);
+      else if(q.type==='meanings') buildMeaningsQ(qArea, p, pi, q, qi);
+    });
+  });
+}
+
+// ── SHORT ANSWER QUESTION ─────────────────────────────────────────────────────
+function buildShortQ(area, p, pi, q, qi){
+  const id = `sq_${pi}_${qi}`;
+  const card = document.createElement('div');
+  card.className='q-card'; card.id=id;
+  card.innerHTML=`
+    <div class="q-num-row">
+      <div class="q-num">${q.num}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="marks-tag">${q.marks} Mark${q.marks>1?'s':''}</div>
+    </div>
+    <textarea class="ans-textarea" id="ta_${id}" placeholder="Write your answer here…" rows="3"></textarea>
+    <div class="btn-row">
+      <button class="reveal-btn" id="rbtn_${id}" onclick="revealShort('${id}','${pi}','${qi}')">&#128065; Reveal Model Answer</button>
+      <span id="sbadge_${id}"></span>
+    </div>
+    <div class="model-answer" id="ma_${id}">
+      <div class="ma-head ma-head-blue">&#128218; Model Answer</div>
+      <div class="ma-body">${q.model}</div>
+      <div class="self-ask">
+        &#10067; Does your answer match the key points above?
+        <div class="btn-row" style="margin-top:8px">
+          <button class="self-yes" id="syes_${id}" onclick="selfMark('${id}',${q.marks},true)">&#10003; Yes, my answer is correct</button>
+          <button class="self-no" id="sno_${id}" onclick="selfMark('${id}',${q.marks},false)">&#10007; No, my answer missed key points</button>
+        </div>
+      </div>
+    </div>
+  `;
+  area.appendChild(card);
+}
+
+function revealShort(id, pi, qi){
+  document.getElementById('ta_'+id).disabled = true;
+  document.getElementById('rbtn_'+id).disabled = true;
+  const ma = document.getElementById('ma_'+id);
+  ma.classList.add('show');
+  setTimeout(()=>{ ma.scrollIntoView({behavior:'smooth',block:'nearest'}); },80);
+}
+
+function selfMark(id, marks, correct){
+  document.getElementById('syes_'+id).disabled = true;
+  document.getElementById('sno_'+id).disabled = true;
+  const card = document.getElementById(id);
+  const badge = document.getElementById('sbadge_'+id);
+  if(correct){
+    SC.self += marks;
+    card.classList.add('q-self-marked');
+    badge.innerHTML=`<span class="status-badge status-ok">&#11088; +${marks} mark${marks>1?'s':''}</span>`;
+  } else {
+    card.classList.add('q-revealed');
+    badge.innerHTML=`<span class="status-badge status-rev">&#128218; Study model answer</span>`;
+  }
+  // Update ma-head colour
+  const maHead = document.getElementById('ma_'+id).querySelector('.ma-head');
+  maHead.className = 'ma-head ' + (correct ? 'ma-head-green' : 'ma-head-orange');
+  markDone();
+  updateStats();
+}
+
+// ── WORD CLASS QUESTION ───────────────────────────────────────────────────────
+function buildWordClassQ(area, p, pi, q, qi){
+  const cardId = `wc_${pi}_${qi}`;
+  const card = document.createElement('div');
+  card.className='q-card'; card.id=cardId;
+  let wordsHtml = '';
+  q.words.forEach((w,wi)=>{
+    const wid = `w_${pi}_${qi}_${wi}`;
+    let btns = WC_OPTIONS.map(opt=>`<button class="wc-btn" id="wcb_${wid}_${opt.replace(/\s/g,'')}" onclick="checkWC('${wid}','${opt}','${pi}','${qi}','${wi}')">${opt}</button>`).join('');
+    wordsHtml+=`
+      <div class="wc-item" id="${wid}">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+          <span class="wc-word" id="wcword_${wid}">"${w.word}"</span>
+          <div class="wc-dots">
+            <div class="wc-dot" id="wcdot_${wid}_0"></div>
+            <div class="wc-dot" id="wcdot_${wid}_1"></div>
+            <div class="wc-dot" id="wcdot_${wid}_2"></div>
+          </div>
+          <span id="wcstatus_${wid}"></span>
+        </div>
+        <div class="wc-btn-grid" id="wcbtns_${wid}">${btns}</div>
+        <div class="wc-feedback" id="wcfb_${wid}"></div>
+      </div>
+    `;
+  });
+  card.innerHTML=`
+    <div class="q-num-row">
+      <div class="q-num">${q.num}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="marks-tag">${q.marks} Marks ✓ Auto</div>
+    </div>
+    ${wordsHtml}
+  `;
+  area.appendChild(card);
+  // Per-word state
+  q.words.forEach((_,wi)=>{
+    const wid=`w_${pi}_${qi}_${wi}`;
+    window['wcst_'+wid]={attempts:0,done:false};
+  });
+}
+
+function checkWC(wid, chosen, pi, qi, wi){
+  const st = window['wcst_'+wid];
+  if(st.done) return;
+  const q = PASSAGES[pi].qs[qi];
+  const w = q.words[wi];
+  const correct = chosen.toLowerCase()===w.answer.toLowerCase() || (w.alt||[]).map(a=>a.toLowerCase()).includes(chosen.toLowerCase());
+
+  // Mark dot
+  if(st.attempts < 3){ document.getElementById(`wcdot_${wid}_${st.attempts}`).classList.add(correct?'correct':'used'); }
+  st.attempts++;
+
+  // Disable chosen button
+  const btnId=`wcb_${wid}_${chosen.replace(/\s/g,'')}`;
+  const btnEl=document.getElementById(btnId);
+  if(btnEl){ btnEl.disabled=true; btnEl.classList.add(correct?'wc-btn-correct':'wc-btn-used'); }
+
+  if(correct){
+    st.done=true; SC.auto++; markDone(); updateStats();
+    // Disable all buttons
+    WC_OPTIONS.forEach(o=>{ const b=document.getElementById(`wcb_${wid}_${o.replace(/\s/g,'')}`); if(b) b.disabled=true; });
+    document.getElementById(`wcword_${wid}`).className='wc-word wc-correct';
+    document.getElementById(`wcstatus_${wid}`).innerHTML=st.attempts===1?`<span class="status-badge status-ok">&#11088; Correct — First Try! +1</span>`:`<span class="status-badge status-ok">&#10003; Correct! +1</span>`;
+    document.getElementById(`wcitem_state_${wid}`);
+    document.getElementById(wid).classList.add('wc-item-done');
+    showWCFB(wid,'ok',`&#10003; Correct! "${w.word}" is a <b>${w.answer}</b>.`,`<div class="rule-line">${w.exp}</div>`,'fb-ok-b');
+  } else if(st.attempts===1){
+    showWCFB(wid,'wrong','&#10007; Not correct — Hint 1:',`${w.hint1}<div class="try-note">&#128204; Try 1 used. You have <b>2 more tries</b>.</div>`,'fb-wrong-b');
+  } else if(st.attempts===2){
+    showWCFB(wid,'wrong','&#10007; Still incorrect — Hint 2:',`${w.hint2}<div class="try-note">&#128204; Try 2 used. <b>One last chance!</b></div>`,'fb-wrong-b');
+  } else {
+    // Reveal
+    st.done=true; markDone(); updateStats();
+    WC_OPTIONS.forEach(o=>{ const b=document.getElementById(`wcb_${wid}_${o.replace(/\s/g,'')}`); if(b) b.disabled=true; });
+    // Highlight correct button
+    const corrBtn=document.getElementById(`wcb_${wid}_${w.answer.replace(/\s/g,'')}`);
+    if(corrBtn){ corrBtn.classList.remove('wc-btn-used'); corrBtn.classList.add('wc-btn-revealed'); corrBtn.disabled=false; corrBtn.disabled=true; }
+    document.getElementById(`wcword_${wid}`).className='wc-word wc-revealed';
+    document.getElementById(`wcstatus_${wid}`).innerHTML=`<span class="status-badge status-rev">&#128274; Revealed</span>`;
+    document.getElementById(wid).classList.add('wc-item-revealed');
+    showWCFB(wid,'rev',`&#128274; Answer Revealed — "${w.word}" is a <b>${w.answer}</b>`,`${w.exp}<div class="try-note" style="background:#fff3e0;border-color:#ffcc80;color:#5d4037">&#128218; Study this rule carefully and practise similar words.</div>`,'fb-rev-b');
+  }
+}
+
+function showWCFB(wid, type, header, body, bodyClass){
+  const el = document.getElementById(`wcfb_${wid}`);
+  const hClass = type==='ok'?'fh-ok':type==='rev'?'fh-rev':'fh-wrong';
+  el.innerHTML=`<div class="wc-fb-h ${hClass}">${header}</div><div class="wc-fb-b ${bodyClass}">${body}</div>`;
+  el.classList.add('show');
+  setTimeout(()=>{ el.scrollIntoView({behavior:'smooth',block:'nearest'}); },80);
+}
+
+// ── MEANINGS QUESTION ─────────────────────────────────────────────────────────
+function buildMeaningsQ(area, p, pi, q, qi){
+  const cardId=`mq_${pi}_${qi}`;
+  const card=document.createElement('div');
+  card.className='q-card'; card.id=cardId;
+  let itemsHtml='';
+  q.items.forEach((item,ii)=>{
+    const mid=`m_${pi}_${qi}_${ii}`;
+    itemsHtml+=`
+      <div class="meaning-item" id="${mid}">
+        <div class="phrase-label">&#128279; "${item.phrase}"</div>
+        <input type="text" class="meaning-input" id="mi_${mid}" placeholder="Write your definition here…">
+        <div>
+          <button class="m-reveal-btn" id="mrb_${mid}" onclick="revealMeaning('${mid}','${pi}','${qi}','${ii}')">&#128065; Reveal Definition</button>
+        </div>
+        <div class="m-answer-box" id="mab_${mid}">&#128218; <b>Model Definition:</b> ${item.model}</div>
+        <div class="m-self-row" id="mself_${mid}" style="display:none">
+          <span style="font-size:13px;font-weight:600;color:#5d4037">&#10067; Does your answer capture the key idea?</span>
+          <button class="self-yes" id="myes_${mid}" onclick="selfMarkM('${mid}',true)">&#10003; Yes</button>
+          <button class="self-no" id="mno_${mid}" onclick="selfMarkM('${mid}',false)">&#10007; No</button>
+        </div>
+      </div>
+    `;
+  });
+  card.innerHTML=`
+    <div class="q-num-row">
+      <div class="q-num">${q.num}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="marks-tag">${q.marks} Marks</div>
+    </div>
+    ${itemsHtml}
+  `;
+  area.appendChild(card);
+}
+
+function revealMeaning(mid, pi, qi, ii){
+  document.getElementById('mi_'+mid).disabled=true;
+  document.getElementById('mrb_'+mid).disabled=true;
+  document.getElementById('mab_'+mid).classList.add('show');
+  document.getElementById('mself_'+mid).style.display='flex';
+  setTimeout(()=>{ document.getElementById('mab_'+mid).scrollIntoView({behavior:'smooth',block:'nearest'}); },80);
+}
+
+function selfMarkM(mid, correct){
+  document.getElementById('myes_'+mid).disabled=true;
+  document.getElementById('mno_'+mid).disabled=true;
+  const item=document.getElementById(mid);
+  if(correct){ SC.self++; item.classList.add('m-correct'); item.querySelector('.phrase-label').style.color='#2e7d32'; }
+  else { item.classList.add('m-revealed'); }
+  markDone(); updateStats();
+}
+
+// ── OVERALL RESULT ────────────────────────────────────────────────────────────
+function showOverall(){
+  const total=SC.auto+SC.self, pct=Math.round(total/60*100);
+  let grade,msg;
+  if(pct>=90){grade='A+ &#127942;';msg='Outstanding! Exceptional command of comprehension skills.';}
+  else if(pct>=80){grade='A &#11088;';msg='Excellent! Very strong understanding across all passages.';}
+  else if(pct>=70){grade='B &#128077;';msg='Good effort! Solid work with a few areas to revise.';}
+  else if(pct>=55){grade='C &#128214;';msg='Satisfactory. Review the model answers carefully and practise again.';}
+  else{grade='D &#128295;';msg='Needs improvement. Re-read the passages and study the model answers thoroughly.';}
+  document.getElementById('ovScore').textContent=total+' / 60';
+  document.getElementById('ovSub').innerHTML=`Score: <b>${pct}%</b> &nbsp;|&nbsp; Auto (Word Class): <b>${SC.auto}/18</b> &nbsp;|&nbsp; Self-Marked: <b>${SC.self}/42</b>`;
+  document.getElementById('ovAuto').textContent=SC.auto+'/18';
+  document.getElementById('ovSelfB').textContent=SC.self+'/42';
+  document.getElementById('ovGrade').innerHTML='Grade: '+grade+' — '+msg;
+  const el=document.getElementById('overallResult');
+  el.classList.add('show');
+  el.scrollIntoView({behavior:'smooth'});
+}
+
+// ── WATERMARK ─────────────────────────────────────────────────────────────────
+(function(){
+  const wm=document.getElementById('wm'); let h='';
+  for(let r=0;r<14;r++) for(let c=0;c<6;c++)
+    h+=`<span style="top:${r*120+40}px;left:${c*200+10}px">Smart Study Center</span>`;
+  wm.innerHTML=h;
+})();
+
+buildUI();
+</script>
+</body>
+</html>
