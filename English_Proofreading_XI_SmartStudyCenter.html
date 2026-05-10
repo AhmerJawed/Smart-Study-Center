@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Proofreading Class XI | Smart Study Center</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(135deg,#0d47a1 0%,#1565c0 50%,#1976d2 100%);min-height:100vh;padding:20px}
+.container{max-width:980px;margin:0 auto;background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.35);overflow:hidden}
+
+.brand-header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:12px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.brand-name{font-size:17px;font-weight:800}
+.brand-sub{font-size:12px;color:#a8b4d8;letter-spacing:1px;text-transform:uppercase}
+.brand-contact{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:6px 16px;font-size:14px;font-weight:600;color:#e0e6ff}
+
+.header{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:28px;text-align:center}
+.header h1{font-family:'Playfair Display',serif;font-size:26px;margin-bottom:6px;font-weight:900}
+.header p{opacity:.9;font-size:14px}
+.badge-row{display:flex;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700}
+
+.stats{display:flex;justify-content:space-around;padding:16px;background:#f8f9fa;border-bottom:2px solid #e9ecef;flex-wrap:wrap;gap:8px}
+.stat-item{text-align:center}
+.stat-label{font-size:11px;color:#6c757d;text-transform:uppercase;letter-spacing:1px}
+.stat-value{font-size:22px;font-weight:800;color:#0d47a1;margin-top:4px}
+
+.instructions{margin:20px 25px;padding:16px 20px;background:#fff8e1;border-left:5px solid #f9a825;border-radius:10px;font-size:13.5px;line-height:1.85;color:#5d4037}
+.instructions strong{color:#e65100}
+
+.section-title{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;margin:0 25px 20px;letter-spacing:.5px;text-transform:uppercase}
+
+.quiz-area{padding:0 25px 25px}
+.passage-card{background:#f8f9fa;border-radius:14px;padding:22px;margin-bottom:28px;border-left:5px solid #0d47a1;box-shadow:0 2px 12px rgba(13,71,161,.09)}
+.passage-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.passage-num{background:#0d47a1;color:#fff;padding:4px 16px;border-radius:20px;font-weight:800;font-size:12px;letter-spacing:.5px}
+.status-tag{padding:4px 12px;border-radius:15px;font-size:11px;font-weight:700;background:#1565c0;color:#fff;transition:background .3s}
+.lbl{font-weight:700;color:#0d47a1;font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
+.passage-original{background:#fff;border:2px solid #dee2e6;border-radius:10px;padding:14px 18px;font-size:14.5px;line-height:1.9;color:#333;margin-bottom:18px}
+.question-lbl{font-size:14px;font-weight:700;color:#333;margin-bottom:12px}
+
+.options-wrap{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.opt{border:2px solid #dee2e6;border-radius:11px;padding:13px 16px;cursor:pointer;display:flex;gap:13px;align-items:flex-start;transition:border-color .2s,background .2s,opacity .3s;background:#fff;user-select:none}
+.opt:hover:not(.disabled){border-color:#0d47a1;background:#e3f2fd}
+.opt.disabled{cursor:not-allowed}
+.opt.eliminated{border-color:#ef9a9a !important;background:#fff5f5 !important;opacity:.5;cursor:not-allowed}
+.opt.correct-pick{border-color:#2e7d32 !important;background:#e8f5e9 !important;cursor:default}
+.opt-badge{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:#0d47a1;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;margin-top:1px}
+.opt.eliminated .opt-badge{background:#e57373}
+.opt.correct-pick .opt-badge{background:#2e7d32}
+.opt-text{font-size:14px;line-height:1.85;color:#333}
+.opt.eliminated .opt-text{color:#aaa;text-decoration:line-through}
+
+.feedback{display:none;border-radius:11px;overflow:hidden;margin-top:4px}
+.feedback.show{display:block}
+.fb-header{padding:11px 18px;font-weight:800;font-size:14px;display:flex;align-items:center;gap:8px}
+.fb-header.wrong-h{background:#c62828;color:#fff}
+.fb-header.correct-h{background:#2e7d32;color:#fff}
+.fb-body{padding:16px 18px;border:2px solid #e0e0e0;border-top:none;border-radius:0 0 11px 11px;background:#fff;font-size:13.5px;line-height:1.85;color:#333}
+.fb-body.wrong-b{border-color:#ef9a9a}
+.fb-body.correct-b{border-color:#a5d6a7}
+.try-again{margin-top:12px;padding:9px 14px;background:#fff3e0;border:1.5px solid #ffcc80;border-radius:8px;font-size:13px;color:#e65100;font-weight:600}
+
+.corrections-list{margin-top:6px}
+.c-item{padding:9px 0;border-bottom:1px solid #e8f5e9;font-size:13.5px}
+.c-item:last-child{border-bottom:none}
+.c-badge{display:inline-block;background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;border-radius:10px;padding:1px 9px;font-size:11px;font-weight:700;margin-right:6px}
+.c-rule{font-size:12.5px;color:#555;margin-top:3px;padding-left:2px}
+.first-try-star{display:inline-block;background:#ffd700;color:#5d4037;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:800;margin-left:8px}
+
+.overall-result{margin:0 25px 25px;padding:24px;background:linear-gradient(135deg,#0d47a1,#1565c0);border-radius:14px;color:#fff;text-align:center;display:none}
+.overall-result.show{display:block}
+.overall-result h3{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:8px}
+.ov-score{font-size:52px;font-weight:900;line-height:1.1}
+.ov-sub{font-size:14px;opacity:.85;margin-top:6px}
+.grade-pill{display:inline-block;margin-top:14px;padding:8px 24px;border-radius:20px;font-weight:800;font-size:15px;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.4)}
+
+.wm{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
+.wm span{position:absolute;font-size:14px;font-weight:700;color:rgba(13,71,161,.055);white-space:nowrap;transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase}
+
+.brand-footer{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:16px 30px;text-align:center}
+.footer-main{font-size:14px;font-weight:700;color:#e0e6ff}
+.footer-sub{font-size:11px;color:#a8b4d8;margin-top:4px}
+.fdiv{margin:0 8px;opacity:.4}
+
+@media(max-width:600px){
+  .passage-card{padding:15px}
+  .header h1{font-size:20px}
+  .opt-text{font-size:13px}
+  .quiz-area{padding:0 14px 20px}
+  .section-title,.instructions{margin-left:14px;margin-right:14px}
+}
+</style>
+</head>
+<body>
+<div class="wm" id="wm"></div>
+<div class="container">
+
+  <div class="brand-header">
+    <div><div class="brand-name">Sir Ahmer Javed</div><div class="brand-sub">Smart Study Center</div></div>
+    <div class="brand-contact">&#128222; 0345-3090057</div>
+  </div>
+
+  <div class="header">
+    <h1>&#9999;&#65039; English Language Class XI &mdash; Proofreading</h1>
+    <p>MCQ Practice Worksheet &nbsp;|&nbsp; STBB Board Exam Preparation</p>
+    <div class="badge-row">
+      <span class="badge">&#128203; 6 Passages</span>
+      <span class="badge">&#128260; Unlimited Retries</span>
+      <span class="badge">&#128161; Rule Explanations</span>
+      <span class="badge">&#128202; Score Tracking</span>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-item"><div class="stat-label">Total Passages</div><div class="stat-value">6</div></div>
+    <div class="stat-item"><div class="stat-label">Solved</div><div class="stat-value" id="stSolved">0</div></div>
+    <div class="stat-item"><div class="stat-label">First Try &#11088;</div><div class="stat-value" id="stFirst">0</div></div>
+    <div class="stat-item"><div class="stat-label">Wrong Picks</div><div class="stat-value" id="stWrong">0</div></div>
+    <div class="stat-item"><div class="stat-label">Score</div><div class="stat-value" id="stScore">&mdash;</div></div>
+  </div>
+
+  <div class="instructions">
+    <strong>&#128204; How to use this worksheet:</strong> Read the original passage carefully &mdash; it contains errors. Then read all four options below it. Each is a rewritten version, but <strong>only one is perfectly correct</strong>. The wrong options either <em>miss an original error</em> or <em>introduce a new mistake</em>.<br>
+    &#10148; Pick <strong>wrong</strong>: you&#39;ll be told <em>exactly why</em> that option is wrong &mdash; but the correct answer stays hidden. Try again!<br>
+    &#10148; Pick <strong>correct</strong>: every grammar rule and correction is explained in full.
+  </div>
+
+  <div class="section-title">&#128216; Topic 1: Proofreading &mdash; Choose the Perfectly Corrected Passage</div>
+
+  <div class="quiz-area" id="quizArea"></div>
+
+  <div class="overall-result" id="overallResult">
+    <h3>&#127881; Worksheet Complete!</h3>
+    <div class="ov-score" id="ovScore"></div>
+    <div class="ov-sub" id="ovSub"></div>
+    <div class="grade-pill" id="ovGrade"></div>
+  </div>
+
+  <div class="brand-footer">
+    <div class="footer-main">Sir Ahmer Javed <span class="fdiv">|</span> Smart Study Center <span class="fdiv">|</span> &#128222; 0345-3090057</div>
+    <div class="footer-sub">English Language Class XI &mdash; Proofreading MCQ Worksheet &nbsp;|&nbsp; STBB Board Exam Prep</div>
+  </div>
+</div>
+
+<script>
+const passages = [
+  {
+    id:1,
+    original:"I am going at the store to bring breed butter eggs and milk. I will be back in just one hour do you want to come with me I asked my friend.",
+    options:[
+      {
+        text:`I am going to the store to buy bread, butter, eggs and milk. "I will be back in just one hour. Do you want to come with me?" I asked my friend.`,
+        correct:true,
+        exp:`<div class="corrections-list">
+<div class="c-item"><span class="c-badge">Fix 1</span><b>"at" &rarr; "to"</b><div class="c-rule">&#128218; Use <em>to</em> with verbs of movement: go to school, travel to a city, go to the store. "Going at a place" is simply wrong in English.</div></div>
+<div class="c-item"><span class="c-badge">Fix 2</span><b>"bring" &rarr; "buy"</b><div class="c-rule">&#128218; <em>Bring</em> = carry something here. <em>Buy</em> = purchase. You buy items from a store; you bring them back home. These two verbs are not interchangeable.</div></div>
+<div class="c-item"><span class="c-badge">Fix 3</span><b>"breed" &rarr; "bread"</b><div class="c-rule">&#128218; Spelling error. <em>Breed</em> = a variety of animal (a breed of dog). <em>Bread</em> = the baked food item. &#128161; Tip: br-EAD &mdash; you <u>eat</u> bread.</div></div>
+<div class="c-item"><span class="c-badge">Fix 4</span><b>Commas added in the list</b><div class="c-rule">&#128218; Items in a list of three or more must be separated by commas: butter<b>,</b> eggs and milk. Without commas, the list is unclear and grammatically wrong.</div></div>
+<div class="c-item"><span class="c-badge">Fix 5</span><b>Full stop after "one hour"</b><div class="c-rule">&#128218; Two separate complete thoughts must be separated by a full stop. Joining them without punctuation is called a run-on sentence &mdash; a serious grammatical error.</div></div>
+<div class="c-item"><span class="c-badge">Fix 6</span><b>Quotation marks around direct speech</b><div class="c-rule">&#128218; Words spoken aloud are <em>direct speech</em> and must be enclosed in inverted commas. The question inside ends with a question mark before the closing quote: "...come with me?"</div></div>
+<div class="c-item"><span class="c-badge">Fix 7</span><b>Capital "D" in "Do"</b><div class="c-rule">&#128218; Every new sentence &mdash; including sentences inside quotation marks &mdash; must begin with a capital letter.</div></div>
+</div>`
+      },
+      {
+        text:`I am going to the store to buy breed, butter, eggs and milk. "I will be back in just one hour. Do you want to come with me?" I asked my friend.`,
+        correct:false,
+        why:`<b>The spelling error "breed" was not fixed.</b><br><br>"Breed" means a variety of an animal (e.g. a breed of dog). The baked food item you buy from a store is <em>bread</em>. This is a spelling confusion error.<br><br>&#128161; Tip: <b>br-EAD</b> &mdash; notice the word EAT is hidden inside breAd.`
+      },
+      {
+        text:`I am going to the store to buy bread, butter, eggs, and milk. "I will be back in just one hour. Do you want to come with me?" I asked my friend.`,
+        correct:false,
+        why:`<b>A new punctuation mistake was introduced &mdash; an extra comma after "eggs".</b><br><br>In standard British English (followed by STBB boards), we do <em>not</em> place a comma before "and" at the end of a simple list. This extra comma is called the Oxford comma and is used in American English, not British English.<br><br>Correct form: bread, butter, eggs <b>and</b> milk &mdash; no comma before "and".<br><br>&#128161; Tip: STBB follows British English conventions.`
+      },
+      {
+        text:`I am going to the store to buy bread, butter, eggs and milk. I will be back in just one hour. Do you want to come with me? I asked my friend.`,
+        correct:false,
+        why:`<b>The direct speech was not enclosed in quotation marks.</b><br><br>"I will be back in just one hour. Do you want to come with me?" are words spoken aloud &mdash; this is <em>direct speech</em>. In English, all directly spoken words must be placed inside inverted commas (quotation marks).<br><br>&#128161; Rule: he said, <b>"..."</b> &mdash; spoken words always go inside quotation marks.`
+      }
+    ]
+  },
+  {
+    id:2,
+    original:"yesterday i forgotted to bring my homwork to school. my teacher was very angrily and said you must complete it by tomorow without fail.",
+    options:[
+      {
+        text:`Yesterday I forgot to bring my homework to school. My teacher was very angry and said, "You must complete it by tomorrow without fail."`,
+        correct:true,
+        exp:`<div class="corrections-list">
+<div class="c-item"><span class="c-badge">Fix 1</span><b>"yesterday" &rarr; "Yesterday"</b><div class="c-rule">&#128218; The first word of every sentence must begin with a capital letter &mdash; no exceptions.</div></div>
+<div class="c-item"><span class="c-badge">Fix 2</span><b>"i" &rarr; "I"</b><div class="c-rule">&#128218; The pronoun <em>I</em> is <b>always</b> written as a capital letter anywhere in a sentence &mdash; at the start, middle, or end.</div></div>
+<div class="c-item"><span class="c-badge">Fix 3</span><b>"forgotted" &rarr; "forgot"</b><div class="c-rule">&#128218; <em>Forget</em> is an <b>irregular verb</b>. Its past tense is <em>forgot</em>. You cannot add "-ed" to irregular verbs. Common irregular past tenses: forget&rarr;forgot, go&rarr;went, buy&rarr;bought, bring&rarr;brought.</div></div>
+<div class="c-item"><span class="c-badge">Fix 4</span><b>"homwork" &rarr; "homework"</b><div class="c-rule">&#128218; Spelling: HOME + WORK = homework. The 'e' from home is kept. &#128161; Tip: think of it as two joined words.</div></div>
+<div class="c-item"><span class="c-badge">Fix 5</span><b>"my teacher" &rarr; "My teacher"</b><div class="c-rule">&#128218; A new sentence begins after the full stop &mdash; its first word must be capitalised.</div></div>
+<div class="c-item"><span class="c-badge">Fix 6</span><b>"angrily" &rarr; "angry"</b><div class="c-rule">&#128218; <em>Angrily</em> is an adverb (it describes <em>how</em> an action is done). After a linking verb like <em>was</em>, we need an <b>adjective</b> to describe the subject: "was very <em>angry</em>." Rule: She was <b>angry</b> (adj.) / She spoke <b>angrily</b> (adv.).</div></div>
+<div class="c-item"><span class="c-badge">Fix 7</span><b>Comma + quotation marks after "said"</b><div class="c-rule">&#128218; When a reporting verb (said, told, replied, asked) introduces direct speech, place a <b>comma</b> after it, then open inverted commas: said<b>,</b> "You must..." The first word inside the quotes is capitalised.</div></div>
+<div class="c-item"><span class="c-badge">Fix 8</span><b>"tomorow" &rarr; "tomorrow"</b><div class="c-rule">&#128218; Spelling: to-MOR-ROW &mdash; double r. &#128161; Tip: Think of the old word <em>morrow</em> (next day) &rarr; to-morrow.</div></div>
+</div>`
+      },
+      {
+        text:`Yesterday I forgotted to bring my homework to school. My teacher was very angry and said, "You must complete it by tomorrow without fail."`,
+        correct:false,
+        why:`<b>"forgotted" is still incorrect.</b><br><br><em>Forget</em> is an <b>irregular verb</b> &mdash; its simple past tense is <em>forgot</em>. You cannot form the past tense of irregular verbs by adding "-ed".<br><br>&#128161; Learn these: forget &rarr; <b>forgot</b>, go &rarr; <b>went</b>, buy &rarr; <b>bought</b>, bring &rarr; <b>brought</b>, see &rarr; <b>saw</b>. Adding "-ed" only works for regular verbs.`
+      },
+      {
+        text:`Yesterday I forgot to bring my homework to school. My teacher was very angrily and said, "You must complete it by tomorrow without fail."`,
+        correct:false,
+        why:`<b>"angrily" is still the wrong word form here.</b><br><br><em>Angrily</em> is an <b>adverb</b> &mdash; it describes <em>how</em> an action is performed (e.g. "she shouted angrily"). After a linking verb like <em>was</em>, we need an <b>adjective</b> that describes the subject (the teacher herself): "My teacher was very <em>angry</em>."<br><br>&#128161; Rule: She was <b>angry</b> (adjective, describes who she is). She spoke <b>angrily</b> (adverb, describes how she spoke).`
+      },
+      {
+        text:`Yesterday I forgot to bring my homework to school. My teacher was very angry and said "You must complete it by tomorrow without fail."`,
+        correct:false,
+        why:`<b>A comma is missing after "said" &mdash; a new punctuation mistake was introduced.</b><br><br>When a reporting verb like <em>said</em> introduces direct speech, it must be followed by a <b>comma</b> before the opening quotation mark: said<b>,</b> "You must..."<br><br>The quotation marks alone are not enough &mdash; the comma is also required. Without it, the punctuation is incorrect.<br><br>&#128161; Rule: He said<b>,</b> "..." / She replied<b>,</b> "..." / They asked<b>,</b> "..."`
+      }
+    ]
+  },
+  {
+    id:3,
+    original:"the whether was beutiful yesterday so me and my freinds decided to went to the park. we played cricket for too hours and than walked back home tierd but very happy.",
+    options:[
+      {
+        text:`The whether was beautiful yesterday, so my friends and I decided to go to the park. We played cricket for two hours and then walked back home tired but very happy.`,
+        correct:false,
+        why:`<b>"whether" was not corrected &mdash; it is still the wrong word.</b><br><br><em>Whether</em> is a <b>conjunction</b> used to introduce alternatives or conditions (e.g. "I don't know whether it will rain"). The word that refers to sunshine, rain, and temperature is <em>weather</em>.<br><br>&#128161; Tip: WEATHER has EAT inside it &mdash; think of eating outside in nice <em>weather</em>. They sound similar but mean completely different things.`
+      },
+      {
+        text:`The weather was beautiful yesterday, so me and my friends decided to go to the park. We played cricket for two hours and then walked back home tired but very happy.`,
+        correct:false,
+        why:`<b>"me and my friends" is incorrect as the subject of the sentence.</b><br><br>Two errors here: (1) <em>Me</em> is an object pronoun and cannot be a subject &mdash; the subject form is <em>I</em>. (2) In English, you always place yourself last out of politeness.<br><br>Correct form: <b>"my friends and I decided"</b>.<br><br>&#128161; Quick test: remove "my friends and" &mdash; "me decided" sounds wrong; "I decided" is correct &rarr; use "my friends and <b>I</b>".`
+      },
+      {
+        text:`The weather was beautiful yesterday, so my friends and I decided to go to the park. We played cricket for two hours and then walked back home tired but very happy.`,
+        correct:true,
+        exp:`<div class="corrections-list">
+<div class="c-item"><span class="c-badge">Fix 1</span><b>"the" &rarr; "The"</b><div class="c-rule">&#128218; First word of every sentence is capitalised.</div></div>
+<div class="c-item"><span class="c-badge">Fix 2</span><b>"whether" &rarr; "weather"</b><div class="c-rule">&#128218; <em>Whether</em> = conjunction (if / or not). <em>Weather</em> = atmospheric conditions. &#128161; WEATHER has EAT in it &mdash; you eat outside in good <em>weather</em>.</div></div>
+<div class="c-item"><span class="c-badge">Fix 3</span><b>"beutiful" &rarr; "beautiful"</b><div class="c-rule">&#128218; Spelling: b-e-a-u-t-i-f-u-l. &#128161; Mnemonic: <b>B</b>ig <b>E</b>lephants <b>A</b>re <b>U</b>sually beautiful &mdash; BEAU.</div></div>
+<div class="c-item"><span class="c-badge">Fix 4</span><b>Comma added after "yesterday"</b><div class="c-rule">&#128218; When a coordinating conjunction (so, but, and) joins two independent clauses, a comma is placed before it: "yesterday<b>,</b> so my friends..."</div></div>
+<div class="c-item"><span class="c-badge">Fix 5</span><b>"me and my freinds" &rarr; "my friends and I"</b><div class="c-rule">&#128218; Two rules fixed: (1) <em>I</em> is the subject pronoun (not me). (2) Put yourself last: "my friends and I". Also "freinds" misspelled &mdash; correct: <b>friends</b> (i before e, except after c).</div></div>
+<div class="c-item"><span class="c-badge">Fix 6</span><b>"to went" &rarr; "to go"</b><div class="c-rule">&#128218; After <em>to</em> (the infinitive marker), always use the <b>base form</b> of the verb: to go, to run, to eat. Never use the past tense after "to" &mdash; "to went" is always wrong.</div></div>
+<div class="c-item"><span class="c-badge">Fix 7</span><b>"we" &rarr; "We"</b><div class="c-rule">&#128218; New sentence after full stop &rarr; capital first letter.</div></div>
+<div class="c-item"><span class="c-badge">Fix 8</span><b>"too" &rarr; "two"</b><div class="c-rule">&#128218; <em>Too</em> = also or excessively. <em>Two</em> = the number 2. &#128161; TWO has a W &mdash; think of <b>TW</b>o wings.</div></div>
+<div class="c-item"><span class="c-badge">Fix 9</span><b>"than" &rarr; "then"</b><div class="c-rule">&#128218; <em>Than</em> = comparisons (bigger than). <em>Then</em> = time/sequence (played and <em>then</em> walked). &#128161; THEN = time. THAN = comparison.</div></div>
+<div class="c-item"><span class="c-badge">Fix 10</span><b>"tierd" &rarr; "tired"</b><div class="c-rule">&#128218; Spelling: t-i-r-e-d. &#128161; TIRED: when you're tired, your eyes go heavy &mdash; TI-RED.</div></div>
+</div>`
+      },
+      {
+        text:`The weather was beautiful yesterday, so my friends and I decided to go to the park. We played cricket for two hours and than walked back home tired but very happy.`,
+        correct:false,
+        why:`<b>"than" is still the wrong word here.</b><br><br><em>Than</em> is used only for <b>comparisons</b>: "taller than", "better than", "more than". For expressing a <b>sequence of events in time</b>, the correct word is <em>then</em>: "We played cricket and <em>then</em> walked home."<br><br>&#128161; Memory trick: <b>THEN</b> = time / next step. <b>THAN</b> = comparison. They look similar but mean very different things.`
+      }
+    ]
+  },
+  {
+    id:4,
+    original:"sara said to her mother i have past all my exams with distintion. her mother replied i am so proud of you we will selebrate tonight with you're favourite meal.",
+    options:[
+      {
+        text:`Sara said to her mother, "I have passed all my exams with distinction." Her mother replied, "I am so proud of you. We will celebrate tonight with you're favourite meal."`,
+        correct:false,
+        why:`<b>"you're" was not corrected &mdash; this is still a mistake.</b><br><br><em>You're</em> is a <b>contraction</b> of <em>you are</em> (e.g. "you're welcome" = "you are welcome"). In this sentence we need the <b>possessive adjective</b> <em>your</em>, meaning "belonging to you": "your favourite meal".<br><br>&#128161; Quick test: replace <em>you're</em> with <em>you are</em> &rarr; "you are favourite meal" makes no sense &rarr; so use <b>your</b>.`
+      },
+      {
+        text:`Sara said to her mother, "I have past all my exams with distinction." Her mother replied, "I am so proud of you. We will celebrate tonight with your favourite meal."`,
+        correct:false,
+        why:`<b>"past" was not corrected &mdash; it is still the wrong word.</b><br><br><em>Past</em> is used as a noun (the past), adjective (past events), or preposition (walk past the shop). As a <b>verb</b> meaning "to succeed in an exam", the past tense is <em>passed</em>: "I have <em>passed</em> my exams."<br><br>&#128161; Tip: <b>PASSED</b> = action verb (she passed the exam). <b>PAST</b> = time or position (in the past / past the gate). Same pronunciation, very different meaning.`
+      },
+      {
+        text:`Sara said to her mother, "I have passed all my exams with distinction." Her mother replied, "I am so proud of you we will celebrate tonight with your favourite meal."`,
+        correct:false,
+        why:`<b>A full stop is missing inside the mother's direct speech &mdash; a new mistake was introduced.</b><br><br>Inside the quotation marks, "I am so proud of you" and "We will celebrate tonight" are two separate complete sentences. A <b>full stop</b> must separate them: "...proud of you<b>.</b> We will celebrate..."<br><br>Without the full stop, the two sentences are incorrectly joined together. This error is called a <b>run-on sentence</b>.<br><br>&#128161; Rule: Even inside quotation marks, full stops are required between separate sentences.`
+      },
+      {
+        text:`Sara said to her mother, "I have passed all my exams with distinction." Her mother replied, "I am so proud of you. We will celebrate tonight with your favourite meal."`,
+        correct:true,
+        exp:`<div class="corrections-list">
+<div class="c-item"><span class="c-badge">Fix 1</span><b>"sara" &rarr; "Sara"</b><div class="c-rule">&#128218; Proper nouns &mdash; names of people, places, months, days &mdash; are <b>always</b> capitalised: Sara, Ahmed, Karachi, Monday.</div></div>
+<div class="c-item"><span class="c-badge">Fix 2</span><b>Comma + quotation marks (Sara's speech)</b><div class="c-rule">&#128218; After a reporting verb (said, told, replied), place a comma then open inverted commas: said<b>,</b> "..." The first word inside quotes is capitalised.</div></div>
+<div class="c-item"><span class="c-badge">Fix 3</span><b>"i" &rarr; "I" inside speech</b><div class="c-rule">&#128218; The pronoun <em>I</em> is always capitalised everywhere &mdash; including inside quotation marks.</div></div>
+<div class="c-item"><span class="c-badge">Fix 4</span><b>"past" &rarr; "passed"</b><div class="c-rule">&#128218; <em>Past</em> = noun/adjective/preposition. <em>Passed</em> = past tense of the verb "to pass". "I have <em>passed</em> my exams" &mdash; the verb form is required.</div></div>
+<div class="c-item"><span class="c-badge">Fix 5</span><b>"distintion" &rarr; "distinction"</b><div class="c-rule">&#128218; Spelling: d-i-s-t-i-n-<b>c</b>-t-i-o-n. The letter "c" was missing. &#128161; Break it: dis-TINCT-ion.</div></div>
+<div class="c-item"><span class="c-badge">Fix 6</span><b>"her mother" &rarr; "Her mother"</b><div class="c-rule">&#128218; New sentence after full stop &mdash; first word capitalised.</div></div>
+<div class="c-item"><span class="c-badge">Fix 7</span><b>Comma + quotation marks (mother's reply)</b><div class="c-rule">&#128218; Same direct speech rule: replied<b>,</b> "..."</div></div>
+<div class="c-item"><span class="c-badge">Fix 8</span><b>Full stop after "you" inside the speech</b><div class="c-rule">&#128218; Two separate sentences inside direct speech still need a full stop between them: "...proud of you<b>.</b> We will celebrate..."</div></div>
+<div class="c-item"><span class="c-badge">Fix 9</span><b>"selebrate" &rarr; "celebrate"</b><div class="c-rule">&#128218; Spelling: c-e-l-e-b-r-a-t-e. Starts with "ce" not "se". &#128161; Think of <em>celebrity</em> &mdash; same root: <em>celeb</em>rity / <em>celeb</em>rate.</div></div>
+<div class="c-item"><span class="c-badge">Fix 10</span><b>"you're" &rarr; "your"</b><div class="c-rule">&#128218; <em>You're</em> = you are (contraction). <em>Your</em> = belonging to you (possessive adjective). "Your favourite meal" shows ownership &mdash; possessive is required.</div></div>
+</div>`
+      }
+    ]
+  },
+  {
+    id:5,
+    original:"social media have a great affect on young peoples life. many student spends hours on there phones insted of studing. this are a serious problem that parent and teacher must adress together.",
+    options:[
+      {
+        text:`Social media has a great effect on young people's lives. Many students spend hours on their phones instead of studying. This is a serious problem that parents and teachers must address together.`,
+        correct:true,
+        exp:`<div class="corrections-list">
+<div class="c-item"><span class="c-badge">Fix 1</span><b>"social" &rarr; "Social"</b><div class="c-rule">&#128218; First word of a sentence is always capitalised.</div></div>
+<div class="c-item"><span class="c-badge">Fix 2</span><b>"have" &rarr; "has"</b><div class="c-rule">&#128218; "Social media" is treated as a <b>singular</b> noun in English &mdash; like <em>news, information, furniture</em>. Singular subjects take singular verbs: social media <em>has</em>. Compare: "The news <em>is</em> on TV" &mdash; never "The news are".</div></div>
+<div class="c-item"><span class="c-badge">Fix 3</span><b>"affect" &rarr; "effect"</b><div class="c-rule">&#128218; <em>Affect</em> = verb ("social media <em>affects</em> people"). <em>Effect</em> = noun ("a great <em>effect</em>"). After the adjective "great", a noun is required. &#128161; Mnemonic: <b>RAVEN</b> &mdash; Remember Affect Verb Effect Noun.</div></div>
+<div class="c-item"><span class="c-badge">Fix 4</span><b>"peoples" &rarr; "people's"</b><div class="c-rule">&#128218; An apostrophe shows possession: "the lives of <em>people</em>" = "<em>people's</em> lives". Without the apostrophe, "peoples" is simply a wrong plural form.</div></div>
+<div class="c-item"><span class="c-badge">Fix 5</span><b>"life" &rarr; "lives"</b><div class="c-rule">&#128218; The plural of <em>life</em> is <em>lives</em> (like wife&rarr;wives, knife&rarr;knives). Many young people each have a life &rarr; their <em>lives</em>.</div></div>
+<div class="c-item"><span class="c-badge">Fix 6</span><b>"many" &rarr; "Many"</b><div class="c-rule">&#128218; New sentence after full stop &rarr; capital first letter.</div></div>
+<div class="c-item"><span class="c-badge">Fix 7</span><b>"student" &rarr; "students"</b><div class="c-rule">&#128218; <em>Many</em> always requires a plural noun: many students, many books, many teachers. Never "many student".</div></div>
+<div class="c-item"><span class="c-badge">Fix 8</span><b>"spends" &rarr; "spend"</b><div class="c-rule">&#128218; Plural subject "students" &rarr; plural verb "spend". Third-person singular adds -s (she spends); plural does not (students spend).</div></div>
+<div class="c-item"><span class="c-badge">Fix 9</span><b>"there" &rarr; "their"</b><div class="c-rule">&#128218; <em>There</em> = a place ("put it over there"). <em>Their</em> = possessive ("their phones" = the phones belonging to them). &#128161; <em>Their</em> contains the word <em>heir</em> &mdash; an heir <em>owns</em> things &rarr; possessive.</div></div>
+<div class="c-item"><span class="c-badge">Fix 10</span><b>"insted" &rarr; "instead"</b><div class="c-rule">&#128218; Spelling: in-stead. &#128161; IN + STEAD = instead. "Stead" is an old English word meaning "place".</div></div>
+<div class="c-item"><span class="c-badge">Fix 11</span><b>"studing" &rarr; "studying"</b><div class="c-rule">&#128218; Spelling: study + ing = studying. When a verb ends in a consonant + y, keep the y when adding -ing: study&rarr;studying, carry&rarr;carrying.</div></div>
+<div class="c-item"><span class="c-badge">Fix 12</span><b>"this are" &rarr; "This is"</b><div class="c-rule">&#128218; Two errors: (1) "This" is singular &rarr; singular verb "is", not "are". (2) New sentence &rarr; capital T.</div></div>
+<div class="c-item"><span class="c-badge">Fix 13</span><b>"parent and teacher" &rarr; "parents and teachers"</b><div class="c-rule">&#128218; When referring to a general group (not specific individuals), use the plural: <em>parents and teachers</em>.</div></div>
+<div class="c-item"><span class="c-badge">Fix 14</span><b>"adress" &rarr; "address"</b><div class="c-rule">&#128218; Spelling: a-<b>dd</b>-ress &mdash; double d. &#128161; Think: ADD + DRESS = address.</div></div>
+</div>`
+      },
+      {
+        text:`Social media has a great affect on young people's lives. Many students spend hours on their phones instead of studying. This is a serious problem that parents and teachers must address together.`,
+        correct:false,
+        why:`<b>"affect" was not corrected &mdash; it is still the wrong word.</b><br><br><em>Affect</em> is a <b>verb</b> describing an action ("social media <em>affects</em> people"). <em>Effect</em> is a <b>noun</b> &mdash; a thing or result. After the adjective "great", a noun is required: "a great <em>effect</em>".<br><br>&#128161; Mnemonic: <b>RAVEN</b> &mdash; <b>R</b>emember <b>A</b>ffect <b>V</b>erb <b>E</b>ffect <b>N</b>oun.`
+      },
+      {
+        text:`Social media has a great effect on young people's lives. Many students spend hours on there phones instead of studying. This is a serious problem that parents and teachers must address together.`,
+        correct:false,
+        why:`<b>"there" was not corrected &mdash; it is still the wrong word.</b><br><br><em>There</em> refers to a <b>location or place</b> ("put it over there"). <em>Their</em> is the <b>possessive pronoun</b> meaning "belonging to them" &mdash; "their phones" = the phones belonging to the students.<br><br>&#128161; Remember the trio: <b>There</b> (place) / <b>Their</b> (belonging to them) / <b>They're</b> (they are). This is one of the most commonly confused groups in English.`
+      },
+      {
+        text:`Social media have a great effect on young people's lives. Many students spend hours on their phones instead of studying. This is a serious problem that parents and teachers must address together.`,
+        correct:false,
+        why:`<b>"have" was not corrected &mdash; subject-verb agreement is still wrong.</b><br><br>"Social media" is treated as a <b>singular noun</b> in English &mdash; just like <em>news, information, furniture, advice</em>. A singular noun takes a singular verb: "Social media <em>has</em>" (not "have").<br><br>&#128161; Compare: "The news <b>is</b> broadcast at 9pm" &mdash; never "The news are". Social media follows the same rule.`
+      }
+    ]
+  },
+  {
+    id:6,
+    original:"the doctor adviced the patient to drank plenty of water and take you're medecine on time. she also said that he should avoids oily food and do excercise everyday because it are very importent for good helth.",
+    options:[
+      {
+        text:`The doctor advised the patient to drink plenty of water and take your medicine on time. She also said that he should avoids oily food and do exercise every day because it is very important for good health.`,
+        correct:false,
+        why:`<b>"avoids" was not corrected &mdash; the verb form after "should" is wrong.</b><br><br>Modal verbs (should, must, can, will, would, may, might) are <b>always followed by the base form</b> of the verb &mdash; never with -s, -ed, or -ing added.<br><br>Correct: "should <em>avoid</em>" (base form). Wrong: "should avoids".<br><br>&#128161; Rule: modal + base verb always &mdash; should go, must eat, can run, will come. Never add an ending after a modal verb.`
+      },
+      {
+        text:`The doctor advised the patient to drink plenty of water and take your medicine on time. She also said that he should avoid oily food and do exercise every day because it is very important for good health.`,
+        correct:true,
+        exp:`<div class="corrections-list">
+<div class="c-item"><span class="c-badge">Fix 1</span><b>"the" &rarr; "The"</b><div class="c-rule">&#128218; First word of every sentence is always capitalised.</div></div>
+<div class="c-item"><span class="c-badge">Fix 2</span><b>"adviced" &rarr; "advised"</b><div class="c-rule">&#128218; <em>Advice</em> is a noun ("give advice"). <em>Advise</em> is the verb ("I advise you"). The past tense of the verb is <em>advised</em>. You cannot use a noun as a verb. &#128161; adv<b>ICE</b> = noun | adv<b>ISE</b> = verb.</div></div>
+<div class="c-item"><span class="c-badge">Fix 3</span><b>"to drank" &rarr; "to drink"</b><div class="c-rule">&#128218; After <em>to</em> (infinitive marker), always use the <b>base form</b>: to drink, to eat, to run. "Drank" is the simple past tense and must never follow "to". Rule: to + base verb, always.</div></div>
+<div class="c-item"><span class="c-badge">Fix 4</span><b>"you're" &rarr; "your"</b><div class="c-rule">&#128218; <em>You're</em> = you are. <em>Your</em> = belonging to you. "Take your medicine" &mdash; ownership is required. &#128161; Test: "take you are medicine" makes no sense &rarr; use <em>your</em>.</div></div>
+<div class="c-item"><span class="c-badge">Fix 5</span><b>"medecine" &rarr; "medicine"</b><div class="c-rule">&#128218; Spelling: m-e-d-i-c-i-n-e. &#128161; Think of <em>medical</em> &mdash; same root: MEDI. Then: medi-CINE.</div></div>
+<div class="c-item"><span class="c-badge">Fix 6</span><b>"she" &rarr; "She"</b><div class="c-rule">&#128218; New sentence begins after full stop &rarr; first word capitalised.</div></div>
+<div class="c-item"><span class="c-badge">Fix 7</span><b>"avoids" &rarr; "avoid"</b><div class="c-rule">&#128218; After the modal verb <em>should</em>, always use the <b>base form</b>: "should avoid". Modals (should, must, can, will) never take verb endings (-s / -ed / -ing).</div></div>
+<div class="c-item"><span class="c-badge">Fix 8</span><b>"excercise" &rarr; "exercise"</b><div class="c-rule">&#128218; Spelling: e-x-e-r-c-i-s-e. No double letter. &#128161; EX-er-cise &mdash; the prefix EX is the same as in exit, explain, expect.</div></div>
+<div class="c-item"><span class="c-badge">Fix 9</span><b>"everyday" &rarr; "every day"</b><div class="c-rule">&#128218; <em>Everyday</em> (one word) = adjective meaning "ordinary/routine" (everyday problems). <em>Every day</em> (two words) = adverb meaning "each day". "Do exercise <em>every day</em>" requires the two-word adverb. &#128161; Test: replace with "each day" &mdash; if it fits, write it as two words.</div></div>
+<div class="c-item"><span class="c-badge">Fix 10</span><b>"it are" &rarr; "it is"</b><div class="c-rule">&#128218; "It" is always singular &rarr; always takes "is". It is / He is / She is = singular. They are / We are = plural.</div></div>
+<div class="c-item"><span class="c-badge">Fix 11</span><b>"importent" &rarr; "important"</b><div class="c-rule">&#128218; Spelling: im-por-<b>tant</b>. The final vowel is A, not E. &#128161; Think: import + <b>ant</b> = import<b>ant</b>.</div></div>
+<div class="c-item"><span class="c-badge">Fix 12</span><b>"helth" &rarr; "health"</b><div class="c-rule">&#128218; Spelling: h-e-a-l-t-h. The "ea" vowel pair is often forgotten. &#128161; HEALTH contains <em>heal</em> (to get better) &mdash; health and healing share the same root.</div></div>
+</div>`
+      },
+      {
+        text:`The doctor advised the patient to drink plenty of water and take your medicine on time. She also said that he should avoid oily food and do exercise everyday because it is very important for good health.`,
+        correct:false,
+        why:`<b>"everyday" is one word here &mdash; a new mistake was introduced.</b><br><br><em>Everyday</em> (one word) is an <b>adjective</b> meaning "ordinary" or "routine" (e.g. "an everyday task", "everyday clothes"). When meaning "each day" as an adverb of frequency, it must be written as <b>two separate words: every day</b>.<br><br>"Do exercise <em>every day</em>" = do it each day &rarr; two words required.<br><br>&#128161; Quick test: replace with "each day" &mdash; if it makes sense, use two words.`
+      },
+      {
+        text:`The doctor advised the patient to drank plenty of water and take your medicine on time. She also said that he should avoid oily food and do exercise every day because it is very important for good health.`,
+        correct:false,
+        why:`<b>"to drank" is still incorrect &mdash; the wrong verb form is used after "to".</b><br><br>After <em>to</em> used as the infinitive marker, you must always use the <b>base form</b> of the verb: "to <em>drink</em>". <em>Drank</em> is the simple past tense and can never follow "to".<br><br>&#128161; Rule: to + base verb &mdash; always. to drink &#10003; / to drank &#10007; / to ate &#10007; / to ran &#10007;`
+      }
+    ]
+  }
+];
+
+// ─── STATE ───────────────────────────────────────────────────
+const st = { solved:0, firstTry:0, totalWrong:0 };
+const ps = {}; // passageId → { attempts, wrongSet, done }
+passages.forEach(p => { ps[p.id] = { attempts:0, wrongSet:new Set(), done:false }; });
+
+// ─── SHUFFLE ─────────────────────────────────────────────────
+function shuffle(a){ const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
+
+// ─── BUILD UI ────────────────────────────────────────────────
+const LABELS=['A','B','C','D'];
+
+function buildUI(){
+  const area=document.getElementById('quizArea');
+  let html='';
+  passages.forEach(p=>{
+    p._sh=shuffle(p.options);
+    let opts='';
+    p._sh.forEach((o,i)=>{
+      opts+=`<div class="opt" id="o_${p.id}_${i}" onclick="pick(${p.id},${i})">
+        <div class="opt-badge">${LABELS[i]}</div>
+        <div class="opt-text">${o.text}</div>
+      </div>`;
+    });
+    html+=`<div class="passage-card" id="card_${p.id}">
+      <div class="passage-header">
+        <span class="passage-num">PASSAGE ${p.id}</span>
+        <span class="status-tag" id="tag_${p.id}">&#128269; Unsolved</span>
+      </div>
+      <div class="lbl">&#128203; Original Passage (contains errors):</div>
+      <div class="passage-original">${p.original}</div>
+      <div class="question-lbl">&#128269; Which version is perfectly and completely corrected? Choose one:</div>
+      <div class="options-wrap" id="opts_${p.id}">${opts}</div>
+      <div class="feedback" id="fb_${p.id}"></div>
+    </div>`;
+  });
+  area.innerHTML=html;
+}
+
+// ─── PICK ────────────────────────────────────────────────────
+function pick(pid,oi){
+  const s=ps[pid];
+  if(s.done||s.wrongSet.has(oi)) return;
+  const passage=passages.find(p=>p.id===pid);
+  const opt=passage._sh[oi];
+  s.attempts++;
+
+  if(opt.correct){
+    // CORRECT
+    s.done=true;
+    const first=s.attempts===1;
+    st.solved++;
+    if(first) st.firstTry++;
+    updateStats();
+    document.getElementById(`o_${pid}_${oi}`).classList.add('correct-pick','disabled');
+    lockRest(pid, oi);
+    const star=first?`<span class="first-try-star">&#11088; First Try!</span>`:'';
+    showFB(pid,
+      `<div class="fb-header correct-h">&#10003; Correct! Well done! ${star}</div>`,
+      `<b>Here is a full explanation of every correction made in this passage:</b>${opt.exp}`,
+      'correct-b'
+    );
+    const tag=document.getElementById(`tag_${pid}`);
+    tag.textContent=first?'&#11088; Solved — First Try!':'&#10003; Solved';
+    tag.style.background='#2e7d32';
+    if(st.solved===passages.length) setTimeout(showOverall,700);
+  } else {
+    // WRONG
+    s.wrongSet.add(oi);
+    st.totalWrong++;
+    updateStats();
+    document.getElementById(`o_${pid}_${oi}`).classList.add('eliminated','disabled');
+    showFB(pid,
+      `<div class="fb-header wrong-h">&#10007; Option ${LABELS[oi]} is incorrect.</div>`,
+      `${opt.why}<div class="try-again">&#128203; Option ${LABELS[oi]} has been crossed out. Read the remaining options carefully and try again!</div>`,
+      'wrong-b'
+    );
+  }
+  scroll2(pid);
+}
+
+function lockRest(pid, correctOi){
+  passages.find(p=>p.id===pid)._sh.forEach((_,i)=>{
+    if(i===correctOi) return;
+    const el=document.getElementById(`o_${pid}_${i}`);
+    if(el&&!el.classList.contains('eliminated')){el.classList.add('disabled');el.style.opacity='0.4';}
+  });
+}
+
+function showFB(pid,header,body,bodyClass){
+  const el=document.getElementById(`fb_${pid}`);
+  el.innerHTML=`${header}<div class="fb-body ${bodyClass}">${body}</div>`;
+  el.classList.add('show');
+}
+
+function scroll2(pid){
+  setTimeout(()=>{const el=document.getElementById(`fb_${pid}`);if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});},100);
+}
+
+// ─── STATS ───────────────────────────────────────────────────
+function updateStats(){
+  document.getElementById('stSolved').textContent=st.solved;
+  document.getElementById('stFirst').textContent=st.firstTry;
+  document.getElementById('stWrong').textContent=st.totalWrong;
+  document.getElementById('stScore').textContent=st.solved?Math.round(st.solved/passages.length*100)+'%':'—';
+}
+
+// ─── OVERALL ─────────────────────────────────────────────────
+function showOverall(){
+  const ft=st.firstTry, total=passages.length;
+  const pct=Math.round(ft/total*100);
+  let grade,msg;
+  if(ft===total){grade='A+ &#127942;';msg='Outstanding! Every passage correct on the very first try!';}
+  else if(ft>=4){grade='A';msg='Excellent! Strong proofreading ability — just a few passages took extra tries.';}
+  else if(ft>=3){grade='B';msg='Good effort! All passages solved. Revise the rules you needed hints for.';}
+  else if(ft>=2){grade='C';msg='Satisfactory. All passages solved but revision of rules is needed.';}
+  else{grade='D';msg='Completed! Focus on re-reading all the rule explanations to improve.';}
+  document.getElementById('ovScore').textContent=`${ft} / ${total} First Try`;
+  document.getElementById('ovSub').innerHTML=`You solved all 6 passages!&nbsp; First-try accuracy: <b>${pct}%</b>`;
+  document.getElementById('ovGrade').innerHTML=`Grade: ${grade} &mdash; ${msg}`;
+  const el=document.getElementById('overallResult');
+  el.classList.add('show');
+  el.scrollIntoView({behavior:'smooth'});
+}
+
+// ─── WATERMARK ───────────────────────────────────────────────
+(function(){
+  const wm=document.getElementById('wm');
+  let h='';
+  for(let r=0;r<14;r++) for(let c=0;c<6;c++) h+=`<span style="top:${r*120+40}px;left:${c*200+10}px">Smart Study Center</span>`;
+  wm.innerHTML=h;
+})();
+
+buildUI();
+</script>
+</body>
+</html>
