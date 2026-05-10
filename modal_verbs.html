@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modal Verbs Class XI | Smart Study Center</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(135deg,#0d47a1 0%,#1565c0 50%,#1976d2 100%);min-height:100vh;padding:20px}
+.container{max-width:980px;margin:0 auto;background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.35);overflow:hidden}
+
+.brand-header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:12px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.brand-name{font-size:17px;font-weight:800}
+.brand-sub{font-size:12px;color:#a8b4d8;letter-spacing:1px;text-transform:uppercase}
+.brand-contact{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:6px 16px;font-size:14px;font-weight:600;color:#e0e6ff}
+
+.header{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:28px;text-align:center}
+.header h1{font-family:'Playfair Display',serif;font-size:26px;margin-bottom:6px;font-weight:900}
+.header p{opacity:.9;font-size:14px}
+.badge-row{display:flex;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700}
+
+.stats{display:flex;justify-content:space-around;padding:16px;background:#f8f9fa;border-bottom:2px solid #e9ecef;flex-wrap:wrap;gap:8px}
+.stat-item{text-align:center}
+.stat-label{font-size:11px;color:#6c757d;text-transform:uppercase;letter-spacing:1px}
+.stat-value{font-size:22px;font-weight:800;color:#0d47a1;margin-top:4px}
+
+.instructions{margin:20px 25px;padding:16px 20px;background:#fff8e1;border-left:5px solid #f9a825;border-radius:10px;font-size:13.5px;line-height:1.85;color:#5d4037}
+.instructions strong{color:#e65100}
+
+.section-title{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;margin:0 25px 20px;letter-spacing:.5px;text-transform:uppercase}
+
+.quiz-area{padding:0 25px 25px}
+
+.q-card{background:#f8f9fa;border-radius:12px;padding:18px 20px;margin-bottom:16px;border-left:5px solid #0d47a1;display:flex;flex-direction:column;gap:10px;transition:border-color .3s}
+.q-card.solved{border-left-color:#2e7d32;background:#f0faf0}
+.q-card.revealed{border-left-color:#e65100;background:#fff9f5}
+
+.q-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.q-num{background:#0d47a1;color:#fff;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0}
+.q-card.solved .q-num{background:#2e7d32}
+.q-card.revealed .q-num{background:#e65100}
+
+.q-sentence{font-size:15px;line-height:2;color:#222;flex:1}
+.blank-wrap{display:inline-block;position:relative;vertical-align:middle}
+.blank-input{border:none;border-bottom:2.5px solid #0d47a1;background:transparent;font-family:'Source Sans 3',sans-serif;font-size:15px;font-weight:700;color:#0d47a1;width:90px;text-align:center;outline:none;padding:2px 4px;transition:border-color .3s,color .3s}
+.blank-input:focus{border-bottom-color:#1976d2}
+.blank-input.correct-in{border-bottom-color:#2e7d32;color:#2e7d32}
+.blank-input.wrong-in{border-bottom-color:#c62828;color:#c62828}
+.blank-input.revealed-in{border-bottom-color:#e65100;color:#e65100}
+.blank-input:disabled{cursor:not-allowed}
+
+.tag-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cat-tag{display:inline-block;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;color:#fff}
+.attempt-dots{display:flex;gap:5px;align-items:center}
+.dot{width:10px;height:10px;border-radius:50%;background:#dee2e6;transition:background .3s}
+.dot.used{background:#ef9a9a}
+.dot.correct{background:#81c784}
+
+.q-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.check-btn{background:#0d47a1;color:#fff;border:none;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.check-btn:hover:not(:disabled){background:#1565c0;transform:translateY(-1px)}
+.check-btn:disabled{background:#aaa;cursor:not-allowed}
+.clear-btn{background:#e8eaf6;color:#3949ab;border:none;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.clear-btn:hover:not(:disabled){background:#c5cae9}
+.clear-btn:disabled{display:none}
+.status-badge{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
+.status-badge.ok{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7}
+.status-badge.revealed-b{background:#fff3e0;color:#e65100;border:1px solid #ffcc80}
+.attempts-left{font-size:12px;color:#666}
+
+.feedback{display:none;border-radius:9px;overflow:hidden;font-size:13.5px}
+.feedback.show{display:block}
+.fb-h{padding:9px 15px;font-weight:800;font-size:13px}
+.fb-h.wrong-h{background:#c62828;color:#fff}
+.fb-h.hint2-h{background:#e65100;color:#fff}
+.fb-h.ok-h{background:#2e7d32;color:#fff}
+.fb-h.reveal-h{background:#5d4037;color:#fff}
+.fb-b{padding:13px 15px;border:1.5px solid #e0e0e0;border-top:none;border-radius:0 0 9px 9px;background:#fff;line-height:1.85;color:#333}
+.fb-b.wrong-b{border-color:#ef9a9a}
+.fb-b.ok-b{border-color:#a5d6a7}
+.fb-b.reveal-b{border-color:#ffcc80}
+.correct-word{color:#2e7d32;font-weight:800;font-size:15px}
+.revealed-word{color:#e65100;font-weight:800;font-size:15px}
+.rule-line{margin-top:8px;padding-top:8px;border-top:1px solid #e0e0e0;font-size:13px;color:#444}
+.try-note{margin-top:8px;padding:7px 12px;background:#fff8e1;border-radius:7px;font-size:12.5px;color:#e65100;font-weight:600;border:1px solid #ffe082}
+
+.overall-result{margin:0 25px 25px;padding:24px;background:linear-gradient(135deg,#0d47a1,#1565c0);border-radius:14px;color:#fff;text-align:center;display:none}
+.overall-result.show{display:block}
+.overall-result h3{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:8px}
+.ov-score{font-size:52px;font-weight:900;line-height:1.1}
+.ov-sub{font-size:14px;opacity:.85;margin-top:6px}
+.grade-pill{display:inline-block;margin-top:14px;padding:8px 24px;border-radius:20px;font-weight:800;font-size:15px;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.4)}
+
+.wm{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
+.wm span{position:absolute;font-size:14px;font-weight:700;color:rgba(13,71,161,.055);white-space:nowrap;transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase}
+
+.brand-footer{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:16px 30px;text-align:center}
+.footer-main{font-size:14px;font-weight:700;color:#e0e6ff}
+.footer-sub{font-size:11px;color:#a8b4d8;margin-top:4px}
+.fdiv{margin:0 8px;opacity:.4}
+
+@media(max-width:600px){
+  .quiz-area{padding:0 14px 20px}
+  .section-title,.instructions{margin-left:14px;margin-right:14px}
+  .q-sentence{font-size:14px}
+  .blank-input{width:75px;font-size:14px}
+}
+</style>
+</head>
+<body>
+<div class="wm" id="wm"></div>
+<div class="container">
+
+  <div class="brand-header">
+    <div><div class="brand-name">Sir Ahmer Javed</div><div class="brand-sub">Smart Study Center</div></div>
+    <div class="brand-contact">&#128222; 0345-3090057</div>
+  </div>
+
+  <div class="header">
+    <h1>&#9999;&#65039; English Language Class XI &mdash; Modal Verbs</h1>
+    <p>Fill-in-the-Blank Practice Worksheet &nbsp;|&nbsp; STBB Board Exam Preparation</p>
+    <div class="badge-row">
+      <span class="badge">&#128203; 25 Questions</span>
+      <span class="badge">&#128260; 2 Tries Per Question</span>
+      <span class="badge">&#128161; Hints System</span>
+      <span class="badge">&#128202; Live Score</span>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-item"><div class="stat-label">Questions</div><div class="stat-value">25</div></div>
+    <div class="stat-item"><div class="stat-label">Correct</div><div class="stat-value" id="stCorrect">0</div></div>
+    <div class="stat-item"><div class="stat-label">First Try</div><div class="stat-value" id="stFirst">0</div></div>
+    <div class="stat-item"><div class="stat-label">Revealed</div><div class="stat-value" id="stRevealed">0</div></div>
+    <div class="stat-item"><div class="stat-label">Score</div><div class="stat-value" id="stScore">&mdash;</div></div>
+  </div>
+
+  <div class="instructions">
+    <strong>&#128204; Instructions:</strong> Insert a suitable modal verb in each blank according to the category shown in the coloured tag. Type your answer in the blank and click <strong>Check</strong>.<br>
+    &#10148; <strong>Wrong on 1st try</strong>: You get a hint explaining why &mdash; try again!<br>
+    &#10148; <strong>Wrong on 2nd try</strong>: You get a stronger hint &mdash; one last try!<br>
+    &#10148; <strong>Wrong on 3rd try</strong>: The correct answer is revealed with a full explanation.<br>
+    &#10148; <strong>Correct</strong> at any point: Full grammar rule is shown immediately.
+  </div>
+
+  <div class="section-title">&#128218; Topic 2: Modal Verbs &mdash; Insert a Suitable Modal Verb</div>
+
+  <div class="quiz-area" id="quizArea"></div>
+
+  <div class="overall-result" id="overallResult">
+    <h3>&#127881; Worksheet Complete!</h3>
+    <div class="ov-score" id="ovScore"></div>
+    <div class="ov-sub" id="ovSub"></div>
+    <div class="grade-pill" id="ovGrade"></div>
+  </div>
+
+  <div class="brand-footer">
+    <div class="footer-main">Sir Ahmer Javed <span class="fdiv">|</span> Smart Study Center <span class="fdiv">|</span> &#128222; 0345-3090057</div>
+    <div class="footer-sub">English Language Class XI &mdash; Modal Verbs Worksheet &nbsp;|&nbsp; STBB Board Exam Prep</div>
+  </div>
+</div>
+
+<script>
+// ── CATEGORY COLOURS ──────────────────────────────────────
+const CAT_COLORS = {
+  "Past Ability":           "#1565c0",
+  "Ability":                "#2e7d32",
+  "Present Ability":        "#2e7d32",
+  "Prohibition":            "#b71c1c",
+  "Strong Prohibition":     "#880e4f",
+  "Recommendation":         "#e65100",
+  "Strong Recommendation":  "#bf360c",
+  "Polite Request":         "#6a1b9a",
+  "Polite Request/Permission":"#6a1b9a",
+  "Permission":             "#4a148c",
+  "Obligation":             "#1a237e",
+  "Necessity":              "#1a237e",
+  "Necessity/Obligation":   "#1a237e",
+  "Medical Obligation":     "#00695c",
+  "Possibility":            "#00695c",
+  "Probability":            "#37474f",
+  "Deduction/Certainty":    "#37474f",
+  "Logical Deduction":      "#37474f",
+  "Advice":                 "#f57f17",
+  "Negative Advice":        "#e65100",
+  "Offer":                  "#1b5e20",
+};
+
+// ── NORMALIZE for comparison ──────────────────────────────
+function norm(s){
+  return s.trim().toLowerCase()
+    .replace(/mustn['\u2019]t/g,"must not")
+    .replace(/can['\u2019]t/g,"cannot")
+    .replace(/shouldn['\u2019]t/g,"should not")
+    .replace(/couldn['\u2019]t/g,"could not")
+    .replace(/won['\u2019]t/g,"will not")
+    .replace(/wouldn['\u2019]t/g,"would not")
+    .replace(/shan['\u2019]t/g,"shall not");
+}
+
+// ── QUESTION DATA ─────────────────────────────────────────
+const QS = [
+  {
+    before:"He", after:"play tennis very well when he was young.",
+    cat:"Past Ability",
+    accepted:["could"],
+    answer:"could",
+    exp:`<span class="correct-word">could</span> &mdash; <b>Past Ability</b>.<div class="rule-line">&#128218; <em>Could</em> is the past tense of <em>can</em> and is used to express what someone <b>was able to do</b> at an earlier time. Rule: <b>could + base verb</b>.<br>&#128161; Tip: can (present) &rarr; could (past). "He could play tennis" = he had that ability in the past.</div>`,
+    hint1:`The category is <b>Past Ability</b> &mdash; what someone was able to do in the past. Think of the <em>past tense</em> of the modal "can". It is also used for polite requests.`,
+    hint2:`The modal for past ability is the past tense of "can". It is a 5-letter word starting with <b>c</b>. Example: "When I was young, I ___ swim very fast."`
+  },
+  {
+    before:"You", after:"use your mobile phone in the exam hall.",
+    cat:"Prohibition",
+    accepted:["must not","cannot","mustn't","can't"],
+    answer:"must not / cannot",
+    exp:`<span class="correct-word">must not</span> <em>or</em> <span class="correct-word">cannot</span> &mdash; <b>Prohibition</b>.<div class="rule-line">&#128218; Both express that something is <b>not allowed or forbidden</b>. <em>Must not</em> = stronger, rule-based ban. <em>Cannot / can't</em> = not permitted.<br>&#128161; Tip: Prohibition = NOT allowed. must not / cannot are both correct here.</div>`,
+    hint1:`The category is <b>Prohibition</b> &mdash; the action is strictly forbidden. We need a <em>negative modal</em> that bans or forbids something. Think of modals that mean "not allowed".`,
+    hint2:`For prohibition we use <b>must not</b> (rule-based ban) or <b>cannot</b> (not permitted). Both are negative forms. The question asks which one fits "strictly forbidden in the exam hall".`
+  },
+  {
+    before:"She", after:"speak three languages fluently.",
+    cat:"Ability",
+    accepted:["can","could"],
+    answer:"can",
+    exp:`<span class="correct-word">can</span> &mdash; <b>Present Ability</b>.<div class="rule-line">&#128218; <em>Can</em> is the most common modal for expressing <b>present ability</b> &mdash; what someone is able to do right now. Rule: <b>can + base verb</b>.<br>&#128161; Tip: can = present ability. could = past ability. "She can speak three languages" means she has this skill now.</div>`,
+    hint1:`The category is <b>Ability</b> &mdash; what she is currently able to do. Think of the most basic and common modal for expressing present ability. It is a 3-letter word.`,
+    hint2:`The modal for present ability is <b>can</b> &mdash; the most fundamental modal in English. "She ___ speak three languages" means she has that skill right now.`
+  },
+  {
+    before:"You", after:"try this cake &mdash; it's absolutely delicious!",
+    cat:"Recommendation",
+    accepted:["should","must","ought to"],
+    answer:"should / must",
+    exp:`<span class="correct-word">should</span> <em>or</em> <span class="correct-word">must</span> &mdash; <b>Recommendation</b>.<div class="rule-line">&#128218; Both express recommendation. <em>Should</em> = a general suggestion (advisable). <em>Must</em> = a strong recommendation (highly advisable, used with enthusiasm). The exclamation mark here suggests enthusiasm &rarr; "must" is very natural.<br>&#128161; Tip: should = mild advice. must = strong recommendation.</div>`,
+    hint1:`The category is <b>Recommendation</b> &mdash; the speaker is enthusiastically suggesting the listener tries the cake. Think of a modal that expresses "it is a good idea / you really ought to".`,
+    hint2:`For recommendations, use <b>should</b> (general advice) or <b>must</b> (strong recommendation). The exclamation mark "it's absolutely delicious!" suggests this is a strong, enthusiastic recommendation.`
+  },
+  {
+    before:"", after:"I borrow your pen for a moment?",
+    cat:"Polite Request/Permission",
+    accepted:["may","can","could"],
+    answer:"May / Could / Can",
+    exp:`<span class="correct-word">May</span> / <span class="correct-word">Could</span> / <span class="correct-word">Can</span> &mdash; <b>Polite Request / Permission</b>.<div class="rule-line">&#128218; All three are used to ask permission. <em>May I...?</em> = most formal and polite. <em>Could I...?</em> = polite and common. <em>Can I...?</em> = informal/casual.<br>&#128161; Tip: For formal situations (asking a stranger/teacher), use <em>May</em> or <em>Could</em>. For friends, <em>Can</em> is fine.</div>`,
+    hint1:`The category is <b>Polite Request / Permission</b> &mdash; asking if it is allowed to borrow a pen. This is a question form: "___ I borrow...?" Think of a modal used at the start of a polite question.`,
+    hint2:`For polite permission questions, we use <b>May I...?</b> (most formal), <b>Could I...?</b> (polite), or <b>Can I...?</b> (informal). The most formal and polite way to ask permission starts with "M".`
+  },
+  {
+    before:"Students", after:"submit their assignments before Friday.",
+    cat:"Obligation",
+    accepted:["must","should","have to"],
+    answer:"must / should",
+    exp:`<span class="correct-word">must</span> <em>or</em> <span class="correct-word">should</span> &mdash; <b>Obligation</b>.<div class="rule-line">&#128218; <em>Must</em> = strong obligation (rule/requirement). <em>Should</em> = weaker obligation (expected/recommended). For a deadline set by a teacher or institution, <em>must</em> is the stronger and more appropriate choice.<br>&#128161; Tip: must = compulsory. should = expected but slightly flexible.</div>`,
+    hint1:`The category is <b>Obligation</b> &mdash; submitting assignments before Friday is a requirement set by the teacher. Think of a modal that expresses duty or compulsory action.`,
+    hint2:`For obligations and rules, <b>must</b> is the strongest modal (compulsory), while <b>should</b> is a softer obligation. For a student deadline, which feels more like a firm rule?`
+  },
+  {
+    before:"You", after:"run in the hallways &mdash; it is strictly against the rules.",
+    cat:"Prohibition",
+    accepted:["must not","cannot","mustn't","can't"],
+    answer:"must not / cannot",
+    exp:`<span class="correct-word">must not</span> <em>or</em> <span class="correct-word">cannot</span> &mdash; <b>Prohibition</b>.<div class="rule-line">&#128218; "Strictly against the rules" confirms this is a <b>prohibition</b>. <em>Must not</em> = the rule forbids it (strongest). <em>Cannot</em> = not permitted.<br>&#128161; Tip: must not = the rules say NO. cannot = you are not allowed to.</div>`,
+    hint1:`The category is <b>Prohibition</b> again. "Strictly against the rules" tells us running is completely forbidden. We need a <em>negative modal</em> expressing a firm ban.`,
+    hint2:`The strongest negative modal for a rule-based ban is <b>must not</b>. For "strictly against the rules", this is stronger than "should not". "Cannot" is also acceptable.`
+  },
+  {
+    before:"He", after:"lift heavy weights when he was a professional athlete.",
+    cat:"Past Ability",
+    accepted:["could"],
+    answer:"could",
+    exp:`<span class="correct-word">could</span> &mdash; <b>Past Ability</b>.<div class="rule-line">&#128218; Same rule as Q1. <em>Could</em> is the past tense of <em>can</em>, used for past ability. "When he was a professional athlete" tells us this is in the past.<br>&#128161; Tip: Any time you see "when he/she was..." followed by an ability, use <em>could</em>.</div>`,
+    hint1:`The category is <b>Past Ability</b> again &mdash; same as Q1. "When he was a professional athlete" (past time) + his ability = past ability modal. What is the past tense of "can"?`,
+    hint2:`The answer is the same type as Q1 &mdash; the 5-letter past tense of "can" starting with "c". It is the only modal in English that expresses past ability.`
+  },
+  {
+    before:"It looks cloudy outside. It", after:"rain later today.",
+    cat:"Possibility",
+    accepted:["might","may","could"],
+    answer:"might / may / could",
+    exp:`<span class="correct-word">might</span> / <span class="correct-word">may</span> / <span class="correct-word">could</span> &mdash; <b>Possibility</b>.<div class="rule-line">&#128218; All three express possibility (uncertainty about a future event). <em>Might</em> = less certain (~30-40%). <em>May</em> = somewhat certain (~50%). <em>Could</em> = possible but unsure.<br>&#128161; Tip: For future possibilities, might/may/could are all correct. "Might" is most common for uncertain possibilities.</div>`,
+    hint1:`The category is <b>Possibility</b> &mdash; the cloudy sky makes rain possible but not certain. We need a modal that means "perhaps / it is possible that". Think of modals for uncertain future events.`,
+    hint2:`For possibility, the three modals are: <b>might</b> (less certain), <b>may</b> (fairly possible), <b>could</b> (possible). "It looks cloudy" &rarr; rain is possible, not definite &rarr; "might" is the most natural choice here.`
+  },
+  {
+    before:"", after:"you please pass me the salt?",
+    cat:"Polite Request",
+    accepted:["could","would"],
+    answer:"Could / Would",
+    exp:`<span class="correct-word">Could</span> <em>or</em> <span class="correct-word">Would</span> &mdash; <b>Polite Request</b>.<div class="rule-line">&#128218; Both <em>Could you...?</em> and <em>Would you...?</em> are standard polite request forms asking someone to do something. <em>Would</em> is slightly more formal.<br>&#128161; Tip: "Could you please...?" and "Would you please...?" are both perfect for polite requests. Never use "Can you please...?" in formal situations.</div>`,
+    hint1:`The category is <b>Polite Request</b> &mdash; asking someone to pass the salt politely. This goes at the start: "___ you please...?" Think of a polite/formal question modal.`,
+    hint2:`For "___ you please...?" polite requests, the two correct modals are <b>Could</b> and <b>Would</b>. "Could you please..." is very common in everyday polite speech. "Would you please..." is slightly more formal.`
+  },
+  {
+    before:"You", after:"drink more water every day &mdash; it is good for your health.",
+    cat:"Advice",
+    accepted:["should","ought to","must"],
+    answer:"should",
+    exp:`<span class="correct-word">should</span> &mdash; <b>Advice</b>.<div class="rule-line">&#128218; <em>Should</em> is the standard modal for giving <b>advice</b> &mdash; recommending something that is a good idea. Rule: <b>should + base verb</b>.<br>&#128161; Tip: should = "it is a good idea to...". It is the most natural modal for health and lifestyle advice.</div>`,
+    hint1:`The category is <b>Advice</b> &mdash; the speaker is recommending drinking more water because it is healthy. Think of the most common modal for giving advice or making recommendations.`,
+    hint2:`The standard modal for giving advice is <b>should</b> &mdash; a 6-letter word. Example: "You should exercise regularly." It suggests something is a good idea without being a command.`
+  },
+  {
+    before:"Passengers", after:"fasten their seatbelts during takeoff.",
+    cat:"Necessity/Obligation",
+    accepted:["must","should","have to"],
+    answer:"must / should",
+    exp:`<span class="correct-word">must</span> <em>or</em> <span class="correct-word">should</span> &mdash; <b>Necessity / Obligation</b>.<div class="rule-line">&#128218; Fastening seatbelts during takeoff is a <b>safety rule</b> &mdash; <em>must</em> is the strongest and most appropriate modal for safety regulations. <em>Should</em> is also acceptable.<br>&#128161; Tip: For safety rules and official regulations, <em>must</em> is the preferred modal.</div>`,
+    hint1:`The category is <b>Necessity / Obligation</b> &mdash; fastening seatbelts during takeoff is not optional; it is a safety rule. Think of the strongest obligation modal.`,
+    hint2:`For safety rules and official regulations, <b>must</b> is the strongest and most appropriate modal. It means the action is compulsory and required. "Should" is also accepted but "must" is more precise.`
+  },
+  {
+    before:"She", after:"already be at the airport by now &mdash; she left two hours ago.",
+    cat:"Probability",
+    accepted:["must","should"],
+    answer:"must / should",
+    exp:`<span class="correct-word">must</span> <em>or</em> <span class="correct-word">should</span> &mdash; <b>Probability (Strong Deduction)</b>.<div class="rule-line">&#128218; <em>Must</em> = strong probability / logical deduction based on evidence ("she left 2 hours ago" &rarr; she is certainly there now). <em>Should</em> = expectation (she ought to be there by now).<br>&#128161; Tip: Evidence + logical conclusion = <em>must</em>. "She left 2 hours ago" is strong evidence &rarr; "She must be at the airport."</div>`,
+    hint1:`The category is <b>Probability</b>. "She left two hours ago" is evidence. Based on this, the speaker is making a logical conclusion about where she is now. Think of a modal for near-certainty based on evidence.`,
+    hint2:`When you have strong evidence and you're logically concluding something is almost certainly true, use <b>must</b>. "She left 2 hours ago" &rarr; "She must already be at the airport." 'Should' (she ought to be there) also works.`
+  },
+  {
+    before:"", after:"I come in, sir?",
+    cat:"Permission",
+    accepted:["may","can","could"],
+    answer:"May / Could / Can",
+    exp:`<span class="correct-word">May</span> / <span class="correct-word">Could</span> / <span class="correct-word">Can</span> &mdash; <b>Permission</b>.<div class="rule-line">&#128218; All three ask for permission. <em>May I...?</em> = most formal and polite (best for asking a teacher/sir). <em>Could I...?</em> = polite. <em>Can I...?</em> = informal.<br>&#128161; Tip: Asking a teacher or authority figure &rarr; always prefer <em>May I...?</em> &mdash; it is the most respectful form.</div>`,
+    hint1:`The category is <b>Permission</b> &mdash; a student is asking a teacher if they can enter. The word "sir" shows this is formal. Think of the most polite modal for asking permission.`,
+    hint2:`When asking a teacher or authority figure for permission, <b>May I...?</b> is the most formal and respectful. "May I come in, sir?" is the ideal form. "Could I...?" is also polite. "Can I...?" is too informal for "sir".`
+  },
+  {
+    before:"You", after:"eat so much junk food &mdash; it is very bad for you.",
+    cat:"Negative Advice",
+    accepted:["should not","shouldn't"],
+    answer:"should not / shouldn't",
+    exp:`<span class="correct-word">should not</span> (<span class="correct-word">shouldn't</span>) &mdash; <b>Negative Advice</b>.<div class="rule-line">&#128218; <em>Should not</em> (or <em>shouldn't</em>) expresses that something is <b>not a good idea</b> &mdash; negative advice or a suggestion to avoid something. Rule: <b>should not + base verb</b>.<br>&#128161; Tip: should = do this (advice). should not = don't do this (negative advice). Both are about recommendations, not rules.</div>`,
+    hint1:`The category is <b>Negative Advice</b> &mdash; advising someone <em>not</em> to do something because it is harmful. Think of the <em>negative form</em> of the advice modal "should".`,
+    hint2:`Negative advice uses <b>should not</b> or its contraction <b>shouldn't</b>. "You should not eat junk food" = it is not a good idea. This is advice, not a rule or prohibition.`
+  },
+  {
+    before:"When I was a child, I", after:"climb trees very easily.",
+    cat:"Past Ability",
+    accepted:["could"],
+    answer:"could",
+    exp:`<span class="correct-word">could</span> &mdash; <b>Past Ability</b>.<div class="rule-line">&#128218; "When I was a child" establishes past time + "climb trees" = an ability in the past. <em>Could</em> is the only modal for past ability in English.<br>&#128161; Tip: "When I was a child / young / a student..." + ability &rarr; always <em>could</em>.</div>`,
+    hint1:`The category is <b>Past Ability</b> again. "When I was a child" is a past time. The speaker could do something then. This is the same modal as Q1 and Q8.`,
+    hint2:`Past ability is always expressed with <b>could</b>. This is the third past ability question &mdash; all three have the same answer. "When I was a child, I ___ climb trees" &rarr; could.`
+  },
+  {
+    before:"He", after:"be the new manager &mdash; I saw his name on the notice board.",
+    cat:"Deduction/Certainty",
+    accepted:["must"],
+    answer:"must",
+    exp:`<span class="correct-word">must</span> &mdash; <b>Deduction / Certainty</b>.<div class="rule-line">&#128218; When you <b>make a logical deduction</b> based on strong evidence, use <em>must</em>. "I saw his name on the notice board" = strong evidence &rarr; logical conclusion: "He must be the new manager."<br>&#128161; Tip: Evidence &rarr; logical conclusion = <em>must</em>. Compare: might (50% possible), may (fairly possible), must (almost certain based on evidence).</div>`,
+    hint1:`The category is <b>Deduction / Certainty</b> &mdash; the speaker saw the name on the notice board (strong evidence) and is now making a logical conclusion. Think of the modal that expresses near-certainty from evidence.`,
+    hint2:`When strong evidence leads to a logical conclusion, use <b>must</b>. "I saw his name on the notice board" &rarr; I am almost certain he is the new manager &rarr; "He must be...". This is stronger than "might" or "may".`
+  },
+  {
+    before:"", after:"you mind waiting outside for a few minutes?",
+    cat:"Polite Request",
+    accepted:["would","could"],
+    answer:"Would / Could",
+    exp:`<span class="correct-word">Would</span> <em>or</em> <span class="correct-word">Could</span> &mdash; <b>Polite Request</b>.<div class="rule-line">&#128218; "___ you mind...?" is a polite request structure. <em>Would you mind...?</em> = very polite, standard. <em>Could you mind...?</em> = also acceptable. Note: "Would you mind + verb-ing?" (the gerund follows "mind").<br>&#128161; Tip: "Would you mind waiting?" = very polite way of asking someone to wait. This structure is very common in formal/polite English.</div>`,
+    hint1:`The category is <b>Polite Request</b>. The structure is "___ you mind...?" &mdash; asking someone very politely to wait outside. Think of which modal fits before "you mind".`,
+    hint2:`The standard polite structure is <b>Would you mind...?</b> &mdash; a very common and formal polite request. "Could you mind...?" is also used. The answer goes before "you mind waiting outside".`
+  },
+  {
+    before:"You", after:"touch the electrical wires &mdash; it is extremely dangerous.",
+    cat:"Strong Prohibition",
+    accepted:["must not","mustn't"],
+    answer:"must not",
+    exp:`<span class="correct-word">must not</span> (<span class="correct-word">mustn't</span>) &mdash; <b>Strong Prohibition</b>.<div class="rule-line">&#128218; <em>Must not</em> is the <b>strongest prohibition modal</b> in English. It expresses absolute necessity to NOT do something &mdash; especially for dangerous or life-threatening actions. "Extremely dangerous" demands the strongest modal.<br>&#128161; Tip: must not = absolutely forbidden (danger / strict rule). cannot = not permitted. For "extremely dangerous" &rarr; always use <em>must not</em>.</div>`,
+    hint1:`The category is <b>Strong Prohibition</b> &mdash; note the word "strong". "Extremely dangerous" means this is not just a rule, it could cause serious harm. We need the <em>strongest</em> prohibition modal, stronger than "cannot".`,
+    hint2:`The strongest prohibition modal in English is <b>must not</b> (or <em>mustn't</em>). It is used for absolute bans, especially involving danger or safety. "You must not touch electrical wires" = it is completely forbidden and dangerous.`
+  },
+  {
+    before:"She", after:"speak in front of a large audience now, but she was very shy before.",
+    cat:"Present Ability",
+    accepted:["can","could"],
+    answer:"can",
+    exp:`<span class="correct-word">can</span> &mdash; <b>Present Ability</b>.<div class="rule-line">&#128218; "Now" + ability = present ability &rarr; <em>can</em>. The contrast with "was very shy before" confirms this is her current ability, not past. Rule: <b>can + base verb</b> for present ability.<br>&#128161; Tip: The word "now" is a clear signal for present ability &rarr; use <em>can</em>. If it said "before" or "when she was young" &rarr; use <em>could</em>.</div>`,
+    hint1:`The category is <b>Present Ability</b>. The word "now" is key &mdash; she has this ability at the present time. The contrast "but she was very shy before" shows a change. What is the present ability modal?`,
+    hint2:`Present ability uses <b>can</b>. The word "now" is the signal. Compare: "She CAN speak now" (present ability) vs "She COULD speak before" (past ability). The contrast in the sentence confirms it is present ability &rarr; can.`
+  },
+  {
+    before:"We", after:"leave now or we will miss the train.",
+    cat:"Necessity",
+    accepted:["must","should","have to"],
+    answer:"must / should",
+    exp:`<span class="correct-word">must</span> <em>or</em> <span class="correct-word">should</span> &mdash; <b>Necessity</b>.<div class="rule-line">&#128218; The consequence "or we will miss the train" makes leaving <b>necessary and urgent</b>. <em>Must</em> = strong necessity (compulsory right now). <em>Should</em> = expected/advisable.<br>&#128161; Tip: "Or we will miss the train" = urgent consequence &rarr; <em>must</em> is the stronger and more natural choice here.</div>`,
+    hint1:`The category is <b>Necessity</b>. "Or we will miss the train" shows that leaving is urgent and necessary &mdash; not optional. Think of the strongest modal for expressing necessity.`,
+    hint2:`For urgent necessity with a consequence ("or we will miss the train"), <b>must</b> is the most natural and strong choice. "We must leave now" = it is necessary/compulsory right now. "Should" also works but is less urgent.`
+  },
+  {
+    before:"The patient", after:"take the medicine twice a day.",
+    cat:"Medical Obligation",
+    accepted:["must","should"],
+    answer:"must / should",
+    exp:`<span class="correct-word">must</span> <em>or</em> <span class="correct-word">should</span> &mdash; <b>Medical Obligation</b>.<div class="rule-line">&#128218; A doctor's instruction is a firm medical obligation. <em>Must</em> = strong obligation (you are required to). <em>Should</em> = medical advice (you are expected to). Both are acceptable for medical instructions.<br>&#128161; Tip: Doctor's orders use either <em>must</em> (stronger) or <em>should</em> (advisory). Both are correct in a medical context.</div>`,
+    hint1:`The category is <b>Medical Obligation</b> &mdash; a doctor has told the patient to take medicine twice daily. This is a firm medical instruction. Think of the obligation modal for doctor's orders.`,
+    hint2:`For medical instructions, <b>must</b> (strong obligation) and <b>should</b> (medical advice) are both acceptable. "The patient must take the medicine" = required by the doctor. "The patient should take the medicine" = it is medically advised.`
+  },
+  {
+    before:"I", after:"help you carry those bags &mdash; they look very heavy.",
+    cat:"Offer",
+    accepted:["can","could","will","shall"],
+    answer:"can / could / will / shall",
+    exp:`<span class="correct-word">can</span> / <span class="correct-word">could</span> / <span class="correct-word">will</span> / <span class="correct-word">shall</span> &mdash; <b>Offer</b>.<div class="rule-line">&#128218; All four can be used to make an <b>offer of help</b>. <em>Can I help?</em> / <em>Could I help?</em> / <em>I will help</em> / <em>Shall I help?</em> are all standard offer forms. "I ___ help you" = expressing willingness.<br>&#128161; Tip: Offers use can/could/will/shall. "Can I help?" and "Shall I help?" are question offers. "I will help" and "I can help" are statement offers.</div>`,
+    hint1:`The category is <b>Offer</b> &mdash; the speaker is offering to help with the heavy bags. Think of a modal that expresses willingness or readiness to do something for someone.`,
+    hint2:`For offers of help, the common modals are <b>can</b> ("I can help"), <b>could</b> ("I could help"), <b>will</b> ("I will help"), and <b>shall</b> ("Shall I help?"). All are correct. The most common everyday offer is "I can help you" or "I will help you".`
+  },
+  {
+    before:"You", after:"see a doctor if the pain does not get better.",
+    cat:"Strong Recommendation",
+    accepted:["should","must","ought to"],
+    answer:"should / must",
+    exp:`<span class="correct-word">should</span> <em>or</em> <span class="correct-word">must</span> &mdash; <b>Strong Recommendation</b>.<div class="rule-line">&#128218; <em>Should</em> = general recommendation ("it is a good idea"). <em>Must</em> = strong recommendation ("it is very important / I strongly urge you"). For a health situation, both are appropriate; <em>must</em> carries more urgency.<br>&#128161; Tip: should = I advise you to. must = I strongly urge you to. Both are recommendations, not commands.</div>`,
+    hint1:`The category is <b>Strong Recommendation</b> &mdash; visiting a doctor when in pain is something the speaker feels strongly about. Think of the recommendation modal, or its stronger form.`,
+    hint2:`For <b>strong</b> recommendations, <b>must</b> is more forceful than <b>should</b>. "You must see a doctor" = I strongly urge you. "You should see a doctor" = I advise you to. Both are correct &mdash; "must" is stronger here.`
+  },
+  {
+    before:"He", after:"be at home right now &mdash; his car is parked outside.",
+    cat:"Logical Deduction",
+    accepted:["must"],
+    answer:"must",
+    exp:`<span class="correct-word">must</span> &mdash; <b>Logical Deduction</b>.<div class="rule-line">&#128218; "His car is parked outside" = strong evidence &rarr; logical conclusion: "He must be at home." This is the same rule as Q17 &mdash; evidence leads to near-certain deduction.<br>&#128161; Tip: Evidence (car parked outside) + logical conclusion (he is home) = <em>must</em>. This is different from "might" (possible) &mdash; the evidence here is strong enough to say "must".</div>`,
+    hint1:`The category is <b>Logical Deduction</b> &mdash; same type as Q17. "His car is parked outside" is strong evidence. Based on this, the speaker is drawing a logical conclusion. Think of the deduction modal.`,
+    hint2:`Strong evidence + logical conclusion = <b>must</b>. "His car is parked outside" &rarr; he is almost certainly home &rarr; "He must be at home." This is stronger than "might" (just possible). Same answer as Q17.`
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────
+const st = { correct:0, firstTry:0, revealed:0, done:0 };
+const qst = {}; // qIndex → { attempts:0, solved:false, revealedFlag:false }
+QS.forEach((_,i)=>{ qst[i]={ attempts:0, solved:false, revealedFlag:false }; });
+
+// ── BUILD UI ──────────────────────────────────────────────
+function buildUI(){
+  const area = document.getElementById('quizArea');
+  let html = '';
+  QS.forEach((q,i)=>{
+    const color = CAT_COLORS[q.cat] || '#0d47a1';
+    const beforeHtml = q.before ? `<span>${q.before}</span> ` : '';
+    html += `
+    <div class="q-card" id="qcard_${i}">
+      <div class="q-top">
+        <div class="q-num">${i+1}</div>
+        <div class="q-sentence">
+          ${beforeHtml}<span class="blank-wrap"><input type="text" class="blank-input" id="inp_${i}" placeholder="___" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')checkQ(${i})"></span> <span>${q.after}</span>
+        </div>
+      </div>
+      <div class="tag-row">
+        <span class="cat-tag" style="background:${color}">${q.cat}</span>
+        <div class="attempt-dots">
+          <div class="dot" id="dot_${i}_0"></div>
+          <div class="dot" id="dot_${i}_1"></div>
+          <div class="dot" id="dot_${i}_2"></div>
+        </div>
+        <span class="attempts-left" id="attleft_${i}">2 tries remaining</span>
+      </div>
+      <div class="q-actions">
+        <button class="check-btn" id="checkbtn_${i}" onclick="checkQ(${i})">&#10003; Check</button>
+        <button class="clear-btn" id="clearbtn_${i}" onclick="clearQ(${i})">&#8635; Clear</button>
+        <span id="statusbadge_${i}"></span>
+      </div>
+      <div class="feedback" id="fb_${i}"></div>
+    </div>`;
+  });
+  area.innerHTML = html;
+}
+
+// ── CHECK ─────────────────────────────────────────────────
+function checkQ(idx){
+  const s = qst[idx];
+  if(s.solved || s.revealedFlag) return;
+  const q = QS[idx];
+  const raw = document.getElementById(`inp_${idx}`).value;
+  if(!raw.trim()){ shake(idx); return; }
+  const userNorm = norm(raw);
+  const isCorrect = q.accepted.some(a => norm(a) === userNorm);
+
+  if(isCorrect){
+    markCorrect(idx, s.attempts === 0);
+  } else {
+    s.attempts++;
+    markDot(idx, s.attempts - 1, false);
+    updateAttLeft(idx);
+    if(s.attempts === 1){
+      showFB(idx,
+        `<div class="fb-h wrong-h">&#10007; Not quite right &mdash; Hint 1 of 2</div>`,
+        `${q.hint1}<div class="try-note">&#128204; Try 1 used. You have <b>1 more try</b> before the answer is revealed.</div>`,
+        'wrong-b'
+      );
+      flashInput(idx,'wrong-in');
+    } else if(s.attempts === 2){
+      showFB(idx,
+        `<div class="fb-h wrong-h" style="background:#e65100">&#10007; Still incorrect &mdash; Hint 2 of 2</div>`,
+        `${q.hint2}<div class="try-note">&#128204; Try 2 used. <b>One last chance!</b> Think carefully before your final attempt.</div>`,
+        'wrong-b'
+      );
+      flashInput(idx,'wrong-in');
+    } else {
+      // reveal
+      s.revealedFlag = true;
+      st.revealed++;
+      st.done++;
+      updateStats();
+      revealAnswer(idx, q);
+    }
+  }
+}
+
+function markCorrect(idx, isFirst){
+  const s = qst[idx];
+  s.solved = true;
+  st.correct++;
+  if(isFirst) st.firstTry++;
+  st.done++;
+  updateStats();
+  const inEl = document.getElementById(`inp_${idx}`);
+  inEl.value = QS[idx].answer.split('/')[0].trim();
+  inEl.classList.add('correct-in');
+  inEl.disabled = true;
+  document.getElementById(`checkbtn_${idx}`).disabled = true;
+  document.getElementById(`clearbtn_${idx}`).disabled = true;
+  markDot(idx, s.attempts, true);
+  document.getElementById(`attleft_${idx}`).textContent = '';
+  const sb = document.getElementById(`statusbadge_${idx}`);
+  sb.innerHTML = isFirst
+    ? `<span class="status-badge ok">&#11088; Correct &mdash; First Try!</span>`
+    : `<span class="status-badge ok">&#10003; Correct!</span>`;
+  document.getElementById(`qcard_${idx}`).classList.add('solved');
+  showFB(idx,
+    `<div class="fb-h ok-h">&#10003; Correct! Well done!</div>`,
+    `${QS[idx].exp}`,
+    'ok-b'
+  );
+  if(st.done === QS.length) setTimeout(showOverall, 600);
+}
+
+function revealAnswer(idx, q){
+  const inEl = document.getElementById(`inp_${idx}`);
+  inEl.value = q.answer.split('/')[0].trim();
+  inEl.classList.add('revealed-in');
+  inEl.disabled = true;
+  document.getElementById(`checkbtn_${idx}`).disabled = true;
+  document.getElementById(`clearbtn_${idx}`).disabled = true;
+  document.getElementById(`attleft_${idx}`).textContent = '';
+  const sb = document.getElementById(`statusbadge_${idx}`);
+  sb.innerHTML = `<span class="status-badge revealed-b">&#128274; Answer Revealed</span>`;
+  document.getElementById(`qcard_${idx}`).classList.add('revealed');
+  showFB(idx,
+    `<div class="fb-h reveal-h">&#128274; Answer Revealed &mdash; Study this carefully</div>`,
+    `${q.exp}<div class="try-note" style="background:#fff3e0;border-color:#ffcc80;color:#5d4037">&#128218; Make sure to revise this modal verb rule. Practice it in your own sentences!</div>`,
+    'reveal-b'
+  );
+  if(st.done === QS.length) setTimeout(showOverall, 600);
+}
+
+function clearQ(idx){
+  const s = qst[idx];
+  if(s.solved || s.revealedFlag) return;
+  document.getElementById(`inp_${idx}`).value = '';
+  document.getElementById(`inp_${idx}`).className = 'blank-input';
+  document.getElementById(`inp_${idx}`).focus();
+}
+
+// ── HELPERS ───────────────────────────────────────────────
+function showFB(idx, header, body, bodyClass){
+  const el = document.getElementById(`fb_${idx}`);
+  el.innerHTML = `${header}<div class="fb-b ${bodyClass}">${body}</div>`;
+  el.classList.add('show');
+  setTimeout(()=>{ el.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 80);
+}
+
+function markDot(idx, dotIdx, correct){
+  if(dotIdx > 2) return;
+  const d = document.getElementById(`dot_${idx}_${dotIdx}`);
+  if(d) d.classList.add(correct ? 'correct' : 'used');
+}
+
+function updateAttLeft(idx){
+  const s = qst[idx];
+  const rem = 2 - s.attempts;
+  const el = document.getElementById(`attleft_${idx}`);
+  if(rem > 0) el.textContent = `${rem} tr${rem===1?'y':'ies'} remaining`;
+  else el.textContent = 'Final try!';
+}
+
+function flashInput(idx, cls){
+  const el = document.getElementById(`inp_${idx}`);
+  el.classList.add(cls);
+  el.value = '';
+  setTimeout(()=>{ el.classList.remove(cls); el.focus(); }, 600);
+}
+
+function shake(idx){
+  const el = document.getElementById(`inp_${idx}`);
+  el.style.borderBottomColor = '#f44336';
+  setTimeout(()=>{ el.style.borderBottomColor = ''; }, 500);
+}
+
+// ── STATS ─────────────────────────────────────────────────
+function updateStats(){
+  document.getElementById('stCorrect').textContent = st.correct;
+  document.getElementById('stFirst').textContent = st.firstTry;
+  document.getElementById('stRevealed').textContent = st.revealed;
+  const pct = st.done > 0 ? Math.round(st.correct / QS.length * 100) : 0;
+  document.getElementById('stScore').textContent = st.done > 0 ? pct + '%' : '—';
+}
+
+// ── OVERALL ───────────────────────────────────────────────
+function showOverall(){
+  const c = st.correct, f = st.firstTry, total = QS.length;
+  const pct = Math.round(c / total * 100);
+  let grade, msg;
+  if(f === total){ grade='A+ &#127942;'; msg='Exceptional! Every answer correct on the first try!'; }
+  else if(pct >= 85){ grade='A'; msg='Excellent work! Very strong command of modal verbs.'; }
+  else if(pct >= 70){ grade='B'; msg='Good effort! A solid understanding with a few gaps to revise.'; }
+  else if(pct >= 55){ grade='C'; msg='Satisfactory. Revise the rules for the answers that were revealed.'; }
+  else { grade='D'; msg='Needs revision. Re-read all the explanations carefully and practise again.'; }
+  document.getElementById('ovScore').textContent = `${c} / ${total}`;
+  document.getElementById('ovSub').innerHTML = `Score: <b>${pct}%</b> &nbsp;|&nbsp; First-try correct: <b>${f}</b> &nbsp;|&nbsp; Revealed: <b>${st.revealed}</b>`;
+  document.getElementById('ovGrade').innerHTML = `Grade: ${grade} &mdash; ${msg}`;
+  const el = document.getElementById('overallResult');
+  el.classList.add('show');
+  el.scrollIntoView({behavior:'smooth'});
+}
+
+// ── WATERMARK ─────────────────────────────────────────────
+(function(){
+  const wm = document.getElementById('wm');
+  let h = '';
+  for(let r=0;r<14;r++) for(let c=0;c<6;c++)
+    h += `<span style="top:${r*120+40}px;left:${c*200+10}px">Smart Study Center</span>`;
+  wm.innerHTML = h;
+})();
+
+buildUI();
+</script>
+</body>
+</html>
