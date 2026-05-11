@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Class XII - Full MCQ Practice | Smart Study Center</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a0533 0%,#4a1078 50%,#6a1b9a 100%);min-height:100vh;padding:20px}
+.container{max-width:960px;margin:0 auto;background:white;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.35);overflow:hidden;position:relative;z-index:1}
+.brand-header{background:linear-gradient(135deg,#1a0533 0%,#4a1078 50%,#6a1b9a 100%);color:white;padding:12px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.brand-logo{display:flex;align-items:center;gap:12px}
+.brand-logo-img{width:48px;height:48px;border-radius:10px;background:white;padding:3px;flex-shrink:0;box-shadow:0 3px 10px rgba(0,0,0,0.3)}
+.brand-text-group{display:flex;flex-direction:column}
+.brand-center{font-size:16px;color:#fff;font-weight:800;letter-spacing:.5px}
+.brand-credit{display:flex;align-items:center;gap:8px;margin-top:3px}
+.brand-name{font-size:12px;color:#ce93d8;font-weight:600;letter-spacing:.3px}
+.brand-contact{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:6px 16px;font-size:14px;font-weight:600;color:#e1bee7}
+.social-row{display:flex;justify-content:center;gap:12px;padding:10px;background:#0d0020;flex-wrap:wrap}
+.social-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:25px;font-size:13px;font-weight:700;text-decoration:none;color:white;transition:all .3s;border:none;cursor:pointer}
+.social-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.wa-btn{background:linear-gradient(135deg,#25d366,#128c7e)}
+.ig-btn{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)}
+.watermark-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;overflow:hidden}
+.watermark-overlay span{position:absolute;font-size:15px;font-weight:700;color:rgba(106,27,154,0.06);white-space:nowrap;transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase}
+.header{background:linear-gradient(135deg,#4a0072 0%,#6a1b9a 100%);color:white;padding:28px;text-align:center}
+.header h1{font-size:25px;margin-bottom:6px}
+.header p{opacity:.9;font-size:14px}
+.badge-row{display:flex;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700}
+.stats{display:flex;justify-content:space-around;padding:16px;background:#f3e5f5;border-bottom:2px solid #e1bee7;flex-wrap:wrap;gap:8px}
+.stat-item{text-align:center}
+.stat-label{font-size:11px;color:#6a1b9a;text-transform:uppercase;letter-spacing:1px}
+.stat-value{font-size:22px;font-weight:bold;color:#4a0072;margin-top:4px}
+.chapter-selector{padding:20px;background:#f3e5f5}
+.chapter-selector h3{margin-bottom:14px;color:#333;font-size:15px}
+.chapter-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.chapter-btn{padding:10px 14px;background:white;border:2px solid #6a1b9a;border-radius:8px;cursor:pointer;font-size:12px;transition:all .3s;color:#6a1b9a;font-weight:700;text-align:left}
+.chapter-btn:hover,.chapter-btn.active{background:#6a1b9a;color:white;transform:translateY(-2px);box-shadow:0 5px 15px rgba(106,27,154,.3)}
+.chapter-btn .q-count{display:block;font-size:11px;opacity:.75;margin-top:2px}
+.quiz-container{padding:25px;display:none}
+.quiz-container.active{display:block}
+.section-heading{padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;margin:22px 0 14px;letter-spacing:.5px;text-transform:uppercase}
+.sh-mcq{background:linear-gradient(135deg,#6a1b9a,#7b1fa2);color:white}
+.sh-summary{background:linear-gradient(135deg,#1565c0,#1976d2);color:white}
+.sh-concept{background:linear-gradient(135deg,#e65100,#f57c00);color:white}
+.question-card{background:#f8f9fa;border-radius:12px;padding:20px;margin-bottom:16px;border-left:5px solid #6a1b9a}
+.question-card.sum-card{border-left-color:#1565c0}
+.question-card.con-card{border-left-color:#e65100}
+.question-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.question-number{color:white;padding:4px 14px;border-radius:20px;font-weight:bold;font-size:12px;background:#6a1b9a}
+.question-card.sum-card .question-number{background:#1565c0}
+.question-card.con-card .question-number{background:#e65100}
+.question-type{color:white;padding:4px 10px;border-radius:15px;font-size:11px;font-weight:700}
+.t-mcq{background:#6a1b9a}
+.t-sum{background:#1565c0}
+.t-con{background:#e65100}
+.question-text{font-size:15px;color:#333;margin-bottom:14px;line-height:1.6}
+.options{display:grid;gap:9px}
+.option{padding:11px 16px;background:white;border:2px solid #dee2e6;border-radius:8px;cursor:pointer;transition:all .3s;font-size:14px}
+.option:hover{border-color:#6a1b9a;background:#f3e5f5}
+.option.selected{border-color:#6a1b9a;background:#e1bee7}
+.option.correct{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20;font-weight:600}
+.option.wrong{border-color:#c62828;background:#ffebee;color:#b71c1c}
+.option.disabled{cursor:not-allowed;opacity:.7}
+.check-btn{background:#6a1b9a;color:white;border:none;padding:9px 24px;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer;margin-top:11px;transition:all .3s}
+.check-btn:hover{background:#7b1fa2;transform:translateY(-2px)}
+.check-btn:disabled{background:#ccc;cursor:not-allowed;transform:none}
+.feedback{margin-top:11px;padding:11px;border-radius:8px;font-weight:bold;display:none;font-size:13px}
+.feedback.show{display:block}
+.feedback.correct{background:#e8f5e9;color:#1b5e20;border:2px solid #2e7d32}
+.feedback.wrong{background:#ffebee;color:#b71c1c;border:2px solid #c62828}
+.result-summary{background:linear-gradient(135deg,#4a0072 0%,#6a1b9a 100%);color:white;padding:28px;border-radius:12px;text-align:center;margin-top:22px}
+.result-summary h2{font-size:24px;margin-bottom:16px}
+.result-stats{display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap}
+.result-stat{text-align:center}
+.result-stat-value{font-size:32px;font-weight:bold}
+.result-stat-label{font-size:13px;opacity:.85}
+.reset-btn{background:rgba(255,255,255,0.2);color:white;border:2px solid white;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:bold;margin-top:16px;margin-right:8px;transition:all .3s}
+.reset-btn:hover{background:white;color:#6a1b9a}
+.brand-footer{background:linear-gradient(135deg,#1a0533,#6a1b9a);color:#ce93d8;text-align:center;padding:14px;font-size:13px}
+.footer-main{font-weight:700;color:white;margin-bottom:4px}
+.footer-sub{font-size:11px;opacity:.7;margin-bottom:8px}
+.footer-social{display:flex;justify-content:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.footer-social a{color:#ce93d8;text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(206,147,216,0.3);border-radius:15px;transition:all .3s}
+.footer-social a:hover{background:rgba(255,255,255,0.1);color:white}
+</style>
+</head>
+<body>
+<div id="watermarkOverlay" class="watermark-overlay"></div>
+<div class="container">
+<div class="brand-header">
+  <div class="brand-logo">
+    <svg class="brand-logo-img" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+      <rect width="48" height="48" rx="8" fill="#6a1b9a"/>
+      <text x="24" y="32" text-anchor="middle" font-size="22" font-weight="bold" fill="white">📖</text>
+    </svg>
+    <div class="brand-text-group">
+      <span class="brand-center">🎓 Smart Study Center</span>
+      <div class="brand-credit">
+        <span class="brand-name">✍️ English XII — Full Book MCQ Practice</span>
+      </div>
+    </div>
+  </div>
+  <span class="brand-contact">📞 0345-3090057</span>
+</div>
+<div class="social-row">
+  <a href="https://wa.me/923453090057" class="social-btn wa-btn">💬 WhatsApp</a>
+  <a href="https://instagram.com" class="social-btn ig-btn">📸 Instagram</a>
+</div>
+<div class="header">
+  <h1>📖 English Class XII</h1>
+  <p>Full Book MCQ Practice Worksheet — Smart Study Center | Sindh Board</p>
+  <div class="badge-row">
+    <span class="badge">📝 Past Paper MCQs</span>
+    <span class="badge">🌟 Prose &amp; Poetry</span>
+    <span class="badge">📚 Novel</span>
+    <span class="badge">📐 Grammar</span>
+    <span class="badge">✅ Instant Feedback</span>
+  </div>
+</div>
+<div class="stats">
+  <div class="stat-item"><div class="stat-label">Total Qs</div><div class="stat-value" id="totalQuestions">0</div></div>
+  <div class="stat-item"><div class="stat-label">Answered</div><div class="stat-value" id="answeredQuestions">0</div></div>
+  <div class="stat-item"><div class="stat-label">Correct</div><div class="stat-value" id="correctAnswers">0</div></div>
+  <div class="stat-item"><div class="stat-label">Score</div><div class="stat-value" id="scorePercentage">0%</div></div>
+</div>
+<div class="chapter-selector">
+  <h3>📚 Select a Unit / Section to Practice:</h3>
+  <div class="chapter-buttons" id="chapterButtons"></div>
+</div>
+<div class="quiz-container" id="quizContainer"></div>
+<div class="brand-footer">
+  <div class="footer-main">Smart Study Center — Sir Ahmer Javed</div>
+  <div class="footer-sub">English XII Full Book MCQ Practice | 0345-3090057</div>
+  <div class="footer-social">
+    <a href="https://wa.me/923453090057">💬 WhatsApp</a>
+    <a href="#">📸 Instagram</a>
+  </div>
+</div>
+</div>
+
+<script>
+const mcqData = {
+
+// ═══════════════════════════════════════════════════════════
+// PROSE UNITS
+// ═══════════════════════════════════════════════════════════
+
+"Unit 1 — A Devoted Friend": [
+  // BOOK / PAST PAPER MCQs
+  {q:"Hans's most devoted friend was:", o:["the village baker","Hugh the rich Miller","the Burgomaster","a neighbouring shepherd"], c:1, t:"mcq"},
+  {q:"The Miller never visited Hans during:", o:["summer","spring","winter","autumn"], c:2, t:"mcq"},
+  {q:"Hans earned money by selling his produce in:", o:["the city market","the Burgomaster's house","the local bazaar","his garden"], c:0, t:"mcq"},
+  {q:"Hans sold the following items to survive winter EXCEPT:", o:["silver buttons off his coat","silver chain","his wheelbarrow","his garden tools"], c:3, t:"mcq"},
+  {q:"The Miller offered to give Hans a wheelbarrow that was:", o:["brand new","not in good repair","made of iron","too heavy to use"], c:1, t:"mcq"},
+  {q:"In exchange for the wheelbarrow, the Miller first demanded:", o:["money","a plank of wood","flowers","a sack of flour"], c:1, t:"mcq"},
+  {q:"Hans used to fill the Miller's basket with:", o:["vegetables","plums and cherries","primroses","grain"], c:2, t:"mcq"},
+  {q:"Hans's fate at the end of the story was:", o:["he became rich","he drowned in a storm helping the Miller","he married and left the village","he finally refused the Miller"], c:1, t:"mcq"},
+  {q:"The Miller used the phrase 'true friendship never notices' to justify:", o:["his generosity","taking more than he gave","visiting Hans in winter","returning the wheelbarrow"], c:1, t:"mcq"},
+  {q:"Hans lived in:", o:["a large farmhouse","a tiny cottage with a lovely garden","the Miller's house","a rented room in the village"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"'The Devoted Friend' is written by:", o:["Charles Dickens","Guy de Maupassant","Oscar Wilde","Leo Tolstoy"], c:2, t:"summary"},
+  {q:"The Miller claimed that the deepest wisdom of friendship is:", o:["always helping each other equally","true friends should have everything in common","never asking for anything","visiting each other often"], c:1, t:"summary"},
+  {q:"Why did the Miller not visit Hans in winter?", o:["He was too busy at the mill","He believed troubled people should be left alone","He had moved away","He was ill"], c:1, t:"summary"},
+  {q:"The main moral of 'The Devoted Friend' is:", o:["Friends should be rich to help","Selfish people use the name of friendship to exploit others","Small gifts lead to big rewards","Gardens are a source of wealth"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The word 'devoted' as used in the title most nearly means:", o:["hostile","extremely loyal and caring","indifferent","occasional"], c:1, t:"concept"},
+  {q:"The phrase 'generosity is the essence of friendship' as used by the Miller is:", o:["sincere advice","a hypocritical statement used to exploit Hans","a genuine proverb","a literary device"], c:1, t:"concept"},
+  {q:"The story 'The Devoted Friend' is an example of:", o:["a science fiction tale","a fairy tale with a dark moral lesson","a historical account","a romantic story"], c:1, t:"concept"},
+  {q:"The word 'nosegay' in the story means:", o:["a large harvest","a small bunch of flowers","a type of tool","a sweet food"], c:1, t:"concept"},
+],
+
+"Unit 2 — I Have a Dream": [
+  // BOOK / PAST PAPER MCQs
+  {q:"Martin Luther King delivered 'I Have a Dream' on:", o:["August 28, 1963","July 4, 1960","January 15, 1968","March 28, 1965"], c:0, t:"mcq"},
+  {q:"King's speech was delivered at:", o:["The White House","The Capitol Building","The Lincoln Memorial","The Jefferson Memorial"], c:2, t:"mcq"},
+  {q:"The crowd King addressed consisted of over:", o:["50,000 people","100,000 people","250,000 people","500,000 people"], c:2, t:"mcq"},
+  {q:"King's stance on violence was to:", o:["use it carefully","reject and promote non-violence","ignore it","support it"], c:1, t:"mcq"},
+  {q:"King dreamed his children would one day be judged by:", o:["the color of their skin","their wealth","the content of their character","their education"], c:2, t:"mcq"},
+  {q:"King compared racial injustice to:", o:["a mountain of despair","quicksands","a long night / chains","all of the above"], c:3, t:"mcq"},
+  {q:"The speech calls for an end to racism, segregation, and:", o:["cultural differences","economic injustice","immigration","political parties"], c:1, t:"mcq"},
+  {q:"According to King, the struggle must always be conducted with:", o:["weapons and force","dignity and discipline","silence and patience","money and power"], c:1, t:"mcq"},
+  {q:"King's repeated phrase in the speech is:", o:["We shall overcome","Let freedom ring","I have a dream","We cannot walk alone"], c:2, t:"mcq"},
+  {q:"King believed that people of all races were:", o:["separated by fate","inextricably bound together in freedom","better off living apart","naturally enemies"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Martin Luther King Jr. was primarily a:", o:["politician","scientist","Baptist minister and civil rights leader","army general"], c:2, t:"summary"},
+  {q:"The speech was a defining moment of:", o:["The American Revolution","The World War II","The American Civil Rights Movement","The Cold War"], c:2, t:"summary"},
+  {q:"'I Have a Dream' draws on the promises of:", o:["the Constitution and the Bible","the United Nations Charter","the Emancipation Proclamation","all of the above"], c:2, t:"summary"},
+  {q:"King used the metaphor of a 'bad cheque' to describe:", o:["the banking system","America's broken promise of freedom to Black citizens","the cost of the march","the corruption of leaders"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The phrase 'manacles of segregation' means:", o:["chains of racial separation that restrict freedom","tools of construction","badges of honour","limitations of education"], c:0, t:"concept"},
+  {q:"King's use of repetition ('I have a dream') is an example of:", o:["simile","anaphora","metaphor","irony"], c:1, t:"concept"},
+  {q:"The phrase 'justice rolls down like waters' uses which literary device?", o:["Personification","Metaphor","Simile","Alliteration"], c:2, t:"concept"},
+  {q:"The central message of 'I Have a Dream' is:", o:["Black Americans should leave the country","All humans deserve equal rights regardless of race","Violence is the only solution","Segregation is acceptable"], c:1, t:"concept"},
+],
+
+"Unit 3 — Conquest of Happiness": [
+  // BOOK / PAST PAPER MCQs
+  {q:"According to Russell, which group is often among the happiest people?", o:["Businessmen","Artists","Scientists","Politicians"], c:2, t:"mcq"},
+  {q:"According to Russell, happiness mainly comes from:", o:["wealth and power","luck and inheritance","healthy interests in life","fame and recognition"], c:2, t:"mcq"},
+  {q:"The quality in work that contributes MORE to happiness than skill alone is:", o:["routine","flexibility","constructiveness","difficulty"], c:2, t:"mcq"},
+  {q:"Russell mentions a man who wrote a five-volume work on rose blight despite:", o:["being very poor","losing the use of both legs","being blind","having no education"], c:1, t:"mcq"},
+  {q:"Russell says that building things brings ___ happiness than destroying things:", o:["less","the same","more","no"], c:2, t:"mcq"},
+  {q:"The secret of happiness according to Russell is:", o:["earn as much money as possible","let your interests be as wide as possible and respond in a friendly way","avoid all troubles","pray and hope for luck"], c:1, t:"mcq"},
+  {q:"Russell states that hobbies in many cases are ways of:", o:["building character","escaping reality or forgetting pain","earning extra income","developing professional skills"], c:1, t:"mcq"},
+  {q:"The kind of interest in people that leads to happiness is:", o:["possessive and controlling","demanding and craving a response","enjoying and supporting others without controlling them","distant and detached"], c:2, t:"mcq"},
+  {q:"Russell's 'Conquest of Happiness' was published in:", o:["1920","1930","1945","1955"], c:1, t:"mcq"},
+  {q:"Russell says that scientists are happy because their work:", o:["is easy and well-paid","uses their talents and is meaningful to society","requires no social interaction","is done in isolation"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"'Conquest of Happiness' is written by:", o:["Oscar Wilde","Bertrand Russell","James Thurber","Leo Tolstoy"], c:1, t:"summary"},
+  {q:"The typesetter Russell mentions was happy because:", o:["he was famous","he earned a lot","he enjoyed practicing his craft","he was recognized worldwide"], c:2, t:"summary"},
+  {q:"Russell compares the pleasure of a skilled typesetter to that of:", o:["a writer","a skilled dancer","a musician","a scientist"], c:1, t:"summary"},
+  {q:"Russell says the greatest source of personal happiness is:", o:["wealth","fame","naturally and effortlessly liking many people","physical health"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The word 'constructiveness' as used by Russell means:", o:["the act of being critical","the quality of creating or building lasting things","following a strict routine","the ability to destroy obstacles"], c:1, t:"concept"},
+  {q:"Russell's idea of a 'friendly interest in people' means:", o:["controlling and possessing others","enjoying observing and supporting others without demanding admiration","socializing at parties","avoiding conflicts"], c:1, t:"concept"},
+  {q:"The central theme of the passage from 'Conquest of Happiness' is:", o:["Wealth is the key to happiness","Happiness comes from meaningful work, skills, and broad interests in life","Success requires sacrifice","Fame is more important than inner peace"], c:1, t:"concept"},
+  {q:"The phrase 'inanimate objects' means:", o:["lively things","objects that are not alive","old things","natural things"], c:1, t:"concept"},
+],
+
+"Unit 4 — Icarus and Daedalus": [
+  // BOOK / PAST PAPER MCQs
+  {q:"Daedalus was known for being the most:", o:["powerful","cunning / skilled architect","wealthy","courageous"], c:1, t:"mcq"},
+  {q:"Daedalus built a famous Labyrinth for:", o:["King Agamemnon","King Minos of Crete","King Apollo","King Odysseus"], c:1, t:"mcq"},
+  {q:"Daedalus and Icarus were imprisoned because:", o:["they tried to escape the island","the king's favour turned against Daedalus","they stole from the king","they tried to fly"], c:1, t:"mcq"},
+  {q:"Daedalus made the wings by fastening feathers with thread and:", o:["glue","tar","wax","clay"], c:2, t:"mcq"},
+  {q:"Daedalus warned Icarus NOT to fly:", o:["very low or very high","over the sea","at night","too fast"], c:0, t:"mcq"},
+  {q:"Icarus fell because he:", o:["flew too low","flew too high and the sun melted the wax","stopped flying","disobeyed by going too slowly"], c:1, t:"mcq"},
+  {q:"The nearest island to where Icarus fell was named:", o:["Crete","Ithaca","Icaria","Sicily"], c:2, t:"mcq"},
+  {q:"After Icarus died, Daedalus hung up his wings as an offering at the temple of:", o:["Zeus","Athena","Apollo","Hermes"], c:2, t:"mcq"},
+  {q:"Country folk who saw them flying thought they were:", o:["monsters","gods, perhaps Apollo with Cupid","criminals","birds"], c:1, t:"mcq"},
+  {q:"Daedalus escaped from his cell but could not leave the island because:", o:["there was no food for the journey","every ship was guarded by order of the king","he had no money","he was afraid of the sea"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"'Icarus and Daedalus' is written by:", o:["Homer","Josephine Preston Peabody","James Thurber","Oscar Wilde"], c:1, t:"summary"},
+  {q:"The theme of 'Icarus and Daedalus' is:", o:["adventure and exploration","the danger of disobedience and lack of self-discipline","war and power","love and loyalty"], c:1, t:"summary"},
+  {q:"After Icarus died, Daedalus:", o:["celebrated his freedom","attempted to fly again to find Icarus","went to Sicily in grief and never flew again","returned to Crete"], c:2, t:"summary"},
+  {q:"Icarus forgot his father's warning because:", o:["he was deaf","he was overcome by the joy of flying and freedom","he wanted to die","he thought he was stronger than his father"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"Icarus symbolizes:", o:["wisdom and caution","recklessness, disobedience, and the danger of ignoring advice"], c:1, t:"concept"},
+  {q:"The word 'labyrinth' means:", o:["a royal palace","a maze of winding, complex passages","a type of weapon","a temple"], c:1, t:"concept"},
+  {q:"The central lesson of 'Icarus and Daedalus' is:", o:["Always dream big no matter what","Disobedience and overconfidence lead to destruction","Hard work always pays off","Kings are always unjust"], c:1, t:"concept"},
+  {q:"The phrase 'the king's favour veered with the wind' means:", o:["the king loved sailing","the king changed his mind unpredictably","the king was afraid of the wind","the king supported Daedalus always"], c:1, t:"concept"},
+],
+
+"Unit 5 — How Much Land Does a Man Need?": [
+  // BOOK / PAST PAPER MCQs
+  {q:"Pahom was a:", o:["wealthy landlord","poor peasant who worked hard","merchant","soldier"], c:1, t:"mcq"},
+  {q:"Leo Tolstoy's story 'How Much Land Does a Man Need?' teaches about:", o:["greed","love","friendship","courage"], c:0, t:"mcq"},
+  {q:"The Bashkirs sold land at the price of:", o:["one hundred rubles per acre","one thousand rubles a day (as much as you can walk around)","fifty rubles per hectare","five hundred rubles per mile"], c:1, t:"mcq"},
+  {q:"The condition of the Bashkirs' land offer was:", o:["to plough the land before sunset","to return to the starting point before sunset or lose the money","to bring a witness","to pay in gold only"], c:1, t:"mcq"},
+  {q:"Pahom first bought land of approximately:", o:["twenty acres","forty acres","one hundred acres","five acres"], c:1, t:"mcq"},
+  {q:"Pahom heard about the Bashkir land from:", o:["a local elder","a passing land dealer","his neighbour","a government official"], c:1, t:"mcq"},
+  {q:"What ultimately caused Pahom's death?", o:["He was killed by the Bashkirs","He collapsed from exhaustion racing back to the starting point at sunset","He fell into a river","He was lost in a storm"], c:1, t:"mcq"},
+  {q:"The answer implied by Tolstoy to 'How much land does a man need?' is:", o:["as much as he can buy","as much as his family needs","only six feet (a grave)","half of what he desires"], c:2, t:"mcq"},
+  {q:"Pahom took a ___ with him while walking to mark his path:", o:["flag","spade","stick","rope"], c:1, t:"mcq"},
+  {q:"Pahom's greed caused him to make the sides of his land circuit:", o:["too small","too large and far from the starting point","exactly right","unequal"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"'How Much Land Does a Man Need?' is written by:", o:["Bertrand Russell","Oscar Wilde","Leo Tolstoy","James Thurber"], c:2, t:"summary"},
+  {q:"The Bashkirs were a:", o:["farming community","nomadic tribe living in tents","fishing village","royal clan"], c:1, t:"summary"},
+  {q:"The hillock from which Pahom started was also the:", o:["home of the Bashkir chief","the finish line he had to return to before sunset","the marketplace","a temple"], c:1, t:"summary"},
+  {q:"How did Pahom plan to get cheap land from the Bashkirs?", o:["By force","By bringing gifts (dressing gowns, carpets, tea) and making friends with the chiefs","By legal purchase","By tricking their leader"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"Pahom is symbolic of:", o:["a wise and content man","human greed and the destruction it causes","hard work and its rewards","political ambition"], c:1, t:"concept"},
+  {q:"The central moral of the story is:", o:["More land means more happiness","Greed destroys; true contentment is the greatest wealth","Peasants can never become landowners","Hard work always leads to success"], c:1, t:"concept"},
+  {q:"The phrase 'An hour to suffer, a lifetime to live' used by Pahom reflects:", o:["wisdom and patience","his dangerous self-deception to justify his greed","his fear of failure","his acceptance of fate"], c:1, t:"concept"},
+  {q:"The word 'arable' as used in the story means:", o:["dry and infertile","suitable for growing crops","difficult to walk on","very expensive"], c:1, t:"concept"},
+],
+
+"Unit 6 — The Day the Dam Broke": [
+  // BOOK / PAST PAPER MCQs
+  {q:"The panic in 'The Day the Dam Broke' took place in:", o:["New York in 1901","Columbus, Ohio in 1913","London in 1920","Chicago in 1915"], c:1, t:"mcq"},
+  {q:"The cry that spread through the city was:", o:["'Run for your lives!'","'The flood is here!'","'Go east!'","'Save yourselves!'"], c:2, t:"mcq"},
+  {q:"Grandfather believed the real danger was:", o:["the flood waters","Nathan Bedford Forrest's cavalry","an enemy air attack","an earthquake"], c:1, t:"mcq"},
+  {q:"The family had to ___ grandfather to escape the house:", o:["beg","carry","stun with an ironing board","bribe"], c:2, t:"mcq"},
+  {q:"City engineers later confirmed that even if the dam had broken, water on the East Side would have risen only:", o:["two additional inches","thirty feet","ten feet","ninety-five feet"], c:0, t:"mcq"},
+  {q:"The panic was finally ended by:", o:["actual floodwaters receding","the mayor's speech","militiamen in motor lorries announcing the dam had not broken","firemen's water cannons"], c:2, t:"mcq"},
+  {q:"The humour in the story comes from:", o:["the real tragedy of the flood","the absurdity of mass panic over an event that never happened","the grandfather's bravery","the soldiers' discipline"], c:1, t:"mcq"},
+  {q:"The panic in Columbus lasted approximately:", o:["thirty minutes","two hours","one whole day","half a day"], c:1, t:"mcq"},
+  {q:"The narrator's mother, while fleeing, took with her:", o:["all the family jewelry","her handbag only","a dozen eggs and two loaves of bread","nothing at all"], c:2, t:"mcq"},
+  {q:"The farthest some fleeing citizens reached was:", o:["the country club, eight miles away","Reynoldsburg, twelve miles away","Franklin Park, four miles out","the river bank"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"'The Day the Dam Broke' is written by:", o:["Oscar Wilde","Leo Tolstoy","James Groves Thurber","Bertrand Russell"], c:2, t:"summary"},
+  {q:"The tone of 'The Day the Dam Broke' is:", o:["tragic and sorrowful","humorous and satirical","formal and serious","romantic and optimistic"], c:1, t:"summary"},
+  {q:"The East Side of Columbus was actually:", o:["under thirty feet of water","in great danger from the dam","never in any danger at all","the lowest part of the city"], c:2, t:"summary"},
+  {q:"The story illustrates the human tendency of:", o:["courage during disasters","mass hysteria and irrational panic","calm reasoning in a crisis","blind obedience to authority"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The word 'demoralized' as used in the story means:", o:["excited and energised","having lost confidence and courage","organized and prepared","improved in spirits"], c:1, t:"concept"},
+  {q:"The story is an example of which type of writing?", o:["Tragedy","Humorous personal essay / satire","Scientific report","Formal argument"], c:1, t:"concept"},
+  {q:"The phrase 'cry spread like a grass fire' uses which literary device?", o:["Personification","Metaphor","Simile","Alliteration"], c:2, t:"concept"},
+  {q:"The grandfather's behaviour in the story mainly serves to:", o:["add tragedy to the story","add comic effect and highlight the absurdity of panic","show genuine heroism","provide historical context"], c:1, t:"concept"},
+],
+
+"Unit 7 — Climate Change": [
+  // BOOK / PAST PAPER MCQs
+  {q:"Climate change is primarily caused by:", o:["earthquakes and volcanoes","natural processes and human activities like greenhouse gas emissions","ocean currents only","sunspot activity"], c:1, t:"mcq"},
+  {q:"A major economic impact of climate change is:", o:["more forests","job growth","higher poverty","fewer storms"], c:2, t:"mcq"},
+  {q:"Which gas is released in large amounts by burning fossil fuels?", o:["Oxygen","Carbon dioxide (CO₂)","Nitrogen","Hydrogen"], c:1, t:"mcq"},
+  {q:"Deforestation increases greenhouse gases because:", o:["trees produce CO₂ when they grow","trees, when cut, release stored carbon and fewer remain to absorb CO₂","forests attract more rainfall","trees block sunlight"], c:1, t:"mcq"},
+  {q:"Transport contributes greenhouse gas emissions mainly through:", o:["electric vehicles","the combustion of petroleum-based products like gasoline","railway engines","foot traffic"], c:1, t:"mcq"},
+  {q:"Methane is released in large amounts from:", o:["hydroelectric dams","decomposing waste in landfills and cattle digestion","solar panels","wind turbines"], c:1, t:"mcq"},
+  {q:"Each year approximately ___ million hectares of forest are destroyed:", o:["2","6","12","20"], c:2, t:"mcq"},
+  {q:"Sea-level rise and saltwater intrusion have forced some communities to:", o:["build stronger sea walls","relocate entirely","stop farming","build underground cities"], c:1, t:"mcq"},
+  {q:"Deforestation together with agriculture is responsible for roughly ___ of global greenhouse gas emissions:", o:["a tenth","a quarter","a half","three-quarters"], c:1, t:"mcq"},
+  {q:"Sustainable waste practices to combat global warming include:", o:["burning all waste","recycling, composting, and zero-waste strategies","burying waste deeper","using more single-use plastics"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Climate change refers to:", o:["short-term weather events","long-term alterations in average weather patterns and conditions of Earth","seasonal temperature changes only","rainfall prediction"], c:1, t:"summary"},
+  {q:"The greenhouse effect is caused by gases trapping:", o:["rainfall","cold air","heat from the sun inside Earth's atmosphere","wind currents"], c:2, t:"summary"},
+  {q:"Which of the following is a major effect of climate change?", o:["Decreased rainfall everywhere","More severe storms, droughts, and rising sea levels","Permanent cooling of the Earth","Increased forest cover globally"], c:1, t:"summary"},
+  {q:"Nitrous oxide (N₂O) is mainly emitted by:", o:["burning wood","factories and industrial activities","oceans","volcanoes"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The term 'greenhouse gases' refers to:", o:["gases used to grow plants in greenhouses","gases that trap heat in Earth's atmosphere, causing warming","gases found only in forests","harmless gases produced by factories"], c:1, t:"concept"},
+  {q:"The phrase 'protracted droughts' means:", o:["sudden heavy rains","long-lasting periods of little or no rainfall","droughts that occur in tropical regions only","man-made water shortages"], c:1, t:"concept"},
+  {q:"The central message of the Climate Change unit is:", o:["Technology will solve all climate problems automatically","Human activities are accelerating climate change and immediate action is needed","Climate change is a minor and temporary problem","Only developing countries cause climate change"], c:1, t:"concept"},
+  {q:"Methane is described as being over ___ times more potent than CO₂ in trapping heat:", o:["10","15","25","50"], c:2, t:"concept"},
+],
+
+// ═══════════════════════════════════════════════════════════
+// POETRY
+// ═══════════════════════════════════════════════════════════
+
+"Poem 1 — If (Rudyard Kipling)": [
+  // BOOK / PAST PAPER MCQs
+  {q:"'If' is written by:", o:["William Shakespeare","Alfred Lord Tennyson","Rudyard Kipling","W.H. Auden"], c:2, t:"mcq"},
+  {q:"The poem 'If' advises to remain calm during:", o:["success and failure","sleep","sadness","travel"], c:0, t:"mcq"},
+  {q:"In the poem 'If', Triumph and Disaster are called:", o:["friends","enemies","impostors","guides"], c:2, t:"mcq"},
+  {q:"The 'unforgiving minute' in the poem should be filled with:", o:["dreams and wishes","sixty seconds worth of distance run","rest and leisure","prayer"], c:1, t:"mcq"},
+  {q:"The poem 'If' is addressed to:", o:["a soldier","the poet's son","all of mankind","the king"], c:1, t:"mcq"},
+  {q:"The reward promised at the end of 'If' is:", o:["wealth and fame","'Yours is the Earth and everything that's in it, and you'll be a Man, my son'","a crown and throne","peace of mind"], c:1, t:"mcq"},
+  {q:"The poem advises that if one is lied about, one should:", o:["take revenge","deal in lies too","not deal in lies","complain to authorities"], c:2, t:"mcq"},
+  {q:"Which literary device is used in 'If you can dream—and not make dreams your master'?", o:["Simile","Anaphora (repetition of 'If')","Personification","Hyperbole"], c:1, t:"mcq"},
+  {q:"The primary theme of the poem 'If' is:", o:["the importance of winning at all costs","the power of self-control and leading a balanced, disciplined life","the significance of wealth and status","the inevitability of failure"], c:1, t:"mcq"},
+  {q:"In 'If', the poet says one should walk with Kings but:", o:["obey every command","impress them with wealth","not lose the common touch","avoid ordinary people"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"How many stanzas does the poem 'If' have?", o:["two","three","four","six"], c:2, t:"summary"},
+  {q:"Rudyard Kipling was a renowned writer of:", o:["Pakistan","India (born in Bombay)","England","Australia"], c:1, t:"summary"},
+  {q:"The poem 'If' can best be described as:", o:["a war poem","an elegy","a poem of moral advice and wisdom (addressed to a son)","a love poem"], c:2, t:"summary"},
+  {q:"'Hold on!' in the poem refers to:", o:["holding objects during sports","perseverance when there is nothing left but one's will","holding back from speaking","a physical exercise"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"Calling Triumph and Disaster 'impostors' means:", o:["they are actual people","both success and failure are temporary and deceptive; don't be ruled by either","triumph always comes after disaster","failure is impossible to overcome"], c:1, t:"concept"},
+  {q:"The literary device of repeating 'If you can' throughout the poem is called:", o:["Metaphor","Simile","Anaphora","Oxymoron"], c:2, t:"concept"},
+  {q:"'Knaves' in the poem means:", o:["brave knights","dishonest or deceitful people","wise elders","loyal friends"], c:1, t:"concept"},
+  {q:"The central quality the poet wants the son to develop is:", o:["physical strength","social status","inner strength, self-control, and resilience","intelligence"], c:2, t:"concept"},
+],
+
+"Poem 2 — The Age of Infancy (Allama Iqbal)": [
+  // BOOK / PAST PAPER MCQs
+  {q:"'The Age of Infancy' is written by:", o:["Faiz Ahmad Faiz","Shah Abdul Latif Bhittai","Dr. Allama Muhammad Iqbal","Pablo Neruda"], c:2, t:"mcq"},
+  {q:"Allama Muhammad Iqbal was a renowned poet and:", o:["Mathematician","Humorist","Philosopher","Playwright"], c:2, t:"mcq"},
+  {q:"In the poem, the infant's entire world was:", o:["the earth and sky","the expanse of mother's bosom","the garden","the school"], c:1, t:"mcq"},
+  {q:"In the poem, if someone made the infant cry, what would comfort him?", o:["The sound of singing","The noise of the door chain","Mother's lullabies","Toys"], c:1, t:"mcq"},
+  {q:"The infant stared for long hours at:", o:["the stars","the moon","the sun","the ocean"], c:1, t:"mcq"},
+  {q:"The phrase 'prudent lie' in the poem refers to:", o:["the lies told in school","the well-meaning answers given about the moon's mountains and plains","a childhood fantasy","a religious belief"], c:1, t:"mcq"},
+  {q:"The line 'My heart was no less than inquisitiveness personified' shows the infant was:", o:["fearful","extremely curious","sad and lonely","proud"], c:1, t:"mcq"},
+  {q:"The first two lines of the poem convey:", o:["the poet's pride in the world","the infant's total unawareness of the vast world; mother's lap was its world","the mother's love for nature","a description of the sky"], c:1, t:"mcq"},
+  {q:"The central theme of 'The Age of Infancy' is:", o:["the complexities of adulthood","the innocence, curiosity, and simplicity of childhood","the relationship between nature and humans","the fear of growing up"], c:1, t:"mcq"},
+  {q:"The speech of the infant was like a:", o:["song","meaningful message","meaningless word","prayer"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The poem 'The Age of Infancy' is a reflection on:", o:["the difficulties of old age","the joys and innocence of early childhood","the importance of education","political freedom"], c:1, t:"summary"},
+  {q:"Which figure of speech is used in 'Mother's bosom was a world to me'?", o:["Simile","Personification","Metaphor","Alliteration"], c:2, t:"summary"},
+  {q:"The poet asks about the moon's:", o:["distance from Earth","mountains and plains","light and glow","movement"], c:1, t:"summary"},
+  {q:"The emotion most prominent in the poem is:", o:["anger","nostalgia for the innocence of infancy","ambition","sadness for the future"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The word 'inquisitiveness' means:", o:["laziness","great curiosity and eagerness to learn or know","sadness","overconfidence"], c:1, t:"concept"},
+  {q:"The word 'infancy' refers to:", o:["teenage years","early childhood (babyhood)","middle age","old age"], c:1, t:"concept"},
+  {q:"'Speech was like a meaningless word' is an example of:", o:["Personification","Simile","Metaphor","Irony"], c:1, t:"concept"},
+  {q:"The poem implies that as we grow up:", o:["we become wiser and happier","we lose the simple wonder and innocence of childhood","we become more creative","we forget our parents"], c:1, t:"concept"},
+],
+
+"Poem 3 — The Seven Ages of Man": [
+  // BOOK / PAST PAPER MCQs
+  {q:"'The Seven Ages of Man' is written by:", o:["Rudyard Kipling","Alfred Lord Tennyson","W.H. Auden","William Shakespeare"], c:3, t:"mcq"},
+  {q:"In the poem, all the world is compared to:", o:["a school","a battlefield","a stage","a market"], c:2, t:"mcq"},
+  {q:"The poem describes the schoolboy as going to school:", o:["eagerly and happily","creeping like a snail, unwillingly","running with his satchel","proudly and energetically"], c:1, t:"mcq"},
+  {q:"The soldier's main ambition in the poem is:", o:["to grow old peacefully","to make money","to seek bubble reputation even in cannon's mouth","to love his family"], c:2, t:"mcq"},
+  {q:"The 'justice' stage man is described with:", o:["a lean figure and spectacles","bearded like a pard","a fair round belly and formal cut beard","strange oaths and quick quarrel"], c:2, t:"mcq"},
+  {q:"The last stage of man in the poem ends with:", o:["wisdom and peace","second childishness — sans teeth, sans eyes, sans taste, sans everything","fame and glory","riches and comfort"], c:1, t:"mcq"},
+  {q:"The word 'sans' used at the end of the poem means:", o:["with","without","beyond","above"], c:1, t:"mcq"},
+  {q:"'The Seven Ages of Man' is taken from Shakespeare's play:", o:["Hamlet","Macbeth","As You Like It","Othello"], c:2, t:"mcq"},
+  {q:"The phrase 'bubble reputation' suggests that reputation is:", o:["permanent and lasting","easy to achieve","fragile and temporary","very important"], c:2, t:"mcq"},
+  {q:"The tone of 'The Seven Ages of Man' is:", o:["joyful and celebratory","reflective and philosophical","angry and rebellious","bitter and accusatory"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"How many stages of life does Shakespeare describe?", o:["five","six","seven","eight"], c:2, t:"summary"},
+  {q:"The first stage of life described in the poem is:", o:["the schoolboy","the soldier","the infant mewling and puking in the nurse's arms","the lover"], c:2, t:"summary"},
+  {q:"In the sixth stage, the man is described as a lean 'slippered pantaloon' with:", o:["a belly full of food","spectacles on nose and pouch on side","strange oaths","a woeful ballad"], c:1, t:"summary"},
+  {q:"Shakespeare's main purpose in dividing life into seven stages is:", o:["to mock old age","to show human life progresses through predictable stages on life's stage","to praise soldiers","to encourage ambition"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The metaphor 'All the world's a stage' means:", o:["the world is a place for theatre only","life is a performance where everyone plays a role and must exit","the world is beautiful","people should act in plays"], c:1, t:"concept"},
+  {q:"'Mewling and puking' describes an infant that is:", o:["playing happily","crying and vomiting — helpless and dependent","sleeping peacefully","learning to walk"], c:1, t:"concept"},
+  {q:"The word 'pantaloon' in the poem refers to:", o:["a type of hat","a foolish old man","a soldier's uniform","a type of play"], c:1, t:"concept"},
+  {q:"The central message of 'The Seven Ages of Man' is:", o:["Fame lasts forever","Life is divided into predictable stages; all roles are temporary and end in oblivion","Soldiers are the greatest","Old age is the best stage"], c:1, t:"concept"},
+],
+
+"Poem 4 — You Start Dying Slowly": [
+  // BOOK / PAST PAPER MCQs
+  {q:"'You Start Dying Slowly' is written by:", o:["W.H. Auden","Pablo Neruda","Rudyard Kipling","Alfred Tennyson"], c:1, t:"mcq"},
+  {q:"According to the poet, one of the following actions causes a person to 'die slowly':", o:["traveling frequently","avoiding routine activities","failing to change habits","seeking advice from others"], c:2, t:"mcq"},
+  {q:"The poet says you start dying slowly if you:", o:["travel too often","do not travel, do not read, do not listen to the sounds of life","sleep too much","eat too little"], c:1, t:"mcq"},
+  {q:"'You start dying slowly when you kill your:', says the poet:", o:["appetite","self-esteem","ambition","patience"], c:1, t:"mcq"},
+  {q:"The poet implies that becoming a 'slave of your habits' means:", o:["being overly disciplined","following routines without question, living without growth","working very hard","exercising regularly"], c:1, t:"mcq"},
+  {q:"The repetition of 'You start dying slowly' in the poem is a literary device called:", o:["Simile","Metaphor","Anaphora","Irony"], c:2, t:"mcq"},
+  {q:"The poet's message about passion is:", o:["Passion should be avoided","Passion is unnecessary","Passion, though turbulent, is essential to feeling alive","Passion leads only to heartbreak"], c:2, t:"mcq"},
+  {q:"The phrase 'dying slowly' in the poem refers to:", o:["literal physical death","emotional and spiritual stagnation — a living death","growing older","illness"], c:1, t:"mcq"},
+  {q:"The poem serves as both a:", o:["comedy and tragedy","warning and an encouragement to live fully","love poem and an elegy","celebration and a lament"], c:1, t:"mcq"},
+  {q:"Neruda says you should risk what is ___ for the ___:", o:["uncertain / safe","safe / uncertain","easy / difficult","difficult / easy"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Pablo Neruda was a poet from:", o:["Spain","Argentina","Chile","Brazil"], c:2, t:"summary"},
+  {q:"The central theme of 'You Start Dying Slowly' is:", o:["the importance of physical health","living life to the fullest by embracing change, passion, and connection","avoiding all risks in life","the fear of death"], c:1, t:"summary"},
+  {q:"The poem encourages readers to speak to:", o:["only family members","those you don't know — to break routines","government officials","religious leaders only"], c:1, t:"summary"},
+  {q:"The advice NOT to 'go after a dream' is what the poet says causes:", o:["success","wisdom","slow dying","courage"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The phrase 'slave of your habits' means:", o:["disciplined and consistent","a person who cannot break free from routine and limiting patterns","someone who works very hard","a person with many responsibilities"], c:1, t:"concept"},
+  {q:"'Turbulent emotions' in the poem means:", o:["calm and peaceful feelings","intense, powerful, and unsettling emotions that make one feel truly alive","negative feelings only","political emotions"], c:1, t:"concept"},
+  {q:"The poem's literary tone is best described as:", o:["mournful and despairing","inspiring, urgent, and motivational","romantic and gentle","angry and accusatory"], c:1, t:"concept"},
+  {q:"The central moral of 'You Start Dying Slowly' is:", o:["Avoid passion to find peace","True living requires change, risk, passion, and connections — stagnation is a form of death","Only rich people can live fully","Travel is the only way to happiness"], c:1, t:"concept"},
+],
+
+"Poem 5 — Ulysses (Tennyson)": [
+  // BOOK / PAST PAPER MCQs
+  {q:"'Ulysses' is written by:", o:["Rudyard Kipling","William Shakespeare","Alfred Lord Tennyson","W.H. Auden"], c:2, t:"mcq"},
+  {q:"Ulysses is also known as ___ in Greek mythology:", o:["Pantheon","Achilles","Orpheus","Odysseus"], c:3, t:"mcq"},
+  {q:"Ulysses was the King of:", o:["Crete","Troy","Ithaca","Athens"], c:2, t:"mcq"},
+  {q:"Ulysses was a hero of the:", o:["Peloponnesian War","Persian Wars","Trojan War","Punic Wars"], c:2, t:"mcq"},
+  {q:"The famous last line of the poem is:", o:["'Never give in, never surrender'","'To strive, to seek, to find, and not to yield'","'We shall overcome'","'Go east, old man, go east'"], c:1, t:"mcq"},
+  {q:"The tone of 'Ulysses' is:", o:["defeated and hopeless","fearful and anxious","hopeful, determined, and defiant of old age","content and at peace"], c:2, t:"mcq"},
+  {q:"The imagery 'The long day wanes / the slow moon climbs' suggests:", o:["the beginning of a new adventure","the approaching end of life / passage of time","a beautiful evening","a storm approaching"], c:1, t:"mcq"},
+  {q:"'Happy Isles' in the poem symbolize:", o:["a tourist destination","a paradise — a better place beyond death / the Elysian fields","the island of Ithaca","a wealthy kingdom"], c:1, t:"mcq"},
+  {q:"What literary device is used in 'The lights begin to twinkle from the rocks'?", o:["Simile","Metaphor","Alliteration","Personification"], c:3, t:"mcq"},
+  {q:"Ulysses says 'Death closes all' but before the end:", o:["there is rest and peace","some work of noble note may yet be done","all is forgotten","the soul returns to God"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Ulysses addresses his speech to:", o:["the gods","his wife Penelope","his faithful mariners / companions","his son Telemachus"], c:2, t:"summary"},
+  {q:"The poem is a dramatic monologue expressing:", o:["Ulysses' regret for past adventures","Ulysses' desire to seek new adventures despite old age","Ulysses' contentment with ruling Ithaca","Ulysses' grief over lost companions"], c:1, t:"summary"},
+  {q:"The theme of 'Ulysses' is:", o:["the pain of war","perseverance, the human spirit, and refusing to give up despite old age","the love of family","political power"], c:1, t:"summary"},
+  {q:"Ulysses and his mariners are described as 'made weak by time and fate, but strong in:'", o:["body","wealth","will","youth"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The word 'mariners' means:", o:["soldiers","experienced sailors / seafarers","farmers","merchants"], c:1, t:"concept"},
+  {q:"'Tho' much is taken, much abides' means:", o:["everything is lost in old age","although much has been lost, much still remains — especially the spirit to continue","old age brings great wisdom","taking is more important than giving"], c:1, t:"concept"},
+  {q:"The word 'frolic' in the poem means:", o:["fearful","lively and playful","sad","determined"], c:1, t:"concept"},
+  {q:"The central message of 'Ulysses' is:", o:["Old age means the end of adventure","One should never stop striving and seeking — life's purpose continues until the end","Sailors should retire early","Fame is the greatest achievement"], c:1, t:"concept"},
+],
+
+"Poem 6 — Stop All Clocks": [
+  // BOOK / PAST PAPER MCQs
+  {q:"'Stop All Clocks' is written by:", o:["Rudyard Kipling","Alfred Lord Tennyson","W.H. Auden","William Shakespeare"], c:2, t:"mcq"},
+  {q:"The tone of 'Stop All Clocks' is:", o:["optimistic","satirical","melancholic and deeply grieving","humorous"], c:2, t:"mcq"},
+  {q:"'He was my North, my South, my East and West' uses which literary device?", o:["Simile","Alliteration","Metaphor","Personification"], c:2, t:"mcq"},
+  {q:"The poet says to 'Pack up the moon and dismantle the sun' to express:", o:["a love of nature","frustration with science","that nothing has any meaning after the death of the beloved","a desire to control nature"], c:2, t:"mcq"},
+  {q:"The poem's final line 'For nothing now can ever come to any good' expresses:", o:["the poet's hope","total despair — the world is meaningless after loss","a belief in afterlife","a promise to move on"], c:1, t:"mcq"},
+  {q:"The speaker wants pianos silenced because:", o:["they dislike music","it feels inappropriate to celebrate during grief","the pianos are broken","the sound is too loud"], c:1, t:"mcq"},
+  {q:"'I thought that love would last forever: I was wrong' expresses:", o:["the poet's belief in eternal love","disillusionment — love is ended by death","that the poet never loved","a critique of relationships"], c:1, t:"mcq"},
+  {q:"How many stanzas does 'Stop All Clocks' have?", o:["two","three","four","five"], c:2, t:"mcq"},
+  {q:"The aeroplanes are asked to circle moaning overhead to:", o:["announce the person's achievements","scribble on the sky the message 'He Is Dead'","celebrate the person's life","bring aid to mourners"], c:1, t:"mcq"},
+  {q:"The primary message of the poem is:", o:["death is a natural part of life","the loss of a loved one overshadows everything and makes life feel meaningless","love is fleeting","mourning should involve dramatic rituals only"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The main theme of 'Stop All Clocks' is:", o:["adventure","love and irreparable loss","nature and seasons","political conflict"], c:1, t:"summary"},
+  {q:"The speaker compares the deceased to their 'North, South, East and West' to show:", o:["the person's love of geography","the deceased was the speaker's entire world / life reference","the deceased was a traveller","the speaker is lost without a compass"], c:1, t:"summary"},
+  {q:"The poem uses hyperbole (exaggeration) with phrases like 'dismantle the sun' to:", o:["describe an actual event","emphasize the extreme depth of the speaker's grief","make fun of the situation","make the poem longer"], c:1, t:"summary"},
+  {q:"The crepe bows on doves and black gloves for policemen are examples of:", o:["actual mourning practices","symbols of public mourning — the whole world should share the grief","practical instructions","decoration"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"'Stop all the clocks' means:", o:["to repair clocks","that time has become irrelevant and meaningless after the loss","to set a new time","to organize a memorial"], c:1, t:"concept"},
+  {q:"The word 'muffled' as in 'muffled drum' means:", o:["loud and clear","having a softened, deadened sound","broken","brand new"], c:1, t:"concept"},
+  {q:"The phrase 'mourners come' refers to:", o:["party guests","people who come to grieve at a funeral","neighbours visiting","friends celebrating"], c:1, t:"concept"},
+  {q:"The central emotion expressed in 'Stop All Clocks' is:", o:["joy and celebration","jealousy","overwhelming grief and the feeling that life has lost all purpose","peaceful acceptance of death"], c:2, t:"concept"},
+],
+
+"Poem 7 — Sur Sasui (Shah Abdul Latif)": [
+  // BOOK / PAST PAPER MCQs
+  {q:"'Sur Sasui' is from the poetry of:", o:["Allama Iqbal","Faiz Ahmad Faiz","Shah Abdul Latif Bhittai","Sachal Sarmast"], c:2, t:"mcq"},
+  {q:"In the poem, Sur Sasui, the poet teaches us:", o:["patriotism","greed","adventure","love and devotion"], c:3, t:"mcq"},
+  {q:"Sasui was a beautiful girl raised by a ___ in Bhambhore:", o:["merchant","fisherman","washerman","farmer"], c:2, t:"mcq"},
+  {q:"Prince Punhoon was the son of the ruler of:", o:["Bhambhore","Sindh","Kech Makran","Lahore"], c:2, t:"mcq"},
+  {q:"Punhoon disguised himself as a ___ to visit Sasui:", o:["prince","merchant","soldier","holy man"], c:1, t:"mcq"},
+  {q:"Punhoon's brothers abducted him because:", o:["Punhoon had become poor","they were angered by his marriage to a washerman's daughter","they wanted to rob him","he had betrayed his tribe"], c:1, t:"mcq"},
+  {q:"Sasui set off alone on a perilous journey through mountains to:", o:["find treasure","punish Punhoon's brothers","find Prince Punhoon","reach Bhambhore"], c:2, t:"mcq"},
+  {q:"Shah Abdul Latif Bhittai elevates Sasui's story into a metaphor for:", o:["political freedom","the human soul's quest for Ultimate Reality / God","romantic love only","a warrior's journey"], c:1, t:"mcq"},
+  {q:"The line 'Burn as long as you live, choice there is none' teaches:", o:["patience and rest","the trials of love and devotion must be endured without giving up","to avoid hardships","to seek comfort above all"], c:1, t:"mcq"},
+  {q:"Sur Sasui is originally written in:", o:["Urdu","Punjabi","Sindhi","Persian"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Shah Jo Risalo is:", o:["a historical account","the famous collection of poetry by Shah Abdul Latif Bhittai","a novel","a political manifesto"], c:1, t:"summary"},
+  {q:"In the end, Sasui and Punhoon were:", o:["reunited and lived happily","separated forever","united in death — buried together","both returned to Bhambhore"], c:2, t:"summary"},
+  {q:"The poem 'Sur Sasui' primarily portrays:", o:["the journey for wealth","devotion, sacrifice, and the spiritual quest of love","adventure and discovery","the duties of a prince"], c:1, t:"summary"},
+  {q:"Shah Abdul Latif Bhittai focuses in this poem on the moment:", o:["of Sasui and Punhoon's wedding","when Punhoon is abducted","when Sasui leaves Bhambhore and ventures into the mountains","when Punhoon returns home"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"'Burn as long as you live' in the poem symbolizes:", o:["literal fire","the consuming nature of real love and devotion — love is a burning, unavoidable force","warmth and comfort","anger"], c:1, t:"concept"},
+  {q:"The spiritual dimension of Sasui's journey represents:", o:["a physical adventure story","the soul's unwavering search for God / the Ultimate Reality","a feminist narrative only","a political journey"], c:1, t:"concept"},
+  {q:"'Tears from my eyes fall like drops of rain' uses which literary device?", o:["Metaphor","Simile","Personification","Hyperbole"], c:1, t:"concept"},
+  {q:"The central message of 'Sur Sasui' is:", o:["Love should be avoided because it brings pain","True love and devotion require enduring all hardships and sacrifice without giving up","Princes should not marry commoners","Separation always ends in reunion"], c:1, t:"concept"},
+],
+
+// ═══════════════════════════════════════════════════════════
+// NOVEL SECTION
+// ═══════════════════════════════════════════════════════════
+
+"Novel — Great Expectations (Part A)": [
+  // BOOK / PAST PAPER MCQs
+  {q:"Great Expectations is written by:", o:["Oscar Wilde","Leo Tolstoy","Charles Dickens","Bertrand Russell"], c:2, t:"mcq"},
+  {q:"Pip's full name is:", o:["Peter Pirrip","Philip Pirrip","Patrick Pirrip","Percy Pirrip"], c:1, t:"mcq"},
+  {q:"Pip was raised by his:", o:["aunt and uncle","grandfather","sister, Mrs. Joe Gargery","grandmother"], c:2, t:"mcq"},
+  {q:"Joe Gargery, Pip's brother-in-law, was a:", o:["farmer","lawyer","blacksmith","soldier"], c:2, t:"mcq"},
+  {q:"Pip's 'great expectations' mainly came from:", o:["hard work","wealth and social advancement (funded secretly by Magwitch)","inheritance from Joe","his own savings"], c:1, t:"mcq"},
+  {q:"The central theme of the novel is:", o:["adventure on the high seas","social class and personal growth","war and destruction","romance and beauty"], c:0, t:"mcq"},
+  {q:"Magwitch is Pip's:", o:["lawyer","cousin","secret benefactor","roommate in London"], c:2, t:"mcq"},
+  {q:"Miss Havisham is known for always:", o:["running a school","helping Pip's family","wearing her wedding dress","reading books"], c:2, t:"mcq"},
+  {q:"Estella treated Pip during their first meeting:", o:["kindly","admiringly","fearfully","with disdain and contempt"], c:3, t:"mcq"},
+  {q:"Magwitch made his fortune in:", o:["London","Canada","Australia","America"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Great Expectations was first published in:", o:["1845","1861","1872","1900"], c:1, t:"summary"},
+  {q:"Mr. Jaggers is:", o:["Pip's teacher","Pip's powerful London lawyer who manages his fortune","Joe Gargery's brother","Magwitch's prison guard"], c:1, t:"summary"},
+  {q:"Herbert Pocket was Pip's:", o:["enemy in London","loyal friend and roommate in London","servant","cousin"], c:1, t:"summary"},
+  {q:"Miss Havisham was jilted (abandoned) on:", o:["the day she met Pip","her wedding day","her graduation","the day she adopted Estella"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"Pip's initial shame about Joe reflects the novel's theme of:", o:["the importance of education","the corrupting influence of wealth and class prejudice","the beauty of rural life","the value of hard work"], c:1, t:"concept"},
+  {q:"Miss Havisham's decision to stop all clocks at 'twenty to nine' symbolizes:", o:["a love of antiques","her refusal to let time move past the moment she was betrayed","her wealth and eccentricity","a superstition"], c:1, t:"concept"},
+  {q:"What does the word 'benefactor' mean?", o:["an enemy","a lawyer","a person who provides financial help to another","a guardian"], c:2, t:"concept"},
+  {q:"Estella was raised by Miss Havisham to:", o:["become a great lady","break men's hearts as revenge for Havisham's own heartbreak","marry Pip","become a lawyer"], c:1, t:"concept"},
+],
+
+"Novel — Great Expectations (Part B)": [
+  // BOOK / PAST PAPER MCQs
+  {q:"Compeyson, the second convict, was the man who:", o:["helped Pip escape","betrayed Miss Havisham and framed Magwitch","taught Pip manners","was Pip's neighbour"], c:1, t:"mcq"},
+  {q:"Uncle Pumblechook was:", o:["a kind supporter of Pip","Pip's pompous uncle-in-law who falsely took credit for Pip's success","Joe Gargery's father","a school teacher"], c:1, t:"mcq"},
+  {q:"Bentley Drummle married:", o:["Biddy","Miss Havisham","Estella","Mrs. Joe"], c:2, t:"mcq"},
+  {q:"Wemmick, Mr. Jaggers' clerk, was:", o:["cold and professional everywhere","kind at home but professional at work","always in a bad mood","the same in all situations"], c:1, t:"mcq"},
+  {q:"At the end of the novel, Pip:", o:["becomes very rich","marries Estella and returns wealthy","loses his wealth but regains his moral compass and makes peace with Joe","leaves England forever"], c:2, t:"mcq"},
+  {q:"Joe and Biddy at the end of the novel:", o:["separated","are married to each other","emigrated to Australia","moved to London"], c:1, t:"mcq"},
+  {q:"Orlick, the bitter worker at Joe's forge, was suspected of:", o:["stealing Pip's money","attacking Mrs. Joe Gargery","betraying Magwitch","framing Compeyson"], c:1, t:"mcq"},
+  {q:"Pip first encountered the convict Magwitch in:", o:["a London street","Miss Havisham's garden","a churchyard on the marshes","a prison ship"], c:2, t:"mcq"},
+  {q:"Miss Havisham's house was called:", o:["Wemmick's Castle","Bleak House","Satis House","Newgate Prison"], c:2, t:"mcq"},
+  {q:"Magwitch returned to England to:", o:["escape from Australian authorities","take his revenge on Compeyson","see Pip, the gentleman he had created","reclaim money from Mr. Jaggers"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Miss Havisham died in:", o:["old age peacefully","a tragic fire accident at Satis House","a flood","while on a journey"], c:1, t:"summary"},
+  {q:"At the novel's end, Pip and Estella meet again at:", o:["London Bridge","Miss Havisham's ruined Satis House","a court of law","Australia"], c:1, t:"summary"},
+  {q:"What lesson does Pip ultimately learn from the novel's events?", o:["Wealth is the key to true happiness","True values are love, loyalty, and character — not wealth or social class","Education is more important than family","Revenge is justified"], c:1, t:"summary"},
+  {q:"'Little Pip', born at the end to Joe and Biddy, symbolizes:", o:["the continuation of poverty","a new beginning and the redeeming power of simple, honest love","Pip's jealousy","the failure of Pip's dreams"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"Magwitch's secret patronage of Pip can be seen as:", o:["an act of selfishness","gratitude — repaying Pip's childhood kindness with the fortune he worked hard for in Australia","manipulation","a legal arrangement"], c:1, t:"concept"},
+  {q:"The phrase 'raised by hand' as used by Mrs. Joe Gargery means she:", o:["taught Pip by example","raised Pip with physical discipline (often hitting him)","fed Pip by hand like an infant","gave Pip everything he needed"], c:1, t:"concept"},
+  {q:"The novel's title 'Great Expectations' is ironic because:", o:["Pip exceeds all his expectations","Pip's high hopes for wealth and status ultimately lead to moral failure before his redemption","the novel is about sad people","all characters end up wealthy"], c:1, t:"concept"},
+  {q:"The character Estella represents:", o:["the warmth and goodness of Miss Havisham","the cold, destructive influence of wealth and class when a person is raised without love","the ideal romantic partner","the value of education"], c:1, t:"concept"},
+],
+
+// ═══════════════════════════════════════════════════════════
+// GRAMMAR & LANGUAGE CONCEPTS
+// ═══════════════════════════════════════════════════════════
+
+"Grammar & Language Skills": [
+  // PAST PAPER / EXAM-LIKELY MCQs
+  {q:"The proverb 'No pain, No gain' means:", o:["avoid pain","success is easy","hard work brings success","avoid success"], c:2, t:"mcq"},
+  {q:"In the sentence 'Maria loves her cat', the word 'her' is this type of reference:", o:["exophoric","endophoric","anaphoric","cataphoric"], c:2, t:"mcq"},
+  {q:"He stayed at home because it was raining. The underlined part is:", o:["adjectival phrase","adjectival clause","adverbial clause","phrasal verb"], c:2, t:"mcq"},
+  {q:"Choose a prefix to make the opposite of the word 'stabilize':", o:["de","dys","dis","pre"], c:0, t:"mcq"},
+  {q:"Choose a suffix for the verb 'preach' to change it into a noun:", o:["ion","eer","er","ent"], c:2, t:"mcq"},
+  {q:"A cataphoric reference is one that:", o:["refers back to something already mentioned","refers to something outside the text","refers forward to something yet to be mentioned","is impossible to identify"], c:2, t:"mcq"},
+  {q:"An anaphoric reference is one that:", o:["refers forward to something later in the text","refers back to something already mentioned earlier in the text","is ambiguous","refers outside the text"], c:1, t:"mcq"},
+  {q:"The sentence 'She is taller than her sister.' contains an error in:", o:["subject-verb agreement","degrees of adjective use","pronoun use","punctuation"], c:1, t:"mcq"},
+  {q:"'Although she was tired, she continued working.' — the underlined clause is:", o:["an adjectival clause","a noun clause","an adverbial clause of concession","a relative clause"], c:2, t:"mcq"},
+  {q:"A semi-colon is used to:", o:["end a sentence","connect two closely related independent clauses","introduce a list after a full sentence","show possession"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Précis writing requires:", o:["keeping the full length of the text","condensing the passage to one-third its length in your own words","adding personal opinions","copying the text verbatim"], c:1, t:"summary"},
+  {q:"An argumentative essay requires the writer to:", o:["narrate a story","describe a scene","take a position and support it with evidence","simply explain a topic"], c:2, t:"summary"},
+  {q:"In indirect speech, 'He said, \"I am happy\"' becomes:", o:["He said that he is happy","He said that he was happy","He told that he is happy","He said I was happy"], c:1, t:"summary"},
+  {q:"Which of the following is a correct use of a colon?", o:["She loves: cats","He said: he was tired","She bought three things: bread, milk, and eggs","The colon: is a punctuation mark"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The active voice sentence 'The teacher teaches the students' in passive voice becomes:", o:["The students are taught by the teacher","The students were teaching the teacher","The teacher is taught by students","The students had been taught"], c:0, t:"concept"},
+  {q:"The prefix 'de-' as in 'destabilize' means:", o:["the opposite / reversal of an action","to make something better","to repeat an action","above or beyond"], c:0, t:"concept"},
+  {q:"A complex sentence is one that contains:", o:["two or more independent clauses","one independent clause and one or more dependent (subordinate) clauses","only simple sentences joined by 'and'","only questions"], c:1, t:"concept"},
+  {q:"The phrase 'to beat around the bush' is an example of:", o:["a proverb","a simile","an idiom","a metaphor"], c:2, t:"concept"},
+],
+
+};
+
+let currentChapter=null,userAnswers={},stats={total:0,answered:0,correct:0};
+function initializeApp(){generateWatermarks();createChapterButtons();updateStats();}
+function generateWatermarks(){
+  const o=document.getElementById('watermarkOverlay'),t="Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057";
+  for(let r=0;r<6;r++)for(let c=0;c<3;c++){const s=document.createElement('span');s.textContent=t;s.style.left=(c*38-5)+'%';s.style.top=(r*18-5)+'%';o.appendChild(s);}
+}
+function createChapterButtons(){
+  const container=document.getElementById('chapterButtons');
+  Object.keys(mcqData).forEach(ch=>{
+    const btn=document.createElement('button');btn.className='chapter-btn';
+    const qs=mcqData[ch],m=qs.filter(q=>q.t==='mcq').length,s=qs.filter(q=>q.t==='summary').length,c=qs.filter(q=>q.t==='concept').length;
+    btn.innerHTML=ch+'<span class="q-count">📖'+m+' 🌟'+s+' 💡'+c+' = '+qs.length+' Qs</span>';
+    btn.onclick=()=>loadChapter(ch);container.appendChild(btn);
+  });
+}
+function loadChapter(ch){
+  currentChapter=ch;userAnswers={};
+  document.querySelectorAll('.chapter-btn').forEach(b=>b.classList.toggle('active',b.innerHTML.startsWith(ch)));
+  const con=document.getElementById('quizContainer');con.innerHTML='';con.classList.add('active');
+  const qs=mcqData[ch];stats.total=qs.length;stats.answered=0;stats.correct=0;
+  let idx=0;
+  [{type:'mcq',label:'📖 Book & Past Paper MCQs',cls:'sh-mcq'},{type:'summary',label:'🌟 Summary — Key Points',cls:'sh-summary'},{type:'concept',label:'💡 Concept — Exam Likely',cls:'sh-concept'}].forEach(g=>{
+    const gqs=qs.filter(q=>q.t===g.type);if(!gqs.length)return;
+    const h=document.createElement('div');h.className='section-heading '+g.cls;h.textContent=g.label;con.appendChild(h);
+    gqs.forEach(q=>con.appendChild(createCard(q,idx++)));
+  });
+  const sum=document.createElement('div');sum.id='resultSummary';con.appendChild(sum);
+  updateStats();con.scrollIntoView({behavior:'smooth'});
+}
+function createCard(q,i){
+  const tl={mcq:'📖 MCQ',summary:'🌟 Summary',concept:'💡 Concept'}[q.t];
+  const tc2={mcq:'t-mcq',summary:'t-sum',concept:'t-con'}[q.t];
+  const card=document.createElement('div');
+  card.className='question-card'+(q.t==='summary'?' sum-card':q.t==='concept'?' con-card':'');
+  card.id='question-'+i;
+  card.innerHTML=`<div class="question-header"><span class="question-number">Q ${i+1}</span><span class="question-type ${tc2}">${tl}</span></div><div class="question-text">${q.q}</div><div class="options" id="options-${i}">${q.o.map((o,j)=>`<div class="option" onclick="selectOption(${i},${j})">${String.fromCharCode(97+j)}) ${o}</div>`).join('')}</div><button class="check-btn" onclick="checkAnswer(${i})" id="check-${i}">Check Answer</button><div class="feedback" id="feedback-${i}"></div>`;
+  return card;
+}
+function selectOption(qi,oi){
+  if(userAnswers[qi]?.checked)return;
+  document.querySelectorAll(`#options-${qi} .option`).forEach((o,i)=>o.classList.toggle('selected',i===oi));
+  userAnswers[qi]={selected:oi,checked:false};
+}
+function checkAnswer(qi){
+  const qs=mcqData[currentChapter];
+  const allQ=[];
+  [{type:'mcq'},{type:'summary'},{type:'concept'}].forEach(g=>{qs.filter(q=>q.t===g.type).forEach(q=>allQ.push(q));});
+  const q=allQ[qi],a=userAnswers[qi];
+  if(!a||a.checked)return;a.checked=true;
+  const ok=a.selected===q.c;if(ok)stats.correct++;stats.answered++;
+  document.querySelectorAll(`#options-${qi} .option`).forEach((o,i)=>{o.classList.add('disabled');if(i===q.c)o.classList.add('correct');else if(i===a.selected&&!ok)o.classList.add('wrong');});
+  const fb=document.getElementById(`feedback-${qi}`);
+  fb.className=`feedback show ${ok?'correct':'wrong'}`;
+  fb.textContent=ok?'✓ Correct! Well done!':`✗ Wrong! Correct: ${String.fromCharCode(97+q.c)}) ${q.o[q.c]}`;
+  document.getElementById(`check-${qi}`).disabled=true;updateStats();
+  if(stats.answered===stats.total)showResult();
+}
+function updateStats(){
+  document.getElementById('totalQuestions').textContent=stats.total;
+  document.getElementById('answeredQuestions').textContent=stats.answered;
+  document.getElementById('correctAnswers').textContent=stats.correct;
+  document.getElementById('scorePercentage').textContent=(stats.total>0?Math.round(stats.correct/stats.total*100):0)+'%';
+}
+function showResult(){
+  const p=Math.round(stats.correct/stats.total*100);
+  let g='D',m='Need More Practice! 💪';
+  if(p>=90){g='A+';m='Outstanding! 🌟';}else if(p>=80){g='A';m='Excellent! 🎉';}else if(p>=70){g='B';m='Good Job! 👍';}else if(p>=60){g='C';m='Keep Practicing! 📚';}
+  document.getElementById('resultSummary').innerHTML=`<div class="result-summary"><h2>${m}</h2><div class="result-stats"><div class="result-stat"><div class="result-stat-value">${stats.correct}/${stats.total}</div><div class="result-stat-label">Correct</div></div><div class="result-stat"><div class="result-stat-value">${p}%</div><div class="result-stat-label">Score</div></div><div class="result-stat"><div class="result-stat-value">${g}</div><div class="result-stat-label">Grade</div></div></div><button class="reset-btn" onclick="loadChapter('${currentChapter}')">🔄 Try Again</button><button class="reset-btn" onclick="location.reload()">📚 All Chapters</button></div>`;
+  document.getElementById('resultSummary').scrollIntoView({behavior:'smooth'});
+}
+initializeApp();
+</script>
+</body>
+</html>
