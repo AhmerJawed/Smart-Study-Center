@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physics Class XII - Full MCQ Practice | Smart Study Center</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1b0035 0%,#3a0068 50%,#6200ea 100%);min-height:100vh;padding:20px}
+.container{max-width:960px;margin:0 auto;background:white;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.45);overflow:hidden;position:relative;z-index:1}
+.brand-header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:white;padding:12px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.brand-logo{display:flex;align-items:center;gap:12px}
+.brand-text-group{display:flex;flex-direction:column}
+.brand-name{font-size:17px;font-weight:800;color:#fff}
+.brand-center{font-size:12px;color:#a8b4d8;font-weight:500;letter-spacing:1px;text-transform:uppercase}
+.brand-contact{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:6px 16px;font-size:14px;font-weight:600;color:#e0e6ff}
+.social-row{display:flex;justify-content:center;gap:12px;padding:10px;background:#0a1628;flex-wrap:wrap}
+.social-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:25px;font-size:13px;font-weight:700;text-decoration:none;color:white;transition:all .3s;border:none;cursor:pointer}
+.social-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.wa-btn{background:linear-gradient(135deg,#25d366,#128c7e)}
+.ig-btn{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)}
+.watermark-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;overflow:hidden}
+.watermark-overlay span{position:absolute;font-size:15px;font-weight:700;color:rgba(98,0,234,0.07);white-space:nowrap;transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase}
+.header{background:linear-gradient(135deg,#3a0068 0%,#6200ea 100%);color:white;padding:28px;text-align:center}
+.header h1{font-size:25px;margin-bottom:6px}
+.header p{opacity:.9;font-size:14px}
+.badge-row{display:flex;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700}
+.stats{display:flex;justify-content:space-around;padding:16px;background:#f8f9fa;border-bottom:2px solid #e9ecef;flex-wrap:wrap;gap:8px}
+.stat-item{text-align:center}
+.stat-label{font-size:11px;color:#6c757d;text-transform:uppercase;letter-spacing:1px}
+.stat-value{font-size:22px;font-weight:bold;color:#6200ea;margin-top:4px}
+.chapter-selector{padding:20px;background:#f8f9fa}
+.chapter-selector h3{margin-bottom:14px;color:#333;font-size:15px}
+.chapter-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:10px}
+.chapter-btn{padding:10px 14px;background:white;border:2px solid #6200ea;border-radius:8px;cursor:pointer;font-size:12px;transition:all .3s;color:#6200ea;font-weight:700;text-align:left}
+.chapter-btn:hover,.chapter-btn.active{background:#6200ea;color:white;transform:translateY(-2px);box-shadow:0 5px 15px rgba(98,0,234,.3)}
+.chapter-btn .q-count{display:block;font-size:11px;opacity:.75;margin-top:2px}
+.quiz-container{padding:25px;display:none}
+.quiz-container.active{display:block}
+.section-heading{padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;margin:22px 0 14px;letter-spacing:.5px;text-transform:uppercase}
+.sh-mcq{background:linear-gradient(135deg,#3a0068,#6200ea);color:white}
+.sh-summary{background:linear-gradient(135deg,#006064,#00838f);color:white}
+.sh-concept{background:linear-gradient(135deg,#bf360c,#e64a19);color:white}
+.question-card{background:#f8f9fa;border-radius:12px;padding:20px;margin-bottom:16px;border-left:5px solid #6200ea}
+.question-card.sum-card{border-left-color:#00838f}
+.question-card.con-card{border-left-color:#e64a19}
+.question-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.question-number{color:white;padding:4px 14px;border-radius:20px;font-weight:bold;font-size:12px;background:#6200ea}
+.question-card.sum-card .question-number{background:#00838f}
+.question-card.con-card .question-number{background:#e64a19}
+.question-type{color:white;padding:4px 10px;border-radius:15px;font-size:11px;font-weight:700}
+.t-mcq{background:#6200ea}
+.t-sum{background:#00838f}
+.t-con{background:#e64a19}
+.question-text{font-size:15px;color:#333;margin-bottom:14px;line-height:1.6}
+.options{display:grid;gap:9px}
+.option{padding:11px 16px;background:white;border:2px solid #dee2e6;border-radius:8px;cursor:pointer;transition:all .3s;font-size:14px}
+.option:hover{border-color:#6200ea;background:#ede7f6}
+.option.selected{border-color:#6200ea;background:#d1c4e9}
+.option.correct{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20;font-weight:600}
+.option.wrong{border-color:#c62828;background:#ffebee;color:#b71c1c}
+.option.disabled{cursor:not-allowed;opacity:.7}
+.check-btn{background:#6200ea;color:white;border:none;padding:9px 24px;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer;margin-top:11px;transition:all .3s}
+.check-btn:hover{background:#7b1fa2;transform:translateY(-2px)}
+.check-btn:disabled{background:#ccc;cursor:not-allowed;transform:none}
+.feedback{margin-top:11px;padding:11px;border-radius:8px;font-weight:bold;display:none;font-size:13px}
+.feedback.show{display:block}
+.feedback.correct{background:#e8f5e9;color:#1b5e20;border:2px solid #2e7d32}
+.feedback.wrong{background:#ffebee;color:#b71c1c;border:2px solid #c62828}
+.result-summary{background:linear-gradient(135deg,#3a0068 0%,#6200ea 100%);color:white;padding:28px;border-radius:12px;text-align:center;margin-top:22px}
+.result-summary h2{font-size:24px;margin-bottom:16px}
+.result-stats{display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap}
+.result-stat{text-align:center}
+.result-stat-value{font-size:32px;font-weight:bold}
+.result-stat-label{font-size:13px;opacity:.85}
+.reset-btn{background:rgba(255,255,255,0.2);color:white;border:2px solid white;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:bold;margin-top:16px;margin-right:8px;transition:all .3s}
+.reset-btn:hover{background:white;color:#6200ea}
+.brand-footer{background:linear-gradient(135deg,#1a1a2e,#0f3460);color:#a8b4d8;text-align:center;padding:14px;font-size:13px}
+.footer-main{font-weight:700;color:white;margin-bottom:4px}
+.footer-sub{font-size:11px;opacity:.7;margin-bottom:8px}
+.footer-divider{margin:0 8px;opacity:.4}
+.footer-social{display:flex;justify-content:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.footer-social a{color:#a8b4d8;text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(168,180,216,0.3);border-radius:15px;transition:all .3s}
+.footer-social a:hover{background:rgba(255,255,255,0.1);color:white}
+</style>
+</head>
+<body>
+<div id="watermarkOverlay" class="watermark-overlay"></div>
+<div class="container">
+<div class="brand-header">
+<div class="brand-logo">
+<div class="brand-text-group">
+<span class="brand-name">Sir Ahmer Javed</span>
+<span class="brand-center">Smart Study Center</span>
+</div>
+</div>
+<div class="brand-contact">📞 0345-3090057</div>
+</div>
+<div class="social-row">
+<a class="social-btn wa-btn" href="https://wa.me/923453090057" target="_blank" rel="noopener">💬 WhatsApp 0345-3090057</a>
+<a class="social-btn ig-btn" href="https://instagram.com/smartstudycenter_khi" target="_blank" rel="noopener">📸 @smartstudycenter_khi</a>
+</div>
+<div class="header">
+<h1>⚡ Physics Class XII — Full Coverage</h1>
+<p>Complete MCQ Practice Tool — 100% Exam Ready | BIEK / Sindh Board</p>
+<div class="badge-row">
+<span class="badge">📖 Book MCQs</span>
+<span class="badge">🌟 Summary</span>
+<span class="badge">💡 Concepts</span>
+</div>
+</div>
+<div class="stats">
+<div class="stat-item"><div class="stat-label">Total</div><div class="stat-value" id="totalQuestions">0</div></div>
+<div class="stat-item"><div class="stat-label">Answered</div><div class="stat-value" id="answeredQuestions">0</div></div>
+<div class="stat-item"><div class="stat-label">Correct</div><div class="stat-value" id="correctAnswers">0</div></div>
+<div class="stat-item"><div class="stat-label">Score</div><div class="stat-value" id="scorePercentage">0%</div></div>
+</div>
+<div class="chapter-selector">
+<h3>📚 Select Unit:</h3>
+<div class="chapter-buttons" id="chapterButtons"></div>
+</div>
+<div class="quiz-container" id="quizContainer"></div>
+<div class="brand-footer">
+<div class="footer-main">Sir Ahmer Javed <span class="footer-divider">|</span> Smart Study Center <span class="footer-divider">|</span> 📞 0345-3090057</div>
+<div class="footer-sub">Physics Class XII — Full Coverage MCQ Tool | BIEK / Sindh Board</div>
+<div class="footer-social">
+<a href="https://wa.me/923453090057" target="_blank" rel="noopener">💬 WhatsApp</a>
+<a href="https://instagram.com/smartstudycenter_khi" target="_blank" rel="noopener">📸 Instagram</a>
+</div>
+</div>
+</div>
+<script>
+const mcqData = {
+
+"Unit 15: Molecular Theory of Gases": [
+  // BOOK MCQs
+  {q:"The relationship between temperature and average kinetic energy of particles in a gas is:", o:["Temperature is inversely proportional to average KE","Temperature is directly proportional to average KE","Temperature is independent of average KE","Temperature is proportional to the square of average KE"], c:1, t:"mcq"},
+  {q:"Standard conditions of temperature and pressure (STP) refer to a gas at:", o:["0°C and 1 atm","20°C and 1 atm","25°C and 1 atm","30°C and 101.3 kPa"], c:0, t:"mcq"},
+  {q:"If the temperature is kept constant and the volume of a gas is doubled, then pressure of the gas is:", o:["Quadrupled","Doubled","Reduced to ½ of original value","Reduced to ¼ of original value"], c:2, t:"mcq"},
+  {q:"Avogadro's number is the number of molecules in:", o:["One mole of a substance","One kg of a substance","One m³ of a gas","One kilogram of hydrogen gas"], c:0, t:"mcq"},
+  {q:"Mean translational kinetic energy per molecule of an ideal gas at temperature T is:", o:["(3/2)kT","(1/2)kT","3kT","kT²"], c:0, t:"mcq"},
+  {q:"The normal human body temperature is:", o:["98.6°F (37°C)","99.6°F (37.4°C)","100.4°F (38°C)","101°F (38.3°C)"], c:0, t:"mcq"},
+  {q:"The pressure P, density ρ, and average speed v of molecules of an ideal gas are related by:", o:["P = 2ρv²","P = (1/3)ρv²","P = (1/2)ρv²","P = ρv²"], c:1, t:"mcq"},
+  {q:"In air at STP, the average speed of the:", o:["Oxygen molecules is greater than Nitrogen molecules","Nitrogen molecules is greater than Oxygen molecules","Oxygen molecules is approximately equal to Nitrogen molecules","Helium atoms is greater than both Oxygen and Nitrogen molecules"], c:3, t:"mcq"},
+  {q:"If the absolute temperature of a gas is increased 3 times, the rms velocity of the molecules will be:", o:["3 times","9 times","√3 times","1/3 times"], c:2, t:"mcq"},
+  {q:"A gas is enclosed in an isolated container on a fast-moving train moving uniformly. The temperature of the gas:", o:["Increases due to the motion of the train","Decreases due to the motion of the train","Remains constant","Fluctuates depending on the train's speed"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The kinetic theory of gases assumes that gas molecules:", o:["Have large volumes compared to the container","Exert strong attractive forces on each other","Are in continuous random motion","Have negligible kinetic energy"], c:2, t:"summary"},
+  {q:"Boyle's law states that at constant temperature, pressure of a gas is:", o:["Directly proportional to volume","Inversely proportional to volume","Independent of volume","Proportional to square of volume"], c:1, t:"summary"},
+  {q:"Charles' law states that at constant pressure, volume of a gas is:", o:["Inversely proportional to absolute temperature","Directly proportional to absolute temperature","Independent of temperature","Proportional to square of temperature"], c:1, t:"summary"},
+  {q:"The ideal gas equation is:", o:["PV = nkT","PV = nRT","PV = RT","PV = NkT"], c:1, t:"summary"},
+  {q:"Avogadro's number (Nₐ) is approximately:", o:["6.022 × 10²³","6.022 × 10²⁴","3.14 × 10²³","1.6 × 10¹⁹"], c:0, t:"summary"},
+  {q:"The Boltzmann constant k is related to R and Nₐ by:", o:["k = R × Nₐ","k = Nₐ / R","k = R / Nₐ","k = R + Nₐ"], c:2, t:"summary"},
+  {q:"Root mean square (rms) speed of gas molecules is proportional to:", o:["√T","T","T²","1/T"], c:0, t:"summary"},
+  {q:"Triple point of water is:", o:["0°C and 1 atm","0.01°C and 611.73 Pa","100°C and 1 atm","37°C and 1 atm"], c:1, t:"summary"},
+  {q:"The pressure of an ideal gas in a container is due to:", o:["Gravitational force on molecules","Collisions of molecules with the container walls","Electromagnetic forces between molecules","Weight of the gas"], c:1, t:"summary"},
+  {q:"If temperature of a gas is doubled at constant volume, its pressure becomes:", o:["Half","Same","Double","Four times"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"Kinetic energy per mole of an ideal gas is:", o:["(3/2)kT","(2/3)kT","(3/2)RT","(2/3)RT"], c:2, t:"concept"},
+  {q:"At absolute zero (0 K), the kinetic energy of an ideal gas molecule is:", o:["Maximum","Minimum but not zero","Zero","Infinite"], c:2, t:"concept"},
+  {q:"Two containers have gases at the same temperature. The rms speed is higher for:", o:["The heavier gas","The lighter gas","Both are equal","Cannot be determined"], c:1, t:"concept"},
+  {q:"The value of Boltzmann constant k is:", o:["1.38 × 10⁻²³ J/K","1.38 × 10⁻¹⁹ J/K","6.02 × 10²³ J/K","8.31 J/mol·K"], c:0, t:"concept"},
+  {q:"Gay-Lussac's law: at constant volume, pressure of a gas is proportional to:", o:["Celsius temperature","Absolute (Kelvin) temperature","Volume","Number of moles"], c:1, t:"concept"},
+  {q:"The temperature at which a gas theoretically has zero pressure at constant volume is:", o:["0°C","−100°C","−273.15°C","−373°C"], c:2, t:"concept"},
+  {q:"If both the temperature and volume of an ideal gas are doubled, the pressure:", o:["Doubles","Halves","Remains the same","Quadruples"], c:2, t:"concept"},
+],
+
+"Unit 16: First Law of Thermodynamics": [
+  // BOOK MCQs
+  {q:"What type of process occurs when a system exchanges both heat and work with its surroundings, and there is no change in internal energy?", o:["Isothermal process","Adiabatic process","Isobaric process","Isochoric process"], c:0, t:"mcq"},
+  {q:"During an isobaric process, what remains constant?", o:["Temperature","Pressure","Volume","Internal energy"], c:1, t:"mcq"},
+  {q:"In which thermodynamic process does a system exchange heat with its surroundings but undergo no change in temperature?", o:["Isothermal process","Adiabatic process","Isobaric process","Isochoric process"], c:0, t:"mcq"},
+  {q:"What is the characteristic of an adiabatic process?", o:["Constant pressure","No heat exchange with surroundings","Constant temperature","Constant volume"], c:1, t:"mcq"},
+  {q:"In an isochoric process, what is the primary feature?", o:["Constant temperature","No work done","Constant volume","No heat exchange"], c:2, t:"mcq"},
+  {q:"What is internal energy in a thermodynamic system?", o:["Energy associated with motion only","Energy associated with position only","Sum of kinetic and potential energy of molecules","Total energy contained within the system"], c:3, t:"mcq"},
+  {q:"How is the change in internal energy (ΔU) defined in terms of heat (ΔQ) and work (ΔW)?", o:["ΔU = ΔQ + ΔW","ΔU = ΔQ − ΔW","ΔU = ΔQ × ΔW","ΔU = ΔQ / ΔW"], c:1, t:"mcq"},
+  {q:"The internal energy of an ideal gas is related to:", o:["Temperature only","Pressure only","Volume only","Temperature, pressure, and volume"], c:0, t:"mcq"},
+  {q:"During an adiabatic expansion of a gas, the internal energy of the system:", o:["Increases","Decreases","Remains constant","Depends on specific heat only"], c:1, t:"mcq"},
+  {q:"In an isochoric (constant volume) process, the equation for internal energy change is:", o:["ΔU = ΔQ + ΔW","ΔU = ΔQ (since W = 0)","ΔU = −ΔW (since Q = 0)","ΔU = 0"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The first law of thermodynamics is a statement of:", o:["Conservation of momentum","Conservation of energy","Conservation of charge","Newton's second law"], c:1, t:"summary"},
+  {q:"Molar heat capacity at constant volume (Cᵥ) for an ideal monatomic gas is:", o:["R","(3/2)R","(5/2)R","(7/2)R"], c:1, t:"summary"},
+  {q:"Molar heat capacity at constant pressure (Cₚ) is always __ Cᵥ for an ideal gas:", o:["Less than","Equal to","Greater than","Half of"], c:2, t:"summary"},
+  {q:"In an isothermal process, ΔU = 0, therefore:", o:["ΔQ = 0","ΔQ = −ΔW","ΔQ = ΔW","ΔW = 0"], c:2, t:"summary"},
+  {q:"The work done by a gas during expansion is:", o:["Negative","Positive","Zero","Equal to heat added"], c:1, t:"summary"},
+  {q:"A thermodynamic process at constant pressure is called:", o:["Isothermal","Isochoric","Adiabatic","Isobaric"], c:3, t:"summary"},
+  {q:"A thermodynamic process at constant volume is called:", o:["Isothermal","Isochoric","Adiabatic","Isobaric"], c:1, t:"summary"},
+  {q:"In an adiabatic process:", o:["ΔQ = 0","ΔW = 0","ΔU = 0","ΔT = 0"], c:0, t:"summary"},
+  {q:"Specific heat capacity is the heat required to raise the temperature of:", o:["1 mole of substance by 1 K","1 kg of substance by 1 K","1 g of substance by 1°C","Both b and c"], c:3, t:"summary"},
+  {q:"Molar specific heat is the heat required to raise the temperature of:", o:["1 kg of substance by 1 K","1 mole of substance by 1 K","1 g of substance by 1 K","1 molecule by 1 K"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"In an isothermal expansion of an ideal gas, the work done by the gas is:", o:["Zero","Negative","Equal to heat absorbed","Equal to decrease in internal energy"], c:2, t:"concept"},
+  {q:"If 200 J of heat is added to a gas and the gas does 80 J of work, the change in internal energy is:", o:["280 J","120 J","80 J","200 J"], c:1, t:"concept"},
+  {q:"For an ideal monatomic gas, the ratio γ = Cₚ/Cᵥ is:", o:["5/3","7/5","4/3","3/2"], c:0, t:"concept"},
+  {q:"The quantity of heat required to raise the temperature of one mole of a substance through one kelvin is called:", o:["Specific heat capacity","Molar specific heat","Latent heat","Heat capacity"], c:1, t:"concept"},
+  {q:"During an isochoric (constant volume) process, the work done by the gas is:", o:["Maximum","Negative","Positive","Zero"], c:3, t:"concept"},
+  {q:"The SI unit of internal energy is:", o:["Watt","Joule","Newton","Pascal"], c:1, t:"concept"},
+  {q:"When a gas is compressed adiabatically, its temperature:", o:["Decreases","Stays constant","Increases","Becomes zero"], c:2, t:"concept"},
+],
+
+"Unit 17: Second Law of Thermodynamics": [
+  // BOOK MCQs
+  {q:"A frictionless heat engine can be 100% efficient only if its exhaust temperature is:", o:["0°C","Equal to its input temperature","0 K","Half of its input temperature"], c:2, t:"mcq"},
+  {q:"A refrigerator, with its door open in a room — the temperature of the room will:", o:["Rise","Fall","Remain the same","Rise or fall depending on the area of room"], c:0, t:"mcq"},
+  {q:"Which device is NOT used in a diesel engine?", o:["Outlet valve","Piston","Sparking plug","Injector"], c:2, t:"mcq"},
+  {q:"Which one of the following processes is irreversible?", o:["Slow compression of an elastic spring","Slow evaporation in an isolated vessel","Slow compression of a gas","A chemical explosion"], c:3, t:"mcq"},
+  {q:"According to the 2nd law of thermodynamics, 100% conversion of heat into mechanical work is:", o:["Possible","Possible under ideal conditions","Not possible","Possible if the process is adiabatic"], c:2, t:"mcq"},
+  {q:"The change in entropy is given by:", o:["ΔS = ΔQ × T","ΔS = ΔQ + T","ΔS = ΔQ / T","ΔS = T / ΔQ"], c:2, t:"mcq"},
+  {q:"The net change in entropy of a system in a natural (irreversible) process is:", o:["Positive","Negative","Zero","Infinite"], c:0, t:"mcq"},
+  {q:"The efficiency of a diesel engine compared to a petrol engine is:", o:["Greater than petrol engine","Less than petrol engine","Equal to petrol engine","Both always have efficiency = 1"], c:0, t:"mcq"},
+  {q:"The second law of thermodynamics states that:", o:["Energy cannot be converted","Entropy decreases over time","Heat flows from cold to hot","Entropy of the universe increases over time"], c:3, t:"mcq"},
+  {q:"Which process violates the 2nd law of thermodynamics?", o:["Refrigerator cooling","Heat engine working","Gases mixing spontaneously","Heat flowing spontaneously from cold to hot"], c:3, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The Carnot engine is an ideal heat engine because it is:", o:["Made of most advanced material","Free from heat losses and friction","Extremely powerful","Very small in size"], c:1, t:"summary"},
+  {q:"Efficiency of a Carnot engine is given by:", o:["η = 1 − T₂/T₁","η = T₂/T₁","η = 1 + T₂/T₁","η = T₁/T₂"], c:0, t:"summary"},
+  {q:"A heat engine operates between a hot source at T₁ and cold sink at T₂. Maximum efficiency is achieved when:", o:["T₁ = T₂","T₂ = 0 K","T₁ = 0 K","T₂ = T₁/2"], c:1, t:"summary"},
+  {q:"Entropy is a measure of:", o:["Total energy of a system","Ordered state of a system","Disorder or randomness of a system","Temperature of a system"], c:2, t:"summary"},
+  {q:"A refrigerator is essentially a heat engine operating in:", o:["Forward direction","Reverse direction","Circular direction","No particular direction"], c:1, t:"summary"},
+  {q:"The coefficient of performance (COP) of a refrigerator is:", o:["Always greater than 1","Always less than 1","Equal to 1","Can be greater than 1"], c:3, t:"summary"},
+  {q:"Kelvin-Planck statement of the second law of thermodynamics says:", o:["Entropy always increases","No heat engine can convert all heat into work in a cycle","Heat cannot flow from cold to hot","All of the above"], c:1, t:"summary"},
+  {q:"Clausius statement of the second law of thermodynamics says:", o:["No engine can be 100% efficient","Heat cannot spontaneously flow from a colder to a hotter body","Entropy always decreases","Work equals heat"], c:1, t:"summary"},
+  {q:"In a cyclic process (complete cycle), the change in internal energy is:", o:["Maximum","Minimum","Zero","Positive"], c:2, t:"summary"},
+  {q:"When entropy of a system decreases, entropy of the surroundings:", o:["Also decreases","Remains same","Increases by at least the same amount","Becomes zero"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"A Carnot engine takes heat from a reservoir at 500 K and rejects to a reservoir at 300 K. Its efficiency is:", o:["40%","60%","50%","30%"], c:0, t:"concept"},
+  {q:"Which of the following has the highest entropy?", o:["Ice","Water","Steam","All have same entropy"], c:2, t:"concept"},
+  {q:"Entropy in the universe as a whole always:", o:["Decreases","Remains constant","Increases","Fluctuates"], c:2, t:"concept"},
+  {q:"During melting of ice at 0°C, the entropy of ice:", o:["Decreases","Remains constant","Increases","Becomes zero"], c:2, t:"concept"},
+  {q:"A heat engine takes 1000 J of heat and does 400 J of work. Its efficiency is:", o:["40%","60%","25%","75%"], c:0, t:"concept"},
+  {q:"In a reversible process, the total entropy change of system + surroundings is:", o:["Positive","Negative","Zero","Infinite"], c:2, t:"concept"},
+  {q:"Which process describes the working of a petrol engine?", o:["Carnot cycle","Diesel cycle","Otto cycle","Rankine cycle"], c:2, t:"concept"},
+],
+
+"Unit 18: Magnetic Fields": [
+  // BOOK MCQs
+  {q:"If we reverse the direction of electric current, the direction of the magnetic field will be:", o:["Same","Reversed","Tangential","Normal"], c:1, t:"mcq"},
+  {q:"An application of a magnetic field is:", o:["Microwave oven","Magnetic levitation trains","Electrolysis","Plant photosynthesis"], c:1, t:"mcq"},
+  {q:"The equation F = BIL can only be used if the magnetic field, length of conductor, and electric current are:", o:["At right angles to each other","In the same direction","Anti-parallel to each other","Anti-perpendicular to each other"], c:0, t:"mcq"},
+  {q:"The charge on a particle is doubled and its velocity remains the same. The magnetic force on the particle will be:", o:["Doubled","Halved","The same","Quadrupled"], c:0, t:"mcq"},
+  {q:"The strength of the magnetic field of a solenoid can be increased by:", o:["Increasing the number of turns","Decreasing the number of turns","Only reducing the current","None of the above"], c:0, t:"mcq"},
+  {q:"The magnetic field inside a long solenoid is:", o:["Equal to zero","Uniform","Decreases as we go from centre to surface","Increases towards the surface"], c:1, t:"mcq"},
+  {q:"The force between two current-carrying conductors arises due to:", o:["Magnetic effect of current","Polarization","Electromagnetic induction","Electrostatic interaction"], c:0, t:"mcq"},
+  {q:"To measure a higher voltage, the voltmeter's internal resistance should be:", o:["Increased","Decreased","Kept the same","Set to zero"], c:0, t:"mcq"},
+  {q:"A proton moves perpendicular to a uniform magnetic field. The direction of force on the proton is:", o:["Parallel to the magnetic field","In the direction of the proton's velocity","Perpendicular to both the field and velocity","Opposite to the proton's velocity"], c:2, t:"mcq"},
+  {q:"An electron moves parallel to a uniform magnetic field. The magnitude of force on the electron is:", o:["Maximum, same direction as field","Minimum, perpendicular to field","Zero, since it is parallel to field","Depends on the speed of electron"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The SI unit of magnetic flux density (B) is:", o:["Weber","Tesla","Gauss","Henry"], c:1, t:"summary"},
+  {q:"The force on a moving charge in a magnetic field is given by:", o:["F = qvB sinθ","F = qE","F = mv²/r","F = qvB/sinθ"], c:0, t:"summary"},
+  {q:"The direction of the force on a current-carrying conductor in a magnetic field is given by:", o:["Fleming's right-hand rule","Fleming's left-hand rule","Right-hand grip rule","Lenz's law"], c:1, t:"summary"},
+  {q:"A galvanometer can be converted into an ammeter by connecting a:", o:["High resistance in series","High resistance in parallel","Low resistance (shunt) in parallel","Low resistance in series"], c:2, t:"summary"},
+  {q:"A galvanometer can be converted into a voltmeter by connecting a:", o:["High resistance in series","High resistance in parallel","Low shunt resistance in parallel","Low resistance in series"], c:0, t:"summary"},
+  {q:"The magnetic field at the centre of a circular coil carrying current is:", o:["Zero","Proportional to radius","Proportional to current","Inversely proportional to current"], c:2, t:"summary"},
+  {q:"The SI unit of magnetic flux (Φ) is:", o:["Tesla","Weber (Wb)","Henry","Ampere"], c:1, t:"summary"},
+  {q:"Ampere's law relates the magnetic field around a closed loop to:", o:["Electric flux through the loop","Current enclosed by the loop","Magnetic flux through the loop","Voltage across the loop"], c:1, t:"summary"},
+  {q:"The right-hand grip rule is used to find the direction of:", o:["Magnetic force on a charge","Magnetic field around a straight conductor","Electric force on a charge","None of the above"], c:1, t:"summary"},
+  {q:"The magnetic field inside a toroid is:", o:["Zero","Non-uniform","Uniform and confined inside","The same as outside"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The SI unit of magnetic field strength (H) is:", o:["Tesla","A/m","Weber","Newton/Ampere"], c:1, t:"concept"},
+  {q:"Lorentz force on a charged particle moving in a magnetic field is:", o:["F = qE + qv×B","F = qvB only","F = qE only","F = q(v·B)"], c:0, t:"concept"},
+  {q:"A charged particle moving with velocity parallel to a magnetic field will:", o:["Move in a circle","Move in a helix","Move in a straight line (no deflection)","Come to rest"], c:2, t:"concept"},
+  {q:"The force on a current-carrying conductor in a magnetic field is zero when the angle between I and B is:", o:["0°","45°","90°","180°"], c:0, t:"concept"},
+  {q:"Magnetic flux Φ = BA cosθ. When θ = 90°, Φ is:", o:["Maximum","Minimum (zero)","B × A","Negative"], c:1, t:"concept"},
+  {q:"An ideal ammeter has resistance:", o:["Infinite","Very high","Zero","Very low"], c:3, t:"concept"},
+  {q:"An ideal voltmeter has resistance:", o:["Zero","Very low","Infinite","Very high"], c:2, t:"concept"},
+],
+
+"Unit 19: Electromagnetic Induction": [
+  // BOOK MCQs
+  {q:"Electricity production by magnetism involves:", o:["Conversion of chemical energy to electrical energy","Use of static electricity for power generation","Movement of conductors within magnetic fields","Absorption of solar energy by photovoltaic cells"], c:2, t:"mcq"},
+  {q:"The magnitude of induced emf increases with:", o:["The decrease in the speed of the conductor's motion","The decrease in the strength of the magnetic field","The increase in the number of turns in the coil","The reduction in the area of the coil"], c:2, t:"mcq"},
+  {q:"Faraday's law of electromagnetic induction states that:", o:["Current in a circuit always opposes the change in magnetic flux","The induced emf is directly proportional to the rate of change of magnetic flux","A changing electric field produces a magnetic field","Magnetic fields can only be produced by electric currents"], c:1, t:"mcq"},
+  {q:"Lenz's law predicts the direction of an induced current by stating that:", o:["The induced current conserves electric charge","The induced current will oppose the change causing it","The induced current follows the direction of the applied magnetic field","The induced current is based on the magnitude of the electric field"], c:1, t:"mcq"},
+  {q:"Eddy currents produce:", o:["Static electricity in conductive materials","Alternating magnetic fields with no heating effects","Magnetic fields that oppose the inducing field and cause heating in conductors","Uniform electric fields with no impact on power generation"], c:2, t:"mcq"},
+  {q:"Laminated iron cores are used in electric motors and transformers to:", o:["Reduce the weight of the device","Enhance the mechanical strength","Minimize eddy current losses and reduce heating","Increase the magnetic permeability of the core"], c:2, t:"mcq"},
+  {q:"Self-induction is the phenomenon where:", o:["A changing electric field induces a magnetic field","A changing magnetic field within a coil induces an emf in the same coil","A constant magnetic field induces a constant emf","Two coils induce emf in each other through mutual induction"], c:1, t:"mcq"},
+  {q:"An inductor stores energy in:", o:["The electric field around it","The magnetic field within its coil","The capacitance of its windings","The heat generated by its resistance"], c:1, t:"mcq"},
+  {q:"Transformers work on the principle of:", o:["Converting direct current (DC) to alternating current (AC)","Electromagnetic induction between primary and secondary coils","Generating electricity through chemical reactions","Using permanent magnets to maintain constant voltage"], c:1, t:"mcq"},
+  {q:"Induced emf can be generated by relative movement (generator effect) and by changing magnetic fields (transformer effect). This is:", o:["True in transformers only","False in all cases","Applicable to both cases","True only for static magnetic fields"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Faraday's law states that induced emf is equal to:", o:["Rate of change of current","Rate of change of magnetic flux linkage (−NdΦ/dt)","Rate of change of charge","Rate of change of voltage"], c:1, t:"summary"},
+  {q:"Lenz's law is a consequence of the law of conservation of:", o:["Charge","Mass","Energy","Momentum"], c:2, t:"summary"},
+  {q:"In a step-up transformer, the secondary voltage is __ the primary voltage:", o:["Less than","Equal to","Greater than","Half of"], c:2, t:"summary"},
+  {q:"In a step-up transformer, the secondary current is __ the primary current:", o:["Greater than","Equal to","Less than","Same as"], c:2, t:"summary"},
+  {q:"The ratio Nₛ/Nₚ in a transformer equals:", o:["Vₚ/Vₛ","Vₛ/Vₚ","Iₛ/Iₚ","Vₛ × Vₚ"], c:1, t:"summary"},
+  {q:"Eddy currents are reduced in transformer cores by using:", o:["Thick iron core","Laminated iron sheets","Copper core","Plastic core"], c:1, t:"summary"},
+  {q:"Mutual induction is the phenomenon where a changing current in one coil induces an emf in:", o:["The same coil","A nearby coil","A resistor","A capacitor"], c:1, t:"summary"},
+  {q:"The SI unit of self-inductance (L) is:", o:["Weber","Tesla","Henry (H)","Farad"], c:2, t:"summary"},
+  {q:"An AC generator converts:", o:["Electrical energy into mechanical energy","Chemical energy into electrical energy","Mechanical energy into electrical energy","Thermal energy into electrical energy"], c:2, t:"summary"},
+  {q:"Slip rings are used in AC generators to:", o:["Rectify alternating current","Maintain continuous rotating contact and allow AC output","Convert AC to DC","Increase the voltage output"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The alternating current generator converts this energy into electrical energy:", o:["Wind","Mechanical","Solar","Chemical"], c:1, t:"concept"},
+  {q:"In Faraday's law, the negative sign indicates:", o:["Lenz's law — the induced emf opposes the change","The emf is always negative","Current flows in reverse","Magnetic flux is decreasing"], c:0, t:"concept"},
+  {q:"A coil with 100 turns has a flux change of 0.01 Wb in 0.1 s. The induced emf is:", o:["0.1 V","1 V","10 V","100 V"], c:2, t:"concept"},
+  {q:"The efficiency of an ideal (100%) transformer is:", o:["Vₛ Iₛ = Vₚ Iₚ","Vₛ Iₛ > Vₚ Iₚ","Vₛ Iₛ < Vₚ Iₚ","Nₛ = Nₚ"], c:0, t:"concept"},
+  {q:"A commutator is used in DC generators to:", o:["Convert AC to DC","Convert DC to AC","Reduce eddy currents","Increase voltage"], c:0, t:"concept"},
+  {q:"The self-inductance of a coil depends on:", o:["Only the current through it","Only the number of turns","Geometry, number of turns and core material","Only the core material"], c:2, t:"concept"},
+  {q:"Energy stored in an inductor of inductance L carrying current I is:", o:["LI","½LI","½LI²","LI²"], c:2, t:"concept"},
+],
+
+"Unit 20: Alternating Current": [
+  // BOOK MCQs
+  {q:"In alternating current, the flow of electric charge periodically reverses direction. The term for this specific phenomenon is:", o:["Alternation","Oscillation","Cycle","Resistance"], c:2, t:"mcq"},
+  {q:"The frequency of standard household alternating current in Pakistan is:", o:["50 Hz","60 Hz","100 Hz","120 Hz"], c:0, t:"mcq"},
+  {q:"The parameter for measuring the rate of change of alternating current or voltage with respect to time is:", o:["Amplitude","Frequency","Phase angle","Peak voltage"], c:1, t:"mcq"},
+  {q:"In AC circuits, what is the phase difference between current and voltage in a purely resistive circuit?", o:["0°","45°","90°","180°"], c:0, t:"mcq"},
+  {q:"A device used to measure the root mean square (RMS) value of an AC voltage or current is:", o:["Voltmeter","Oscilloscope","Ammeter","AVO meter"], c:3, t:"mcq"},
+  {q:"In an AC circuit, the term 'reactance' represents the:", o:["Ohmic resistance only","Resistance to DC currents only","Capacitive and inductive opposition to current flow","Total impedance including resistance and phase angle"], c:2, t:"mcq"},
+  {q:"A type of circuit characterized by equal values of resistance and reactance is:", o:["Resistive","Inductive","Capacitive","Resonant"], c:3, t:"mcq"},
+  {q:"In an AC sine wave, the peak-to-peak voltage is:", o:["Double the peak voltage","The difference between peak voltage and zero","The sum of peak voltage and zero","The difference between positive and negative peak voltages"], c:0, t:"mcq"},
+  {q:"The power factor of a purely resistive circuit is:", o:["0","0.5","1","-1"], c:2, t:"mcq"},
+  {q:"The purpose of a transformer in an AC power distribution system is:", o:["To convert AC to DC","To step up or step down voltage","To store electrical energy","To regulate current flow"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The RMS value of an AC voltage Vₒ (peak) is:", o:["Vₒ/√2","Vₒ/2","Vₒ√2","2Vₒ"], c:0, t:"summary"},
+  {q:"The RMS value of AC is also called:", o:["Peak value","Average value","Effective value","Instantaneous value"], c:2, t:"summary"},
+  {q:"In a purely inductive AC circuit, voltage leads current by:", o:["0°","45°","90°","180°"], c:2, t:"summary"},
+  {q:"In a purely capacitive AC circuit, current leads voltage by:", o:["0°","45°","90°","180°"], c:2, t:"summary"},
+  {q:"Inductive reactance XL is given by:", o:["1/(2πfL)","2πfL","2πf/L","L/(2πf)"], c:1, t:"summary"},
+  {q:"Capacitive reactance Xc is given by:", o:["2πfC","1/(2πfC)","2πf/C","C/(2πf)"], c:1, t:"summary"},
+  {q:"At resonance in a series RLC circuit:", o:["XL = Xc","XL > Xc","XL < Xc","Z = 0"], c:0, t:"summary"},
+  {q:"The impedance Z in a series RLC circuit is:", o:["R + XL + Xc","√(R² + (XL − Xc)²)","R × XL × Xc","(XL − Xc)/R"], c:1, t:"summary"},
+  {q:"Power dissipated in an AC circuit is P = VrmsIrms × cosΦ, where cosΦ is called:", o:["Phase factor","Impedance factor","Power factor","Quality factor"], c:2, t:"summary"},
+  {q:"In a purely reactive circuit (pure inductor or pure capacitor), the average power dissipated is:", o:["Maximum","Equal to VrmsIrms","Zero","Half of VrmsIrms"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The peak voltage of a 220 V (rms) AC supply is approximately:", o:["220 V","110 V","311 V","440 V"], c:2, t:"concept"},
+  {q:"As frequency increases, inductive reactance XL:", o:["Decreases","Increases","Remains constant","Becomes zero"], c:1, t:"concept"},
+  {q:"As frequency increases, capacitive reactance Xc:", o:["Decreases","Increases","Remains constant","Becomes zero"], c:0, t:"concept"},
+  {q:"At resonance in a series RLC circuit, the impedance is:", o:["Maximum","Minimum (equal to R)","Zero","Infinite"], c:1, t:"concept"},
+  {q:"AM is used for broadcasting because:", o:["It requires less transmitting power","It is more noise immune than other systems","No other modulation can provide the necessary bandwidth","It avoids receiver complexity"], c:0, t:"concept"},
+  {q:"The average value of a sinusoidal AC over a full cycle is:", o:["Vₒ/√2","Vₒ/2","2Vₒ/π","Zero"], c:3, t:"concept"},
+  {q:"In a series RLC circuit, resonance frequency is:", o:["1/(2π√LC)","2π√LC","1/(2πLC)","2π/√LC"], c:0, t:"concept"},
+],
+
+"Unit 21: Physics of Solids": [
+  // BOOK MCQs
+  {q:"The property of a body by virtue of which it tends to regain its original size and shape when the applied force is removed is called:", o:["Elasticity","Plasticity","Rigidity","Compressibility"], c:0, t:"mcq"},
+  {q:"Substances which can be stretched to cause large strains are called:", o:["Brittle","Ductile","Plastic","Elastomers"], c:3, t:"mcq"},
+  {q:"If the load is increased beyond the yield point, the strain increases rapidly for even a small change in stress — this region is called:", o:["Elastic region","Plastic region","Fracture region","Proportional region"], c:1, t:"mcq"},
+  {q:"The reciprocal of the bulk modulus is called:", o:["Compressibility","Volume stress","Modulus of rigidity","Volume strain"], c:0, t:"mcq"},
+  {q:"Metals are good conductors of heat and electricity due to which type of bonding?", o:["Covalent","Ionic","Metallic","Hydrogen"], c:2, t:"mcq"},
+  {q:"For a metallic crystal, delocalized electrons occupy the:", o:["Conduction band","Valence band","Conduction and valence bands both","No band (no delocalized electrons)"], c:0, t:"mcq"},
+  {q:"Semiconductors have resistivity:", o:["Between conductors and insulators","More than insulators","Less than conductors","Exactly equal to insulators"], c:0, t:"mcq"},
+  {q:"A ferromagnetic substance becomes a permanent magnet when placed in a magnetic field because:", o:["All domains get oriented in the direction of the magnetic field","All domains get oriented opposite to the field","Domains get oriented randomly","Domains are not affected by the field"], c:0, t:"mcq"},
+  {q:"Identify methods to demagnetize a ferromagnet:", o:["By cooling, heating, or submerging in water","By heating, hammering, and placing in an alternating magnetic field","By hammering, heating, and rubbing with cloth","By cooling, submerging, or rubbing with cloth"], c:1, t:"mcq"},
+  {q:"Which type of solid has a periodic (regular) atomic arrangement?", o:["Polymeric","Amorphous","Glassy","Crystalline"], c:3, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Hooke's law states that stress is proportional to strain within the:", o:["Plastic limit","Elastic limit","Fracture point","Yield point"], c:1, t:"summary"},
+  {q:"Young's modulus is the ratio of:", o:["Shear stress to shear strain","Volume stress to volume strain","Longitudinal stress to longitudinal strain","Pressure to volume change"], c:2, t:"summary"},
+  {q:"The SI unit of stress is:", o:["Newton","Joule","Pascal (N/m²)","Kilogram"], c:2, t:"summary"},
+  {q:"Strain is defined as:", o:["Force per unit area","Change in dimension / original dimension (dimensionless)","Work done per unit volume","Energy per unit area"], c:1, t:"summary"},
+  {q:"Superconductivity is the property of certain materials where electrical resistance becomes:", o:["Maximum","Infinite","Zero below critical temperature","Negative"], c:2, t:"summary"},
+  {q:"The Curie temperature is the temperature above which a ferromagnetic material:", o:["Becomes a perfect conductor","Loses its magnetic properties","Gains its magnetic properties","Becomes diamagnetic"], c:1, t:"summary"},
+  {q:"Solids are classified into: crystalline, amorphous, polymeric and:", o:["Ionic","Glassy","Metallic","Covalent"], c:1, t:"summary"},
+  {q:"Energy bands in a conductor differ from those in an insulator because in a conductor:", o:["The valence band is empty","The conduction band overlaps the valence band","The forbidden gap is very large","There is no valence band"], c:1, t:"summary"},
+  {q:"The forbidden energy gap between valence band and conduction band is LARGEST in:", o:["Conductors","Semiconductors","Insulators","Superconductors"], c:2, t:"summary"},
+  {q:"Bulk modulus is the ratio of:", o:["Longitudinal stress to longitudinal strain","Shear stress to shear strain","Volume stress to volume strain","Tensile stress to tensile strain"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"A wire of length L and cross-sectional area A has Young's modulus Y. If its length doubles with the same A, the new Y is:", o:["2Y","Y/2","Y (unchanged)","4Y"], c:2, t:"concept"},
+  {q:"A hollow shaft compared to a solid shaft of same mass and length is:", o:["Weaker in torsion","Stronger in torsion","Equal in strength","Stronger in compression only"], c:1, t:"concept"},
+  {q:"In the stress-strain graph, the point up to which stress is proportional to strain is called the:", o:["Yield point","Elastic limit","Proportional limit","Fracture point"], c:2, t:"concept"},
+  {q:"The breaking stress of a wire does NOT depend on its:", o:["Material","Cross-sectional area","Length","All of the above"], c:2, t:"concept"},
+  {q:"In intrinsic semiconductors at 0 K:", o:["Conduction band is fully occupied","Valence band is completely filled and conduction band is empty","Both bands are half filled","Both bands are empty"], c:1, t:"concept"},
+  {q:"For a diamagnetic material, the susceptibility χ is:", o:["Positive and large","Positive and small","Negative","Zero"], c:2, t:"concept"},
+  {q:"Paramagnetic materials have magnetic susceptibility:", o:["Large and positive","Small and positive","Negative","Zero"], c:1, t:"concept"},
+],
+
+"Unit 22: Solid State Electronics": [
+  // BOOK MCQs
+  {q:"A semiconductor is an element with how many valence electrons?", o:["Four","Eight","Two","One"], c:0, t:"mcq"},
+  {q:"A pure semiconductor is known as:", o:["Extrinsic","Intrinsic","Transistor","Diode"], c:1, t:"mcq"},
+  {q:"An acceptor atom is also called:", o:["Pentavalent atom","Trivalent atom","Minority carrier","Majority carrier"], c:1, t:"mcq"},
+  {q:"With which element should silicon be doped to give a p-type semiconductor?", o:["Germanium","Arsenic","Selenium","Boron"], c:3, t:"mcq"},
+  {q:"For a full-wave rectifier, the output frequency:", o:["Equals one-half the input frequency","Equals the line frequency","Equals two times the input frequency","Is three times the line frequency"], c:2, t:"mcq"},
+  {q:"LED construction requires a semiconductor material of:", o:["Silicon","Germanium","Gallium","Gallium arsenide"], c:3, t:"mcq"},
+  {q:"The frequency of a half-wave rectified signal is:", o:["Twice the line frequency","Equal to the line frequency","One-half of the line frequency","One-fourth the line frequency"], c:1, t:"mcq"},
+  {q:"The voltage gain of an emitter-follower (common-collector) circuit is:", o:["High","Approximately unity (low)","Very high","Moderate"], c:1, t:"mcq"},
+  {q:"What is also called the conventional amplifier?", o:["Common-collector circuit","Emitter follower circuit","Common-base circuit","Common-emitter circuit"], c:3, t:"mcq"},
+  {q:"An op-amp with negative feedback provides stable:", o:["Gain only","Bandwidth (increased bandwidth)","Input-output impedance only","Nothing"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"In a p-type semiconductor, the majority charge carriers are:", o:["Electrons","Holes","Protons","Neutrons"], c:1, t:"summary"},
+  {q:"In an n-type semiconductor, the majority charge carriers are:", o:["Holes","Protons","Electrons","Neutrons"], c:2, t:"summary"},
+  {q:"A p-n junction diode in forward bias has:", o:["High resistance","Low resistance","No current flow","Infinite resistance"], c:1, t:"summary"},
+  {q:"A p-n junction diode in reverse bias has:", o:["Low resistance","Zero resistance","Very high resistance (practically blocks current)","Negative resistance"], c:2, t:"summary"},
+  {q:"The diode radiating visible light when energized is called:", o:["Photo diode","Photovoltaic cell","Zener diode","Light Emitting Diode (LED)"], c:3, t:"summary"},
+  {q:"A photodiode converts:", o:["Electrical energy to light","Light to electrical energy","Heat to electrical energy","Mechanical to electrical energy"], c:1, t:"summary"},
+  {q:"In an NPN transistor operating in common-emitter configuration, current gain β = Ic/Ib. A large β means:", o:["Small base current controls large collector current","Large base current controls small collector current","Emitter current equals base current","Base current equals collector current"], c:0, t:"summary"},
+  {q:"The minimum voltage required to forward-bias a silicon p-n junction is approximately:", o:["0.1 V","0.3 V","0.7 V","1.0 V"], c:2, t:"summary"},
+  {q:"An operational amplifier (op-amp) has:", o:["Low input impedance","High output impedance","Very high voltage gain and very high input impedance","Low voltage gain"], c:2, t:"summary"},
+  {q:"Doping of a semiconductor means adding:", o:["Pure semiconductor material","Impurity atoms to change electrical properties","Metal layers","Insulating layers"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"A pentavalent impurity (e.g., phosphorus) added to silicon creates:", o:["p-type semiconductor","n-type semiconductor","Intrinsic semiconductor","Insulator"], c:1, t:"concept"},
+  {q:"In a full-wave bridge rectifier, how many diodes are used?", o:["1","2","3","4"], c:3, t:"concept"},
+  {q:"Zener diode is used mainly as:", o:["Rectifier","Amplifier","Voltage regulator","Oscillator"], c:2, t:"concept"},
+  {q:"The number of electrons in one coulomb of charge is:", o:["1.6 × 10¹⁸","1.6 × 10⁻¹⁹","6.25 × 10¹⁸","9.1 × 10³¹"], c:2, t:"concept"},
+  {q:"In common-emitter transistor configuration: IE = IC + IB. If IC = 9 mA and IB = 1 mA, IE is:", o:["8 mA","9 mA","10 mA","1 mA"], c:2, t:"concept"},
+  {q:"In an inverting op-amp amplifier, if input voltage is positive, the output is:", o:["Positive","Zero","Negative","Infinite"], c:2, t:"concept"},
+  {q:"A photovoltaic cell (solar cell) converts:", o:["Electrical to light energy","Light to electrical energy directly","Mechanical to electrical energy","Thermal to electrical energy"], c:1, t:"concept"},
+],
+
+"Unit 23: Digital Electronics": [
+  // BOOK MCQs
+  {q:"The voltage level typically associated with a 'low' state in digital electronics is:", o:["-5 volts","0 volts","+5 volts","+10 volts"], c:1, t:"mcq"},
+  {q:"In binary representation, the '0' in digital electronics corresponds to:", o:["Low state","High state","Open circuit","Closed circuit"], c:0, t:"mcq"},
+  {q:"The primary purpose of a truth table in digital electronics is to:", o:["Determine input voltage","Measure circuit resistance","Analyze output states based on input combinations","Calculate circuit power"], c:2, t:"mcq"},
+  {q:"Which logic gate produces an output of '1' when at least one input is '1'?", o:["AND","OR","XOR","NOT"], c:1, t:"mcq"},
+  {q:"In a circuit with a 2-input OR gate, the lamp is ON if:", o:["Both switches are open","Either switch is closed","Both switches are closed","No switch is closed"], c:1, t:"mcq"},
+  {q:"In a 2-input AND gate, the lamp is ON when:", o:["At least one switch is closed","Neither switch is closed","Both switches are closed","Either switch is open"], c:2, t:"mcq"},
+  {q:"In a 3-input OR gate, if all inputs are '0', the output will be:", o:["1","0","Undefined","Both 0 and 1"], c:1, t:"mcq"},
+  {q:"If the input is '1', the output of a NOT gate will be:", o:["1","0","Undefined","Both 0 and 1"], c:1, t:"mcq"},
+  {q:"In a 2-input XOR gate, when both inputs are '1', the output will be:", o:["1","0","Undefined","Both 0 and 1"], c:1, t:"mcq"},
+  {q:"Which combination of logic gates is equivalent to an XOR gate?", o:["AND + OR","NOT + NOR","OR + NAND","AND + NAND"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"A '1' (high) in digital electronics typically corresponds to:", o:["0 volts","About +5 volts","-5 volts","Any negative voltage"], c:1, t:"summary"},
+  {q:"The NOT gate is also called a(n):", o:["Inverter","Buffer","Amplifier","Oscillator"], c:0, t:"summary"},
+  {q:"NAND gate is a combination of:", o:["NOT + OR","NOT + AND","AND + OR","OR only"], c:1, t:"summary"},
+  {q:"NOR gate is a combination of:", o:["NOT + AND","NOT + OR","AND + OR","NAND + NOT"], c:1, t:"summary"},
+  {q:"The output of an AND gate is '1' only when:", o:["At least one input is '1'","All inputs are '1'","At least one input is '0'","All inputs are '0'"], c:1, t:"summary"},
+  {q:"Data in a compact disc is stored in the form of:", o:["Analog signal","Digital signal","Noise","Both analog and digital"], c:1, t:"summary"},
+  {q:"The NAND gate is also called a universal gate because:", o:["It is the simplest gate","Any logic function can be built using only NAND gates","It has the highest output","It requires least power"], c:1, t:"summary"},
+  {q:"A binary number uses base:", o:["8","10","2","16"], c:2, t:"summary"},
+  {q:"XOR gate gives output '1' when:", o:["Both inputs are same","Both inputs are different","Both inputs are '0'","Both inputs are '1'"], c:1, t:"summary"},
+  {q:"A truth table with 3 inputs has how many rows (input combinations)?", o:["4","6","8","16"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The output of a NAND gate is '0' only when:", o:["All inputs are '0'","At least one input is '0'","All inputs are '1'","At least one input is '1'"], c:2, t:"concept"},
+  {q:"The output of a NOR gate is '1' only when:", o:["All inputs are '1'","All inputs are '0'","At least one input is '1'","At least one input is '0'"], c:1, t:"concept"},
+  {q:"De Morgan's first theorem states: (A.B)' equals:", o:["A'.B'","A'+B'","A.B","A'+B"], c:1, t:"concept"},
+  {q:"De Morgan's second theorem states: (A+B)' equals:", o:["A'.B'","A'+B'","A.B","A'+B"], c:0, t:"concept"},
+  {q:"Which gate gives an output '1' only when all inputs are '0'?", o:["AND","OR","NAND","NOR"], c:3, t:"concept"},
+  {q:"A half adder adds:", o:["Two 2-bit numbers","Two 1-bit numbers to give sum and carry","Three 1-bit numbers","Two 4-bit numbers"], c:1, t:"concept"},
+  {q:"The binary equivalent of decimal 10 is:", o:["1010","1001","1100","0110"], c:0, t:"concept"},
+],
+
+"Unit 24: Relativity": [
+  // BOOK MCQs
+  {q:"The General Theory of Relativity was a new way of understanding:", o:["The speed of light","Gravity","Mass","Force"], c:1, t:"mcq"},
+  {q:"An object at rest has a mass of 1 kg. At a speed of 0.9c, its relativistic mass is approximately:", o:["Infinite","1.2 kg","2.3 kg","1 kg (unchanged)"], c:2, t:"mcq"},
+  {q:"The equivalence principle in general relativity states the equivalence of:", o:["Inertial and gravitational mass","Electric and magnetic fields","Space and time","Matter and energy"], c:0, t:"mcq"},
+  {q:"Which phenomenon is NOT predicted by special relativity?", o:["Time dilation","Length contraction","Gravitational waves","Relativistic mass increase"], c:2, t:"mcq"},
+  {q:"The equivalence principle states that acceleration and gravity are:", o:["Completely different forces","Indistinguishable for an observer in the same frame","Gravity is stronger than acceleration","Acceleration cancels out gravity"], c:1, t:"mcq"},
+  {q:"Light passing near a massive object like a star will bend due to:", o:["Gravitational lensing","Refraction","Reflection","Diffraction"], c:0, t:"mcq"},
+  {q:"Astronomers cannot directly observe black holes because:", o:["They are too small","They deflect light only slightly","They are too far away","Their immense gravity traps even light"], c:3, t:"mcq"},
+  {q:"Objects cannot exceed the speed of light because:", o:["Their mass becomes infinite","Their length becomes zero","Time slows to zero","They lose all energy"], c:0, t:"mcq"},
+  {q:"The Galilean transformation is not valid at high speeds because:", o:["It cannot handle accelerating frames","It violates the constancy of the speed of light","It only works in flat spacetime","It neglects time dilation"], c:1, t:"mcq"},
+  {q:"An example of an inertial frame of reference in everyday life is:", o:["A car accelerating on a highway","A train moving smoothly at constant speed","A person standing on a spinning platform","An airplane encountering turbulence"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Special theory of relativity is based on two postulates. One is that the speed of light in vacuum is:", o:["Dependent on the speed of the source","Constant for all inertial observers","Dependent on the medium","Different in different directions"], c:1, t:"summary"},
+  {q:"Time dilation means that a moving clock runs:", o:["Faster than a stationary clock","At the same rate as a stationary clock","Slower than a stationary clock","Backwards"], c:2, t:"summary"},
+  {q:"Length contraction occurs in the direction of:", o:["Perpendicular to motion","Motion itself","All directions equally","No direction"], c:1, t:"summary"},
+  {q:"Einstein's mass-energy equivalence is expressed as:", o:["E = mc","E = mc²","E = m/c²","E = m²c"], c:1, t:"summary"},
+  {q:"1 atomic mass unit (u) is equivalent to:", o:["931 MeV","9.31 MeV","93.1 MeV","0.931 MeV"], c:0, t:"summary"},
+  {q:"Lorentz factor γ = 1/√(1 − v²/c²). As v approaches c, γ:", o:["Approaches 0","Approaches 1","Approaches infinity","Remains constant at 1"], c:2, t:"summary"},
+  {q:"In special relativity, two events that are simultaneous in one inertial frame are:", o:["Always simultaneous in all frames","Not necessarily simultaneous in another frame","Never simultaneous in another frame","Simultaneous only at v=c"], c:1, t:"summary"},
+  {q:"Relativistic momentum is p = γmv. As v → c:", o:["p → mv","p → infinity","p → zero","p → m/v"], c:1, t:"summary"},
+  {q:"The first postulate of special relativity states:", o:["Speed of light is constant","Laws of physics are the same in all inertial frames","Time is absolute","Length does not change with speed"], c:1, t:"summary"},
+  {q:"A proper length (rest length) is measured in a frame:", o:["Moving relative to the object","At rest relative to the object","Accelerating","All of the above"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"A rod of proper length 1 m moves at v = 0.6c. Its measured length is:", o:["1 m","0.6 m","0.8 m","1.25 m"], c:2, t:"concept"},
+  {q:"The rest mass energy of an electron (mₑ = 9.1×10⁻³¹ kg) is approximately:", o:["0.51 MeV","1.02 MeV","0.91 MeV","9.1 MeV"], c:0, t:"concept"},
+  {q:"If a moving clock shows 1 second has passed while a stationary observer measures 2 seconds, the Lorentz factor γ is:", o:["0.5","1","2","4"], c:2, t:"concept"},
+  {q:"At what speed does relativistic mass equal twice the rest mass?", o:["0.5c","0.6c","0.866c","0.99c"], c:2, t:"concept"},
+  {q:"Compton effect proves the:", o:["Wave nature of light","Dual nature of light","Photon theory (particle nature) of light","Uncertain nature of light"], c:2, t:"concept"},
+  {q:"The proper time interval is the time measured by a clock:", o:["At rest relative to the observer measuring it","Moving at the speed of light","In a non-inertial frame","In a gravitational field only"], c:0, t:"concept"},
+  {q:"The speed of light in vacuum (c) is approximately:", o:["3 × 10⁶ m/s","3 × 10⁸ m/s","3 × 10¹⁰ m/s","3 × 10⁴ m/s"], c:1, t:"concept"},
+],
+
+"Unit 25: Quantum Physics": [
+  // BOOK MCQs
+  {q:"If h is the Planck constant, then ℏ (h-bar) is:", o:["2πh","2h","h/2π","h²π"], c:2, t:"mcq"},
+  {q:"In a photoelectric effect experiment, the stopping potential is:", o:["The energy required to remove an electron from the sample","The kinetic energy of the most energetic electron ejected","The potential energy of the most energetic electron ejected","The electric potential that causes the electron current to vanish"], c:3, t:"mcq"},
+  {q:"In Compton scattering from stationary particles, the maximum change in wavelength can be made smaller by using:", o:["Higher frequency radiation","Lower frequency radiation","More massive particles","Less massive particles"], c:2, t:"mcq"},
+  {q:"Compton scattering from electrons is most easily observed for:", o:["Infrared light","Visible light","Ultraviolet light","X-rays"], c:3, t:"mcq"},
+  {q:"In Compton scattering from stationary electrons, the largest change in wavelength occurs when the photon is scattered through:", o:["0°","45°","90°","180°"], c:3, t:"mcq"},
+  {q:"In the photoelectric effect, when light falls on the surface of a metal, the material emits:", o:["Electrons","Protons","Positrons","Neutrons"], c:0, t:"mcq"},
+  {q:"Threshold frequency is defined as the __ frequency of incident light which can cause photoelectric emission:", o:["Maximum","Minimum","Average","Highest"], c:1, t:"mcq"},
+  {q:"The amount of energy which is necessary to start photoelectric emission is called:", o:["Threshold frequency","Work function","Stopping potential","Binding energy"], c:1, t:"mcq"},
+  {q:"In photoelectric effect, increasing the intensity of light will increase the:", o:["Frequency of light","Wavelength of light","Number of protons","Number of photoelectrons"], c:3, t:"mcq"},
+  {q:"The work function for a sample is 2.3 eV. For 7.0×10¹⁴ Hz radiation (E≈2.9 eV), the stopping potential is:", o:["0 V","0.6 V","2.3 V","2.9 V"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Planck's quantum hypothesis states that energy is emitted or absorbed in discrete packets called:", o:["Electrons","Photons","Quanta","Waves"], c:2, t:"summary"},
+  {q:"The energy of a photon is E = hf. If frequency doubles, the energy:", o:["Stays the same","Doubles","Quadruples","Halves"], c:1, t:"summary"},
+  {q:"The momentum of a photon with wavelength λ is:", o:["hλ","h/λ","hc/λ","hλ/c"], c:1, t:"summary"},
+  {q:"de Broglie wavelength of a particle with momentum p is:", o:["λ = hp","λ = h/p","λ = p/h","λ = h²p"], c:1, t:"summary"},
+  {q:"Compton effect proves the:", o:["Wave nature of light","Dual nature of light","Photon (particle) nature of light","Uncertain nature of light"], c:2, t:"summary"},
+  {q:"In photoelectric effect, the maximum kinetic energy of emitted electrons depends on:", o:["Intensity of incident light","Number of photons","Frequency of incident light","Area of metal surface"], c:2, t:"summary"},
+  {q:"Heisenberg uncertainty principle states:", o:["Δx·Δp ≥ h/4π","Δx·Δp ≤ h/4π","Δx·Δp = 0","Δx = Δp"], c:0, t:"summary"},
+  {q:"Black body radiation shows that energy distribution depends on:", o:["Only the material of the body","Only the temperature of the body","Both temperature and material","Neither temperature nor material"], c:1, t:"summary"},
+  {q:"The photoelectric effect cannot be explained by:", o:["Quantum theory","Wave theory of light","Particle theory","Photon concept"], c:1, t:"summary"},
+  {q:"Pair production is the process where:", o:["An electron loses energy","A photon creates an electron-positron pair","Two photons combine","A proton emits a photon"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The minimum frequency of light that can cause photoelectric effect is called:", o:["Threshold frequency","Maximum frequency","Work function","Stopping frequency"], c:0, t:"concept"},
+  {q:"Momentum of a photon is:", o:["hc/λ","h/λ","hλ","c/λ"], c:1, t:"concept"},
+  {q:"The Planck's constant h has the same dimensions as:", o:["Energy","Power","Angular momentum","Linear momentum"], c:2, t:"concept"},
+  {q:"In photoelectric effect, no emission occurs below threshold frequency regardless of:", o:["Time of exposure","Intensity of light","Both a and b","Temperature of metal"], c:1, t:"concept"},
+  {q:"The stopping potential in photoelectric effect is independent of:", o:["Frequency of incident light","Work function","Intensity of incident light","Nature of the metal"], c:2, t:"concept"},
+  {q:"An electron microscope uses electrons instead of light because electrons have:", o:["Larger wavelength","Same wavelength as light","Much smaller wavelength","No wavelength"], c:2, t:"concept"},
+  {q:"Annihilation of matter occurs when:", o:["An electron and positron combine and produce photons","A proton and neutron combine","A photon splits into two electrons","Two photons combine"], c:0, t:"concept"},
+],
+
+"Unit 26: Atomic Physics": [
+  // BOOK MCQs
+  {q:"Atomic spectra are also known as:", o:["Discrete spectra","Line spectra","Emission spectrum","Continuous spectra"], c:1, t:"mcq"},
+  {q:"The ratio of kinetic energy to total energy for an electron in a Bohr orbit is:", o:["1:1 (in magnitude)","2:3","1:2","2:1"], c:0, t:"mcq"},
+  {q:"The Bohr radius increases as the principal quantum number:", o:["Increases","Decreases","Remains constant","Oscillates"], c:0, t:"mcq"},
+  {q:"Laser beams consist of:", o:["Highly coherent electrons","Highly coherent photons","Highly coherent phonons","Highly coherent neutrons"], c:1, t:"mcq"},
+  {q:"The ruby laser is an example of:", o:["Optical pumping","Electrical pumping","Chemical pumping","Thermal pumping"], c:0, t:"mcq"},
+  {q:"Laser action requires a medium with at least:", o:["Three energy levels","Four energy levels","Two energy levels","Five energy levels"], c:0, t:"mcq"},
+  {q:"Population inversion occurs in:", o:["Active medium","Passive medium","Gaseous medium only","Vapour medium only"], c:0, t:"mcq"},
+  {q:"X-rays transfer __ to metals:", o:["Energy","Force","Pressure","Momentum"], c:0, t:"mcq"},
+  {q:"X-rays are deflected by:", o:["Magnetic fields","Electric fields","Gravitational fields","No fields (X-rays are not deflected by EM fields)"], c:3, t:"mcq"},
+  {q:"Doubling the voltage of an X-ray tube:", o:["Halves the intensity","Keeps the intensity unchanged","Doubles the intensity","Quadruples the intensity"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The Balmer series of hydrogen spectrum lies in the:", o:["Infrared region","Ultraviolet region","Visible light region","Radio-wave region"], c:2, t:"summary"},
+  {q:"The Lyman series of hydrogen spectrum lies in the:", o:["Visible region","Infrared region","Ultraviolet region","X-ray region"], c:2, t:"summary"},
+  {q:"According to Bohr's model, the energy of an electron in the nth orbit is:", o:["Proportional to n²","Inversely proportional to n","Inversely proportional to n²","Proportional to n"], c:2, t:"summary"},
+  {q:"The ground state energy of hydrogen atom is approximately:", o:["-3.4 eV","-1.5 eV","-13.6 eV","-0.85 eV"], c:2, t:"summary"},
+  {q:"In LASER, the acronym stands for Light Amplification by:", o:["Spontaneous Emission of Radiation","Stimulated Emission of Radiation","Selective Emission of Radiation","Systematic Emission of Radiation"], c:1, t:"summary"},
+  {q:"Stimulated emission means a photon hitting an excited atom causes it to emit:", o:["A photon of random energy","Two photons of different phase","A photon of the same energy, phase, and direction","An electron"], c:2, t:"summary"},
+  {q:"X-rays are produced when high-speed electrons strike:", o:["A thin glass plate","A metal target of high atomic number","A semiconductor","A liquid surface"], c:1, t:"summary"},
+  {q:"Population inversion means:", o:["More atoms in ground state than excited","More atoms in excited state than in lower state","Equal atoms in all states","Only one atom in excited state"], c:1, t:"summary"},
+  {q:"To produce X-rays, an element of high atomic weight is bombarded by:", o:["Photons","Electrons","Helium nuclei","Neutrons"], c:1, t:"summary"},
+  {q:"The first Bohr orbit (n=1) radius for hydrogen is approximately:", o:["0.053 nm (0.53 Å)","0.53 nm","5.3 nm","0.0053 nm"], c:0, t:"summary"},
+  // CONCEPT MCQs
+  {q:"Spontaneous emission occurs when an excited atom emits a photon:", o:["Only when stimulated by another photon","Without any external stimulus","When bombarded by electrons","After absorbing another photon"], c:1, t:"concept"},
+  {q:"The energy of radiation emitted when an electron jumps from n=3 to n=1 in hydrogen is:", o:["13.6 eV","12.09 eV","1.51 eV","10.2 eV"], c:1, t:"concept"},
+  {q:"The minimum energy required to remove an electron completely from the hydrogen atom (ionization energy) is:", o:["3.4 eV","1.51 eV","13.6 eV","10.2 eV"], c:2, t:"concept"},
+  {q:"In a He-Ne laser, the gas used for lasing action is:", o:["Helium","Neon","Argon","Both helium and neon (neon lases)"], c:3, t:"concept"},
+  {q:"X-rays have wavelengths:", o:["Greater than visible light","Less than UV but greater than visible","Between 0.01 nm and 10 nm (shorter than visible light)","Greater than radio waves"], c:2, t:"concept"},
+  {q:"The Paschen series of hydrogen atom spectrum lies in the:", o:["Visible region","Ultraviolet region","Infrared region","X-ray region"], c:2, t:"concept"},
+  {q:"Which property of laser light makes it useful for cutting and surgery?", o:["Low intensity","High coherence","Highly concentrated (collimated) and high intensity","Long wavelength"], c:2, t:"concept"},
+],
+
+"Unit 27: Nuclear Physics": [
+  // BOOK MCQs
+  {q:"In the nuclear reaction: ⁹Be + ⁴He → ¹²C + x. Particle x is:", o:["Electron","Proton","Neutron","Photon (gamma)"], c:2, t:"mcq"},
+  {q:"Beta rays emitted by a radioactive material are:", o:["Electromagnetic radiations","Electrons orbiting around the nucleus","Charged particles emitted by the nucleus","Neutral particles"], c:2, t:"mcq"},
+  {q:"If radium has a half-life of 5 years, the probability of decay of a nucleus in 10 years is:", o:["50%","75%","100%","60%"], c:1, t:"mcq"},
+  {q:"Emission of β⁻ particles by an element affects its mass number A in the following way:", o:["Increases by 1","Decreases by 1","Increases by 2","Remains the same"], c:3, t:"mcq"},
+  {q:"As the number of nucleons in a nucleus increases, the binding energy per nucleon:", o:["Increases continuously with mass number","Decreases continuously with mass number","Remains constant","First increases then decreases with mass number (max near iron)"], c:3, t:"mcq"},
+  {q:"A moderator in a nuclear reactor slows down the neutrons to:", o:["Decrease the probability of escape","Increase the probability of nuclear fission","Decrease the probability of absorption","Increase the neutrons' speed"], c:1, t:"mcq"},
+  {q:"Emission of β⁻ particles by an element affects its atomic number Z in the following way:", o:["Increases by 1","Decreases by 1","Increases by 2","Remains the same"], c:0, t:"mcq"},
+  {q:"The half-life period of a radioactive element is 100 days. After 400 days, 16 g of the element will be reduced to:", o:["8 g","4 g","2 g","1 g"], c:3, t:"mcq"},
+  {q:"Alpha particles are identical to:", o:["Helium-2 nucleus","Helium-4 nucleus","Hydrogen nucleus","Deuterium nucleus"], c:1, t:"mcq"},
+  {q:"Nuclear fission releases energy because:", o:["Mass is created during the reaction","The products have less total mass than the reactants (mass defect)","Electrons are emitted","Heat is absorbed"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The half-life of a radioactive substance is the time taken for:", o:["All atoms to decay","Half the atoms to decay","One atom to decay","The activity to double"], c:1, t:"summary"},
+  {q:"Alpha particles are stopped by:", o:["A few cm of air or a sheet of paper","A few mm of aluminum","Several cm of lead","Nothing stops them"], c:0, t:"summary"},
+  {q:"Gamma rays are stopped by:", o:["A sheet of paper","A few mm of aluminum","Several cm of lead","A few cm of air"], c:2, t:"summary"},
+  {q:"In alpha decay, the atomic number decreases by:", o:["1","2","3","4"], c:1, t:"summary"},
+  {q:"In beta-minus (β⁻) decay, the atomic number:", o:["Decreases by 1","Increases by 1","Remains the same","Increases by 2"], c:1, t:"summary"},
+  {q:"The SI unit of radioactivity is:", o:["Curie","Roentgen","Becquerel (Bq)","Rem"], c:2, t:"summary"},
+  {q:"Nuclear fusion requires:", o:["Very low temperatures","Very high temperatures and pressures","Normal room temperature","A moderator"], c:1, t:"summary"},
+  {q:"Mass defect is the difference between:", o:["Mass of nucleus and mass of neutrons only","Mass of protons and neutrons separately and the actual nuclear mass","Mass of atom and mass of nucleus","Mass before and after gamma emission"], c:1, t:"summary"},
+  {q:"Binding energy per nucleon is maximum for:", o:["Uranium","Hydrogen","Iron (Fe-56)","Carbon"], c:2, t:"summary"},
+  {q:"In a chain reaction, on average each fission must produce __ neutrons that cause further fission:", o:["Less than 1","Exactly 1 (critical mass)","More than 1 (for uncontrolled) or exactly 1 (for controlled)","Zero"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"In gamma (γ) decay, the atomic number Z and mass number A of the nucleus:", o:["Both change","Only Z changes","Only A changes","Neither changes"], c:3, t:"concept"},
+  {q:"Radioactive decay is a:", o:["Spontaneous and random process","Predictable process","Influenced by temperature","Influenced by pressure"], c:0, t:"concept"},
+  {q:"A radioactive sample has activity 1000 Bq. After 3 half-lives, its activity will be:", o:["500 Bq","250 Bq","125 Bq","333 Bq"], c:2, t:"concept"},
+  {q:"The Q-value of a nuclear reaction is positive when:", o:["Energy is absorbed","Energy is released","Mass increases","The reaction is endothermic"], c:1, t:"concept"},
+  {q:"The Geiger-Müller (GM) counter detects:", o:["Only alpha particles","Only gamma rays","Ionizing radiation (alpha, beta, gamma)","Only X-rays"], c:2, t:"concept"},
+  {q:"Nuclear fusion is the source of energy in:", o:["Nuclear reactors on Earth","The Sun and stars","Atomic bombs","X-ray machines"], c:1, t:"concept"},
+  {q:"Isotopes have the same atomic number but different:", o:["Electron number","Proton number","Mass number (nucleon number)","Chemical properties"], c:2, t:"concept"},
+],
+
+"Unit 28: Particle Physics": [
+  // BOOK MCQs
+  {q:"The Standard Model classifies elementary particles into two main groups:", o:["Baryons and Leptons","Fermions and Bosons","Quarks and Gluons","Hadrons and Mesons"], c:1, t:"mcq"},
+  {q:"Which of the following is NOT a flavor of quark?", o:["Up","Down","Electron","Top"], c:2, t:"mcq"},
+  {q:"The electric charge of an up quark is:", o:["+1/2 e","-1/2 e","+2/3 e","-2/3 e"], c:2, t:"mcq"},
+  {q:"The concept of 'quark confinement' implies that:", o:["Quarks cannot exist as free particles outside of hadrons","Quarks are always found in pairs with opposite charges","Quarks have a strong affinity for gluons","Quarks are the fundamental building blocks of all matter"], c:0, t:"mcq"},
+  {q:"The primary role of the Higgs boson in the Standard Model is:", o:["Mediating electromagnetic interactions","Providing mass to other particles","Transmitting the strong nuclear force","Creating dark matter"], c:1, t:"mcq"},
+  {q:"In the Standard Model, the term 'color' in quantum chromodynamics refers to:", o:["Visible light spectrum","A charge property of quarks","Mass of particles","Spin of particles"], c:1, t:"mcq"},
+  {q:"A particle made up of a quark and an antiquark is called:", o:["Lepton","Baryon","Meson","Neutrino"], c:2, t:"mcq"},
+  {q:"An elementary particle that feels all three fundamental forces (electromagnetic, weak, and strong nuclear) is:", o:["Lepton","Quark","Electron","Neutrino"], c:1, t:"mcq"},
+  {q:"The primary function of a Geiger-Müller counter in particle physics is to:", o:["Measure the velocity of particles","Detect and count ionizing radiation","Create antimatter particles","Generate magnetic fields"], c:1, t:"mcq"},
+  {q:"The gas commonly used in a Geiger-Müller counter to detect ionizing radiation is:", o:["Oxygen","Neon","Argon","Helium"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Baryons are made up of:", o:["Two quarks","Three quarks","One quark","A quark and antiquark"], c:1, t:"summary"},
+  {q:"The four fundamental forces of nature are gravitational, electromagnetic, strong nuclear and:", o:["Centripetal force","Weak nuclear force","Magnetic force","Elastic force"], c:1, t:"summary"},
+  {q:"The force carrier (exchange particle) of the electromagnetic force is:", o:["Gluon","W boson","Photon","Z boson"], c:2, t:"summary"},
+  {q:"The force carrier of the strong nuclear force is:", o:["Photon","Gluon","W boson","Z boson"], c:1, t:"summary"},
+  {q:"Leptons are elementary particles that do NOT feel:", o:["Gravitational force","Electromagnetic force","Weak nuclear force","Strong nuclear force"], c:3, t:"summary"},
+  {q:"Protons and neutrons are classified as:", o:["Leptons","Mesons","Baryons","Bosons"], c:2, t:"summary"},
+  {q:"Antimatter is matter composed of antiparticles. An antielectron (positron) has:", o:["Negative charge","Positive charge","No charge","Variable charge"], c:1, t:"summary"},
+  {q:"The Standard Model does NOT currently include which force?", o:["Electromagnetic","Weak nuclear","Strong nuclear","Gravitational"], c:3, t:"summary"},
+  {q:"Neutrinos are classified as:", o:["Baryons","Quarks","Leptons","Bosons"], c:2, t:"summary"},
+  {q:"The down quark has an electric charge of:", o:["+2/3 e","+1/3 e","-1/3 e","-2/3 e"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"A proton is composed of:", o:["Two up quarks and one down quark","Two down quarks and one up quark","Three up quarks","One up quark and two down quarks"], c:0, t:"concept"},
+  {q:"A neutron is composed of:", o:["Two up quarks and one down quark","Two down quarks and one up quark","Three down quarks","One up quark and two down quarks"], c:1, t:"concept"},
+  {q:"Which particle has zero charge and very small (near-zero) mass?", o:["Photon","Electron","Neutrino","Muon"], c:2, t:"concept"},
+  {q:"The particle responsible for the weak nuclear force is:", o:["Gluon","Photon","W and Z bosons","Pion"], c:2, t:"concept"},
+  {q:"CERN (European particle physics laboratory) is located in:", o:["USA","Germany","France/Switzerland border","United Kingdom"], c:2, t:"concept"},
+  {q:"Which of the following is a lepton?", o:["Proton","Neutron","Pion","Muon"], c:3, t:"concept"},
+  {q:"Conservation of baryon number means that in any reaction, the total number of baryons:", o:["Increases","Decreases","Remains constant","Can change arbitrarily"], c:2, t:"concept"},
+],
+
+};
+
+let currentChapter=null,userAnswers={},stats={total:0,answered:0,correct:0};
+function initializeApp(){generateWatermarks();createChapterButtons();updateStats();}
+function generateWatermarks(){
+  const o=document.getElementById('watermarkOverlay'),t="Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057";
+  for(let r=0;r<6;r++)for(let c=0;c<3;c++){const s=document.createElement('span');s.textContent=t;s.style.left=(c*38-5)+'%';s.style.top=(r*18-5)+'%';o.appendChild(s);}
+}
+function createChapterButtons(){
+  const container=document.getElementById('chapterButtons');
+  Object.keys(mcqData).forEach(ch=>{
+    const btn=document.createElement('button');btn.className='chapter-btn';
+    const qs=mcqData[ch],m=qs.filter(q=>q.t==='mcq').length,s=qs.filter(q=>q.t==='summary').length,c=qs.filter(q=>q.t==='concept').length;
+    btn.innerHTML=ch+'<span class="q-count">📖'+m+' 🌟'+s+' 💡'+c+' = '+qs.length+'Qs</span>';
+    btn.onclick=()=>loadChapter(ch);container.appendChild(btn);
+  });
+}
+function loadChapter(ch){
+  currentChapter=ch;userAnswers={};
+  document.querySelectorAll('.chapter-btn').forEach(b=>b.classList.toggle('active',b.innerHTML.startsWith(ch)));
+  const con=document.getElementById('quizContainer');con.innerHTML='';con.classList.add('active');
+  const qs=mcqData[ch];stats.total=qs.length;stats.answered=0;stats.correct=0;
+  let idx=0;
+  [{type:'mcq',label:'📖 Book Multiple Choice Questions',cls:'sh-mcq'},{type:'summary',label:'🌟 Summary — Key Points',cls:'sh-summary'},{type:'concept',label:'💡 Chapter Concepts — Exam Likely',cls:'sh-concept'}].forEach(g=>{
+    const gqs=qs.filter(q=>q.t===g.type);if(!gqs.length)return;
+    const h=document.createElement('div');h.className='section-heading '+g.cls;h.textContent=g.label;con.appendChild(h);
+    gqs.forEach(q=>con.appendChild(createCard(q,idx++)));
+  });
+  const sum=document.createElement('div');sum.id='resultSummary';con.appendChild(sum);
+  updateStats();con.scrollIntoView({behavior:'smooth'});
+}
+function createCard(q,i){
+  const tl={mcq:'📖 MCQ',summary:'🌟 Summary',concept:'💡 Concept'}[q.t];
+  const tc2={mcq:'t-mcq',summary:'t-sum',concept:'t-con'}[q.t];
+  const card=document.createElement('div');
+  card.className='question-card'+(q.t==='summary'?' sum-card':q.t==='concept'?' con-card':'');
+  card.id='question-'+i;
+  card.innerHTML=`<div class="question-header"><span class="question-number">Q ${i+1}</span><span class="question-type ${tc2}">${tl}</span></div><div class="question-text">${q.q}</div><div class="options" id="options-${i}">${q.o.map((o,j)=>`<div class="option" onclick="selectOption(${i},${j})">${String.fromCharCode(97+j)}) ${o}</div>`).join('')}</div><button class="check-btn" onclick="checkAnswer(${i})" id="check-${i}">Check Answer</button><div class="feedback" id="feedback-${i}"></div>`;
+  return card;
+}
+function selectOption(qi,oi){
+  if(userAnswers[qi]?.checked)return;
+  document.querySelectorAll(`#options-${qi} .option`).forEach((o,i)=>o.classList.toggle('selected',i===oi));
+  userAnswers[qi]={selected:oi,checked:false};
+}
+function checkAnswer(qi){
+  const qs=mcqData[currentChapter];
+  const allQ=[];
+  [{type:'mcq'},{type:'summary'},{type:'concept'}].forEach(g=>{qs.filter(q=>q.t===g.type).forEach(q=>allQ.push(q));});
+  const q=allQ[qi],a=userAnswers[qi];
+  if(!a||a.checked)return;a.checked=true;
+  const ok=a.selected===q.c;if(ok)stats.correct++;stats.answered++;
+  document.querySelectorAll(`#options-${qi} .option`).forEach((o,i)=>{o.classList.add('disabled');if(i===q.c)o.classList.add('correct');else if(i===a.selected&&!ok)o.classList.add('wrong');});
+  const fb=document.getElementById(`feedback-${qi}`);
+  fb.className=`feedback show ${ok?'correct':'wrong'}`;
+  fb.textContent=ok?'✓ Correct! Well done!':`✗ Wrong! Correct: ${String.fromCharCode(97+q.c)}) ${q.o[q.c]}`;
+  document.getElementById(`check-${qi}`).disabled=true;updateStats();
+  if(stats.answered===stats.total)showResult();
+}
+function updateStats(){
+  document.getElementById('totalQuestions').textContent=stats.total;
+  document.getElementById('answeredQuestions').textContent=stats.answered;
+  document.getElementById('correctAnswers').textContent=stats.correct;
+  document.getElementById('scorePercentage').textContent=(stats.total>0?Math.round(stats.correct/stats.total*100):0)+'%';
+}
+function showResult(){
+  const p=Math.round(stats.correct/stats.total*100);
+  let g='D',m='Need More Practice! 💪';
+  if(p>=90){g='A+';m='Outstanding! 🌟';}else if(p>=80){g='A';m='Excellent! 🎉';}else if(p>=70){g='B';m='Good Job! 👍';}else if(p>=60){g='C';m='Keep Practicing! 📚';}
+  document.getElementById('resultSummary').innerHTML=`<div class="result-summary"><h2>${m}</h2><div class="result-stats"><div class="result-stat"><div class="result-stat-value">${stats.correct}/${stats.total}</div><div class="result-stat-label">Correct</div></div><div class="result-stat"><div class="result-stat-value">${p}%</div><div class="result-stat-label">Score</div></div><div class="result-stat"><div class="result-stat-value">${g}</div><div class="result-stat-label">Grade</div></div></div><button class="reset-btn" onclick="loadChapter('${currentChapter}')">🔄 Try Again</button><button class="reset-btn" onclick="location.reload()">📚 Units</button></div>`;
+  document.getElementById('resultSummary').scrollIntoView({behavior:'smooth'});
+}
+initializeApp();
+</script>
+</body>
+</html>
