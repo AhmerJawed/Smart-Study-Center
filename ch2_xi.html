@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch.2 Atomic Structure — Smart Study Center</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ── BASE ── */
+body{
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:linear-gradient(135deg,#0d2c6b 0%,#1565c0 50%,#1976d2 100%);
+  min-height:100vh;
+  padding:20px 16px;
+}
+
+/* ── WATERMARK ── */
+.watermark-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.watermark-overlay span{
+  position:absolute;font-size:14px;font-weight:700;
+  color:rgba(21,101,192,0.065);white-space:nowrap;
+  transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase;
+}
+
+/* ── CONTAINER ── */
+.container{
+  max-width:880px;margin:0 auto;background:#fff;
+  border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  overflow:hidden;position:relative;z-index:1;
+}
+
+/* ── CHAPTER HEADER ── */
+.chapter-header{
+  background:linear-gradient(135deg,#0d47a1,#1565c0);
+  color:#fff;padding:20px 24px;text-align:center;
+}
+.ch-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;margin-bottom:6px}
+.chapter-header h1{font-size:20px;font-weight:800;margin-bottom:6px;letter-spacing:.2px}
+.ch-meta{font-size:12px;opacity:.75;font-weight:500}
+
+/* ── STATS BAR ── */
+.stats{
+  display:flex;justify-content:space-around;padding:14px 20px;
+  background:#e3f2fd;border-bottom:2px solid #bbdefb;flex-wrap:wrap;gap:8px;
+}
+.stat-item{text-align:center}
+.stat-label{font-size:10px;color:#1565c0;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.stat-value{font-size:24px;font-weight:800;color:#0d47a1;margin-top:3px}
+
+/* ── QUIZ AREA ── */
+.quiz-area{padding:24px 22px}
+
+/* ── QUESTION CARD ── */
+.question-card{
+  background:#f8f9fa;border-radius:12px;padding:20px;
+  margin-bottom:16px;border-left:5px solid #1565c0;
+  transition:box-shadow .2s;
+}
+.question-card:hover{box-shadow:0 4px 16px rgba(21,101,192,.1)}
+.card-top{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;
+}
+.q-num{
+  background:#1565c0;color:#fff;padding:4px 14px;
+  border-radius:20px;font-weight:700;font-size:12px;
+}
+.q-tag{
+  background:#1565c0;color:#fff;padding:3px 10px;
+  border-radius:14px;font-size:10.5px;font-weight:700;letter-spacing:.3px;
+}
+.q-text{
+  font-size:15px;color:#1a1a1a;margin-bottom:14px;line-height:1.65;font-weight:500;
+}
+
+/* ── OPTIONS ── */
+.options{display:grid;gap:9px}
+.option{
+  padding:11px 16px;background:#fff;border:2px solid #dee2e6;
+  border-radius:9px;cursor:pointer;transition:all .25s;
+  font-size:14px;color:#333;line-height:1.4;
+}
+.option:hover:not(.disabled){border-color:#1565c0;background:#e3f2fd;color:#0d47a1}
+.option.selected{border-color:#1565c0;background:#bbdefb;color:#0d47a1}
+.option.correct{border-color:#2e7d32!important;background:#e8f5e9!important;color:#1b5e20!important;font-weight:700}
+.option.wrong{border-color:#c62828!important;background:#ffebee!important;color:#b71c1c!important}
+.option.disabled{cursor:not-allowed}
+
+/* ── CHECK BUTTON ── */
+.check-btn{
+  margin-top:13px;background:#1565c0;color:#fff;border:none;
+  padding:9px 26px;border-radius:9px;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all .25s;
+}
+.check-btn:hover:not(:disabled){background:#1976d2;transform:translateY(-1px);box-shadow:0 4px 14px rgba(21,101,192,.35)}
+.check-btn:disabled{background:#bdbdbd;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ── FEEDBACK / EXPLANATION ── */
+.feedback{
+  display:none;margin-top:11px;padding:10px 14px;
+  border-radius:8px;font-size:13px;line-height:1.5;
+}
+.feedback.show{display:block}
+.feedback.correct{background:#e8f5e9;color:#1b5e20;border:2px solid #66bb6a;font-weight:600}
+.feedback.wrong{background:#ffebee;color:#b71c1c;border:2px solid #ef9a9a;font-weight:600}
+.explanation-box{
+  display:none;margin-top:8px;padding:10px 14px;
+  background:#fffde7;border:2px solid #f9a825;
+  border-radius:8px;font-size:13px;color:#5d4037;line-height:1.5;
+}
+.explanation-box.show{display:block}
+.exp-label{font-weight:700;color:#f57f17;margin-right:4px}
+
+/* ── RESULT CARD ── */
+.result-card{
+  background:linear-gradient(135deg,#0d47a1,#1565c0);
+  color:#fff;border-radius:14px;padding:30px 24px;text-align:center;
+  margin:8px 0 4px;
+}
+.result-card h2{font-size:23px;margin-bottom:18px;font-weight:800}
+.result-grid{
+  display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap;margin-bottom:22px;
+}
+.result-stat{text-align:center;background:rgba(255,255,255,.14);border-radius:12px;padding:14px 22px}
+.result-stat-value{font-size:32px;font-weight:800}
+.result-stat-label{font-size:12px;opacity:.85;margin-top:4px;letter-spacing:.5px;text-transform:uppercase}
+.grade-badge{
+  display:inline-block;font-size:42px;font-weight:900;
+  background:rgba(255,255,255,.2);border-radius:50%;
+  width:80px;height:80px;line-height:80px;margin-bottom:16px;
+}
+.result-btn{
+  background:rgba(255,255,255,.18);color:#fff;
+  border:2px solid rgba(255,255,255,.7);padding:10px 24px;border-radius:9px;
+  cursor:pointer;font-size:14px;font-weight:700;margin:6px;transition:all .25s;
+}
+.result-btn:hover{background:#fff;color:#1565c0}
+
+/* ── FOOTER ── */
+.brand-footer{
+  background:#f5f5f5;border-top:1px solid #e0e0e0;
+  color:#9e9e9e;text-align:center;padding:12px;font-size:11px;letter-spacing:.3px;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:540px){
+  .chapter-header h1{font-size:17px}
+  .stat-value{font-size:20px}
+  .result-stat-value{font-size:26px}
+  .quiz-area{padding:16px 14px}
+}
+</style>
+</head>
+<body>
+
+<!-- WATERMARK -->
+<div class="watermark-overlay" id="wmOverlay"></div>
+
+<div class="container">
+
+  <!-- CHAPTER HEADER -->
+  <div class="chapter-header">
+    <div class="ch-label">⚗️ Chemistry Class XI</div>
+    <h1>Chapter 2 — Atomic Structure</h1>
+    <div class="ch-meta">Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed</div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-label">Total Qs</div>
+      <div class="stat-value" id="statTotal">51</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Answered</div>
+      <div class="stat-value" id="statAnswered">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Correct</div>
+      <div class="stat-value" id="statCorrect">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Score</div>
+      <div class="stat-value" id="statScore">0%</div>
+    </div>
+  </div>
+
+  <!-- QUIZ AREA -->
+  <div class="quiz-area" id="quizArea"></div>
+
+  <!-- FOOTER -->
+  <div class="brand-footer">
+    Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed &nbsp;·&nbsp; 0345-3090057
+  </div>
+
+</div><!-- /container -->
+
+<script>
+/* ═══════════════════════════════════════════════
+   MCQ DATA — Chapter 2: Atomic Structure
+═══════════════════════════════════════════════ */
+const questions = [
+  {q:"The charge on an electron, as determined by Millikan's oil drop experiment, is:", o:["1.602 × 10⁻¹⁶ C","1.602 × 10⁻¹⁹ C","1.602 × 10⁻¹⁷ C","1.602 × 10⁻¹⁸ C"], c:1, exp:"Millikan found every oil drop carried charge as an integral multiple of 1.602 × 10⁻¹⁹ C, establishing the fundamental unit of charge."},
+  {q:"Cathode rays in a discharge tube travel from:", o:["Anode to cathode","Glass wall to vacuum pump","Cathode to anode","Nucleus to electron cloud"], c:2, exp:"Cathode rays are electrons emitted from the negative electrode (cathode) and travel toward the positive electrode (anode)."},
+  {q:"The electron was discovered by J.J. Thomson while studying:", o:["Canal rays in a perforated tube","Radioactivity in pitchblende","Cathode rays in a discharge tube","Alpha particle scattering"], c:2, exp:"J.J. Thomson discovered electrons in 1897 A.D. during cathode ray experiments; Millikan later measured their charge."},
+  {q:"Protons were discovered by Goldstein using a discharge tube with a:", o:["Tungsten anode","Platinum filament cathode","Lead-coated cathode","Perforated cathode"], c:3, exp:"Goldstein (1886) used a perforated cathode in Crook's discharge tube; positive ions passed through the holes, leading to the discovery of protons."},
+  {q:"James Chadwick discovered the neutron by bombarding alpha particles from Polonium onto:", o:["Uranium","Beryllium","Carbon","Aluminium"], c:1, exp:"The reaction ₄Be⁹ + ₂He⁴ → ₆C¹² + ₀n¹ produced highly penetrating neutral particles, which Chadwick named neutrons (1932 A.D.)."},
+  {q:"The mass of an electron is approximately how many times less than the mass of a proton?", o:["1839","1000","2000","1836"], c:3, exp:"The electron is 1836 times lighter than the proton and 1839 times lighter than the neutron."},
+  {q:"Which subatomic particle is NOT deflected by electric or magnetic fields?", o:["Electron","Proton","Neutron","Alpha particle"], c:2, exp:"Neutrons carry no charge, so they pass through electric and magnetic fields without deflection."},
+  {q:"Bohr's atomic model was based on:", o:["Dalton's atomic theory","Maxwell's electromagnetic wave theory","Rutherford's nuclear model alone","Planck's quantum theory"], c:3, exp:"Danish physicist Neil Bohr (1913 A.D.) built his atomic model on Planck's quantum theory to explain the discrete line spectrum of hydrogen."},
+  {q:"According to Bohr's theory, the angular momentum of a revolving electron is:", o:["Equal to nh/4π","Equal to h/2π for all orbits","An integral multiple of nh/2π","Proportional to the square of the principal quantum number"], c:2, exp:"Bohr's postulate: mvr = nh/2π — angular momentum is quantized as integral multiples of h/2π."},
+  {q:"The Bohr's constant (a⁰), which gives the radius of the first orbit of hydrogen, has the value:", o:["5.29 Å","0.529 nm","52.9 pm","0.529 Å"], c:3, exp:"a⁰ = 0.529 Å (or 0.529 × 10⁻⁸ cm); the formula r = a⁰n²/Z gives 0.529 Å for n = 1, Z = 1."},
+  {q:"The maximum probability of finding an electron in a ground-state hydrogen atom is at a radius of:", o:["0.53 nm","0.35 nm","0.053 nm","0.0053 nm"], c:2, exp:"The Bohr radius of 0.529 Å = 0.0529 nm ≈ 0.053 nm corresponds to the first orbit (ground state) where electron probability is maximum."},
+  {q:"The radius of the 4th orbit of a hydrogen atom (Bohr constant = 0.529 Å) is:", o:["2.12 Å","4.76 Å","5.80 Å","8.46 Å"], c:3, exp:"r = 0.529 × n²/Z = 0.529 × 16/1 = 8.46 Å ≈ 8.9 Å (rounded in MDCAT papers)."},
+  {q:"The ground state energy of the hydrogen atom is:", o:["−1.5 eV","−3.4 eV","−13.6 eV","−23.5 eV"], c:2, exp:"Using E = −K/n², with K = 2.18 × 10⁻¹⁸ J/atom (13.6 eV), the ground state (n = 1) energy is −13.6 eV."},
+  {q:"The value of constant K in Bohr's energy formula E = −K(1/n²) is:", o:["6.625 × 10⁻³⁴ J/atom","1.602 × 10⁻¹⁹ J/atom","9.11 × 10⁻³¹ J/atom","2.18 × 10⁻¹⁸ J/atom"], c:3, exp:"K = 2.18 × 10⁻¹⁸ J/atom (equivalent to 1312.8 kJ/mol), assembled from fundamental constants in Bohr's energy derivation."},
+  {q:"When an electron jumps from a higher to a lower energy orbit, the energy emitted equals:", o:["ΔE = E₁ − E₂","ΔE = hv = E₂ − E₁","ΔE = h/v","ΔE = E₂ + E₁"], c:1, exp:"ΔE = E₂ − E₁ = hv; the frequency of the emitted photon directly corresponds to the energy difference between the two levels."},
+  {q:"The Rydberg constant (R_H) used in the wave number formula has the value:", o:["6.625 × 10⁻³⁴ m⁻¹","2.18 × 10⁻¹⁸ m⁻¹","1.09678 × 10⁷ m⁻¹","9.11 × 10⁻³¹ m⁻¹"], c:2, exp:"R_H = 1.09678 × 10⁷ m⁻¹, used in V̄ = R_H[1/n₁² − 1/n₂²] to calculate spectral line wave numbers."},
+  {q:"The Lyman series of the hydrogen spectrum lies in the:", o:["Visible region","Near infrared region","Far infrared region","Ultraviolet region"], c:3, exp:"Lyman series (electrons fall to n₁ = 1) has wavelengths below 4000 Å, placing it in the ultraviolet region."},
+  {q:"Balmer series in the hydrogen spectrum involves electron transitions ending at:", o:["n = 1","n = 4","n = 2","n = 3"], c:2, exp:"Balmer series (visible region, 4000–7000 Å) is produced when electrons fall from n₂ = 3, 4, 5, 6... to n₁ = 2."},
+  {q:"The Paschen series of hydrogen appears in which spectral region?", o:["Ultraviolet","Visible","Far infrared","Near infrared"], c:3, exp:"Paschen series (n₂ = 4, 5, 6... → n₁ = 3) has wavelengths above 7000 Å, lying in the near infrared region."},
+  {q:"Which hydrogen spectral series lies in the far infrared region?", o:["Paschen series","Balmer series","Lyman series","Pfund series"], c:3, exp:"Pfund series (electrons fall to n₁ = 5 from n₂ = 6, 7, ...∞) lies in the far infrared region."},
+  {q:"According to Planck's quantum theory, energy is emitted or absorbed in small discrete packets called:", o:["Photons or quanta","Neutrons","Orbital units","Wavicles"], c:0, exp:"Planck (1900) proposed that energy is absorbed/emitted in discrete packets called quanta; a quantum of light is a photon."},
+  {q:"The value of Planck's constant (h) in SI units is:", o:["9.11 × 10⁻³¹ Js","1.602 × 10⁻¹⁹ Js","6.625 × 10⁻²⁴ Js","6.625 × 10⁻³⁴ Js"], c:3, exp:"h = 6.625 × 10⁻³⁴ Js; in E = hv, this constant links the energy of a photon to its frequency."},
+  {q:"X-rays were accidentally discovered by W. Roentgen in:", o:["1911 A.D.","1913 A.D.","1895 A.D.","1900 A.D."], c:2, exp:"Roentgen discovered X-rays in 1895 when fast cathode rays struck a metal anode, producing highly penetrating short-wavelength radiation."},
+  {q:"The wavelength range of X-rays is:", o:["4000–7000 Å","0.1–10 Å","Above 7000 Å","Below 0.001 Å"], c:1, exp:"X-rays have wavelengths between 0.1–10 Å, making them short-wavelength, high-energy electromagnetic radiations."},
+  {q:"X-rays are NOT deflected by:", o:["Crystal lattice","Glass prism","Photographic film","Electric or magnetic field"], c:3, exp:"Being electromagnetic radiation with no charge, X-rays pass through electric and magnetic fields without deflection."},
+  {q:"Moseley's law states that the square root of the frequency of characteristic X-rays is directly proportional to:", o:["Atomic mass","Number of neutrons","Atomic number (Z) of the element","Mass number"], c:2, exp:"Moseley (1913): √v ∝ (Z − b); this established atomic number, not mass, as the basis for the periodic table."},
+  {q:"The phenomenon of radioactivity was discovered by:", o:["Marie Curie","Pierre Curie","Rutherford","Henry Becquerel"], c:3, exp:"Henry Becquerel discovered radioactivity in 1896 A.D. while working on the uranium mineral pitchblende."},
+  {q:"In an electric field, alpha rays are deflected towards the:", o:["North pole","Direction of field","Negative pole","No deflection"], c:2, exp:"Alpha particles carry +2 charge and are attracted toward the negative pole (cathode) in an electric field; beta rays go to the positive pole."},
+  {q:"Which radiation has the HIGHEST penetrating power?", o:["Alpha rays","Beta rays","X-rays","Gamma rays"], c:3, exp:"Gamma rays are neutral electromagnetic radiation with no mass, giving them the highest penetrating power among all radioactive emissions."},
+  {q:"Which radiation has the GREATEST ionization power?", o:["Gamma rays","Beta rays","X-rays","Alpha rays"], c:3, exp:"Alpha particles have ionization power 100 times greater than beta rays and 10,000 times greater than gamma rays due to their large mass and double charge."},
+  {q:"Beta particles are composed of:", o:["Helium nuclei","Protons only","Electromagnetic radiation","Electrons"], c:3, exp:"Beta particles are fast-moving electrons (charge = −1) emitted from the nucleus during beta decay."},
+  {q:"Carbon-14 radioisotope is primarily used for:", o:["Cancer treatment (radiotherapy)","Measuring age of fossils (radiocarbon dating)","Checking density of metals in industry","Treatment of seeds for new crop varieties"], c:1, exp:"Carbon-14 undergoes radioactive decay at a known rate; comparing C-14 to C-12 in organic matter allows age estimation of fossils and artifacts."},
+  {q:"The principal quantum number (n) describes the:", o:["Shape of the orbital","Spin of the electron","Orientation of the orbital in a magnetic field","Size and energy of the orbital"], c:3, exp:"The principal quantum number (n = 1, 2, 3...) describes the size and energy of an orbit and the distance of the electron from the nucleus."},
+  {q:"The azimuthal quantum number (ℓ) primarily determines the:", o:["Energy of the electron","Orientation of the orbital in space","Shape of the orbital","Spin direction of the electron"], c:2, exp:"The azimuthal quantum number (ℓ) governs the shape of orbitals: ℓ = 0 (s, spherical), ℓ = 1 (p, dumbbell), ℓ = 2 (d), ℓ = 3 (f)."},
+  {q:"The magnetic quantum number (m) describes:", o:["The energy of the electron","The size of the orbital","The spin of the electron","The orientation of the orbital in a magnetic field"], c:3, exp:"The magnetic quantum number (m) tells about the different orientations or directions of an orbital in space when subjected to a magnetic field."},
+  {q:"The quantum number values for the 3s orbital are:", o:["n = 0, ℓ = 1","n = 1, ℓ = 0","n = 3, ℓ = 1","n = 3, ℓ = 0"], c:3, exp:"For the 3s orbital, the principal quantum number n = 3 and azimuthal quantum number ℓ = 0 (s-type orbital)."},
+  {q:"The maximum number of electrons in a given sub-shell are calculated by:", o:["n²","2n²","2(2ℓ + 1)","ℓ + 1"], c:2, exp:"Maximum electrons in a subshell = 2(2ℓ + 1); for s (ℓ=0): 2, for p (ℓ=1): 6, for d (ℓ=2): 10, for f (ℓ=3): 14."},
+  {q:"The shape of the s-orbital is:", o:["Dumbbell","Double dumbbell","Cloverleaf","Spherical"], c:3, exp:"The s-orbital has a spherical shape with the probability of finding the electron uniformly distributed around the nucleus in all directions."},
+  {q:"The p-orbitals are oriented along:", o:["A single axis","Five directions in space","Seven directions in space","Three mutually perpendicular axes (x, y, z)"], c:3, exp:"The three p-orbitals (px, py, pz) are dumbbell-shaped and oriented along the three mutually perpendicular axes; they are degenerate (equal energy)."},
+  {q:"Which atom has a single electron in a dumbbell-shaped (p) orbital?", o:["Hydrogen","Helium","Boron","Lithium"], c:3, exp:"Lithium (Z=3) has configuration 1s², 2s¹ in ground state; in its first excited state it places an electron in a 2p (dumbbell) orbital; among the options, Boron (1s²2s²2p¹) also qualifies — MDCAT past papers specifically used Lithium for this concept."},
+  {q:"Pauli's Exclusion Principle states that in an atom, no two electrons can have:", o:["The same principal quantum number","The same spin quantum number","The same energy level","The same set of four quantum numbers"], c:3, exp:"Pauli (1925) — at least one of the four quantum numbers (n, ℓ, m, s) must differ; two electrons in the same orbital must have opposite spins (↑↓)."},
+  {q:"'In an orbital of an atom, no two electrons can have the same set of four quantum numbers; at least one quantum number must be different.' This statement describes:", o:["Aufbau principle","Pauli's exclusion principle","Hund's rule","(n + ℓ) Wiswesser rule"], c:1, exp:"This is the exact statement of Pauli's Exclusion Principle (1925), a fundamental rule governing electronic configuration."},
+  {q:"The Aufbau principle states that electrons fill orbitals in order of:", o:["Increasing atomic number","Decreasing principal quantum number","Increasing energy","Decreasing nuclear charge"], c:2, exp:"Aufbau (German: 'building up') — electrons fill sub-shells progressively from lowest to highest energy, starting with 1s."},
+  {q:"According to the (n + ℓ) rule, which orbital fills BEFORE 3d?", o:["4p","3p","5s","4s"], c:3, exp:"For 3d: n + ℓ = 3 + 2 = 5; for 4s: n + ℓ = 4 + 0 = 4. Lower (n + ℓ) value means 4s fills first."},
+  {q:"Hund's Rule of Maximum Multiplicity states that electrons in degenerate orbitals must:", o:["Pair up immediately in the first orbital before filling others","Fill all orbitals with two electrons each","Occupy separate orbitals singly with the same spin direction before pairing","Alternate spin directions between adjacent orbitals"], c:2, exp:"Hund's rule (1927): unpaired electrons in degenerate (p, d, f) orbitals are more stable than paired; maximum half-filled orbitals with same spin direction is the most stable arrangement."},
+  {q:"The electronic configuration of Cl⁻ (Z = 17) is:", o:["1s², 2s², 2p⁶, 3s², 3p⁴","1s², 2s², 2p⁶, 3s², 3p⁵","1s², 2s², 2p⁶, 3s¹, 3p⁶","1s², 2s², 2p⁶, 3s², 3p⁶"], c:3, exp:"Cl⁻ gains one electron (17 + 1 = 18 electrons total), giving the noble gas configuration identical to Argon."},
+  {q:"Which of the following pairs is isoelectronic?", o:["Na and Ca","Na⁺ and Mg²⁺","Na⁺ and Ca²⁺","Ne and Ar"], c:1, exp:"Na⁺ (11 − 1 = 10e⁻) and Mg²⁺ (12 − 2 = 10e⁻) both have 10 electrons with configuration 1s²2s²2p⁶."},
+  {q:"Which defect of Bohr's atomic model involves Heisenberg's principle?", o:["It could not explain the line spectrum of hydrogen","It could not explain multi-electron atom spectra","It assumed electrons move in circular orbits in a single plane","It assigned definite position and velocity to an electron simultaneously"], c:3, exp:"Bohr's concept of a fixed orbit with definite radius and velocity violates Heisenberg's Uncertainty Principle, which forbids simultaneous precise knowledge of position and momentum."},
+  {q:"Bohr's atomic model is applicable ONLY to:", o:["Multi-electron atoms like helium and lithium","All atoms in the periodic table","Hydrogen and hydrogen-like ions (He⁺, Li²⁺, Be³⁺)","Noble gases only"], c:2, exp:"Bohr's model works only for single-electron systems; it fails completely for multi-electron atoms because it cannot account for electron–electron repulsions."},
+  {q:"The maximum number of electrons that can be accommodated in a principal energy level (shell) is:", o:["n²","2(2ℓ + 1)","2ℓ + 1","2n²"], c:3, exp:"Maximum electrons per shell = 2n²; for n=1: 2, n=2: 8, n=3: 18, n=4: 32."},
+  {q:"Line spectrum of an element serves as its 'fingerprint' because:", o:["All elements produce identical line patterns","Lines only appear in the visible region","Each element emits specific wavelengths unique to its electronic structure","Line spectra can only be produced by metals"], c:2, exp:"Each element's electrons have unique energy levels; transitions between them produce characteristic wavelengths, making line spectra element-specific identifiers."},
+];
+
+/* ═══════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════ */
+const state = {
+  answered : 0,
+  correct  : 0,
+  total    : questions.length,
+};
+
+/* ═══════════════════════════════════════════════
+   SHUFFLE
+   Randomises option order; tracks which option
+   is now correct after the shuffle.
+═══════════════════════════════════════════════ */
+function shuffleOptions(q) {
+  /* pair each option text with a flag marking the correct one */
+  const opts = q.o.map((text, i) => ({ text, isCorrect: i === q.c }));
+
+  /* Fisher-Yates shuffle */
+  for (let i = opts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [opts[i], opts[j]] = [opts[j], opts[i]];
+  }
+
+  return {
+    o : opts.map(x => x.text),
+    c : opts.findIndex(x => x.isCorrect),   /* new correct index */
+  };
+}
+
+/*
+  renderedQuestions[i] holds the shuffled copy of questions[i].
+  checkAnswer() reads from here so the correct-index is always
+  consistent with what the student actually sees on screen.
+*/
+let renderedQuestions = [];
+
+/* ═══════════════════════════════════════════════
+   WATERMARK
+═══════════════════════════════════════════════ */
+(function buildWatermarks(){
+  const overlay = document.getElementById('wmOverlay');
+  const text = 'Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057';
+  for(let r = 0; r < 7; r++){
+    for(let c = 0; c < 3; c++){
+      const span = document.createElement('span');
+      span.textContent = text;
+      span.style.left  = (c * 40 - 5) + '%';
+      span.style.top   = (r * 16 - 4) + '%';
+      overlay.appendChild(span);
+    }
+  }
+})();
+
+/* ═══════════════════════════════════════════════
+   BUILD QUIZ
+═══════════════════════════════════════════════ */
+function buildQuiz(){
+  const area = document.getElementById('quizArea');
+  area.innerHTML = '';
+  renderedQuestions = [];   /* clear previous shuffle on reset */
+
+  questions.forEach((q, i) => {
+    const labels = ['a','b','c','d'];
+
+    /* ── shuffle this question's options ── */
+    const shuffled  = shuffleOptions(q);
+    const displayQ  = { ...q, o: shuffled.o, c: shuffled.c };
+    renderedQuestions[i] = displayQ;   /* save so checkAnswer can read it */
+
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = 'card-' + i;
+
+    /* options HTML — built from the shuffled displayQ */
+    const optionsHTML = displayQ.o.map((opt, j) =>
+      `<div class="option" id="opt-${i}-${j}" onclick="selectOpt(${i},${j})">
+        <strong>${labels[j]})</strong> ${opt}
+      </div>`
+    ).join('');
+
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="q-num">Q ${i + 1}</span>
+        <span class="q-tag">📖 MCQ</span>
+      </div>
+      <div class="q-text">${displayQ.q}</div>
+      <div class="options" id="opts-${i}">${optionsHTML}</div>
+      <button class="check-btn" id="check-${i}" onclick="checkAnswer(${i})">
+        ✔ Check Answer
+      </button>
+      <div class="feedback" id="fb-${i}"></div>
+      <div class="explanation-box" id="exp-${i}">
+        <span class="exp-label">💡 Explanation:</span>${displayQ.exp}
+      </div>`;
+
+    area.appendChild(card);
+  });
+
+  /* result placeholder */
+  const res = document.createElement('div');
+  res.id = 'resultCard';
+  area.appendChild(res);
+
+  updateStats();
+}
+
+/* ═══════════════════════════════════════════════
+   INTERACTION
+═══════════════════════════════════════════════ */
+const userAnswers = {};   /* qi → {selected, checked} */
+
+function selectOpt(qi, oi){
+  if(userAnswers[qi]?.checked) return;
+  /* clear highlight */
+  document.querySelectorAll(`#opts-${qi} .option`).forEach(el => el.classList.remove('selected'));
+  document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
+  userAnswers[qi] = { selected: oi, checked: false };
+}
+
+function checkAnswer(qi){
+  const entry = userAnswers[qi];
+  if(!entry || entry.checked) return;
+
+  entry.checked = true;
+  /* ── use the shuffled version so correct-index matches what's on screen ── */
+  const q   = renderedQuestions[qi];
+  const ok  = entry.selected === q.c;
+
+  if(ok) state.correct++;
+  state.answered++;
+
+  /* colour options */
+  document.querySelectorAll(`#opts-${qi} .option`).forEach((el, i) => {
+    el.classList.add('disabled');
+    if(i === q.c)                      el.classList.add('correct');
+    else if(i === entry.selected && !ok) el.classList.add('wrong');
+  });
+
+  /* verdict */
+  const fb = document.getElementById(`fb-${qi}`);
+  if(ok){
+    fb.className = 'feedback show correct';
+    fb.textContent = '✓ Correct! Well done!';
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.textContent = `✗ Incorrect! The correct answer is: ${String.fromCharCode(97 + q.c)}) ${q.o[q.c]}`;
+  }
+
+  /* explanation */
+  if(q.exp){
+    document.getElementById(`exp-${qi}`).classList.add('show');
+  }
+
+  /* disable button */
+  document.getElementById(`check-${qi}`).disabled = true;
+
+  updateStats();
+
+  if(state.answered === state.total) showResult();
+}
+
+/* ═══════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════ */
+function updateStats(){
+  document.getElementById('statTotal').textContent    = state.total;
+  document.getElementById('statAnswered').textContent = state.answered;
+  document.getElementById('statCorrect').textContent  = state.correct;
+  const pct = state.total > 0 ? Math.round(state.correct / state.total * 100) : 0;
+  document.getElementById('statScore').textContent    = pct + '%';
+}
+
+/* ═══════════════════════════════════════════════
+   RESULT CARD
+═══════════════════════════════════════════════ */
+function showResult(){
+  const pct = Math.round(state.correct / state.total * 100);
+  let grade, msg, emoji;
+
+  if(pct >= 90){ grade='A+'; msg='Outstanding Performance!';  emoji='🌟'; }
+  else if(pct >= 80){ grade='A';  msg='Excellent Work!';           emoji='🎉'; }
+  else if(pct >= 70){ grade='B';  msg='Good Job!';                 emoji='👍'; }
+  else if(pct >= 60){ grade='C';  msg='Keep Practicing!';          emoji='📚'; }
+  else if(pct >= 50){ grade='D';  msg='More Effort Needed!';       emoji='💪'; }
+  else              { grade='F';  msg='Revise the Chapter Again!'; emoji='📖'; }
+
+  document.getElementById('resultCard').innerHTML = `
+    <div class="result-card">
+      <div class="grade-badge">${emoji}</div>
+      <h2>${msg}</h2>
+      <div class="result-grid">
+        <div class="result-stat">
+          <div class="result-stat-value">${state.correct} / ${state.total}</div>
+          <div class="result-stat-label">Correct Answers</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${pct}%</div>
+          <div class="result-stat-label">Score</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${grade}</div>
+          <div class="result-stat-label">Grade</div>
+        </div>
+      </div>
+      <p style="opacity:.85;font-size:13px;margin-bottom:16px">
+        Ch.2 Atomic Structure &nbsp;|&nbsp; Smart Study Center &nbsp;|&nbsp; Sir Ahmer Javed
+      </p>
+      <button class="result-btn" onclick="resetQuiz()">🔄 Try Again</button>
+    </div>`;
+
+  document.getElementById('resultCard').scrollIntoView({ behavior:'smooth' });
+}
+
+/* ═══════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════ */
+function resetQuiz(){
+  state.answered = 0;
+  state.correct  = 0;
+  Object.keys(userAnswers).forEach(k => delete userAnswers[k]);
+  buildQuiz();
+  window.scrollTo({ top: 0, behavior:'smooth' });
+}
+
+/* ── INIT ── */
+buildQuiz();
+</script>
+</body>
+</html>
