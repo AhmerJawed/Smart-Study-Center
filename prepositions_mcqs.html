@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prepositions — Smart Study Center</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ── BASE ── */
+body{
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:linear-gradient(135deg,#0d2137 0%,#1565c0 50%,#1976d2 100%);
+  min-height:100vh;
+  padding:20px 16px;
+}
+
+/* ── WATERMARK ── */
+.watermark-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.watermark-overlay span{
+  position:absolute;font-size:14px;font-weight:700;
+  color:rgba(21,101,192,0.065);white-space:nowrap;
+  transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase;
+}
+
+/* ── CONTAINER ── */
+.container{
+  max-width:880px;margin:0 auto;background:#fff;
+  border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  overflow:hidden;position:relative;z-index:1;
+}
+
+/* ── CHAPTER HEADER ── */
+.chapter-header{
+  background:linear-gradient(135deg,#0d2137,#1565c0);
+  color:#fff;padding:20px 24px;text-align:center;
+}
+.ch-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;margin-bottom:6px}
+.chapter-header h1{font-size:20px;font-weight:800;margin-bottom:6px;letter-spacing:.2px}
+.ch-meta{font-size:12px;opacity:.75;font-weight:500}
+
+/* ── STATS BAR ── */
+.stats{
+  display:flex;justify-content:space-around;padding:14px 20px;
+  background:#e3f2fd;border-bottom:2px solid #bbdefb;flex-wrap:wrap;gap:8px;
+}
+.stat-item{text-align:center}
+.stat-label{font-size:10px;color:#1565c0;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.stat-value{font-size:24px;font-weight:800;color:#0d2137;margin-top:3px}
+
+/* ── QUIZ AREA ── */
+.quiz-area{padding:24px 22px}
+
+/* ── QUESTION CARD ── */
+.question-card{
+  background:#f8f9fa;border-radius:12px;padding:20px;
+  margin-bottom:16px;border-left:5px solid #1565c0;
+  transition:box-shadow .2s;
+}
+.question-card:hover{box-shadow:0 4px 16px rgba(21,101,192,.1)}
+.card-top{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;
+}
+.q-num{
+  background:#1565c0;color:#fff;padding:4px 14px;
+  border-radius:20px;font-weight:700;font-size:12px;
+}
+.q-text{
+  font-size:15px;color:#1a1a1a;margin-bottom:14px;line-height:1.65;font-weight:500;
+}
+
+/* ── OPTIONS ── */
+.options{display:grid;gap:9px}
+.option{
+  padding:11px 16px;background:#fff;border:2px solid #dee2e6;
+  border-radius:9px;cursor:pointer;transition:all .25s;
+  font-size:14px;color:#333;line-height:1.4;
+}
+.option:hover:not(.disabled){border-color:#1565c0;background:#e3f2fd;color:#0d2137}
+.option.selected{border-color:#1565c0;background:#bbdefb;color:#0d2137}
+.option.correct{border-color:#1565c0!important;background:#e3f2fd!important;color:#0d2137!important;font-weight:700}
+.option.wrong{border-color:#c62828!important;background:#ffebee!important;color:#b71c1c!important}
+.option.disabled{cursor:not-allowed}
+
+/* ── CHECK BUTTON ── */
+.check-btn{
+  margin-top:13px;background:#1565c0;color:#fff;border:none;
+  padding:9px 26px;border-radius:9px;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all .25s;
+}
+.check-btn:hover:not(:disabled){background:#1976d2;transform:translateY(-1px);box-shadow:0 4px 14px rgba(21,101,192,.35)}
+.check-btn:disabled{background:#bdbdbd;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ── FEEDBACK / EXPLANATION ── */
+.feedback{
+  display:none;margin-top:11px;padding:10px 14px;
+  border-radius:8px;font-size:13px;line-height:1.5;
+}
+.feedback.show{display:block}
+.feedback.correct{background:#e3f2fd;color:#0d2137;border:2px solid #64b5f6;font-weight:600}
+.feedback.wrong{background:#ffebee;color:#b71c1c;border:2px solid #ef9a9a;font-weight:600}
+.explanation-box{
+  display:none;margin-top:8px;padding:10px 14px;
+  background:#fffde7;border:2px solid #f9a825;
+  border-radius:8px;font-size:13px;color:#5d4037;line-height:1.5;
+}
+.explanation-box.show{display:block}
+.exp-label{font-weight:700;color:#f57f17;margin-right:4px}
+
+/* ── RESULT CARD ── */
+.result-card{
+  background:linear-gradient(135deg,#0d2137,#1565c0);
+  color:#fff;border-radius:14px;padding:30px 24px;text-align:center;
+  margin:8px 0 4px;
+}
+.result-card h2{font-size:23px;margin-bottom:18px;font-weight:800}
+.result-grid{
+  display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap;margin-bottom:22px;
+}
+.result-stat{text-align:center;background:rgba(255,255,255,.14);border-radius:12px;padding:14px 22px}
+.result-stat-value{font-size:32px;font-weight:800}
+.result-stat-label{font-size:12px;opacity:.85;margin-top:4px;letter-spacing:.5px;text-transform:uppercase}
+.grade-badge{
+  display:inline-block;font-size:42px;font-weight:900;
+  background:rgba(255,255,255,.2);border-radius:50%;
+  width:80px;height:80px;line-height:80px;margin-bottom:16px;
+}
+.result-btn{
+  background:rgba(255,255,255,.18);color:#fff;
+  border:2px solid rgba(255,255,255,.7);padding:10px 24px;border-radius:9px;
+  cursor:pointer;font-size:14px;font-weight:700;margin:6px;transition:all .25s;
+}
+.result-btn:hover{background:#fff;color:#1565c0}
+
+/* ── FOOTER ── */
+.brand-footer{
+  background:#f5f5f5;border-top:1px solid #e0e0e0;
+  color:#9e9e9e;text-align:center;padding:12px;font-size:11px;letter-spacing:.3px;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:540px){
+  .chapter-header h1{font-size:17px}
+  .stat-value{font-size:20px}
+  .result-stat-value{font-size:26px}
+  .quiz-area{padding:16px 14px}
+}
+</style>
+</head>
+<body>
+
+<!-- WATERMARK -->
+<div class="watermark-overlay" id="wmOverlay"></div>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="chapter-header">
+    <div class="ch-label">English Grammar</div>
+    <h1>Prepositions — 50 MCQs</h1>
+    <div class="ch-meta">Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed</div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-label">Total Qs</div>
+      <div class="stat-value" id="statTotal">50</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Answered</div>
+      <div class="stat-value" id="statAnswered">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Correct</div>
+      <div class="stat-value" id="statCorrect">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Score</div>
+      <div class="stat-value" id="statScore">0%</div>
+    </div>
+  </div>
+
+  <!-- QUIZ AREA -->
+  <div class="quiz-area" id="quizArea"></div>
+
+  <!-- FOOTER -->
+  <div class="brand-footer">
+    Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed &nbsp;·&nbsp; 0345-3090057
+  </div>
+
+</div><!-- /container -->
+
+<script>
+/* ═══════════════════════════════════════════════
+   MCQ DATA — Prepositions
+═══════════════════════════════════════════════ */
+const questions = [
+  {q:"She has been living in this city ___ 2018.", o:["for","since","from","during"], c:1, exp:"Use \"since\" with a specific point in time (a year, a date, a moment) when the action started and continues to the present. Use \"for\" with a duration (for three years, for months). \"From\" is not used with present perfect."},
+  {q:"We have been waiting ___ the doctor ___ three hours.", o:["for, since","for, for","to, for","for, from"], c:1, exp:"\"Wait for\" someone is a fixed verb-preposition collocation. \"For\" is also used with durations of time (three hours, two days, a week). Never use \"since\" with a duration — only with a point in time."},
+  {q:"The accident happened ___ the junction ___ midnight.", o:["on, in","in, at","at, at","on, at"], c:2, exp:"Use \"at\" for precise points/locations (at the junction, at the corner, at the door). Use \"at\" for exact times (at midnight, at noon, at 3 o'clock). Both blanks need \"at.\""},
+  {q:"She was born ___ a small village ___ the south of Pakistan.", o:["at, in","in, in","in, to","at, to"], c:1, exp:"Use \"in\" for towns, cities, villages, and countries. Use \"in\" for regions and directions used as regions (in the south, in the north, in the east). \"At\" is for specific points, not inhabited places."},
+  {q:"He arrived ___ the airport ___ time for his flight.", o:["at, on","in, in","to, on","at, in"], c:0, exp:"Use \"at\" for specific locations like airports, stations, bus stops. \"On time\" is a fixed expression meaning punctually, not late. \"In time\" means with enough time to spare before a deadline — different meaning."},
+  {q:"The manager is responsible ___ all decisions made ___ the department.", o:["for, at","about, in","for, in","of, by"], c:2, exp:"\"Responsible for\" is a fixed adjective-preposition collocation meaning accountable for something. \"In the department\" uses \"in\" for organisations, institutions, and enclosed workplaces."},
+  {q:"He has been working ___ this company ___ the past five years.", o:["in, since","at, for","in, for","for, during"], c:2, exp:"\"Working in a company\" uses \"in\" for organisations. \"For the past five years\" uses \"for\" because it is a duration. \"Since\" would require a specific point: \"since 2019.\""},
+  {q:"The children ran ___ the road and jumped ___ the river.", o:["over, in","across, into","along, to","through, in"], c:1, exp:"\"Across\" means from one side to the other of a flat surface or expanse (road, field, river). \"Into\" indicates movement that enters an enclosed space or body of water. \"In\" is static; \"into\" shows direction of movement."},
+  {q:"She is very good ___ mathematics but weak ___ languages.", o:["in, at","at, in","for, in","at, at"], c:1, exp:"\"Good at\" is the correct adjective-preposition collocation for skills and subjects. \"Weak in\" is used for academic subjects when expressing an area of deficiency. These are fixed collocations tested frequently in MDCAT."},
+  {q:"He was punished ___ arriving late ___ school three times.", o:["for, at","of, in","about, to","for, in"], c:0, exp:"\"Punished for\" + reason uses \"for\" to indicate the cause of punishment. \"At school\" uses \"at\" for an institution when referring to it as a place of activity (at school, at work, at university)."},
+  {q:"The book was written ___ a renowned author ___ the 18th century.", o:["from, at","by, in","of, on","by, at"], c:1, exp:"In passive constructions, \"by\" introduces the agent (the doer). \"In the 18th century\" uses \"in\" for centuries, decades, and named historical periods."},
+  {q:"She complained ___ the principal ___ the misbehaviour of her classmates.", o:["at, of","to, about","with, for","against, of"], c:1, exp:"\"Complain to\" someone (the person you address) is the fixed pattern. \"Complain about\" the issue (the topic of the complaint) is also fixed. Both prepositions are required together."},
+  {q:"He was married ___ her ___ twenty years before they separated.", o:["with, since","to, for","with, for","to, since"], c:1, exp:"\"Married to\" is the only correct preposition — never \"married with.\" \"For twenty years\" uses \"for\" because it is a duration. This is a very common MDCAT trap."},
+  {q:"The results will be announced ___ the end ___ the month.", o:["in, of","at, of","by, of","on, of"], c:2, exp:"\"By the end\" means no later than that point in time. \"Of the month\" completes the noun phrase. \"At the end\" is also possible but \"by\" is used when emphasizing a deadline or latest possible time."},
+  {q:"He congratulated her ___ passing the exam ___ behalf of the whole class.", o:["for, at","on, on","about, by","for, on"], c:1, exp:"\"Congratulate on\" + achievement/event is the fixed collocation. \"On behalf of\" is a fixed prepositional phrase meaning representing or acting for a group. Never say \"congratulate for.\""},
+  {q:"The medicine should be kept ___ the reach ___ children.", o:["away, of","out of, of","beyond, for","far, from"], c:1, exp:"\"Out of reach\" is the fixed phrase meaning inaccessible. \"Out of the reach of children\" is the complete standard warning form. \"Away from\" is used for distance but not for this specific expression."},
+  {q:"She was surprised ___ his rude behaviour ___ the meeting.", o:["with, at","by, at","at, during","about, in"], c:2, exp:"\"Surprised at\" or \"surprised by\" are both acceptable, but \"at\" is more common for reactions. \"During the meeting\" uses \"during\" for an event that has duration, not \"in\" or \"at.\""},
+  {q:"He invested all his savings ___ a new business and lost everything ___ a year.", o:["in, within","at, in","for, after","into, in"], c:0, exp:"\"Invest in\" a business/project is a fixed verb-preposition collocation. \"Within a year\" means before the year was complete. \"In a year\" can mean after one year — context here requires \"within.\""},
+  {q:"They argued ___ each other ___ the distribution of property.", o:["against, about","with, over","at, for","to, about"], c:1, exp:"\"Argue with\" a person (not \"against\" which implies opposition in a debate). \"Argue over\" a matter (especially something contested like money, property, decisions) is the fixed collocation."},
+  {q:"The patient was operated ___ successfully ___ a team of surgeons.", o:["at, from","upon, with","on, by","at, by"], c:2, exp:"\"Operated on\" (a patient) is the fixed passive-form phrasal verb in medical contexts. \"By a team\" uses \"by\" to introduce the agent in a passive sentence."},
+  {q:"He is very particular ___ hygiene and insists ___ cleanliness everywhere.", o:["about, on","in, for","for, about","about, for"], c:0, exp:"\"Particular about\" = very careful or fussy about something (fixed adjective-preposition). \"Insist on\" + noun or gerund is the fixed verb-preposition collocation."},
+  {q:"The new law applies ___ all citizens regardless ___ their income.", o:["to, of","on, of","for, about","at, from"], c:0, exp:"\"Apply to\" means to be relevant or applicable to a person or group. \"Regardless of\" is a fixed prepositional phrase meaning without being affected by."},
+  {q:"She was absorbed ___ her studies and was not aware ___ the noise outside.", o:["by, of","in, of","with, about","into, for"], c:1, exp:"\"Absorbed in\" means deeply engaged in an activity. \"Aware of\" is the fixed adjective-preposition collocation. Both are commonly tested in MDCAT preposition questions."},
+  {q:"He was promoted ___ a senior position ___ account of his hard work.", o:["at, on","to, on","for, due","to, for"], c:1, exp:"\"Promoted to\" a position (never \"promoted at\"). \"On account of\" is a fixed prepositional phrase meaning because of or due to."},
+  {q:"The bridge was built ___ the river to connect two towns ___ either side.", o:["on, at","over, on","above, from","across, at"], c:1, exp:"\"Built over\" a river is used when a structure spans from one bank to the other. \"On either side\" is the fixed expression meaning on both sides."},
+  {q:"She is not in the habit ___ waking up early ___ weekdays.", o:["for, on","of, in","of, on","about, at"], c:2, exp:"\"In the habit of\" + gerund is the fixed noun-preposition collocation. \"On weekdays/weekends\" uses \"on\" for named days and parts of the week."},
+  {q:"He was charged ___ corruption and sentenced ___ ten years in prison.", o:["of, for","with, to","for, at","about, for"], c:1, exp:"\"Charged with\" a crime is the fixed legal collocation. \"Sentenced to\" a period of time is also fixed in legal language. These two collocations are almost always tested together."},
+  {q:"The doctor advised him to cut ___ on salt and give ___ smoking.", o:["down, away","back, off","down, up","out, in"], c:2, exp:"\"Cut down on\" = reduce consumption of something. \"Give up\" = stop doing a habit permanently. Both are fixed phrasal verbs commonly appearing in MDCAT English."},
+  {q:"She graduated ___ medical school and applied ___ a residency programme.", o:["of, to","from, for","at, to","from, to"], c:1, exp:"\"Graduate from\" an institution is the fixed verb-preposition collocation. \"Apply for\" a job, position, or programme uses \"for\" (not \"to\"). \"Apply to\" is used for applying to a person or institution."},
+  {q:"He is deeply interested ___ research and has published several papers ___ the subject.", o:["about, in","in, on","for, about","at, over"], c:1, exp:"\"Interested in\" is the fixed adjective-preposition collocation. \"Publish on a subject/topic\" uses \"on\" when referring to the subject matter of a written work."},
+  {q:"The plane took ___ from Karachi and landed ___ Dubai ___ schedule.", o:["up, in, in","off, in, on","off, at, on","up, at, in"], c:2, exp:"\"Took off\" = a plane departed (fixed phrasal verb). \"Landed at\" an airport uses \"at\" for specific locations. \"On schedule\" = exactly as planned, a fixed expression."},
+  {q:"She was disappointed ___ her grade but did not give ___ hope.", o:["with, up","at, on","in, away","about, off"], c:0, exp:"\"Disappointed with\" a result, grade, or outcome is the fixed adjective-preposition collocation. \"Give up hope\" = stop hoping (fixed phrasal verb collocation)."},
+  {q:"He has a lot ___ experience ___ dealing with difficult patients.", o:["for, at","of, in","in, with","of, with"], c:1, exp:"\"A lot of\" is the fixed quantifier phrase requiring \"of.\" \"Experience in\" a field or area of practice is the correct prepositional collocation."},
+  {q:"The seminar is scheduled ___ Monday ___ 9 a.m. ___ the main hall.", o:["on, at, in","at, on, in","on, in, at","in, at, in"], c:0, exp:"\"On Monday\" (specific day). \"At 9 a.m.\" (exact time). \"In the main hall\" (enclosed venue/room). These three rules — on for days, at for times, in for enclosed spaces — are fundamental."},
+  {q:"She is allergic ___ penicillin and is sensitive ___ many other medicines.", o:["to, about","of, to","to, to","at, for"], c:2, exp:"\"Allergic to\" a substance is a fixed medical adjective-preposition collocation. \"Sensitive to\" something is also fixed. Both require \"to.\""},
+  {q:"The new policy is ___ contrast ___ what the previous government had promised.", o:["at, with","in, to","in, with","at, to"], c:2, exp:"\"In contrast with/to\" is a fixed prepositional phrase used to show differences. Both \"with\" and \"to\" are acceptable, but \"in contrast with\" is the more standard written form."},
+  {q:"He stood ___ the queue ___ more than an hour in the scorching heat.", o:["at, for","in, for","on, since","in, since"], c:1, exp:"\"Stand in a queue/line\" uses \"in\" (you are part of the queue). \"For more than an hour\" uses \"for\" for a duration. \"Since\" would require a specific starting time point."},
+  {q:"She was praised ___ her teachers ___ her outstanding performance.", o:["from, about","of, for","by, for","from, on"], c:2, exp:"\"Praised by\" introduces the agent (who gave the praise) in a passive construction. \"Praised for\" introduces the reason or achievement. This by + agent, for + reason structure is a standard passive pattern."},
+  {q:"He is known ___ his generosity and is respected ___ everyone in the community.", o:["for, by","of, from","by, from","as, to"], c:0, exp:"\"Known for\" a quality or characteristic is a fixed adjective-preposition collocation. \"Respected by\" everyone uses \"by\" to introduce the group who holds the respect (passive agent pattern)."},
+  {q:"She translated the document ___ English ___ French overnight.", o:["to, in","from, into","of, to","in, to"], c:1, exp:"\"Translate from\" the source language \"into\" the target language is the fixed pattern for translation. \"Into\" (not \"to\") is always used for the language being translated into."},
+  {q:"The students were divided ___ groups ___ five members each.", o:["into, of","in, with","to, of","into, with"], c:0, exp:"\"Divided into\" groups uses \"into\" because it shows the result of separation. \"Groups of five\" uses \"of\" to show composition or membership of a group."},
+  {q:"He recovered quickly ___ surgery and was back ___ his feet within a week.", o:["after, at","from, on","of, to","after, on"], c:1, exp:"\"Recover from\" an illness, surgery, or setback is the fixed verb-preposition collocation. \"Back on one's feet\" is a fixed idiomatic expression meaning recovered and functioning normally."},
+  {q:"She was not ___ a position to refuse the offer made ___ the director.", o:["at, from","in, by","at, by","in, from"], c:1, exp:"\"In a position to\" do something is the fixed phrase meaning able to. \"Made by\" the director uses \"by\" for the agent who made the offer — passive construction."},
+  {q:"The government should spend more ___ education rather than ___ defence.", o:["at, in","on, on","for, in","in, on"], c:1, exp:"\"Spend money on\" something is the fixed verb-preposition collocation. Both categories (education, defence) take \"on\" — the same preposition applies to both blanks."},
+  {q:"He was absent ___ school ___ three consecutive days without any explanation.", o:["from, for","in, since","at, for","from, since"], c:0, exp:"\"Absent from\" school, class, or work is the fixed adjective-preposition collocation. \"For three consecutive days\" uses \"for\" because it is a duration of time."},
+  {q:"The new hospital is situated ___ the main road, ___ the old post office.", o:["at, next to","on, opposite","in, beside","at, across"], c:1, exp:"\"Situated on\" a road uses \"on\" for roads, streets, and routes. \"Opposite\" means directly facing. This tests knowledge that roads take \"on\" (on the main road, on High Street)."},
+  {q:"She is engaged ___ someone from Lahore and will get married ___ June.", o:["to, in","with, on","to, on","with, in"], c:0, exp:"\"Engaged to\" a person is the fixed collocation (not \"engaged with\"). \"In June\" uses \"in\" for months. On is used for specific dates (on 5th June) but \"in June\" for the month generally."},
+  {q:"He is very keen ___ joining the army and has always dreamed ___ serving the nation.", o:["about, of","on, of","for, about","at, for"], c:1, exp:"\"Keen on\" doing something is the fixed adjective-preposition collocation meaning enthusiastic about. \"Dream of/about\" doing something are both correct, but \"dream of\" is more formal."},
+  {q:"The lecture was ___ great interest to the students and went ___ for two hours.", o:["at, over","of, on","in, on","for, out"], c:1, exp:"\"Of great interest\" is the fixed phrase — interest is described using \"of.\" \"Went on\" means continued (fixed phrasal verb for events or activities that continue)."},
+  {q:"He was not ___ the mood ___ studying after receiving such bad news.", o:["at, for","in, for","in, of","at, to"], c:1, exp:"\"In the mood for\" something is the fixed prepositional phrase meaning feeling like doing something. \"At\" is not used in this expression."},
+  {q:"She put all her effort ___ the project and was finally satisfied ___ the result.", o:["for, with","into, with","in, about","at, of"], c:1, exp:"\"Put effort into\" something uses \"into\" because effort is directed toward a goal (movement into a purpose). \"Satisfied with\" a result is the fixed adjective-preposition collocation — never \"satisfied about.\""},
+];
+
+/* ═══════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════ */
+const state = {
+  answered : 0,
+  correct  : 0,
+  total    : questions.length,
+};
+
+/* ═══════════════════════════════════════════════
+   SHUFFLE
+═══════════════════════════════════════════════ */
+function shuffleOptions(q) {
+  const opts = q.o.map((text, i) => ({ text, isCorrect: i === q.c }));
+  for (let i = opts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [opts[i], opts[j]] = [opts[j], opts[i]];
+  }
+  return {
+    o : opts.map(x => x.text),
+    c : opts.findIndex(x => x.isCorrect),
+  };
+}
+
+let renderedQuestions = [];
+
+/* ═══════════════════════════════════════════════
+   WATERMARK
+═══════════════════════════════════════════════ */
+(function buildWatermarks(){
+  const overlay = document.getElementById('wmOverlay');
+  const text = 'Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057';
+  for(let r = 0; r < 7; r++){
+    for(let c = 0; c < 3; c++){
+      const span = document.createElement('span');
+      span.textContent = text;
+      span.style.left  = (c * 40 - 5) + '%';
+      span.style.top   = (r * 16 - 4) + '%';
+      overlay.appendChild(span);
+    }
+  }
+})();
+
+/* ═══════════════════════════════════════════════
+   BUILD QUIZ
+═══════════════════════════════════════════════ */
+function buildQuiz(){
+  const area = document.getElementById('quizArea');
+  area.innerHTML = '';
+  renderedQuestions = [];
+
+  questions.forEach((q, i) => {
+    const labels = ['a','b','c','d'];
+
+    const shuffled  = shuffleOptions(q);
+    const displayQ  = { ...q, o: shuffled.o, c: shuffled.c };
+    renderedQuestions[i] = displayQ;
+
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = 'card-' + i;
+
+    const optionsHTML = displayQ.o.map((opt, j) =>
+      `<div class="option" id="opt-${i}-${j}" onclick="selectOpt(${i},${j})">
+        <strong>${labels[j]})</strong> ${opt}
+      </div>`
+    ).join('');
+
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="q-num">Q ${i + 1}</span>
+      </div>
+      <div class="q-text">${displayQ.q}</div>
+      <div class="options" id="opts-${i}">${optionsHTML}</div>
+      <button class="check-btn" id="check-${i}" onclick="checkAnswer(${i})">
+        ✔ Check Answer
+      </button>
+      <div class="feedback" id="fb-${i}"></div>
+      <div class="explanation-box" id="exp-${i}">
+        <span class="exp-label">💡 Explanation:</span>${displayQ.exp}
+      </div>`;
+
+    area.appendChild(card);
+  });
+
+  const res = document.createElement('div');
+  res.id = 'resultCard';
+  area.appendChild(res);
+
+  updateStats();
+}
+
+/* ═══════════════════════════════════════════════
+   INTERACTION
+═══════════════════════════════════════════════ */
+const userAnswers = {};
+
+function selectOpt(qi, oi){
+  if(userAnswers[qi]?.checked) return;
+  document.querySelectorAll(`#opts-${qi} .option`).forEach(el => el.classList.remove('selected'));
+  document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
+  userAnswers[qi] = { selected: oi, checked: false };
+}
+
+function checkAnswer(qi){
+  const entry = userAnswers[qi];
+  if(!entry || entry.checked) return;
+
+  entry.checked = true;
+  const q   = renderedQuestions[qi];
+  const ok  = entry.selected === q.c;
+
+  if(ok) state.correct++;
+  state.answered++;
+
+  document.querySelectorAll(`#opts-${qi} .option`).forEach((el, i) => {
+    el.classList.add('disabled');
+    if(i === q.c)                       el.classList.add('correct');
+    else if(i === entry.selected && !ok) el.classList.add('wrong');
+  });
+
+  const fb = document.getElementById(`fb-${qi}`);
+  if(ok){
+    fb.className = 'feedback show correct';
+    fb.textContent = '✓ Correct! Well done!';
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.textContent = `✗ Incorrect! The correct answer is: ${String.fromCharCode(97 + q.c)}) ${q.o[q.c]}`;
+  }
+
+  if(q.exp){
+    document.getElementById(`exp-${qi}`).classList.add('show');
+  }
+
+  document.getElementById(`check-${qi}`).disabled = true;
+
+  updateStats();
+
+  if(state.answered === state.total) showResult();
+}
+
+/* ═══════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════ */
+function updateStats(){
+  document.getElementById('statTotal').textContent    = state.total;
+  document.getElementById('statAnswered').textContent = state.answered;
+  document.getElementById('statCorrect').textContent  = state.correct;
+  const pct = state.total > 0 ? Math.round(state.correct / state.total * 100) : 0;
+  document.getElementById('statScore').textContent    = pct + '%';
+}
+
+/* ═══════════════════════════════════════════════
+   RESULT CARD
+═══════════════════════════════════════════════ */
+function showResult(){
+  const pct = Math.round(state.correct / state.total * 100);
+  let grade, msg, emoji;
+
+  if(pct >= 90){ grade='A+'; msg='Outstanding Performance!';  emoji='🌟'; }
+  else if(pct >= 80){ grade='A';  msg='Excellent Work!';           emoji='🎉'; }
+  else if(pct >= 70){ grade='B';  msg='Good Job!';                 emoji='👍'; }
+  else if(pct >= 60){ grade='C';  msg='Keep Practicing!';          emoji='📚'; }
+  else if(pct >= 50){ grade='D';  msg='More Effort Needed!';       emoji='💪'; }
+  else              { grade='F';  msg='Revise and Try Again!';     emoji='📖'; }
+
+  document.getElementById('resultCard').innerHTML = `
+    <div class="result-card">
+      <div class="grade-badge">${emoji}</div>
+      <h2>${msg}</h2>
+      <div class="result-grid">
+        <div class="result-stat">
+          <div class="result-stat-value">${state.correct} / ${state.total}</div>
+          <div class="result-stat-label">Correct Answers</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${pct}%</div>
+          <div class="result-stat-label">Score</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${grade}</div>
+          <div class="result-stat-label">Grade</div>
+        </div>
+      </div>
+      <p style="opacity:.85;font-size:13px;margin-bottom:16px">
+        Prepositions &nbsp;|&nbsp; Smart Study Center &nbsp;|&nbsp; Sir Ahmer Javed
+      </p>
+      <button class="result-btn" onclick="resetQuiz()">🔄 Try Again</button>
+    </div>`;
+
+  document.getElementById('resultCard').scrollIntoView({ behavior:'smooth' });
+}
+
+/* ═══════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════ */
+function resetQuiz(){
+  state.answered = 0;
+  state.correct  = 0;
+  Object.keys(userAnswers).forEach(k => delete userAnswers[k]);
+  buildQuiz();
+  window.scrollTo({ top: 0, behavior:'smooth' });
+}
+
+/* ── INIT ── */
+buildQuiz();
+</script>
+</body>
+</html>

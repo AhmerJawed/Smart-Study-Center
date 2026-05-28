@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logical Reasoning — Smart Study Center</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ── BASE ── */
+body{
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:linear-gradient(135deg,#0d2137 0%,#1565c0 50%,#1976d2 100%);
+  min-height:100vh;
+  padding:20px 16px;
+}
+
+/* ── WATERMARK ── */
+.watermark-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.watermark-overlay span{
+  position:absolute;font-size:14px;font-weight:700;
+  color:rgba(21,101,192,0.065);white-space:nowrap;
+  transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase;
+}
+
+/* ── CONTAINER ── */
+.container{
+  max-width:880px;margin:0 auto;background:#fff;
+  border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  overflow:hidden;position:relative;z-index:1;
+}
+
+/* ── CHAPTER HEADER ── */
+.chapter-header{
+  background:linear-gradient(135deg,#0d2137,#1565c0);
+  color:#fff;padding:20px 24px;text-align:center;
+}
+.ch-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;margin-bottom:6px}
+.chapter-header h1{font-size:20px;font-weight:800;margin-bottom:6px;letter-spacing:.2px}
+.ch-meta{font-size:12px;opacity:.75;font-weight:500}
+
+/* ── STATS BAR ── */
+.stats{
+  display:flex;justify-content:space-around;padding:14px 20px;
+  background:#e3f2fd;border-bottom:2px solid #bbdefb;flex-wrap:wrap;gap:8px;
+}
+.stat-item{text-align:center}
+.stat-label{font-size:10px;color:#1565c0;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.stat-value{font-size:24px;font-weight:800;color:#0d2137;margin-top:3px}
+
+/* ── QUIZ AREA ── */
+.quiz-area{padding:24px 22px}
+
+/* ── QUESTION CARD ── */
+.question-card{
+  background:#f8f9fa;border-radius:12px;padding:20px;
+  margin-bottom:16px;border-left:5px solid #1565c0;
+  transition:box-shadow .2s;
+}
+.question-card:hover{box-shadow:0 4px 16px rgba(21,101,192,.1)}
+.card-top{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;
+}
+.q-num{
+  background:#1565c0;color:#fff;padding:4px 14px;
+  border-radius:20px;font-weight:700;font-size:12px;
+}
+.q-text{
+  font-size:15px;color:#1a1a1a;margin-bottom:14px;line-height:1.65;font-weight:500;
+}
+
+/* ── OPTIONS ── */
+.options{display:grid;gap:9px}
+.option{
+  padding:11px 16px;background:#fff;border:2px solid #dee2e6;
+  border-radius:9px;cursor:pointer;transition:all .25s;
+  font-size:14px;color:#333;line-height:1.4;
+}
+.option:hover:not(.disabled){border-color:#1565c0;background:#e3f2fd;color:#0d2137}
+.option.selected{border-color:#1565c0;background:#bbdefb;color:#0d2137}
+.option.correct{border-color:#1565c0!important;background:#e3f2fd!important;color:#0d2137!important;font-weight:700}
+.option.wrong{border-color:#c62828!important;background:#ffebee!important;color:#b71c1c!important}
+.option.disabled{cursor:not-allowed}
+
+/* ── CHECK BUTTON ── */
+.check-btn{
+  margin-top:13px;background:#1565c0;color:#fff;border:none;
+  padding:9px 26px;border-radius:9px;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all .25s;
+}
+.check-btn:hover:not(:disabled){background:#1976d2;transform:translateY(-1px);box-shadow:0 4px 14px rgba(21,101,192,.35)}
+.check-btn:disabled{background:#bdbdbd;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ── FEEDBACK / EXPLANATION ── */
+.feedback{
+  display:none;margin-top:11px;padding:10px 14px;
+  border-radius:8px;font-size:13px;line-height:1.5;
+}
+.feedback.show{display:block}
+.feedback.correct{background:#e3f2fd;color:#0d2137;border:2px solid #64b5f6;font-weight:600}
+.feedback.wrong{background:#ffebee;color:#b71c1c;border:2px solid #ef9a9a;font-weight:600}
+.explanation-box{
+  display:none;margin-top:8px;padding:10px 14px;
+  background:#fffde7;border:2px solid #f9a825;
+  border-radius:8px;font-size:13px;color:#5d4037;line-height:1.5;
+}
+.explanation-box.show{display:block}
+.exp-label{font-weight:700;color:#f57f17;margin-right:4px}
+
+/* ── RESULT CARD ── */
+.result-card{
+  background:linear-gradient(135deg,#0d2137,#1565c0);
+  color:#fff;border-radius:14px;padding:30px 24px;text-align:center;
+  margin:8px 0 4px;
+}
+.result-card h2{font-size:23px;margin-bottom:18px;font-weight:800}
+.result-grid{
+  display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap;margin-bottom:22px;
+}
+.result-stat{text-align:center;background:rgba(255,255,255,.14);border-radius:12px;padding:14px 22px}
+.result-stat-value{font-size:32px;font-weight:800}
+.result-stat-label{font-size:12px;opacity:.85;margin-top:4px;letter-spacing:.5px;text-transform:uppercase}
+.grade-badge{
+  display:inline-block;font-size:42px;font-weight:900;
+  background:rgba(255,255,255,.2);border-radius:50%;
+  width:80px;height:80px;line-height:80px;margin-bottom:16px;
+}
+.result-btn{
+  background:rgba(255,255,255,.18);color:#fff;
+  border:2px solid rgba(255,255,255,.7);padding:10px 24px;border-radius:9px;
+  cursor:pointer;font-size:14px;font-weight:700;margin:6px;transition:all .25s;
+}
+.result-btn:hover{background:#fff;color:#1565c0}
+
+/* ── FOOTER ── */
+.brand-footer{
+  background:#f5f5f5;border-top:1px solid #e0e0e0;
+  color:#9e9e9e;text-align:center;padding:12px;font-size:11px;letter-spacing:.3px;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:540px){
+  .chapter-header h1{font-size:17px}
+  .stat-value{font-size:20px}
+  .result-stat-value{font-size:26px}
+  .quiz-area{padding:16px 14px}
+}
+</style>
+</head>
+<body>
+
+<!-- WATERMARK -->
+<div class="watermark-overlay" id="wmOverlay"></div>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="chapter-header">
+    <div class="ch-label">MDCAT Preparation — Part 5</div>
+    <h1>Logical Reasoning — 80 MCQs</h1>
+    <div class="ch-meta">Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed</div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-label">Total Qs</div>
+      <div class="stat-value" id="statTotal">80</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Answered</div>
+      <div class="stat-value" id="statAnswered">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Correct</div>
+      <div class="stat-value" id="statCorrect">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Score</div>
+      <div class="stat-value" id="statScore">0%</div>
+    </div>
+  </div>
+
+  <!-- QUIZ AREA -->
+  <div class="quiz-area" id="quizArea"></div>
+
+  <!-- FOOTER -->
+  <div class="brand-footer">
+    Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed &nbsp;·&nbsp; 0345-3090057
+  </div>
+
+</div><!-- /container -->
+
+<script>
+/* ═══════════════════════════════════════════════
+   MCQ DATA — Logical Reasoning
+═══════════════════════════════════════════════ */
+const questions = [
+  {q:"Which number comes next: 2, 6, 12, 20, 30, ?", o:["40","42","44","38"], c:1, exp:"Differences are 4, 6, 8, 10, 12 — so 30 + 12 = 42."},
+  {q:"Which number comes next: 3, 9, 27, 81, ?", o:["162","243","324","180"], c:1, exp:"Each term is multiplied by 3, so 81 × 3 = 243."},
+  {q:"Which number comes next: 100, 96, 89, 79, 66, ?", o:["48","52","50","54"], c:2, exp:"Differences are 4, 7, 10, 13, 16 — so 66 − 16 = 50."},
+  {q:"Which number comes next: 1, 1, 2, 3, 5, 8, 13, ?", o:["18","21","20","19"], c:1, exp:"Each term is the sum of the two preceding terms (Fibonacci), so 8 + 13 = 21."},
+  {q:"Find the wrong term: 4, 8, 16, 32, 64, 96, 128", o:["64","96","32","128"], c:1, exp:"The series doubles each time, so after 64 the next term should be 128, making 96 the wrong term."},
+  {q:"Which number comes next: 144, 121, 100, 81, 64, ?", o:["36","25","49","48"], c:2, exp:"The series is perfect squares in descending order: 12², 11², 10², 9², 8², 7² = 49."},
+  {q:"Which number comes next: 5, 11, 23, 47, 95, ?", o:["190","191","188","192"], c:1, exp:"Each term is doubled and then 1 is added, so 95 × 2 + 1 = 191."},
+  {q:"Which term comes next in the letter series: B, E, H, K, N, ?", o:["P","Q","R","O"], c:1, exp:"Each letter advances by 3 positions, so N + 3 = Q."},
+  {q:"Which term comes next: Z, X, V, T, R, ?", o:["Q","O","P","N"], c:2, exp:"Each letter decreases by 2, so R − 2 = P."},
+  {q:"Which term comes next: A, C, F, J, O, ?", o:["U","V","T","W"], c:0, exp:"Differences in positions are +2, +3, +4, +5, +6 — so O(15) + 6 = U(21)."},
+  {q:"Which term comes next: AZ, BY, CX, DW, ?", o:["EU","EV","EW","FV"], c:1, exp:"First letter advances by 1 (A,B,C,D,E) and second letter decreases by 1 (Z,Y,X,W,V), giving EV."},
+  {q:"Which term comes next: BD, GI, LN, QS, ?", o:["VX","UW","VW","XZ"], c:0, exp:"Each pair starts 5 letters after the previous pair's start, and second letter is always second letter of pair + 2, so QS + 5 = VX."},
+  {q:"Which term comes next: A2, C4, E8, G16, ?", o:["H32","I32","I24","J32"], c:1, exp:"Letters advance by 2 (A,C,E,G,I) and numbers double (2,4,8,16,32), giving I32."},
+  {q:"Which term comes next: 2B, 4D, 6F, 8H, ?", o:["9I","10J","10I","12J"], c:1, exp:"Numbers increase by 2 and letters advance by 2, so 10J."},
+  {q:"Which term comes next: Z1A, Y2B, X3C, W4D, ?", o:["U5E","V5E","V4E","V6F"], c:1, exp:"First letter decreases by 1, number increases by 1, last letter advances by 1, giving V5E."},
+  {q:"Find the missing term: 7, 14, ?, 56, 112", o:["28","30","32","21"], c:0, exp:"Each term is multiplied by 2, so 14 × 2 = 28."},
+  {q:"Find the missing term: 6, 11, 21, 41, ?, 161", o:["71","81","91","101"], c:1, exp:"Each term is the previous term doubled minus 1, so 41 × 2 − 1 = 81."},
+  {q:"Which number comes next: 0, 1, 4, 9, 25, 36, ?", o:["46","49","48","64"], c:1, exp:"Following consecutive perfect squares after 6² = 36 comes 7² = 49."},
+  {q:"Which term comes next: QPO, NML, KJI, HGF, ?", o:["DCB","EDB","EDC","CBA"], c:2, exp:"Each group is three consecutive descending letters, each group starting 3 letters below the previous, so after HGF comes EDC."},
+  {q:"Find the wrong term: 2, 5, 10, 17, 26, 37, 50, 64", o:["50","37","64","26"], c:2, exp:"Differences are 3,5,7,9,11,13,15 — so after 50 the next term should be 50+15=65, making 64 the wrong term."},
+  {q:"A is the father of B. B is the sister of C. C is the mother of D. What is A to D?", o:["Uncle","Father","Grandfather","Brother"], c:2, exp:"A is B's father → B is C's sister → C is D's mother → so A is D's maternal grandfather."},
+  {q:"Pointing to a man, a woman says 'His mother is the only daughter of my mother.' How is the woman related to the man?", o:["Grandmother","Sister","Mother","Aunt"], c:2, exp:"The only daughter of the woman's mother is the woman herself, so the man's mother is the woman — she is his mother."},
+  {q:"P is the brother of Q. Q is the mother of R. S is the father of P. What is S to R?", o:["Father","Uncle","Grandfather","Brother"], c:2, exp:"P and Q are siblings → S is their father → Q is R's mother → so S is R's grandfather."},
+  {q:"Introducing a girl, a boy says 'She is the daughter of the only son of my grandfather.' How is the girl related to the boy?", o:["Aunt","Sister","Cousin","Mother"], c:1, exp:"The only son of the boy's grandfather is the boy's father, and the girl is the daughter of the boy's father — making her his sister."},
+  {q:"A's mother is B's daughter. C is the son of A. How is B related to C?", o:["Father","Uncle","Grandfather","Great-grandfather"], c:2, exp:"B's daughter is A's mother → B is A's maternal grandfather → C is A's son → B is two generations above C."},
+  {q:"Raza is the son of Hamid's father's sister. How is Hamid related to Raza?", o:["Son","Cousin","Nephew","Uncle"], c:1, exp:"Hamid's father's sister is Hamid's aunt → Raza is her son → Raza and Hamid are cousins."},
+  {q:"Nida said, 'That girl's father is the only son of my grandfather.' How is Nida related to that girl?", o:["Mother","Sister","Aunt","Grandmother"], c:2, exp:"The only son of Nida's grandfather is Nida's uncle, making Nida the girl's aunt."},
+  {q:"X is Y's brother. Y is Z's sister. Z is W's son. How is X related to W?", o:["Son","Daughter","Nephew","Uncle"], c:0, exp:"Z is W's son → Y is Z's sister → Y and Z are both W's children → X is Y's brother → X is also W's son."},
+  {q:"If Fatima's father's mother's husband is Usman, how is Usman related to Fatima?", o:["Father","Grandfather","Uncle","Great-grandfather"], c:1, exp:"Fatima's father's mother is Fatima's paternal grandmother, and her husband is Fatima's paternal grandfather — that is Usman."},
+  {q:"A woman introduces a man as 'He is the son of the woman who is the mother of the husband of my mother.' How is the man related to the woman?", o:["Uncle","Brother","Son","Father"], c:0, exp:"The husband of the woman's mother is her father → the mother of her father is her paternal grandmother → her son is the woman's uncle."},
+  {q:"Statements: All birds can fly. Penguins are birds. Conclusions: I. Penguins can fly. II. Some birds are penguins. Which conclusion follows?", o:["Only I","Only II","Both I and II","Neither I nor II"], c:2, exp:"Both conclusions follow directly from the given statements without requiring any additional assumptions."},
+  {q:"Statements: No cats are dogs. All dogs are animals. Conclusions: I. No cats are animals. II. Some animals are not cats. Which conclusion is correct?", o:["Only I","Only II","Both I and II","Neither I nor II"], c:1, exp:"Conclusion I is wrong because cats could still be animals through another route; Conclusion II necessarily follows since dogs are animals and no dogs are cats."},
+  {q:"Statements: All roses are flowers. Some flowers fade quickly. Conclusions: I. All roses fade quickly. II. Some roses may fade quickly. Which conclusion follows?", o:["Only I","Only II","Both I and II","Neither I nor II"], c:1, exp:"Conclusion I is too strong — 'some flowers' does not mean 'all roses'; Conclusion II is a valid possibility."},
+  {q:"Ali is taller than Bilal. Bilal is taller than Sajid. Sajid is taller than Danish. Who is the shortest?", o:["Ali","Bilal","Sajid","Danish"], c:3, exp:"The order is Ali > Bilal > Sajid > Danish, so Danish is shortest."},
+  {q:"Hina is older than Zara. Zara is older than Maria. Maria is older than Nadia. Which of the following is definitely true?", o:["Zara is older than Nadia","Hina is younger than Maria","Maria is older than Hina","Nadia is older than Zara"], c:0, exp:"Since Zara > Maria > Nadia, Zara is definitely older than Nadia."},
+  {q:"Statements: Some doctors are engineers. All engineers are scientists. Conclusions: I. Some doctors are scientists. II. All scientists are doctors. Which conclusion follows?", o:["Only I","Only II","Both I and II","Neither I nor II"], c:0, exp:"Since some doctors are engineers and all engineers are scientists, some doctors must also be scientists; Conclusion II cannot be confirmed."},
+  {q:"In a race, Kamran finished before Tariq. Usman finished after Zaid. Tariq finished before Usman. Who finished last?", o:["Kamran","Tariq","Usman","Zaid"], c:2, exp:"Order is Kamran → Tariq → Zaid → Usman, so Usman finished last."},
+  {q:"Statements: All glasses are fragile. No plastic is fragile. Conclusions: I. No glasses are plastic. II. All fragile things are glasses. Which conclusion follows?", o:["Only I","Only II","Both I and II","Neither I nor II"], c:0, exp:"Since all glasses are fragile and no plastic is fragile, glasses and plastic cannot overlap — Conclusion I follows; Conclusion II cannot be confirmed."},
+  {q:"Sara is not as tall as Mira. Mira is not as tall as Laila. If the third statement 'Laila is not as tall as Sara' is evaluated, it is:", o:["True","False","Uncertain","Cannot be determined"], c:1, exp:"From the first two statements Laila > Mira > Sara, so Laila is taller than Sara, making the third statement false."},
+  {q:"Statements: All mangoes are sweet. All sweets cause tooth decay. Conclusions: I. All mangoes cause tooth decay. II. Some sweet things are mangoes. Which is correct?", o:["Only I","Only II","Both I and II","Neither I nor II"], c:2, exp:"Conclusion I follows by chaining both statements; Conclusion II follows because mangoes are sweet, so some sweet things are mangoes."},
+  {q:"All honest people are trusted. No trusted person is jealous. Which conclusion is correct?", o:["No jealous person is honest","All trusted people are honest","Some honest people are jealous","No honest people exist"], c:0, exp:"Honest → trusted → not jealous, so no honest person can be jealous, meaning no jealous person is honest."},
+  {q:"Statements: Some books are pens. Some pens are erasers. Conclusions: I. Some books are erasers. II. No books are erasers. Which follows?", o:["Only I","Only II","Either I or II","Neither I nor II"], c:3, exp:"Neither conclusion can be definitively drawn since 'some pens' overlap with both books and erasers but not necessarily the same pens."},
+  {q:"Statement I: The government declared a public holiday due to heavy flooding. Statement II: Most offices, schools, and markets remained closed that day. What is the relationship?", o:["Statement II is the cause and I is the effect","Statement I is the cause and II is the effect","Both are effects of an independent cause","Both are independent statements"], c:1, exp:"The declaration of a holiday (I) directly caused offices and schools to close (II)."},
+  {q:"Statement I: A new factory opened in the city last month. Statement II: Air pollution levels in the city have risen significantly. What is the relationship?", o:["Statement II is the cause and I is the effect","Both are independent causes","Statement I is the cause and II is the effect","Both are effects of a common cause"], c:2, exp:"The opening of a factory (I) is a direct cause of increased air pollution (II)."},
+  {q:"Statement I: The price of petrol increased by 20%. Statement II: The cost of public transport fares went up. What is the relationship?", o:["Statement II is the cause and I is the effect","Both are effects of a common cause","Statement I is the cause and II is the effect","Both are independent"], c:2, exp:"Higher petrol prices (I) directly push up the operating costs of transport, raising fares (II)."},
+  {q:"Statement I: There has been very little rainfall this year in the region. Statement II: Farmers are reporting significant crop failures. What is the relationship?", o:["Statement II is the cause and I is the effect","Statement I is the cause and II is the effect","Both are independent causes","Both are effects of a common cause"], c:1, exp:"Insufficient rainfall (I) directly leads to crop failures (II)."},
+  {q:"Statement I: The city's electricity supply has been irregular for the past week. Statement II: Many residents have purchased power backup generators. What is the relationship?", o:["Both are independent","Statement II is the cause and I is the effect","Both are effects of a common cause","Statement I is the cause and II is the effect"], c:3, exp:"Irregular electricity (I) prompted residents to buy generators (II) as a response."},
+  {q:"Statement I: A large number of students failed the mathematics examination. Statement II: The mathematics syllabus was revised and made significantly harder this year. What is the relationship?", o:["Statement I is the cause and II is the effect","Statement II is the cause and I is the effect","Both are effects of a common cause","Both are independent"], c:1, exp:"The harder revised syllabus (II) caused higher failure rates (I)."},
+  {q:"Statement I: Water contamination was detected in the main supply line. Statement II: Many residents in the area reported stomach illness. What is the relationship?", o:["Statement II is the cause and I is the effect","Both are effects of a common cause","Both are independent","Statement I is the cause and II is the effect"], c:3, exp:"Contaminated water supply (I) directly caused illness among residents (II)."},
+  {q:"Statement I: The country's foreign exchange reserves have declined sharply. Statement II: The value of the national currency has dropped against the dollar. What is the relationship?", o:["Both are effects of a common cause","Statement I is the cause and II is the effect","Statement II is the cause and I is the effect","Both are independent causes"], c:0, exp:"Both declining reserves and a weaker currency are typically effects of the same underlying economic pressures rather than one causing the other."},
+  {q:"If CAT = DBU, what is DOG?", o:["EPH","ENH","EPG","EQH"], c:0, exp:"Each letter is shifted forward by 1 (C→D, A→B, T→U), so D→E, O→P, G→H = EPH."},
+  {q:"If MANGO = NBOIP, what is APPLE?", o:["BQQMF","BQQLF","CQQMF","BPQMF"], c:0, exp:"Each letter is shifted forward by 1, so A→B, P→Q, P→Q, L→M, E→F = BQQMF."},
+  {q:"If ROSE = PTUG, what is LILY?", o:["NKNA","NKNB","MKNA","NJNA"], c:3, exp:"Applying the same positional shifts to LILY gives NJNA."},
+  {q:"If BOOK = DQQM, what is PAGE?", o:["RCIG","RBIG","RCIH","RDIH"], c:0, exp:"Each letter is shifted forward by 2 (B→D, O→Q, O→Q, K→M), so P→R, A→C, G→I, E→G = RCIG."},
+  {q:"If WATER = XBUFS, what is EARTH?", o:["FBSUI","FBSUH","FASUI","EBSUI"], c:0, exp:"Each letter shifts forward by 1, so E→F, A→B, R→S, T→U, H→I = FBSUI."},
+  {q:"If FIRE = GJSF, what is WIND?", o:["XJOF","XJOE","WJOF","YJOE"], c:1, exp:"Each letter shifts forward by 1, so W→X, I→J, N→O, D→E = XJOE."},
+  {q:"If LIGHT = MJHIU, what is DARK?", o:["EBSL","EBSK","ECSL","DBSL"], c:0, exp:"Each letter shifts forward by 1, so D→E, A→B, R→S, K→L = EBSL."},
+  {q:"If in a code CLOUD = DNPVF, what does STORM code to?", o:["TUPSO","TUQSO","TUPTN","SVQTO"], c:0, exp:"Applying the consistent +1 shift to all letters gives TUPSO."},
+  {q:"A pipe fills a tank in 6 hours. Another pipe empties it in 12 hours. If both are open together, in how many hours will the tank be full?", o:["18","10","12","8"], c:2, exp:"Net rate = 1/6 − 1/12 = 1/12 per hour, so the tank fills in 12 hours."},
+  {q:"A shopkeeper bought an item for Rs. 400 and sold it for Rs. 500. What is the profit percentage?", o:["20%","25%","15%","10%"], c:1, exp:"Profit = 100, profit % = (100/400) × 100 = 25%."},
+  {q:"If 15 workers complete a job in 8 days, how many days will 10 workers take to complete the same job?", o:["10","14","12","16"], c:2, exp:"Total work = 15 × 8 = 120 worker-days; 10 workers need 120 ÷ 10 = 12 days."},
+  {q:"A train travels 360 km in 4 hours. At the same speed, how far will it travel in 7 hours?", o:["620 km","640 km","630 km","660 km"], c:2, exp:"Speed = 90 km/h; distance in 7 hours = 90 × 7 = 630 km."},
+  {q:"A room's length is twice its width. If the perimeter is 60 m, what is the width?", o:["8 m","12 m","10 m","15 m"], c:2, exp:"Let width = w; length = 2w; perimeter = 2(2w + w) = 6w = 60; w = 10 m."},
+  {q:"Sana scored 72 out of 90 in a test. What percentage did she score?", o:["78%","82%","80%","85%"], c:2, exp:"(72 ÷ 90) × 100 = 80%."},
+  {q:"The sum of three consecutive odd numbers is 51. What is the largest of the three?", o:["17","19","21","15"], c:1, exp:"Let the numbers be n, n+2, n+4; sum = 3n + 6 = 51; n = 15; largest = 17+2 = 19."},
+  {q:"If a man walks at 5 km/h and covers a distance in 3 hours, how long will he take at 3 km/h?", o:["4 hours","6 hours","5 hours","7 hours"], c:2, exp:"Distance = 15 km; time at 3 km/h = 15 ÷ 3 = 5 hours."},
+  {q:"Pick the odd one out: Scalpel, Stethoscope, Thermometer, Hammer", o:["Scalpel","Stethoscope","Thermometer","Hammer"], c:3, exp:"Scalpel, stethoscope, and thermometer are medical instruments; a hammer is not."},
+  {q:"Pick the odd one out: Nile, Amazon, Pacific, Yangtze", o:["Nile","Amazon","Pacific","Yangtze"], c:2, exp:"Nile, Amazon, and Yangtze are rivers; Pacific is an ocean."},
+  {q:"Pick the odd one out: Insulin, Adrenaline, Estrogen, Penicillin", o:["Insulin","Adrenaline","Estrogen","Penicillin"], c:3, exp:"Insulin, adrenaline, and estrogen are hormones produced by the body; penicillin is an antibiotic."},
+  {q:"Pick the odd one out: Venus, Mars, Moon, Saturn", o:["Venus","Mars","Moon","Saturn"], c:2, exp:"Venus, Mars, and Saturn are planets; the Moon is a natural satellite."},
+  {q:"Pick the odd one out: Mitochondria, Ribosome, Chloroplast, Nucleus, Cell wall", o:["Mitochondria","Ribosome","Chloroplast","Cell wall"], c:2, exp:"Chloroplast is found only in plant cells, while the others are present in both animal and plant cells."},
+  {q:"Doctor is to Patient as Teacher is to:", o:["School","Lesson","Student","Knowledge"], c:2, exp:"A doctor serves a patient just as a teacher serves a student — both are direct service relationships."},
+  {q:"Pen is to Writer as Scalpel is to:", o:["Nurse","Patient","Surgeon","Hospital"], c:2, exp:"A pen is the primary tool of a writer just as a scalpel is the primary tool of a surgeon."},
+  {q:"Book is to Library as Medicine is to:", o:["Doctor","Illness","Pharmacy","Patient"], c:2, exp:"Books are stored and dispensed from a library just as medicines are stored and dispensed from a pharmacy."},
+  {q:"Pick the odd one out: Typhoid, Cholera, Malaria, Diabetes", o:["Typhoid","Cholera","Malaria","Diabetes"], c:3, exp:"Typhoid, cholera, and malaria are infectious diseases caused by pathogens; diabetes is a metabolic disorder."},
+  {q:"Lungs are to Breathing as Heart is to:", o:["Blood","Pumping","Oxygen","Veins"], c:1, exp:"The function of the lungs is breathing just as the primary function of the heart is pumping blood."},
+  {q:"Fish is to Water as Bird is to:", o:["Wings","Nest","Tree","Air"], c:3, exp:"A fish lives and moves in water just as a bird lives and moves in air — both are natural habitats."},
+  {q:"Pick the odd one out: Quran, Bible, Gita, Mosque", o:["Quran","Bible","Gita","Mosque"], c:3, exp:"Quran, Bible, and Gita are religious scriptures; a mosque is a place of worship, not a scripture."},
+  {q:"Architect is to Blueprint as Composer is to:", o:["Orchestra","Instrument","Score","Concert"], c:2, exp:"An architect produces a blueprint just as a composer produces a musical score — both are the planned written form of their creation."},
+];
+
+/* ═══════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════ */
+const state = {
+  answered : 0,
+  correct  : 0,
+  total    : questions.length,
+};
+
+/* ═══════════════════════════════════════════════
+   SHUFFLE
+═══════════════════════════════════════════════ */
+function shuffleOptions(q) {
+  const opts = q.o.map((text, i) => ({ text, isCorrect: i === q.c }));
+  for (let i = opts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [opts[i], opts[j]] = [opts[j], opts[i]];
+  }
+  return {
+    o : opts.map(x => x.text),
+    c : opts.findIndex(x => x.isCorrect),
+  };
+}
+
+let renderedQuestions = [];
+
+/* ═══════════════════════════════════════════════
+   WATERMARK
+═══════════════════════════════════════════════ */
+(function buildWatermarks(){
+  const overlay = document.getElementById('wmOverlay');
+  const text = 'Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057';
+  for(let r = 0; r < 7; r++){
+    for(let c = 0; c < 3; c++){
+      const span = document.createElement('span');
+      span.textContent = text;
+      span.style.left  = (c * 40 - 5) + '%';
+      span.style.top   = (r * 16 - 4) + '%';
+      overlay.appendChild(span);
+    }
+  }
+})();
+
+/* ═══════════════════════════════════════════════
+   BUILD QUIZ
+═══════════════════════════════════════════════ */
+function buildQuiz(){
+  const area = document.getElementById('quizArea');
+  area.innerHTML = '';
+  renderedQuestions = [];
+
+  questions.forEach((q, i) => {
+    const labels = ['a','b','c','d'];
+
+    const shuffled  = shuffleOptions(q);
+    const displayQ  = { ...q, o: shuffled.o, c: shuffled.c };
+    renderedQuestions[i] = displayQ;
+
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = 'card-' + i;
+
+    const optionsHTML = displayQ.o.map((opt, j) =>
+      `<div class="option" id="opt-${i}-${j}" onclick="selectOpt(${i},${j})">
+        <strong>${labels[j]})</strong> ${opt}
+      </div>`
+    ).join('');
+
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="q-num">Q ${i + 1}</span>
+      </div>
+      <div class="q-text">${displayQ.q}</div>
+      <div class="options" id="opts-${i}">${optionsHTML}</div>
+      <button class="check-btn" id="check-${i}" onclick="checkAnswer(${i})">
+        ✔ Check Answer
+      </button>
+      <div class="feedback" id="fb-${i}"></div>
+      <div class="explanation-box" id="exp-${i}">
+        <span class="exp-label">💡 Explanation:</span>${displayQ.exp}
+      </div>`;
+
+    area.appendChild(card);
+  });
+
+  const res = document.createElement('div');
+  res.id = 'resultCard';
+  area.appendChild(res);
+
+  updateStats();
+}
+
+/* ═══════════════════════════════════════════════
+   INTERACTION
+═══════════════════════════════════════════════ */
+const userAnswers = {};
+
+function selectOpt(qi, oi){
+  if(userAnswers[qi]?.checked) return;
+  document.querySelectorAll(`#opts-${qi} .option`).forEach(el => el.classList.remove('selected'));
+  document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
+  userAnswers[qi] = { selected: oi, checked: false };
+}
+
+function checkAnswer(qi){
+  const entry = userAnswers[qi];
+  if(!entry || entry.checked) return;
+
+  entry.checked = true;
+  const q   = renderedQuestions[qi];
+  const ok  = entry.selected === q.c;
+
+  if(ok) state.correct++;
+  state.answered++;
+
+  document.querySelectorAll(`#opts-${qi} .option`).forEach((el, i) => {
+    el.classList.add('disabled');
+    if(i === q.c)                       el.classList.add('correct');
+    else if(i === entry.selected && !ok) el.classList.add('wrong');
+  });
+
+  const fb = document.getElementById(`fb-${qi}`);
+  if(ok){
+    fb.className = 'feedback show correct';
+    fb.textContent = '✓ Correct! Well done!';
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.textContent = `✗ Incorrect! The correct answer is: ${String.fromCharCode(97 + q.c)}) ${q.o[q.c]}`;
+  }
+
+  if(q.exp){
+    document.getElementById(`exp-${qi}`).classList.add('show');
+  }
+
+  document.getElementById(`check-${qi}`).disabled = true;
+
+  updateStats();
+
+  if(state.answered === state.total) showResult();
+}
+
+/* ═══════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════ */
+function updateStats(){
+  document.getElementById('statTotal').textContent    = state.total;
+  document.getElementById('statAnswered').textContent = state.answered;
+  document.getElementById('statCorrect').textContent  = state.correct;
+  const pct = state.total > 0 ? Math.round(state.correct / state.total * 100) : 0;
+  document.getElementById('statScore').textContent    = pct + '%';
+}
+
+/* ═══════════════════════════════════════════════
+   RESULT CARD
+═══════════════════════════════════════════════ */
+function showResult(){
+  const pct = Math.round(state.correct / state.total * 100);
+  let grade, msg, emoji;
+
+  if(pct >= 90){ grade='A+'; msg='Outstanding Performance!';  emoji='🌟'; }
+  else if(pct >= 80){ grade='A';  msg='Excellent Work!';           emoji='🎉'; }
+  else if(pct >= 70){ grade='B';  msg='Good Job!';                 emoji='👍'; }
+  else if(pct >= 60){ grade='C';  msg='Keep Practicing!';          emoji='📚'; }
+  else if(pct >= 50){ grade='D';  msg='More Effort Needed!';       emoji='💪'; }
+  else              { grade='F';  msg='Revise and Try Again!';     emoji='📖'; }
+
+  document.getElementById('resultCard').innerHTML = `
+    <div class="result-card">
+      <div class="grade-badge">${emoji}</div>
+      <h2>${msg}</h2>
+      <div class="result-grid">
+        <div class="result-stat">
+          <div class="result-stat-value">${state.correct} / ${state.total}</div>
+          <div class="result-stat-label">Correct Answers</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${pct}%</div>
+          <div class="result-stat-label">Score</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${grade}</div>
+          <div class="result-stat-label">Grade</div>
+        </div>
+      </div>
+      <p style="opacity:.85;font-size:13px;margin-bottom:16px">
+        Logical Reasoning &nbsp;|&nbsp; Smart Study Center &nbsp;|&nbsp; Sir Ahmer Javed
+      </p>
+      <button class="result-btn" onclick="resetQuiz()">🔄 Try Again</button>
+    </div>`;
+
+  document.getElementById('resultCard').scrollIntoView({ behavior:'smooth' });
+}
+
+/* ═══════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════ */
+function resetQuiz(){
+  state.answered = 0;
+  state.correct  = 0;
+  Object.keys(userAnswers).forEach(k => delete userAnswers[k]);
+  buildQuiz();
+  window.scrollTo({ top: 0, behavior:'smooth' });
+}
+
+/* ── INIT ── */
+buildQuiz();
+</script>
+</body>
+</html>
