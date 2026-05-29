@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch.16 Support &amp; Movement — Smart Study Center</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ── BASE ── */
+body{
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:linear-gradient(135deg,#1a4731 0%,#2e7d32 50%,#388e3c 100%);
+  min-height:100vh;
+  padding:20px 16px;
+}
+
+/* ── WATERMARK ── */
+.watermark-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.watermark-overlay span{
+  position:absolute;font-size:14px;font-weight:700;
+  color:rgba(46,125,50,0.065);white-space:nowrap;
+  transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase;
+}
+
+/* ── CONTAINER ── */
+.container{
+  max-width:880px;margin:0 auto;background:#fff;
+  border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  overflow:hidden;position:relative;z-index:1;
+}
+
+/* ── CHAPTER HEADER ── */
+.chapter-header{
+  background:linear-gradient(135deg,#1b5e20,#2e7d32);
+  color:#fff;padding:20px 24px;text-align:center;
+}
+.ch-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;margin-bottom:6px}
+.chapter-header h1{font-size:20px;font-weight:800;margin-bottom:6px;letter-spacing:.2px}
+.ch-meta{font-size:12px;opacity:.75;font-weight:500}
+
+/* ── STATS BAR ── */
+.stats{
+  display:flex;justify-content:space-around;padding:14px 20px;
+  background:#e8f5e9;border-bottom:2px solid #c8e6c9;flex-wrap:wrap;gap:8px;
+}
+.stat-item{text-align:center}
+.stat-label{font-size:10px;color:#2e7d32;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.stat-value{font-size:24px;font-weight:800;color:#1b5e20;margin-top:3px}
+
+/* ── TIMER BAR ── */
+.timer-bar{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  padding:11px 20px;background:#fff8f0;border-bottom:2px solid #ffe0b2;
+}
+.timer-icon{font-size:18px;line-height:1}
+.timer-label{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#e65100}
+.timer-display{
+  font-size:26px;font-weight:800;color:#e65100;
+  font-variant-numeric:tabular-nums;letter-spacing:1px;
+  transition:color .4s;
+}
+.timer-display.warning{color:#c62828;animation:pulse 1s infinite}
+.timer-progress-wrap{
+  flex:1;max-width:300px;height:6px;background:#ffe0b2;
+  border-radius:4px;overflow:hidden;
+}
+.timer-progress-fill{
+  height:100%;background:#e65100;border-radius:4px;
+  transition:width 1s linear, background .4s;
+}
+.timer-progress-fill.warning{background:#c62828}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+
+/* ── QUIZ AREA ── */
+.quiz-area{padding:24px 22px}
+
+/* ── QUESTION CARD ── */
+.question-card{
+  background:#f8f9fa;border-radius:12px;padding:20px;
+  margin-bottom:16px;border-left:5px solid #2e7d32;
+  transition:box-shadow .2s;
+}
+.question-card:hover{box-shadow:0 4px 16px rgba(46,125,50,.1)}
+.card-top{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;
+}
+.q-num{
+  background:#2e7d32;color:#fff;padding:4px 14px;
+  border-radius:20px;font-weight:700;font-size:12px;
+}
+.q-tag{
+  background:#2e7d32;color:#fff;padding:3px 10px;
+  border-radius:14px;font-size:10.5px;font-weight:700;letter-spacing:.3px;
+}
+.q-text{
+  font-size:15px;color:#1a1a1a;margin-bottom:14px;line-height:1.65;font-weight:500;
+}
+
+/* ── OPTIONS ── */
+.options{display:grid;gap:9px}
+.option{
+  padding:11px 16px;background:#fff;border:2px solid #dee2e6;
+  border-radius:9px;cursor:pointer;transition:all .25s;
+  font-size:14px;color:#333;line-height:1.4;
+}
+.option:hover:not(.disabled){border-color:#2e7d32;background:#e8f5e9;color:#1b5e20}
+.option.selected{border-color:#2e7d32;background:#c8e6c9;color:#1b5e20}
+.option.correct{border-color:#2e7d32!important;background:#e8f5e9!important;color:#1b5e20!important;font-weight:700}
+.option.wrong{border-color:#c62828!important;background:#ffebee!important;color:#b71c1c!important}
+.option.disabled{cursor:not-allowed}
+
+/* ── CHECK BUTTON ── */
+.check-btn{
+  margin-top:13px;background:#2e7d32;color:#fff;border:none;
+  padding:9px 26px;border-radius:9px;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all .25s;
+}
+.check-btn:hover:not(:disabled){background:#388e3c;transform:translateY(-1px);box-shadow:0 4px 14px rgba(46,125,50,.35)}
+.check-btn:disabled{background:#bdbdbd;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ── FEEDBACK / EXPLANATION ── */
+.feedback{
+  display:none;margin-top:11px;padding:10px 14px;
+  border-radius:8px;font-size:13px;line-height:1.5;
+}
+.feedback.show{display:block}
+.feedback.correct{background:#e8f5e9;color:#1b5e20;border:2px solid #66bb6a;font-weight:600}
+.feedback.wrong{background:#ffebee;color:#b71c1c;border:2px solid #ef9a9a;font-weight:600}
+.explanation-box{
+  display:none;margin-top:8px;padding:10px 14px;
+  background:#fffde7;border:2px solid #f9a825;
+  border-radius:8px;font-size:13px;color:#5d4037;line-height:1.5;
+}
+.explanation-box.show{display:block}
+.exp-label{font-weight:700;color:#f57f17;margin-right:4px}
+
+/* ── RESULT CARD ── */
+.result-card{
+  background:linear-gradient(135deg,#1b5e20,#2e7d32);
+  color:#fff;border-radius:14px;padding:30px 24px;text-align:center;
+  margin:8px 0 4px;
+}
+.result-card h2{font-size:23px;margin-bottom:18px;font-weight:800}
+.result-grid{
+  display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap;margin-bottom:22px;
+}
+.result-stat{text-align:center;background:rgba(255,255,255,.14);border-radius:12px;padding:14px 22px}
+.result-stat-value{font-size:32px;font-weight:800}
+.result-stat-label{font-size:12px;opacity:.85;margin-top:4px;letter-spacing:.5px;text-transform:uppercase}
+.grade-badge{
+  display:inline-block;font-size:42px;font-weight:900;
+  background:rgba(255,255,255,.2);border-radius:50%;
+  width:80px;height:80px;line-height:80px;margin-bottom:16px;
+}
+.result-btn{
+  background:rgba(255,255,255,.18);color:#fff;
+  border:2px solid rgba(255,255,255,.7);padding:10px 24px;border-radius:9px;
+  cursor:pointer;font-size:14px;font-weight:700;margin:6px;transition:all .25s;
+}
+.result-btn:hover{background:#fff;color:#2e7d32}
+
+/* ── FOOTER ── */
+.brand-footer{
+  background:#f5f5f5;border-top:1px solid #e0e0e0;
+  color:#9e9e9e;text-align:center;padding:12px;font-size:11px;letter-spacing:.3px;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:540px){
+  .chapter-header h1{font-size:17px}
+  .stat-value{font-size:20px}
+  .result-stat-value{font-size:26px}
+  .quiz-area{padding:16px 14px}
+}
+</style>
+</head>
+<body>
+
+<!-- WATERMARK -->
+<div class="watermark-overlay" id="wmOverlay"></div>
+
+<div class="container">
+
+  <!-- CHAPTER HEADER -->
+  <div class="chapter-header">
+    <div class="ch-label">🦴 Biology Class XII</div>
+    <h1>Chapter 16 — Support and Movement</h1>
+    <div class="ch-meta">Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed</div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-label">Total Qs</div>
+      <div class="stat-value" id="statTotal">64</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Answered</div>
+      <div class="stat-value" id="statAnswered">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Correct</div>
+      <div class="stat-value" id="statCorrect">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Score</div>
+      <div class="stat-value" id="statScore">0%</div>
+    </div>
+  </div>
+
+  <!-- QUIZ AREA -->
+  <div class="quiz-area" id="quizArea"></div>
+
+  <!-- FOOTER -->
+  <div class="brand-footer">
+    Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed &nbsp;·&nbsp; 0345-3090057
+  </div>
+
+</div><!-- /container -->
+
+<script>
+/* ═══════════════════════════════════════════════
+   MCQ DATA — Chapter 16: Support and Movement
+═══════════════════════════════════════════════ */
+const questions = [
+  {q:"How many bones are present in the adult human skeleton?", o:["206","300","213","256"], c:0, exp:"Humans have ~300 bones at birth, but fusion reduces this to 206 in adults."},
+  {q:"The branch of science that deals with the study of human bones is called:", o:["Histology","Physiology","Osteology","Arthrology"], c:2, exp:"Osteology is the scientific discipline focused on the structure, function, and diseases of bones."},
+  {q:"The terminal regions of a long bone that are cancellous and filled with red bone marrow are called:", o:["Diaphysis","Epiphysis","Metaphysis","Periosteum"], c:1, exp:"The epiphysis is the spongy terminal part of a long bone, producing blood cells via its red bone marrow."},
+  {q:"The external part of the diaphysis forming approximately 80% of the skeletal structure, consisting of osteons, is called:", o:["Cancellous bone","Medullary canal","Spongy bone","Cortical bone"], c:3, exp:"Cortical (compact) bone comprises ~80% of the skeleton and is organized into small cylinders called osteons."},
+  {q:"The blood supply and innervations of bone cells are contained in the:", o:["Haversian canal","Medullary canal","Volkmann's canal","Endosteum"], c:0, exp:"Every osteon has a central haversian canal housing blood vessels and nerves that supply the surrounding bone cells."},
+  {q:"The inorganic component of the lamellae in bone, mostly calcium phosphate, is called:", o:["Collagen","Ossein","Hydroxyapatite","Proteoglycan"], c:2, exp:"Hydroxyapatite is the mineral phase of bone matrix that gives bone its hardness and compressive strength."},
+  {q:"The overall outer covering of the bone that allows attachment of tendons and provides pathways for blood vessels is called:", o:["Endosteum","Periosteum","Perichondrium","Epimysium"], c:1, exp:"Periosteum is the fibrous outer layer of bone anchoring tendons and supplying blood and lymphatic vessels to bone tissue."},
+  {q:"The bone cells that perform breaking down of composite bone material during remodeling are:", o:["Osteoblasts","Chondroblasts","Osteocytes","Osteoclasts"], c:3, exp:"Osteoclasts are large multinucleated cells responsible for bone resorption and demineralization during the remodeling process."},
+  {q:"The layer that surrounds cartilage tissue is called:", o:["Periosteum","Endosteum","Perichondrium","Endomysium"], c:2, exp:"Perichondrium is the connective tissue membrane surrounding cartilage, analogous to the periosteum that surrounds bone."},
+  {q:"The mature cells residing in lacunae within cartilage that produce and maintain the cartilage matrix are:", o:["Chondrocytes","Osteoblasts","Chondroblasts","Osteocytes"], c:0, exp:"Chondrocytes are the only cells in healthy cartilage; they reside in lacunae and produce collagen, proteoglycan, and other matrix components."},
+  {q:"The hardest type of cartilage, present as intervertebral discs and in the knee joint, is:", o:["Elastic cartilage","Hyaline cartilage","Articular cartilage","Fibrocartilage"], c:3, exp:"Fibrocartilage is the toughest cartilage type found in intervertebral discs, knee joints, and pectoral girdle, resisting compression."},
+  {q:"The most flexible cartilage, located in the pinna of the ear, epiglottis, and larynx, is:", o:["Fibrocartilage","Elastic cartilage","Hyaline cartilage","Articular cartilage"], c:1, exp:"Elastic cartilage contains abundant elastic fibers conferring flexibility; it is found in the ear pinna, epiglottis, and auditory tubes."},
+  {q:"The axial skeleton, which includes the skull, vertebral column, and thoracic cage, contains how many bones?", o:["80","126","206","64"], c:0, exp:"The axial skeleton contains 80 bones: 28 in the skull, 1 hyoid, 26 in the vertebral column, 24 ribs, and 1 sternum."},
+  {q:"How many cranial bones protect the brain in the human skull?", o:["Six","Ten","Eight","Fourteen"], c:2, exp:"There are exactly 8 cranial bones: 2 parietal, 2 temporal, 1 frontal, 1 occipital, 1 ethmoid, and 1 sphenoid."},
+  {q:"The total number of auditory ossicles in the human body that help transmit sound to the inner ear is:", o:["Four","Two","Eight","Six"], c:3, exp:"There are 6 auditory ossicles in total: two malleus, two stapes, and two incus — three in each ear."},
+  {q:"The vertebral column consists of how many total bones?", o:["30","26","33","24"], c:1, exp:"The vertebral column has 26 bones: 7 cervical, 12 thoracic, 5 lumbar, 1 sacrum (5 fused vertebrae), and 1 coccyx (4 fused vertebrae)."},
+  {q:"The first seven pairs of ribs directly attached to the sternum by cartilage are called:", o:["False ribs","Floating ribs","True ribs","Costal ribs"], c:2, exp:"The first 7 rib pairs attach directly to the sternum via costal cartilage and are therefore classified as true ribs."},
+  {q:"Which rib pairs are called 'floating ribs' because they lack attachment to the sternum or other ribs?", o:["11th and 12th pairs","8th and 9th pairs","10th and 11th pairs","9th and 10th pairs"], c:0, exp:"The 11th and 12th rib pairs are floating ribs — they have no costal cartilage and are not connected anteriorly to the sternum or to other ribs."},
+  {q:"The appendicular skeleton, comprising girdles and limb bones, consists of how many bones?", o:["80","126","100","64"], c:1, exp:"The appendicular skeleton contains 126 bones, divided between pectoral and pelvic girdles and their associated limb bones."},
+  {q:"The total number of bones associated with the pectoral girdle (both sides), including limb bones, is:", o:["32","48","54","64"], c:3, exp:"The pectoral girdle has 64 bones (both sides): clavicles, scapulae, humeri, radii, ulnae, carpals, metacarpals, and phalanges."},
+  {q:"The pelvic girdle is formed by which combination of bones?", o:["Ilium, pubis, and ischium","Femur, tibia, and fibula","Sacrum, coccyx, and ilium","Ilium, ischium, and femur"], c:0, exp:"The pelvic girdle consists of two ilium, two pubis, and two ischium bones that fuse to form the innominate (coxal) bones."},
+  {q:"The cartilaginous joint connecting the two pubic bones and completing the ring-like pelvic girdle is called:", o:["Iliac junction","Sacroiliac joint","Coxal joint","Pubic symphysis"], c:3, exp:"The pubic symphysis is the fibrocartilaginous joint joining the two pubic bones anteriorly, giving the pelvic girdle its ring-like shape."},
+  {q:"The hinge joint permitting only flexion and extension in a single plane is located between:", o:["Femur and tibia","Humerus and ulna","Atlas and axis","Radius and ulna"], c:1, exp:"The hinge joint at the elbow (between humerus and ulna) allows movement exclusively in one plane — flexion and extension."},
+  {q:"The pivot joint that allows twisting/rotational movement is present in the:", o:["Shoulder joint","Hip joint","Proximal and distal radio-ulnar joint","Knee joint"], c:2, exp:"Pivot joints at the proximal and distal radio-ulnar joints allow pronation and supination (rotational movement) of the forearm."},
+  {q:"The synovial fluid that lubricates and nourishes the articulating cartilage within a joint is secreted by:", o:["Synovial membrane","Periosteum","Endosteum","Perichondrium"], c:0, exp:"The synovial membrane lining the inner joint capsule secretes synovial fluid, which reduces friction and nourishes articular cartilage."},
+  {q:"Degenerative changes in vertebrae causing bone spurs and narrowing of intervertebral spaces is called:", o:["Sciatica","Spondylosis","Disc slip","Ankylosing spondylitis"], c:1, exp:"Spondylosis is age-related degeneration of the vertebral column, producing osteophytes (spurs) and reduced intervertebral disc height, compressing nerves."},
+  {q:"The sciatic nerve — the longest and thickest nerve in the body — is formed by how many nerve roots?", o:["Three","Four","Six","Five"], c:3, exp:"The sciatic nerve is formed by five nerve roots that unite to create one right and one left sciatic nerve, running through the hips and down each leg."},
+  {q:"When the inner gelatinous portion of an intervertebral disc protrudes through the tough outer ring due to injury, it is called:", o:["Spondylosis","Sciatica","Herniated disc","Arthritis"], c:2, exp:"A herniated (slipped/prolapsed) disc occurs when the nucleus pulposus breaks through the annulus fibrosus, potentially compressing adjacent spinal nerves."},
+  {q:"The type of arthritis characterized by hard uric acid crystal formation in joints causing severe pain is:", o:["Osteoarthritis","Gout","Rheumatoid arthritis","Ankylosing spondylitis"], c:1, exp:"Gout results from hyperuricemia causing monosodium urate crystal deposition in joints, producing the characteristic inflammatory arthritis."},
+  {q:"A fracture where bone is cracked internally but does not pierce the skin is classified as:", o:["Simple fracture","Compound fracture","Complicated fracture","Open fracture"], c:0, exp:"A simple (closed) fracture involves internal bone cracking without skin penetration, distinguishing it from compound and complicated fractures."},
+  {q:"During fracture repair, the structure that initially seals the fracture site and provides a framework for subsequent healing is:", o:["Fibrocartilage callus","Osteoblasts","Granulation tissue","Hematoma"], c:3, exp:"The hematoma formed from ruptured blood vessels internally seals the fracture site, prevents further blood loss, and scaffolds the healing process."},
+  {q:"Hard bony callus formation during fracture repair is initiated approximately how long after the fracture?", o:["One week","Two weeks","Three weeks","Six weeks"], c:2, exp:"Hard bony callus formation begins approximately three weeks post-fracture and continues for about three months until bone architecture is restored."},
+  {q:"Smooth muscle cells differ from skeletal muscle cells in being:", o:["Spindle-shaped with a single nucleus","Cylindrical and multinucleated","Branched with intercalated discs","Striated and voluntary"], c:0, exp:"Smooth muscle cells are spindle-shaped, uninucleated, non-striated, and involuntary — found in hollow visceral organs like the bladder and gut."},
+  {q:"The specialized structures strongly interconnecting cardiac muscle cells and enabling rapid electrical transmission are called:", o:["Neuromuscular junctions","Intercalated discs","T-tubules","Desmosomes"], c:1, exp:"Intercalated discs are unique junctions between cardiomyocytes that enable the rapid propagation of electrical impulses across the cardiac syncytium."},
+  {q:"The branching network arrangement of cardiac muscle cells joined together to enable coordinated contraction is called:", o:["Sarcoplasmic reticulum","Neuromuscular junction","Syncytium","Fascicle"], c:2, exp:"The cardiac syncytium is a network of interconnected cardiomyocytes that contracts as a unit, ensuring coordinated and efficient pumping of the heart."},
+  {q:"The outermost connective tissue membrane surrounding the entire skeletal muscle organ is called:", o:["Endomysium","Perimysium","Sarcolemma","Epimysium"], c:3, exp:"Epimysium covers the whole muscle; perimysium surrounds each fascicle; endomysium wraps individual muscle fibers — arranged from outside inward."},
+  {q:"The plasma membrane of a muscle fiber, extensively folded at the neuromuscular junction to form the motor end plate, is called:", o:["Sarcolemma","Sarcoplasmic reticulum","T-tubules","Endomysium"], c:0, exp:"Sarcolemma is the cell membrane of a muscle fiber; its folded portion at the neuromuscular junction is called the motor end plate."},
+  {q:"The organelle running parallel to myofibrils that stores and releases calcium ions for muscle contraction is the:", o:["T-tubules","Sarcoplasmic reticulum","Mitochondria","Sarcolemma"], c:1, exp:"The sarcoplasmic reticulum is a specialized smooth ER that sequesters calcium ions at rest and releases them to trigger the contractile cycle."},
+  {q:"The membranous channels that extend perpendicularly inward from the sarcolemma and connect with the sarcoplasmic reticulum are called:", o:["Sarcolemma folds","Sarcoplasm channels","Myofibril sheaths","T-tubules"], c:3, exp:"T-tubules (transverse tubules) are invaginations of the sarcolemma running perpendicular to myofibrils, allowing rapid propagation of action potentials deep into the muscle fiber."},
+  {q:"Each thick myosin filament has a diameter of approximately:", o:["7–8 nm","10 nm","16 nm","20 nm"], c:2, exp:"Myosin (thick) filaments are 16 nm in diameter with two twisted strands bearing projected heads that form cross-bridges with actin."},
+  {q:"Which troponin subunit is specifically responsible for binding calcium ions (Ca2+) during muscle contraction?", o:["Troponin C (TnC)","Troponin I (TnI)","Troponin T (TnT)","Troponin B (TnB)"], c:0, exp:"Troponin C binds Ca2+, Troponin I inhibits actomyosin ATPase activity, and Troponin T anchors the complex to tropomyosin — each with a distinct regulatory role."},
+  {q:"The light region in a myofibril that contains only actin filaments and is bounded by Z lines is called:", o:["A band","H zone","I band","M line"], c:2, exp:"The I (isotropic) band contains only thin actin filaments; it appears light under a microscope and is bisected by the Z line."},
+  {q:"The basic contractile unit of skeletal muscle, defined as the segment between two consecutive Z lines, is called:", o:["Myofibril","Fascicle","Osteon","Sarcomere"], c:3, exp:"The sarcomere is the functional unit of muscle contraction; during shortening, its Z lines move closer together as actin and myosin slide past each other."},
+  {q:"The sliding filament model of muscle contraction was proposed by:", o:["Koshland and Huxley in 1958","Hugh Huxley and Jean Hanson in 1954","Dixon and Jolly in 1894","Huxley and Simmons in 1971"], c:1, exp:"Hugh Huxley and Jean Hanson proposed the sliding filament theory in 1954, stating that actin and myosin filaments slide past each other without themselves shortening."},
+  {q:"The neurotransmitter released by motor neurons at the neuromuscular junction to initiate muscle contraction is:", o:["Acetylcholine","Norepinephrine","Dopamine","Serotonin"], c:0, exp:"Acetylcholine released at the motor end plate opens ion channels, triggering calcium release from the sarcoplasmic reticulum and initiating the cross-bridge cycle."},
+  {q:"The enzyme that decomposes acetylcholine in the synaptic cleft to allow muscle relaxation is:", o:["ATPase","Acetylcholinesterase","Phosphodiesterase","Myosinase"], c:1, exp:"Acetylcholinesterase rapidly breaks down acetylcholine, terminating nerve stimulation and triggering calcium reuptake into the sarcoplasmic reticulum for relaxation."},
+  {q:"The quadriceps muscle group functions as which type of muscle at the knee joint?", o:["Flexor muscle","Synergist muscle","Extensor muscle","Rotator muscle"], c:2, exp:"The quadriceps are the extensor muscles of the knee (straighten the knee), while the hamstrings are the antagonistic flexor muscles."},
+  {q:"Muscle fatigue during prolonged exercise is most likely caused by accumulation of:", o:["Uric acid","Carbon dioxide","Glycogen","Lactic acid"], c:3, exp:"Anaerobic ATP production during sustained exercise generates lactic acid, which lowers intracellular pH and prevents muscle fibers from responding to stimulation."},
+  {q:"The central pale region within the A band that contains only myosin filaments without actin overlap is called:", o:["H zone","I band","M line","Z line"], c:0, exp:"The H zone (from 'Helle' = light in German) is the lighter mid-region of the A band where myosin exists alone, without overlapping actin filaments."},
+  {q:"Which type of arthritis involves the immune system attacking the synovial membranes in joints?", o:["Osteoarthritis","Gout","Rheumatoid arthritis","Ankylosing spondylitis"], c:2, exp:"Rheumatoid arthritis is an autoimmune disorder where immune cells target synovial membranes, causing progressive joint inflammation and destruction."},
+  {q:"When osteoblasts become entrapped in their own secreted matrix within spaces called lacunae, they differentiate into:", o:["Osteoclasts","Osteocytes","Chondrocytes","Chondroblasts"], c:1, exp:"Osteocytes are mature bone cells derived from isolated osteoblasts; they maintain the bone matrix and direct osteoblasts to sites of damage for repair."},
+  {q:"The modified ball-and-socket joint allowing movement in all directions, present at the wrist (radio-carpal joint), is called:", o:["Gliding joint","Hinge joint","Saddle joint","Condyloid joint"], c:3, exp:"The condyloid joint at the wrist allows multiaxial movement like a ball-and-socket joint but has a distinct ellipsoidal articular surface."},
+  {q:"The complete separation or change of position of bones in a joint due to injury or weakening of tendons is called:", o:["Dislocation","Sprain","Fracture","Sciatica"], c:0, exp:"Dislocation is the displacement of bones from their normal joint position, potentially damaging surrounding nerves and tissues."},
+  {q:"A sprain is defined as mild to severe stretching or tearing of which structure that holds joint bones together?", o:["Tendon","Meniscus","Ligament","Cartilage"], c:2, exp:"Sprains specifically involve ligament damage from sudden joint twisting, commonly occurring at ankles, knees, and wrists."},
+  {q:"A painful stiffness in a muscle caused by sudden involuntary contraction is called:", o:["Tetanus","Cramp","Fatigue","Sprain"], c:1, exp:"Muscle cramps arise from overuse, dehydration, or low mineral levels (calcium, potassium, sodium, magnesium) causing involuntary sustained contractions."},
+  {q:"Tetany is most often caused by which electrolyte imbalance?", o:["High sodium","High potassium","High calcium","Low calcium (hypocalcemia)"], c:3, exp:"Hypocalcemia increases neuronal and muscle cell excitability, raising action potential frequency and triggering the involuntary muscle contractions characteristic of tetany."},
+  {q:"Tetanus is an infectious disease of the central nervous system caused by:", o:["Clostridium tetani","Staphylococcus aureus","Streptococcus pyogenes","Bacillus anthracis"], c:0, exp:"Clostridium tetani releases the neurotoxin tetanospasmin, which acts on synapses causing muscular spasms and neuromuscular junction blockade."},
+  {q:"The neurotoxin released by Clostridium tetani that causes muscular spasms in tetanus is:", o:["Botulinum toxin","Endotoxin","Tetanospasmin","Exotoxin A"], c:2, exp:"Tetanospasmin acts on inhibitory interneurons and motor synapses, removing inhibition and causing the characteristic flexor muscle spasms of tetanus."},
+  {q:"The 'U'-shaped hyoid bone, located between the skull and postcranial skeleton, provides attachment for:", o:["The diaphragm and trachea","The tongue and muscles of the oral cavity","The esophagus and pharynx","The larynx and trachea only"], c:1, exp:"The hyoid bone is unique in not articulating directly with any other bone; it anchors the tongue musculature and muscles of the floor of the mouth."},
+  {q:"During the power stroke of the cross-bridge cycle, which molecules are released from the myosin head?", o:["ATP and calcium","Calcium and troponin","Acetylcholine and ADP","ADP and inorganic phosphate"], c:3, exp:"ADP and phosphate are released during the power stroke when myosin pulls the actin filament toward the M line, shortening the sarcomere."},
+  {q:"After muscle contraction, the calcium pump that moves Ca2+ back into the sarcoplasmic reticulum to cause relaxation requires:", o:["ADP","Calcium itself","ATP","Acetylcholine"], c:2, exp:"The SERCA (Ca2+-ATPase) pump uses ATP to actively transport calcium ions back into the sarcoplasmic reticulum, restoring resting conditions and allowing muscle relaxation."},
+  {q:"The thin connective tissue layer of collagen enveloping each individual muscle fiber within a fascicle is called:", o:["Endomysium","Perimysium","Epimysium","Sarcolemma"], c:0, exp:"The three layers from outside inward are: epimysium (whole muscle) → perimysium (fascicle) → endomysium (individual fiber)."},
+  {q:"Lactic acid produced during muscle fatigue diffuses into the bloodstream and is transported to which organ to be converted back into glucose?", o:["Kidney","Spleen","Pancreas","Liver"], c:3, exp:"The liver converts lactic acid back to glucose via the Cori cycle, a process requiring ATP and oxygen availability — which is why rest restores normal muscle function."},
+  {q:"At rest, the myosin-binding sites on actin monomers are blocked by which protein?", o:["Troponin C","Tropomyosin","Troponin T","Myomesin"], c:1, exp:"Tropomyosin physically covers the myosin-binding sites on actin at rest; calcium binding to troponin C shifts tropomyosin away, exposing these sites to allow cross-bridge formation."},
+];
+
+/* ═══════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════ */
+const state = {
+  answered : 0,
+  correct  : 0,
+  total    : questions.length,
+};
+
+/* ═══════════════════════════════════════════════
+   SHUFFLE
+   Randomises option order; tracks which option
+   is now correct after the shuffle.
+═══════════════════════════════════════════════ */
+function shuffleOptions(q) {
+  const opts = q.o.map((text, i) => ({ text, isCorrect: i === q.c }));
+
+  /* Fisher-Yates shuffle */
+  for (let i = opts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [opts[i], opts[j]] = [opts[j], opts[i]];
+  }
+
+  return {
+    o : opts.map(x => x.text),
+    c : opts.findIndex(x => x.isCorrect),
+  };
+}
+
+let renderedQuestions = [];
+
+/* ═══════════════════════════════════════════════
+   WATERMARK
+═══════════════════════════════════════════════ */
+(function buildWatermarks(){
+  const overlay = document.getElementById('wmOverlay');
+  const text = 'Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057';
+  for(let r = 0; r < 7; r++){
+    for(let c = 0; c < 3; c++){
+      const span = document.createElement('span');
+      span.textContent = text;
+      span.style.left  = (c * 40 - 5) + '%';
+      span.style.top   = (r * 16 - 4) + '%';
+      overlay.appendChild(span);
+    }
+  }
+})();
+
+/* ═══════════════════════════════════════════════
+   BUILD QUIZ
+═══════════════════════════════════════════════ */
+function buildQuiz(){
+  const area = document.getElementById('quizArea');
+  area.innerHTML = '';
+  renderedQuestions = [];
+
+  questions.forEach((q, i) => {
+    const labels = ['a','b','c','d'];
+
+    const shuffled  = shuffleOptions(q);
+    const displayQ  = { ...q, o: shuffled.o, c: shuffled.c };
+    renderedQuestions[i] = displayQ;
+
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = 'card-' + i;
+
+    const optionsHTML = displayQ.o.map((opt, j) =>
+      `<div class="option" id="opt-${i}-${j}" onclick="selectOpt(${i},${j})">
+        <strong>${labels[j]})</strong> ${opt}
+      </div>`
+    ).join('');
+
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="q-num">Q ${i + 1}</span>
+        <span class="q-tag">📖 MCQ</span>
+      </div>
+      <div class="q-text">${displayQ.q}</div>
+      <div class="options" id="opts-${i}">${optionsHTML}</div>
+      <button class="check-btn" id="check-${i}" onclick="checkAnswer(${i})">
+        ✔ Check Answer
+      </button>
+      <div class="feedback" id="fb-${i}"></div>
+      <div class="explanation-box" id="exp-${i}">
+        <span class="exp-label">💡 Explanation:</span>${displayQ.exp}
+      </div>`;
+
+    area.appendChild(card);
+  });
+
+  const res = document.createElement('div');
+  res.id = 'resultCard';
+  area.appendChild(res);
+
+  updateStats();
+}
+
+/* ═══════════════════════════════════════════════
+   INTERACTION
+═══════════════════════════════════════════════ */
+const userAnswers = {};
+
+function selectOpt(qi, oi){
+  if(userAnswers[qi]?.checked) return;
+  document.querySelectorAll(`#opts-${qi} .option`).forEach(el => el.classList.remove('selected'));
+  document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
+  userAnswers[qi] = { selected: oi, checked: false };
+}
+
+function checkAnswer(qi){
+  const entry = userAnswers[qi];
+  if(!entry || entry.checked) return;
+
+  entry.checked = true;
+  const q   = renderedQuestions[qi];
+  const ok  = entry.selected === q.c;
+
+  if(ok) state.correct++;
+  state.answered++;
+
+  document.querySelectorAll(`#opts-${qi} .option`).forEach((el, i) => {
+    el.classList.add('disabled');
+    if(i === q.c)                       el.classList.add('correct');
+    else if(i === entry.selected && !ok) el.classList.add('wrong');
+  });
+
+  const fb = document.getElementById(`fb-${qi}`);
+  if(ok){
+    fb.className = 'feedback show correct';
+    fb.textContent = '✓ Correct! Well done!';
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.textContent = `✗ Incorrect! The correct answer is: ${String.fromCharCode(97 + q.c)}) ${q.o[q.c]}`;
+  }
+
+  if(q.exp){
+    document.getElementById(`exp-${qi}`).classList.add('show');
+  }
+
+  document.getElementById(`check-${qi}`).disabled = true;
+
+  updateStats();
+
+  if(state.answered === state.total) showResult();
+}
+
+/* ═══════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════ */
+function updateStats(){
+  document.getElementById('statTotal').textContent    = state.total;
+  document.getElementById('statAnswered').textContent = state.answered;
+  document.getElementById('statCorrect').textContent  = state.correct;
+  const pct = state.total > 0 ? Math.round(state.correct / state.total * 100) : 0;
+  document.getElementById('statScore').textContent    = pct + '%';
+}
+
+/* ═══════════════════════════════════════════════
+   RESULT CARD
+═══════════════════════════════════════════════ */
+function showResult(){
+  const pct = Math.round(state.correct / state.total * 100);
+  let grade, msg, emoji;
+
+  if(pct >= 90){ grade='A+'; msg='Outstanding Performance!';  emoji='🌟'; }
+  else if(pct >= 80){ grade='A';  msg='Excellent Work!';           emoji='🎉'; }
+  else if(pct >= 70){ grade='B';  msg='Good Job!';                 emoji='👍'; }
+  else if(pct >= 60){ grade='C';  msg='Keep Practicing!';          emoji='📚'; }
+  else if(pct >= 50){ grade='D';  msg='More Effort Needed!';       emoji='💪'; }
+  else              { grade='F';  msg='Revise the Chapter Again!'; emoji='📖'; }
+
+  document.getElementById('resultCard').innerHTML = `
+    <div class="result-card">
+      <div class="grade-badge">${emoji}</div>
+      <h2>${msg}</h2>
+      <div class="result-grid">
+        <div class="result-stat">
+          <div class="result-stat-value">${state.correct} / ${state.total}</div>
+          <div class="result-stat-label">Correct Answers</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${pct}%</div>
+          <div class="result-stat-label">Score</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${grade}</div>
+          <div class="result-stat-label">Grade</div>
+        </div>
+      </div>
+      <p style="opacity:.85;font-size:13px;margin-bottom:16px">
+        Ch.16 Support &amp; Movement &nbsp;|&nbsp; Smart Study Center &nbsp;|&nbsp; Sir Ahmer Javed
+      </p>
+      <button class="result-btn" onclick="resetQuiz()">🔄 Try Again</button>
+    </div>`;
+
+  document.getElementById('resultCard').scrollIntoView({ behavior:'smooth' });
+}
+
+/* ═══════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════ */
+function resetQuiz(){
+  state.answered = 0;
+  state.correct  = 0;
+  Object.keys(userAnswers).forEach(k => delete userAnswers[k]);
+  buildQuiz();
+  window.scrollTo({ top: 0, behavior:'smooth' });
+}
+
+/* ── INIT ── */
+buildQuiz();
+</script>
+</body>
+</html>
