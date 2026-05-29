@@ -7,6 +7,26 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 
+  .timer-box{
+  position:sticky;
+  top:0;
+  z-index:9999;
+  width:100%;
+  text-align:center;
+  padding:10px 20px;
+  background:#fff3e0;
+  border-bottom:2px solid #ff9800;
+  font-size:18px;
+  font-weight:800;
+  color:#e65100;
+  letter-spacing:1px;
+}
+.timer-box.danger{
+  background:#ffebee;
+  border-color:#c62828;
+  color:#c62828;
+}
+
 /* ── BASE ── */
 body{
   font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
@@ -66,7 +86,7 @@ body{
 .timer-display.warning{color:#c62828;animation:pulse 1s infinite}
 .timer-progress-wrap{
   flex:1;max-width:300px;height:6px;background:#ffe0b2;
-  border-radius:4px;overflow:hidden;
+  border-radius:4px;overflow:visible;
 }
 .timer-progress-fill{
   height:100%;background:#e65100;border-radius:4px;
@@ -211,6 +231,14 @@ body{
       <div class="stat-value" id="statScore">0%</div>
     </div>
   </div>
+  </div>
+
+<!-- TIMER -->
+<div id="timerBox" class="timer-box">
+  ⏱ Time Remaining: <span id="timerDisplay">45:00</span>
+</div>
+
+<!-- QUIZ AREA -->
 
   <!-- QUIZ AREA -->
   <div class="quiz-area" id="quizArea"></div>
@@ -505,6 +533,27 @@ function resetQuiz(){
 
 /* ── INIT ── */
 buildQuiz();
+  // ── STICKY TIMER ──
+let timeLeft = 64 * 60;
+const timerDisplay = document.getElementById('timerDisplay');
+const timerBox = document.getElementById('timerBox');
+
+const timerInterval = setInterval(() => {
+  const mins = Math.floor(timeLeft / 60);
+  const secs = timeLeft % 60;
+  timerDisplay.textContent =
+    String(mins).padStart(2,'0') + ':' +
+    String(secs).padStart(2,'0');
+  if(timeLeft <= 300){
+    timerBox.classList.add('danger');
+  }
+  if(timeLeft <= 0){
+    clearInterval(timerInterval);
+    timerDisplay.textContent = '⏰ TIME UP';
+    showResult();
+  }
+  timeLeft--;
+}, 1000);
 </script>
 </body>
 </html>
