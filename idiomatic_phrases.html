@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Articles — Smart Study Center</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ── BASE ── */
+body{
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:linear-gradient(135deg,#0d2137 0%,#1565c0 50%,#1976d2 100%);
+  min-height:100vh;
+  padding:20px 16px;
+}
+
+/* ── WATERMARK ── */
+.watermark-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.watermark-overlay span{
+  position:absolute;font-size:14px;font-weight:700;
+  color:rgba(21,101,192,0.065);white-space:nowrap;
+  transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase;
+}
+
+/* ── CONTAINER ── */
+.container{
+  max-width:880px;margin:0 auto;background:#fff;
+  border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  overflow:visible;position:relative;z-index:1;
+}
+
+/* ── CHAPTER HEADER ── */
+.chapter-header{
+  background:linear-gradient(135deg,#0d2137,#1565c0);
+  color:#fff;padding:20px 24px;text-align:center;
+}
+.ch-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;margin-bottom:6px}
+.chapter-header h1{font-size:20px;font-weight:800;margin-bottom:6px;letter-spacing:.2px}
+.ch-meta{font-size:12px;opacity:.75;font-weight:500}
+
+/* ── STATS BAR ── */
+.stats{
+  display:flex;justify-content:space-around;padding:14px 20px;
+  background:#e3f2fd;border-bottom:2px solid #bbdefb;flex-wrap:wrap;gap:8px;
+}
+.stat-item{text-align:center}
+.stat-label{font-size:10px;color:#1565c0;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.stat-value{font-size:24px;font-weight:800;color:#0d2137;margin-top:3px}
+
+/* ── QUIZ AREA ── */
+.quiz-area{padding:24px 22px}
+
+/* ── QUESTION CARD ── */
+.question-card{
+  background:#f8f9fa;border-radius:12px;padding:20px;
+  margin-bottom:16px;border-left:5px solid #1565c0;
+  transition:box-shadow .2s;
+}
+.question-card:hover{box-shadow:0 4px 16px rgba(21,101,192,.1)}
+.card-top{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;
+}
+.q-num{
+  background:#1565c0;color:#fff;padding:4px 14px;
+  border-radius:20px;font-weight:700;font-size:12px;
+}
+.q-text{
+  font-size:15px;color:#1a1a1a;margin-bottom:14px;line-height:1.65;font-weight:500;
+}
+
+/* ── OPTIONS ── */
+.options{display:grid;gap:9px}
+.option{
+  padding:11px 16px;background:#fff;border:2px solid #dee2e6;
+  border-radius:9px;cursor:pointer;transition:all .25s;
+  font-size:14px;color:#333;line-height:1.4;
+}
+.option:hover:not(.disabled){border-color:#1565c0;background:#e3f2fd;color:#0d2137}
+.option.selected{border-color:#1565c0;background:#bbdefb;color:#0d2137}
+.option.correct{border-color:#1565c0!important;background:#e3f2fd!important;color:#0d2137!important;font-weight:700}
+.option.wrong{border-color:#c62828!important;background:#ffebee!important;color:#b71c1c!important}
+.option.disabled{cursor:not-allowed}
+
+/* ── CHECK BUTTON ── */
+.check-btn{
+  margin-top:13px;background:#1565c0;color:#fff;border:none;
+  padding:9px 26px;border-radius:9px;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all .25s;
+}
+.check-btn:hover:not(:disabled){background:#1976d2;transform:translateY(-1px);box-shadow:0 4px 14px rgba(21,101,192,.35)}
+.check-btn:disabled{background:#bdbdbd;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ── FEEDBACK / EXPLANATION ── */
+.feedback{
+  display:none;margin-top:11px;padding:10px 14px;
+  border-radius:8px;font-size:13px;line-height:1.5;
+}
+.feedback.show{display:block}
+.feedback.correct{background:#e3f2fd;color:#0d2137;border:2px solid #64b5f6;font-weight:600}
+.feedback.wrong{background:#ffebee;color:#b71c1c;border:2px solid #ef9a9a;font-weight:600}
+.explanation-box{
+  display:none;margin-top:8px;padding:10px 14px;
+  background:#fffde7;border:2px solid #f9a825;
+  border-radius:8px;font-size:13px;color:#5d4037;line-height:1.5;
+}
+.explanation-box.show{display:block}
+.exp-label{font-weight:700;color:#f57f17;margin-right:4px}
+
+/* ── RESULT CARD ── */
+.result-card{
+  background:linear-gradient(135deg,#0d2137,#1565c0);
+  color:#fff;border-radius:14px;padding:30px 24px;text-align:center;
+  margin:8px 0 4px;
+}
+.result-card h2{font-size:23px;margin-bottom:18px;font-weight:800}
+.result-grid{
+  display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap;margin-bottom:22px;
+}
+.result-stat{text-align:center;background:rgba(255,255,255,.14);border-radius:12px;padding:14px 22px}
+.result-stat-value{font-size:32px;font-weight:800}
+.result-stat-label{font-size:12px;opacity:.85;margin-top:4px;letter-spacing:.5px;text-transform:uppercase}
+.grade-badge{
+  display:inline-block;font-size:42px;font-weight:900;
+  background:rgba(255,255,255,.2);border-radius:50%;
+  width:80px;height:80px;line-height:80px;margin-bottom:16px;
+}
+.result-btn{
+  background:rgba(255,255,255,.18);color:#fff;
+  border:2px solid rgba(255,255,255,.7);padding:10px 24px;border-radius:9px;
+  cursor:pointer;font-size:14px;font-weight:700;margin:6px;transition:all .25s;
+}
+.result-btn:hover{background:#fff;color:#1565c0}
+
+/* ── FOOTER ── */
+.brand-footer{
+  background:#f5f5f5;border-top:1px solid #e0e0e0;
+  color:#9e9e9e;text-align:center;padding:12px;font-size:11px;letter-spacing:.3px;
+}
+
+/* ── TIMER ── */
+.timer-box{
+  position:sticky;top:0;z-index:999;
+  width:100%;padding:10px 20px;
+  background:#fff3e0;border-bottom:2px solid #ff9800;
+  color:#e65100;
+  display:flex;align-items:center;justify-content:center;
+  gap:10px;font-size:15px;font-weight:700;letter-spacing:.5px;
+  transition:background .4s,border-color .4s,color .4s;
+}
+.timer-box.danger{
+  background:#ffebee;border-bottom-color:#c62828;color:#c62828;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:540px){
+  .chapter-header h1{font-size:17px}
+  .stat-value{font-size:20px}
+  .result-stat-value{font-size:26px}
+  .quiz-area{padding:16px 14px}
+}
+</style>
+</head>
+<body>
+
+<!-- WATERMARK -->
+<div class="watermark-overlay" id="wmOverlay"></div>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="chapter-header">
+    <div class="ch-label">English Grammar</div>
+    <h1>Idiomatic Phrases — 50 MCQs</h1>
+    <div class="ch-meta">Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed</div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-label">Total Qs</div>
+      <div class="stat-value" id="statTotal">50</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Answered</div>
+      <div class="stat-value" id="statAnswered">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Correct</div>
+      <div class="stat-value" id="statCorrect">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Score</div>
+      <div class="stat-value" id="statScore">0%</div>
+    </div>
+  </div>
+
+  <!-- TIMER -->
+  <div class="timer-box" id="timerBox">
+    <span>⏱ Time Remaining:</span>
+    <span id="timerDisplay">50:00</span>
+  </div>
+
+  <!-- QUIZ AREA -->
+  <div class="quiz-area" id="quizArea"></div>
+
+  <!-- FOOTER -->
+  <div class="brand-footer">
+    Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed &nbsp;·&nbsp; 0345-3090057
+  </div>
+
+</div><!-- /container -->
+
+<script>
+/* ═══════════════════════════════════════════════
+   MCQ DATA — IDIOMOATIC PHRASES
+═══════════════════════════════════════════════ */
+const questions = [
+  {q:"She has been burning the midnight oil ___ the past few weeks to prepare for her exams.", o:["during","for","since","at"], c:1, exp:"\"Burn the midnight oil\" is a fixed idiom meaning to work or study late into the night. The preposition \"for\" is used with durations of time (for the past few weeks). The idiom itself never changes — only the surrounding grammar varies in exam questions."},
+{q:"The new manager decided to turn over a new leaf after receiving serious complaints ___ his attitude.", o:["for","about","against","of"], c:1, exp:"\"Turn over a new leaf\" is a fixed idiom meaning to change one's behaviour or start fresh. \"Complaints about\" something is the correct verb-preposition collocation. The idiom must be memorised as a whole unit — altering any word changes the meaning entirely."},
+{q:"He tried to pull the wool ___ his teacher's eyes but was caught immediately.", o:["on","above","over","across"], c:2, exp:"\"Pull the wool over someone's eyes\" is a fixed idiom meaning to deceive or trick someone. The preposition \"over\" is inseparable from this idiom — replacing it with any other preposition destroys the meaning. This is a classic MDCAT fixed-form idiom question."},
+{q:"After years of rivalry, the two colleagues finally decided to bury the hatchet and work ___ together.", o:["along","on","with","—"], c:3, exp:"\"Bury the hatchet\" is a fixed idiom meaning to end a conflict and make peace. \"Work together\" needs no preposition — \"together\" is an adverb that stands alone. In MDCAT idiom questions, always identify the fixed phrase first, then check the surrounding grammar separately."},
+{q:"The politician was known for sitting ___ the fence on every important national issue.", o:["across","beside","on","over"], c:2, exp:"\"Sit on the fence\" is a fixed idiom meaning to avoid taking a side or giving a clear opinion on a controversial matter. The preposition \"on\" is inseparable from this idiom. Any other preposition makes the idiom unrecognisable and incorrect."},
+{q:"She found herself ___ hot water after submitting a plagiarised assignment to the professor.", o:["in","into","at","under"], c:0, exp:"\"In hot water\" is a fixed idiom meaning to be in a situation of trouble or difficulty. The preposition is always \"in\" — never \"into,\" \"at,\" or \"under.\" Fixed idioms with \"in\" (in hot water, in a nutshell, in the limelight) must be memorised with their exact prepositions."},
+{q:"He let the cat ___ the bag when he accidentally mentioned the surprise party.", o:["from","out of","outside","away from"], c:1, exp:"\"Let the cat out of the bag\" is a fixed idiom meaning to reveal a secret accidentally. The phrase \"out of\" is a two-word preposition that is completely fixed — no variation is acceptable. Changing any element of a fixed idiom makes it wrong."},
+{q:"The new student found it difficult to keep ___ with the rest of the class in mathematics.", o:["along","on","up","pace"], c:2, exp:"\"Keep up with\" is a fixed phrasal verb idiom meaning to maintain the same pace or level as others. \"Keep up with\" always uses \"up\" — not \"along\" or \"on.\" This is also a common preposition question where the idiom's fixed particle must be known."},
+{q:"After the argument, she gave him ___ cold shoulder every time they met in the corridor.", o:["a","the","—","one"], c:1, exp:"\"Give someone the cold shoulder\" is a fixed idiom meaning to deliberately ignore or be unfriendly toward someone. The article \"the\" is a fixed, inseparable part of this idiom — it is never \"a cold shoulder\" or \"cold shoulder\" without an article. Memorise idioms with their articles."},
+{q:"The doctor advised him to take it easy and not to bite ___ more than he could chew.", o:["on","at","off","into"], c:2, exp:"\"Bite off more than you can chew\" is a fixed idiom meaning to take on more responsibility or work than you are able to handle. \"Bite off\" is the fixed particle combination — \"off\" cannot be replaced. This tests whether students know the exact particle in phrasal idioms."},
+{q:"She always goes the extra ___ when helping her patients, which makes her an exceptional doctor.", o:["step","length","mile","way"], c:2, exp:"\"Go the extra mile\" is a fixed idiom meaning to make more effort than is required or expected. The word \"mile\" is fixed and cannot be changed to \"step,\" \"length,\" or \"way.\" MDCAT tests idioms by replacing the key noun — know the exact words of each idiom."},
+{q:"He beat ___ the bush for ten minutes before finally revealing the bad news.", o:["around","across","about","along"], c:0, exp:"\"Beat around the bush\" is a fixed idiom meaning to avoid getting to the main point of something. The preposition is always \"around\" — \"about\" and \"across\" are common wrong answer choices in exams. This idiom tests exact knowledge of the preposition within the phrase."},
+{q:"The company was on the ___ of bankruptcy when a new investor appeared at the last moment.", o:["edge","verge","point","side"], c:1, exp:"\"On the verge of\" is a fixed prepositional idiom meaning very close to a point or about to experience something. \"Verge\" is the exact word required — \"edge,\" \"point,\" and \"side\" do not form this idiom. \"On the verge of\" is followed by a noun or gerund."},
+{q:"She took the criticism ___ stride and used it as motivation to improve her performance.", o:["with","at","in","on"], c:2, exp:"\"Take something in stride\" is a fixed idiom meaning to deal with a difficulty calmly without letting it upset you. The preposition is always \"in\" — never \"with,\" \"at,\" or \"on.\" This idiom tests the exact preposition required within a fixed phrase."},
+{q:"He was ___ cloud nine after learning that he had topped the medical entrance exam.", o:["at","above","on","in"], c:2, exp:"\"On cloud nine\" is a fixed idiom meaning to be extremely happy or euphoric. The preposition is always \"on\" — never \"at,\" \"above,\" or \"in.\" Fixed idioms with specific prepositions (on cloud nine, on the fence, on thin ice) must be memorised exactly."},
+{q:"The two scientists worked hand ___ glove to develop the new vaccine in record time.", o:["with","in","to","and"], c:1, exp:"\"Work hand in glove\" is a fixed idiom meaning to work very closely and cooperatively with someone, often implying a secret arrangement. The preposition is always \"in\" — the full phrase is \"hand in glove.\" Any other preposition makes the idiom incorrect."},
+{q:"She spilled the beans about the restructuring plan before the official announcement was made.", o:["revealed a secret","made a mess","wasted resources","caused confusion"], c:0, exp:"\"Spill the beans\" is a fixed idiom meaning to reveal secret or confidential information, usually accidentally. In MDCAT, idiom questions sometimes ask for the meaning rather than the missing word. Knowing the definition of each idiom is as important as knowing its form."},
+{q:"He was skating ___ thin ice by arguing with the examiner about the marking scheme.", o:["across","over","on","through"], c:2, exp:"\"Skating on thin ice\" is a fixed idiom meaning to be in a risky or dangerous situation where a mistake could have serious consequences. The preposition is always \"on\" — the image is of someone skating on dangerously thin ice that could crack."},
+{q:"The new regulation threw a ___ in the works and delayed the entire construction project.", o:["stone","spanner","nail","rod"], c:1, exp:"\"Throw a spanner in the works\" is a fixed idiom meaning to do something that causes problems or disrupts a plan. \"Spanner\" is the exact word required — this is a British English idiom. American English uses \"wrench\" but MDCAT follows British conventions."},
+{q:"After weeks of tension, the two parties finally cleared the ___ and resolved their differences.", o:["table","road","air","space"], c:2, exp:"\"Clear the air\" is a fixed idiom meaning to remove tension or misunderstanding by talking openly about a problem. The word \"air\" is fixed and cannot be replaced. This tests exact noun knowledge within fixed idiomatic expressions."},
+{q:"She has a ___ for music and can identify any instrument by sound alone.", o:["sense","gift","feel","knack"], c:3, exp:"\"Have a knack for\" something is a fixed idiomatic expression meaning to have a natural skill or talent for a particular activity. \"Knack for\" is the fixed collocation — \"sense for\" and \"feel for\" are not standard idioms in this structure. \"Gift for\" is also acceptable but \"knack for\" is the more idiomatically fixed form tested in exams."},
+{q:"The chairman turned a blind ___ to the corruption happening within his own department.", o:["side","eye","face","look"], c:1, exp:"\"Turn a blind eye to\" is a fixed idiom meaning to deliberately ignore something wrong or illegal. The word \"eye\" is completely fixed — no other word works. This is one of the most frequently tested idioms in Pakistani English exams including MDCAT."},
+{q:"He is always ___ the go and rarely has time to sit and relax with his family.", o:["at","in","on","by"], c:2, exp:"\"On the go\" is a fixed idiom meaning constantly busy or active, always moving from one task to another. The preposition is always \"on\" — never \"at,\" \"in,\" or \"by.\" This is a fixed prepositional idiom where the preposition cannot be substituted."},
+{q:"The young doctor bit the bullet and completed the gruelling night shift without complaint.", o:["showed cowardice","endured a difficult situation","made a quick decision","lost his temper"], c:1, exp:"\"Bite the bullet\" is a fixed idiom meaning to endure a painful or difficult situation with courage and without complaining. This tests meaning identification — a common MDCAT format. The origin is from surgery before anaesthesia when patients would bite a bullet to endure pain."},
+{q:"She has been burning her bridges by openly criticising every senior colleague in the hospital.", o:["creating more opportunities","permanently damaging her relationships","working extremely hard","taking unnecessary risks"], c:1, exp:"\"Burn your bridges\" is a fixed idiom meaning to permanently damage a relationship or opportunity so that it can never be restored. This tests meaning — always learn both the form and the definition of every idiom. The image is of burning the only way back, making retreat impossible."},
+{q:"He passed the buck ___ his junior colleague instead of taking responsibility for the error.", o:["over","to","at","on"], c:1, exp:"\"Pass the buck to\" someone is a fixed idiom meaning to transfer responsibility for something to another person. \"To\" is always the preposition following \"pass the buck\" — it identifies the person the blame is shifted to. This is a fixed verb-preposition-idiom collocation."},
+{q:"The professor always goes ___ tangents during lectures, making it hard to follow the main point.", o:["on","off","in","at"], c:1, exp:"\"Go off on a tangent\" is a fixed idiom meaning to suddenly start discussing a completely unrelated topic. The particle \"off\" is fixed — \"on\" is a very common wrong answer because \"on\" collocates with many similar phrases. Know the exact particle for each phrasal idiom."},
+{q:"Despite her illness, she put on a brave ___ and continued with the presentation.", o:["look","face","front","act"], c:1, exp:"\"Put on a brave face\" is a fixed idiom meaning to pretend to be happy or calm when you are actually upset, afraid, or in pain. \"Face\" is the exact fixed word — \"front,\" \"look,\" and \"act\" do not complete this idiom correctly."},
+{q:"The company decided to cut ___ on expenses by reducing the number of staff.", o:["back","off","down","out"], c:2, exp:"\"Cut down on\" means to reduce the amount or frequency of something. \"Cut back on\" is also used for reduction, but \"cut down on expenses\" is the more standard collocation in formal and written English. \"Cut off\" means to disconnect; \"cut out\" means to eliminate entirely."},
+{q:"She was at her wit's ___ after trying to explain the same concept twenty times.", o:["finish","limit","end","edge"], c:2, exp:"\"At one's wit's end\" is a fixed idiom meaning to be so frustrated or confused that you no longer know what to do. \"End\" is the exact fixed word — this idiom has no variation. The apostrophe-s form \"wit's\" is also fixed and must not be changed."},
+{q:"He let sleeping dogs ___ and chose not to reopen the old dispute with his colleague.", o:["stay","lie","sleep","rest"], c:1, exp:"\"Let sleeping dogs lie\" is a fixed idiom meaning to avoid raising a topic that could cause trouble or reopen a settled argument. \"Lie\" is the exact word required — \"stay,\" \"sleep,\" and \"rest\" are wrong. The infinitive \"lie\" (to be in a horizontal position) is fixed."},
+{q:"She hit the nail ___ the head when she identified the exact cause of the patient's symptoms.", o:["at","on","with","to"], c:1, exp:"\"Hit the nail on the head\" is a fixed idiom meaning to describe exactly what is causing a situation or to be precisely correct. The preposition \"on\" is always fixed. This is one of the most tested idioms across all levels of Pakistani English examinations."},
+{q:"After a poor first year, he pulled his ___ together and topped the class in the final exams.", o:["act","mind","self","life"], c:0, exp:"\"Pull your act together\" (also \"get your act together\") is a fixed idiom meaning to start behaving in an organised, responsible way. \"Act\" is the fixed word — \"mind,\" \"self,\" and \"life\" do not form this idiom. This is tested in both fill-in and meaning-identification formats."},
+{q:"The two rivals eventually shook hands and agreed to let bygones be ___.", o:["past","forgotten","bygones","gone"], c:2, exp:"\"Let bygones be bygones\" is a fixed idiom meaning to forget past disagreements and not hold grudges. The word \"bygones\" is repeated — this is a completely fixed expression with no variation. Replacing the second \"bygones\" with any other word is always wrong."},
+{q:"She kept the new project ___ wraps until everything was finalised and ready to launch.", o:["in","under","within","below"], c:1, exp:"\"Keep something under wraps\" is a fixed idiom meaning to keep something secret or hidden until the right time. The preposition is always \"under\" — \"in wraps\" and \"within wraps\" are not standard idioms. This tests the specific preposition required in a fixed prepositional idiom."},
+{q:"He was once ___ the top of his field but gradually lost ground to younger researchers.", o:["in","on","at","above"], c:2, exp:"\"At the top of one's field\" is a fixed expression meaning to be the most successful or highly regarded person in a particular profession or area. \"At\" is always the preposition — \"on top\" exists but means something different (in control). \"At the top\" = most successful position."},
+{q:"The teacher told the students to keep their chins ___ despite the disappointing results.", o:["high","above","out","up"], c:3, exp:"\"Keep your chin up\" is a fixed idiom meaning to remain cheerful and optimistic in a difficult situation. \"Up\" is the fixed particle — \"high,\" \"above,\" and \"out\" are all wrong. This is a fixed phrasal idiom where the adverb is inseparable from the expression."},
+{q:"She took everything ___ face value without questioning whether the information was accurate.", o:["on","at","for","by"], c:1, exp:"\"Take something at face value\" is a fixed idiom meaning to accept something as it appears without looking deeper or questioning it. The preposition is always \"at\" — \"on face value\" is a common error. This is a fixed prepositional idiom tested frequently in MDCAT."},
+{q:"The junior doctor was thrown in ___ the deep end on his very first day at the hospital.", o:["to","from","at","—"], c:3, exp:"\"Thrown in at the deep end\" is a fixed idiom meaning to be given a very difficult task with no preparation or experience. \"At the deep end\" is the complete fixed phrase — no preposition is inserted between \"in\" and \"at.\" The full idiom is \"thrown in at the deep end.\""},
+{q:"He managed to keep a low ___ after the scandal to avoid further media attention.", o:["voice","tone","profile","position"], c:2, exp:"\"Keep a low profile\" is a fixed idiom meaning to avoid drawing attention to yourself, especially after something controversial. \"Profile\" is the exact fixed word — no other noun works. This tests exact noun recall within a fixed idiomatic expression."},
+{q:"She always sees the glass as ___ full rather than half empty, no matter the situation.", o:["half","nearly","almost","completely"], c:0, exp:"\"See the glass as half full\" versus \"half empty\" is a fixed idiomatic contrast meaning to have an optimistic versus pessimistic outlook. Both halves of the idiom are fixed — \"half full\" and \"half empty\" are the only correct forms. This is a fixed idiomatic binary expression."},
+{q:"The politician tried to sit on both ___ of the fence during the debate to avoid controversy.", o:["parts","ends","sides","halves"], c:2, exp:"\"Sit on both sides of the fence\" or more commonly \"sit on the fence\" refers to avoiding commitment to either position. When the idiom is extended, \"both sides\" is the standard form. \"Ends\" and \"halves\" do not collocate with \"fence\" in this expression."},
+{q:"He played ___ cards close to his chest and refused to reveal his plans to anyone.", o:["his","the","some","all"], c:0, exp:"\"Play your cards close to your chest\" is a fixed idiom meaning to keep your plans, intentions, or information secret. The possessive pronoun (his/her/my/their) is the variable element — everything else is fixed. This tests understanding that idioms can have a pronoun slot."},
+{q:"After months of delays, the project finally got ___ the ground last week.", o:["above","from","off","over"], c:2, exp:"\"Get off the ground\" is a fixed idiom meaning for a project or plan to start successfully and begin making progress. \"Off\" is the fixed particle — \"above the ground\" and \"over the ground\" are not idioms. This tests knowledge of \"off\" as the correct particle in this expression."},
+{q:"The new intern was all ___ the place on his first day, not knowing what to do next.", o:["through","around","about","over"], c:3, exp:"\"All over the place\" is a fixed idiom meaning disorganised, scattered, or confused — unable to focus or function efficiently. \"Over\" is the fixed preposition — \"all around the place\" and \"all about the place\" are not standard idioms. The full fixed form is \"all over the place.\""},
+{q:"She has an axe ___ grind with him ever since he took credit for her research.", o:["to","for","with","against"], c:0, exp:"\"Have an axe to grind\" is a fixed idiom meaning to have a personal reason or grievance that motivates your actions or opinions. The infinitive marker \"to\" is fixed — \"axe for grinding\" and \"axe with grind\" are wrong. The full fixed phrase is \"an axe to grind.\""},
+{q:"The doctor had to break the bad news ___ the patient's family as gently as possible.", o:["for","at","to","on"], c:2, exp:"\"Break the news to\" someone is a fixed verb-preposition collocation meaning to deliver important, usually bad, information to someone. \"To\" identifies the recipient. \"Break the news\" is the fixed idiom; \"to\" is the required preposition introducing the person receiving the news."},
+{q:"He was ___ loggerheads with his supervisor over the research methodology for months.", o:["in","on","at","by"], c:2, exp:"\"At loggerheads with\" someone is a fixed idiom meaning to be in strong disagreement or conflict with someone, usually over a prolonged period. \"At\" is always the preposition — \"in loggerheads\" and \"on loggerheads\" are both wrong. This is a fixed prepositional idiom."},
+{q:"She made ___ for lost time by studying eighteen hours a day before the final examination.", o:["out","do","room","up"], c:3, exp:"\"Make up for\" something is a fixed phrasal verb idiom meaning to compensate for something missed, lost, or done wrong. \"Make up for lost time\" is the complete fixed expression. \"Out,\" \"do,\" and \"room\" do not form this idiom — \"up\" is the only correct particle."},
+{q:"The chairman decided to read the riot ___ after the team missed another deadline.", o:["paper","law","act","rules"], c:2, exp:"\"Read the riot act\" is a fixed idiom meaning to firmly and seriously reprimand someone for their behaviour and warn them of consequences. \"Act\" is the exact fixed word — \"law,\" \"rules,\" and \"paper\" do not form this idiom. The phrase originates from an actual British law called the Riot Act."},
+{q:"He always has a card ___ his sleeve when negotiations seem to be going badly.", o:["below","under","in","up"], c:3, exp:"\"Have a card up your sleeve\" is a fixed idiom meaning to have a secret plan, advantage, or resource that you have not yet revealed. \"Up\" is the fixed particle — \"under his sleeve,\" \"in his sleeve,\" and \"below his sleeve\" are all incorrect. This tests exact preposition recall."},
+];
+
+/* ═══════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════ */
+const state = {
+  answered : 0,
+  correct  : 0,
+  total    : questions.length,
+};
+
+/* ═══════════════════════════════════════════════
+   SHUFFLE
+═══════════════════════════════════════════════ */
+function shuffleOptions(q) {
+  const opts = q.o.map((text, i) => ({ text, isCorrect: i === q.c }));
+  for (let i = opts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [opts[i], opts[j]] = [opts[j], opts[i]];
+  }
+  return {
+    o : opts.map(x => x.text),
+    c : opts.findIndex(x => x.isCorrect),
+  };
+}
+
+let renderedQuestions = [];
+
+/* ═══════════════════════════════════════════════
+   WATERMARK
+═══════════════════════════════════════════════ */
+(function buildWatermarks(){
+  const overlay = document.getElementById('wmOverlay');
+  const text = 'Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057';
+  for(let r = 0; r < 7; r++){
+    for(let c = 0; c < 3; c++){
+      const span = document.createElement('span');
+      span.textContent = text;
+      span.style.left  = (c * 40 - 5) + '%';
+      span.style.top   = (r * 16 - 4) + '%';
+      overlay.appendChild(span);
+    }
+  }
+})();
+
+/* ═══════════════════════════════════════════════
+   BUILD QUIZ
+═══════════════════════════════════════════════ */
+function buildQuiz(){
+  const area = document.getElementById('quizArea');
+  area.innerHTML = '';
+  renderedQuestions = [];
+
+  questions.forEach((q, i) => {
+    const labels = ['a','b','c','d'];
+
+    const shuffled  = shuffleOptions(q);
+    const displayQ  = { ...q, o: shuffled.o, c: shuffled.c };
+    renderedQuestions[i] = displayQ;
+
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = 'card-' + i;
+
+    const optionsHTML = displayQ.o.map((opt, j) =>
+      `<div class="option" id="opt-${i}-${j}" onclick="selectOpt(${i},${j})">
+        <strong>${labels[j]})</strong> ${opt}
+      </div>`
+    ).join('');
+
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="q-num">Q ${i + 1}</span>
+      </div>
+      <div class="q-text">${displayQ.q}</div>
+      <div class="options" id="opts-${i}">${optionsHTML}</div>
+      <button class="check-btn" id="check-${i}" onclick="checkAnswer(${i})">
+        ✔ Check Answer
+      </button>
+      <div class="feedback" id="fb-${i}"></div>
+      <div class="explanation-box" id="exp-${i}">
+        <span class="exp-label">💡 Explanation:</span>${displayQ.exp}
+      </div>`;
+
+    area.appendChild(card);
+  });
+
+  const res = document.createElement('div');
+  res.id = 'resultCard';
+  area.appendChild(res);
+
+  updateStats();
+}
+
+/* ═══════════════════════════════════════════════
+   INTERACTION
+═══════════════════════════════════════════════ */
+const userAnswers = {};
+
+function selectOpt(qi, oi){
+  if(userAnswers[qi]?.checked) return;
+  document.querySelectorAll(`#opts-${qi} .option`).forEach(el => el.classList.remove('selected'));
+  document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
+  userAnswers[qi] = { selected: oi, checked: false };
+}
+
+function checkAnswer(qi){
+  const entry = userAnswers[qi];
+  if(!entry || entry.checked) return;
+
+  entry.checked = true;
+  const q   = renderedQuestions[qi];
+  const ok  = entry.selected === q.c;
+
+  if(ok) state.correct++;
+  state.answered++;
+
+  document.querySelectorAll(`#opts-${qi} .option`).forEach((el, i) => {
+    el.classList.add('disabled');
+    if(i === q.c)                       el.classList.add('correct');
+    else if(i === entry.selected && !ok) el.classList.add('wrong');
+  });
+
+  const fb = document.getElementById(`fb-${qi}`);
+  if(ok){
+    fb.className = 'feedback show correct';
+    fb.textContent = '✓ Correct! Well done!';
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.textContent = `✗ Incorrect! The correct answer is: ${String.fromCharCode(97 + q.c)}) ${q.o[q.c]}`;
+  }
+
+  if(q.exp){
+    document.getElementById(`exp-${qi}`).classList.add('show');
+  }
+
+  document.getElementById(`check-${qi}`).disabled = true;
+
+  updateStats();
+
+  if(state.answered === state.total) showResult();
+}
+
+/* ═══════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════ */
+function updateStats(){
+  document.getElementById('statTotal').textContent    = state.total;
+  document.getElementById('statAnswered').textContent = state.answered;
+  document.getElementById('statCorrect').textContent  = state.correct;
+  const pct = state.total > 0 ? Math.round(state.correct / state.total * 100) : 0;
+  document.getElementById('statScore').textContent    = pct + '%';
+}
+
+/* ═══════════════════════════════════════════════
+   RESULT CARD
+═══════════════════════════════════════════════ */
+function showResult(){
+  const pct = Math.round(state.correct / state.total * 100);
+  let grade, msg, emoji;
+
+  if(pct >= 90){ grade='A+'; msg='Outstanding Performance!';  emoji='🌟'; }
+  else if(pct >= 80){ grade='A';  msg='Excellent Work!';           emoji='🎉'; }
+  else if(pct >= 70){ grade='B';  msg='Good Job!';                 emoji='👍'; }
+  else if(pct >= 60){ grade='C';  msg='Keep Practicing!';          emoji='📚'; }
+  else if(pct >= 50){ grade='D';  msg='More Effort Needed!';       emoji='💪'; }
+  else              { grade='F';  msg='Revise and Try Again!';     emoji='📖'; }
+
+  document.getElementById('resultCard').innerHTML = `
+    <div class="result-card">
+      <div class="grade-badge">${emoji}</div>
+      <h2>${msg}</h2>
+      <div class="result-grid">
+        <div class="result-stat">
+          <div class="result-stat-value">${state.correct} / ${state.total}</div>
+          <div class="result-stat-label">Correct Answers</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${pct}%</div>
+          <div class="result-stat-label">Score</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${grade}</div>
+          <div class="result-stat-label">Grade</div>
+        </div>
+      </div>
+      <p style="opacity:.85;font-size:13px;margin-bottom:16px">
+        Articles &nbsp;|&nbsp; Smart Study Center &nbsp;|&nbsp; Sir Ahmer Javed
+      </p>
+      <button class="result-btn" onclick="resetQuiz()">🔄 Try Again</button>
+    </div>`;
+
+  document.getElementById('resultCard').scrollIntoView({ behavior:'smooth' });
+}
+
+/* ═══════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════ */
+function resetQuiz(){
+  state.answered = 0;
+  state.correct  = 0;
+  Object.keys(userAnswers).forEach(k => delete userAnswers[k]);
+  buildQuiz();
+  window.scrollTo({ top: 0, behavior:'smooth' });
+}
+
+/* ── INIT ── */
+buildQuiz();
+
+/* ═══════════════════════════════════════════════
+   COUNTDOWN TIMER — 50 minutes
+═══════════════════════════════════════════════ */
+(function startTimer(){
+  const DURATION = 50 * 60;
+  const WARN_AT  = 5  * 60;
+  let remaining  = DURATION;
+
+  const box     = document.getElementById('timerBox');
+  const display = document.getElementById('timerDisplay');
+
+  function tick(){
+    if(remaining <= 0){
+      display.textContent = '⏰ TIME UP';
+      box.classList.add('danger');
+      clearInterval(timerInterval);
+      showResult();
+      return;
+    }
+
+    const mm = String(Math.floor(remaining / 60)).padStart(2,'0');
+    const ss = String(remaining % 60).padStart(2,'0');
+    display.textContent = mm + ':' + ss;
+
+    if(remaining <= WARN_AT){
+      box.classList.add('danger');
+    }
+
+    remaining--;
+  }
+
+  tick();
+  const timerInterval = setInterval(tick, 1000);
+})();
+</script>
+</body>
+</html>
