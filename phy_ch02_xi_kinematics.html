@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch.2 Kinematics — Smart Study Center</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ── BASE ── */
+body{
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:linear-gradient(135deg,#0d2137 0%,#1565c0 50%,#1976d2 100%);
+  min-height:100vh;
+  padding:20px 16px;
+}
+
+/* ── WATERMARK ── */
+.watermark-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.watermark-overlay span{
+  position:absolute;font-size:14px;font-weight:700;
+  color:rgba(21,101,192,0.065);white-space:nowrap;
+  transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase;
+}
+
+/* ── CONTAINER ── */
+.container{
+  max-width:880px;margin:0 auto;background:#fff;
+  border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  overflow:hidden;position:relative;z-index:1;
+}
+
+/* ── CHAPTER HEADER ── */
+.chapter-header{
+  background:linear-gradient(135deg,#0d2137,#1565c0);
+  color:#fff;padding:20px 24px;text-align:center;
+}
+.ch-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;margin-bottom:6px}
+.chapter-header h1{font-size:20px;font-weight:800;margin-bottom:6px;letter-spacing:.2px}
+.ch-meta{font-size:12px;opacity:.75;font-weight:500}
+
+/* ── STATS BAR ── */
+.stats{
+  display:flex;justify-content:space-around;padding:14px 20px;
+  background:#e3f2fd;border-bottom:2px solid #bbdefb;flex-wrap:wrap;gap:8px;
+}
+.stat-item{text-align:center}
+.stat-label{font-size:10px;color:#1565c0;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.stat-value{font-size:24px;font-weight:800;color:#0d2137;margin-top:3px}
+
+/* ── QUIZ AREA ── */
+.quiz-area{padding:24px 22px}
+
+/* ── QUESTION CARD ── */
+.question-card{
+  background:#f8f9fa;border-radius:12px;padding:20px;
+  margin-bottom:16px;border-left:5px solid #1565c0;
+  transition:box-shadow .2s;
+}
+.question-card:hover{box-shadow:0 4px 16px rgba(21,101,192,.1)}
+.card-top{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;
+}
+.q-num{
+  background:#1565c0;color:#fff;padding:4px 14px;
+  border-radius:20px;font-weight:700;font-size:12px;
+}
+.q-tag{
+  background:#1565c0;color:#fff;padding:3px 10px;
+  border-radius:14px;font-size:10.5px;font-weight:700;letter-spacing:.3px;
+}
+.q-text{
+  font-size:15px;color:#1a1a1a;margin-bottom:14px;line-height:1.65;font-weight:500;
+}
+
+/* ── OPTIONS ── */
+.options{display:grid;gap:9px}
+.option{
+  padding:11px 16px;background:#fff;border:2px solid #dee2e6;
+  border-radius:9px;cursor:pointer;transition:all .25s;
+  font-size:14px;color:#333;line-height:1.4;
+}
+.option:hover:not(.disabled){border-color:#1565c0;background:#e3f2fd;color:#0d2137}
+.option.selected{border-color:#1565c0;background:#bbdefb;color:#0d2137}
+.option.correct{border-color:#1565c0!important;background:#e3f2fd!important;color:#0d2137!important;font-weight:700}
+.option.wrong{border-color:#c62828!important;background:#ffebee!important;color:#b71c1c!important}
+.option.disabled{cursor:not-allowed}
+
+/* ── CHECK BUTTON ── */
+.check-btn{
+  margin-top:13px;background:#1565c0;color:#fff;border:none;
+  padding:9px 26px;border-radius:9px;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all .25s;
+}
+.check-btn:hover:not(:disabled){background:#1976d2;transform:translateY(-1px);box-shadow:0 4px 14px rgba(21,101,192,.35)}
+.check-btn:disabled{background:#bdbdbd;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ── FEEDBACK / EXPLANATION ── */
+.feedback{
+  display:none;margin-top:11px;padding:10px 14px;
+  border-radius:8px;font-size:13px;line-height:1.5;
+}
+.feedback.show{display:block}
+.feedback.correct{background:#e3f2fd;color:#0d2137;border:2px solid #64b5f6;font-weight:600}
+.feedback.wrong{background:#ffebee;color:#b71c1c;border:2px solid #ef9a9a;font-weight:600}
+.explanation-box{
+  display:none;margin-top:8px;padding:10px 14px;
+  background:#fffde7;border:2px solid #f9a825;
+  border-radius:8px;font-size:13px;color:#5d4037;line-height:1.5;
+}
+.explanation-box.show{display:block}
+.exp-label{font-weight:700;color:#f57f17;margin-right:4px}
+
+/* ── RESULT CARD ── */
+.result-card{
+  background:linear-gradient(135deg,#0d2137,#1565c0);
+  color:#fff;border-radius:14px;padding:30px 24px;text-align:center;
+  margin:8px 0 4px;
+}
+.result-card h2{font-size:23px;margin-bottom:18px;font-weight:800}
+.result-grid{
+  display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap;margin-bottom:22px;
+}
+.result-stat{text-align:center;background:rgba(255,255,255,.14);border-radius:12px;padding:14px 22px}
+.result-stat-value{font-size:32px;font-weight:800}
+.result-stat-label{font-size:12px;opacity:.85;margin-top:4px;letter-spacing:.5px;text-transform:uppercase}
+.grade-badge{
+  display:inline-block;font-size:42px;font-weight:900;
+  background:rgba(255,255,255,.2);border-radius:50%;
+  width:80px;height:80px;line-height:80px;margin-bottom:16px;
+}
+.result-btn{
+  background:rgba(255,255,255,.18);color:#fff;
+  border:2px solid rgba(255,255,255,.7);padding:10px 24px;border-radius:9px;
+  cursor:pointer;font-size:14px;font-weight:700;margin:6px;transition:all .25s;
+}
+.result-btn:hover{background:#fff;color:#1565c0}
+
+/* ── FOOTER ── */
+.brand-footer{
+  background:#f5f5f5;border-top:1px solid #e0e0e0;
+  color:#9e9e9e;text-align:center;padding:12px;font-size:11px;letter-spacing:.3px;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:540px){
+  .chapter-header h1{font-size:17px}
+  .stat-value{font-size:20px}
+  .result-stat-value{font-size:26px}
+  .quiz-area{padding:16px 14px}
+}
+</style>
+</head>
+<body>
+
+<!-- WATERMARK -->
+<div class="watermark-overlay" id="wmOverlay"></div>
+
+<div class="container">
+
+  <!-- CHAPTER HEADER -->
+  <div class="chapter-header">
+    <div class="ch-label">📐 Physics Class XI</div>
+    <h1>Chapter 2 — Kinematics</h1>
+    <div class="ch-meta">Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed</div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-label">Total Qs</div>
+      <div class="stat-value" id="statTotal">60</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Answered</div>
+      <div class="stat-value" id="statAnswered">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Correct</div>
+      <div class="stat-value" id="statCorrect">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Score</div>
+      <div class="stat-value" id="statScore">0%</div>
+    </div>
+  </div>
+
+  <!-- QUIZ AREA -->
+  <div class="quiz-area" id="quizArea"></div>
+
+  <!-- FOOTER -->
+  <div class="brand-footer">
+    Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed &nbsp;·&nbsp; 0345-3090057
+  </div>
+
+</div><!-- /container -->
+
+<script>
+/* ═══════════════════════════════════════════════
+   MCQ DATA — Chapter 2: Kinematics
+═══════════════════════════════════════════════ */
+const questions = [
+  {q:"Which of the following is a scalar quantity?", o:["Power","Momentum","Force","Velocity"], c:0, exp:"Power has only magnitude and no direction, making it a scalar quantity."},
+  {q:"Which of the following is a vector quantity?", o:["Temperature","Displacement","Electric charge","Work"], c:1, exp:"Displacement has both magnitude and direction, so it qualifies as a vector quantity."},
+  {q:"In the head-to-tail method of vector addition, the resultant vector is drawn from:", o:["Head of the first vector to the head of the last vector","Tail of the last vector to the tail of the first vector","Tail of the first vector to the head of the last vector","Head of the first vector to the tail of the last vector"], c:2, exp:"The resultant always runs from the tail of the first vector to the head of the last vector."},
+  {q:"The commutative law of vector addition is expressed as:", o:["A + (B + C) = (A + B) + C","A · B = B · A","A × B = −B × A","A + B = B + A"], c:3, exp:"The commutative law states the order of vector addition does not affect the resultant."},
+  {q:"The associative law of vector addition states:", o:["A + (B + C) = (A + B) + C","A + B = B + A","A(B + C) = AB + AC","A · B = AB cos θ"], c:0, exp:"The associative law confirms that the grouping of vectors does not change the final resultant."},
+  {q:"The horizontal component of a vector V making angle θ with the positive x-axis is:", o:["V sin θ","V cos θ","V tan θ","V / cos θ"], c:1, exp:"The x-component is found by projecting V onto the x-axis: Vx = V cos θ."},
+  {q:"The direction of a vector with rectangular components Vx and Vy is determined by:", o:["θ = sin⁻¹(Vx / Vy)","θ = cos⁻¹(Vx / Vy)","θ = tan⁻¹(Vy / Vx)","θ = tan⁻¹(Vx / Vy)"], c:2, exp:"From the right-angled triangle formed by the components, tan θ = Vy/Vx, giving the angle with the x-axis."},
+  {q:"The magnitude of the resultant of two perpendicular component vectors Rx and Ry is:", o:["R = Rx + Ry","R = Rx − Ry","R = Rx² + Ry²","R = √(Rx² + Ry²)"], c:3, exp:"By the Pythagorean theorem, the resultant of perpendicular components is R = √(Rx² + Ry²)."},
+  {q:"A unit vector is defined as a vector whose magnitude is:", o:["Unity (1) pointing in a specified direction","Equal to the magnitude of the vector it represents","Always perpendicular to the given vector","Zero in all directions"], c:0, exp:"A unit vector has magnitude exactly 1 and is used solely to specify direction."},
+  {q:"The unit vector â of a vector A is obtained by:", o:["Multiplying A by its own magnitude","Dividing A by its magnitude |A|","Adding A to its magnitude","Subtracting the direction component from A"], c:1, exp:"By definition, â = A / |A|, normalising the vector to unit length."},
+  {q:"The Cartesian coordinate system consists of:", o:["Two mutually parallel axes","One vertical and one horizontal axis only","Three mutually perpendicular axes meeting at a common origin","Three parallel axes with separate origins"], c:2, exp:"The Cartesian system has X, Y, and Z axes — three mutually perpendicular lines intersecting at the origin."},
+  {q:"The scalar (dot) product of two vectors A and B is defined as:", o:["A · B = AB sin θ n̂","A · B = AB tan θ","A · B = (A + B) cos θ","A · B = AB cos θ"], c:3, exp:"The dot product gives a scalar result equal to the product of magnitudes multiplied by cosine of the angle between them."},
+  {q:"The dot product of two mutually perpendicular vectors is:", o:["Zero","Maximum (AB)","Equal to the product of their magnitudes","Negative"], c:0, exp:"A · B = AB cos 90° = 0, since cos 90° = 0."},
+  {q:"Which of the following is correct for the dot products of unit vectors î, ĵ, k̂?", o:["î · ĵ = 1","î · î = ĵ · ĵ = k̂ · k̂ = 1","î · ĵ = k̂","k̂ · k̂ = 0"], c:1, exp:"The dot product of any unit vector with itself equals 1, since the angle between them is 0° and cos 0° = 1."},
+  {q:"Work done by a force is calculated using which type of vector product?", o:["Cross product","Vector product","Dot (scalar) product","Triple product"], c:2, exp:"Work = F · d = Fd cos θ, which is the dot product of force and displacement vectors."},
+  {q:"The cross product A × B produces:", o:["A scalar result equal to AB cos θ","A vector parallel to both A and B","A scalar equal to AB sin θ","A vector perpendicular to the plane containing A and B"], c:3, exp:"The cross product A × B = AB sin θ n̂, where n̂ is perpendicular to the plane of A and B."},
+  {q:"The cross product of two parallel vectors is:", o:["Zero (null vector)","Maximum","Equal to AB","A unit vector"], c:0, exp:"For parallel vectors θ = 0° or 180°, so sin θ = 0, making A × B = 0."},
+  {q:"Which of the following is correct for cross products of unit vectors?", o:["î × î = 1","î × ĵ = k̂","ĵ × î = k̂","k̂ × k̂ = k̂"], c:1, exp:"Unit vectors form a right-handed system, so î × ĵ = k̂ (right-hand rule)."},
+  {q:"Torque produced by a force is calculated as:", o:["τ = F · r (dot product)","τ = F + r","τ = r × F (cross product)","τ = F / r"], c:2, exp:"Torque τ = r × F uses the cross product, giving a vector result perpendicular to both r and F."},
+  {q:"The cross product is described as:", o:["Commutative: A × B = B × A","Always yielding a scalar","Equal to the dot product when θ = 45°","Anti-commutative: A × B = −B × A"], c:3, exp:"Reversing the order of a cross product reverses its direction, so A × B = −B × A."},
+  {q:"The magnitude |A × B| is geometrically equal to:", o:["The area of the parallelogram formed by A and B as adjacent sides","The dot product A · B","The sum A + B","The diagonal length of the parallelogram"], c:0, exp:"|A × B| = AB sin θ, which equals the area of the parallelogram formed by A and B."},
+  {q:"The self dot product A · A of a vector A equals:", o:["Zero","A² (square of its magnitude)","2A","A / 2"], c:1, exp:"A · A = AA cos 0° = A², the square of the vector's magnitude."},
+  {q:"On a displacement-time graph, a horizontal straight line indicates:", o:["Uniform acceleration","Constant velocity in the positive direction","Zero velocity (stationary object)","Increasing velocity"], c:2, exp:"A horizontal line means displacement is not changing with time, so velocity equals zero."},
+  {q:"On a displacement-time graph, a straight inclined line indicates:", o:["Zero velocity","Variable velocity","Uniform acceleration","Constant (uniform) velocity"], c:3, exp:"A straight line has constant slope, and slope of a displacement-time graph equals velocity."},
+  {q:"The instantaneous velocity at any point on a displacement-time graph is found by:", o:["Measuring the slope of the tangent at that point","Finding the total area under the graph","Dividing total displacement by total time","Averaging all slopes across the graph"], c:0, exp:"Instantaneous velocity = slope of the tangent to the displacement-time curve at that instant."},
+  {q:"The SI unit of velocity is:", o:["m/s²","m/s","m·s","kg·m/s"], c:1, exp:"Velocity = displacement / time, giving SI unit of metres per second (m/s)."},
+  {q:"The dimensional formula of velocity is:", o:["[LT]","[LT⁻²]","[LT⁻¹]","[L²T⁻¹]"], c:2, exp:"Velocity = [L] / [T] = [LT⁻¹]."},
+  {q:"Average velocity is defined as:", o:["Total distance divided by total time","Final velocity plus initial velocity divided by 2","Rate of change of speed","Total displacement divided by total time"], c:3, exp:"Average velocity = Δr / Δt = total displacement over the total time taken."},
+  {q:"The dimensional formula of acceleration is:", o:["[LT⁻²]","[LT⁻¹]","[L²T⁻²]","[LT²]"], c:0, exp:"Acceleration = velocity / time = [LT⁻¹] / [T] = [LT⁻²]."},
+  {q:"Which of the following is the first equation of uniformly accelerated motion?", o:["S = Vit + ½at²","Vf = Vi + at","Vf² = Vi² + 2as","S = ½(Vi + Vf)t"], c:1, exp:"The first equation relates initial velocity, final velocity, acceleration, and time: Vf = Vi + at."},
+  {q:"The second equation of motion S = Vit + ½at² is derived graphically from the:", o:["Slope of the velocity-time graph","Area of a triangle under the displacement-time graph","Combined area of a triangle and a rectangle under the velocity-time graph","Slope of the displacement-time graph"], c:2, exp:"S = area of triangle ABD + area of rectangle OADC under the velocity-time graph."},
+  {q:"The area under a velocity-time graph represents:", o:["Force applied","Acceleration of the object","Speed of the object","Displacement of the object"], c:3, exp:"Integrating velocity over time gives displacement, so the area under the v-t graph = displacement."},
+  {q:"In projectile motion, which component of initial velocity determines the horizontal range?", o:["Horizontal component: Vox = Vo cos θ","Vertical component: Voy = Vo sin θ","The resultant velocity Vo","Average of both components"], c:0, exp:"Horizontal range is covered by the constant horizontal velocity component Vox = Vo cos θ."},
+  {q:"The total time of flight for a projectile launched at angle θ with speed Vo is:", o:["T = Vo sin θ / g","T = 2Vo sin θ / g","T = Vo cos θ / g","T = Vo² sin 2θ / g"], c:1, exp:"Total time T = 2t, where t = Vo sin θ / g is the time to reach maximum height, giving T = 2Vo sin θ / g."},
+  {q:"The maximum height reached by a projectile is given by:", o:["H = Vo² sin 2θ / g","H = Vo² cos² θ / 2g","H = Vo² sin² θ / 2g","H = 2Vo sin θ / g"], c:2, exp:"H = Vo² sin² θ / 2g is derived by applying the third equation of motion in the vertical direction."},
+  {q:"The range of a projectile launched at angle θ with initial speed Vo is:", o:["R = Vo² sin² θ / g","R = Vo² cos 2θ / g","R = 2Vo sin θ cos θ","R = Vo² sin 2θ / g"], c:3, exp:"R = Vo² sin 2θ / g, using the identity 2 sin θ cos θ = sin 2θ."},
+  {q:"For maximum horizontal range of a projectile, the angle of projection must be:", o:["45°","30°","60°","90°"], c:0, exp:"Range is maximum when sin 2θ = 1, i.e., 2θ = 90°, so θ = 45°."},
+  {q:"Two projectiles launched with the same speed at complementary angles (θ and 90° − θ) will have:", o:["The same maximum height","The same horizontal range","The same time of flight","The same vertical velocity throughout"], c:1, exp:"sin 2θ = sin 2(90° − θ), so complementary angles produce identical ranges."},
+  {q:"At the highest point of a projectile's trajectory:", o:["Both velocity components are zero","Horizontal velocity becomes zero","Vertical velocity is zero; horizontal velocity remains unchanged","Total velocity is at its maximum"], c:2, exp:"At maximum height, the vertical component becomes zero while the horizontal component stays constant throughout flight."},
+  {q:"Which of the following is NOT an assumption in basic projectile motion analysis?", o:["Acceleration due to gravity is constant","Air resistance is negligible","Earth's rotation effect is negligible","Initial velocity of the projectile is zero"], c:3, exp:"No assumption is made about initial velocity being zero — projectiles are launched with a given speed."},
+  {q:"The maximum range of a projectile with initial speed Vo is:", o:["Rmax = Vo² / g","Rmax = 2Vo² / g","Rmax = Vo² / 2g","Rmax = Vo / g"], c:0, exp:"At 45°, sin 2(45°) = sin 90° = 1, giving Rmax = Vo²/g."},
+  {q:"A position vector is:", o:["A vector freely translatable in space without restrictions","A vector directed from the origin to a specific point in the coordinate system","A vector of unit magnitude pointing in any direction","A vector whose magnitude equals zero"], c:1, exp:"A position vector r points from the fixed origin O to the location of a point P in the coordinate system."},
+  {q:"Two vectors equal in magnitude but opposite in direction are called:", o:["Unit vectors of each other","Free vectors of each other","Negative vectors of each other","Position vectors of each other"], c:2, exp:"Vectors equal in magnitude but opposite in direction are defined as negative vectors of each other."},
+  {q:"A null vector is the resultant of:", o:["Any two non-zero vectors","Two mutually perpendicular vectors","A vector and its corresponding unit vector","Two equal vectors acting in exactly opposite directions"], c:3, exp:"A + (−A) = |0|; two equal and opposite vectors cancel completely to give a null vector."},
+  {q:"For anti-parallel vectors (θ = 180°), the dot product A · B equals:", o:["−AB","+AB","Zero","AB / 2"], c:0, exp:"A · B = AB cos 180° = −AB, since cos 180° = −1."},
+  {q:"The slope of the velocity-time graph at any instant gives:", o:["Displacement","Instantaneous acceleration","Total distance covered","Average velocity"], c:1, exp:"On a v-t graph, the slope of the tangent at any point equals the instantaneous acceleration."},
+  {q:"In projectile motion, the vertical velocity at any time t is given by:", o:["Vy = Vo cos θ","Vy = Vo cos θ − gt","Vy = Vo sin θ − gt","Vy = Vo sin θ + gt"], c:2, exp:"Starting with Voy = Vo sin θ and decelerating under gravity: Vy = Vo sin θ − gt."},
+  {q:"The force on a charged particle q moving with velocity v in a magnetic field B is:", o:["F = q(v · B)","F = q(v + B)","F = q|v||B| cos θ","F = q(v × B)"], c:3, exp:"The magnetic force uses the cross product: F = q(v × B), giving a force perpendicular to both v and B."},
+  {q:"When a vector is multiplied by a positive scalar (non-zero), the result has:", o:["Changed magnitude but the same direction","Reversed direction only","Zero magnitude","Changed magnitude and reversed direction"], c:0, exp:"Multiplying by a positive scalar scales the magnitude only; the direction remains unchanged."},
+  {q:"A body is said to have non-uniform acceleration when:", o:["Its velocity remains constant throughout motion","The magnitude or direction of acceleration changes during motion","It covers equal distances in equal time intervals","Its speed increases at a uniform rate"], c:1, exp:"Non-uniform acceleration means either the magnitude or direction (or both) of acceleration varies during the motion."},
+  {q:"If Rx and Ry are the rectangular components of a resultant vector R, then:", o:["R = Rx² + Ry²","R = Rx + Ry","R = √(Rx² + Ry²)","R = (Rx − Ry)²"], c:2, exp:"By Pythagoras' theorem applied to the right-angled triangle of components, R = √(Rx² + Ry²)."},
+  {q:"The dot product A · B in terms of rectangular components is:", o:["AxAy + BxBy + AzBz","(Ax + Ay)(Bx + By)","AxBy + AyBx + AzBz","AxBx + AyBy + AzBz"], c:3, exp:"Expanding A · B using unit vector dot products (î·î = ĵ·ĵ = k̂·k̂ = 1; cross terms = 0) gives AxBx + AyBy + AzBz."},
+  {q:"At terminal velocity, the net force acting on the falling body is:", o:["Zero","Equal to the weight of the body","Equal to air resistance only","At its maximum value"], c:0, exp:"At terminal velocity, weight and air resistance balance exactly, making net force = 0 and acceleration = 0."},
+  {q:"If the dot product of two non-zero vectors is zero, the vectors must be:", o:["Parallel to each other","Perpendicular to each other","Anti-parallel (opposite directions)","Equal in magnitude"], c:1, exp:"A · B = AB cos θ = 0 requires cos θ = 0, i.e., θ = 90°, so the vectors are perpendicular."},
+  {q:"Which equation correctly describes horizontal displacement in projectile motion?", o:["x = x₀ + v₀y t − ½gt²","x = x₀ + ½v₀x t²","x = x₀ + v₀x t","x = x₀ − ½gt²"], c:2, exp:"Horizontal acceleration is zero, so horizontal displacement follows uniform motion: x = x₀ + v₀x t."},
+  {q:"Which of the following correctly describes a free vector?", o:["A vector fixed at a specific origin point","A vector with zero magnitude","A vector used exclusively to specify position","A vector that can be translated in space without changing its magnitude or direction"], c:3, exp:"A free vector is not attached to any specific point and retains its magnitude and direction when moved."},
+  {q:"The trajectory of a projectile is parabolic because:", o:["Horizontal velocity is constant while vertical velocity changes uniformly with time","Both horizontal and vertical velocities change at the same rate","Gravity acts in the horizontal direction","The projectile always returns to its launch height"], c:0, exp:"The combination of constant horizontal motion and uniformly accelerated vertical motion mathematically produces a parabolic path."},
+  {q:"The process of splitting a vector into its x and y components along coordinate axes is called:", o:["Vector addition","Resolution of a vector","Vector multiplication","Finding the resultant"], c:1, exp:"Resolution of a vector means splitting it into rectangular (perpendicular) components along the coordinate axes."},
+  {q:"A displacement-time graph with a progressively steepening slope indicates:", o:["Zero velocity","Uniform (constant) velocity","Increasing velocity (acceleration)","Decreasing velocity (deceleration)"], c:2, exp:"An increasing slope means displacement is growing faster with time, indicating the object is accelerating."},
+  {q:"The scalar (dot) product satisfies which of the following properties?", o:["Anti-commutative: A · B = −B · A","Non-commutative: A · B ≠ B · A","Associative only, not commutative","Commutative: A · B = B · A"], c:3, exp:"A · B = AB cos θ = BA cos θ = B · A, so the dot product is commutative."},
+];
+
+/* ═══════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════ */
+const state = {
+  answered : 0,
+  correct  : 0,
+  total    : questions.length,
+};
+
+/* ═══════════════════════════════════════════════
+   SHUFFLE
+   Randomises option order; tracks which option
+   is now correct after the shuffle.
+═══════════════════════════════════════════════ */
+function shuffleOptions(q) {
+  const opts = q.o.map((text, i) => ({ text, isCorrect: i === q.c }));
+
+  /* Fisher-Yates shuffle */
+  for (let i = opts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [opts[i], opts[j]] = [opts[j], opts[i]];
+  }
+
+  return {
+    o : opts.map(x => x.text),
+    c : opts.findIndex(x => x.isCorrect),
+  };
+}
+
+let renderedQuestions = [];
+
+/* ═══════════════════════════════════════════════
+   WATERMARK
+═══════════════════════════════════════════════ */
+(function buildWatermarks(){
+  const overlay = document.getElementById('wmOverlay');
+  const text = 'Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057';
+  for(let r = 0; r < 7; r++){
+    for(let c = 0; c < 3; c++){
+      const span = document.createElement('span');
+      span.textContent = text;
+      span.style.left  = (c * 40 - 5) + '%';
+      span.style.top   = (r * 16 - 4) + '%';
+      overlay.appendChild(span);
+    }
+  }
+})();
+
+/* ═══════════════════════════════════════════════
+   BUILD QUIZ
+═══════════════════════════════════════════════ */
+function buildQuiz(){
+  const area = document.getElementById('quizArea');
+  area.innerHTML = '';
+  renderedQuestions = [];
+
+  questions.forEach((q, i) => {
+    const labels = ['a','b','c','d'];
+
+    const shuffled  = shuffleOptions(q);
+    const displayQ  = { ...q, o: shuffled.o, c: shuffled.c };
+    renderedQuestions[i] = displayQ;
+
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = 'card-' + i;
+
+    const optionsHTML = displayQ.o.map((opt, j) =>
+      `<div class="option" id="opt-${i}-${j}" onclick="selectOpt(${i},${j})">
+        <strong>${labels[j]})</strong> ${opt}
+      </div>`
+    ).join('');
+
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="q-num">Q ${i + 1}</span>
+        <span class="q-tag">📐 MCQ</span>
+      </div>
+      <div class="q-text">${displayQ.q}</div>
+      <div class="options" id="opts-${i}">${optionsHTML}</div>
+      <button class="check-btn" id="check-${i}" onclick="checkAnswer(${i})">
+        ✔ Check Answer
+      </button>
+      <div class="feedback" id="fb-${i}"></div>
+      <div class="explanation-box" id="exp-${i}">
+        <span class="exp-label">💡 Explanation:</span>${displayQ.exp}
+      </div>`;
+
+    area.appendChild(card);
+  });
+
+  const res = document.createElement('div');
+  res.id = 'resultCard';
+  area.appendChild(res);
+
+  updateStats();
+}
+
+/* ═══════════════════════════════════════════════
+   INTERACTION
+═══════════════════════════════════════════════ */
+const userAnswers = {};
+
+function selectOpt(qi, oi){
+  if(userAnswers[qi]?.checked) return;
+  document.querySelectorAll(`#opts-${qi} .option`).forEach(el => el.classList.remove('selected'));
+  document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
+  userAnswers[qi] = { selected: oi, checked: false };
+}
+
+function checkAnswer(qi){
+  const entry = userAnswers[qi];
+  if(!entry || entry.checked) return;
+
+  entry.checked = true;
+  const q   = renderedQuestions[qi];
+  const ok  = entry.selected === q.c;
+
+  if(ok) state.correct++;
+  state.answered++;
+
+  document.querySelectorAll(`#opts-${qi} .option`).forEach((el, i) => {
+    el.classList.add('disabled');
+    if(i === q.c)                       el.classList.add('correct');
+    else if(i === entry.selected && !ok) el.classList.add('wrong');
+  });
+
+  const fb = document.getElementById(`fb-${qi}`);
+  if(ok){
+    fb.className = 'feedback show correct';
+    fb.textContent = '✓ Correct! Well done!';
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.textContent = `✗ Incorrect! The correct answer is: ${String.fromCharCode(97 + q.c)}) ${q.o[q.c]}`;
+  }
+
+  if(q.exp){
+    document.getElementById(`exp-${qi}`).classList.add('show');
+  }
+
+  document.getElementById(`check-${qi}`).disabled = true;
+
+  updateStats();
+
+  if(state.answered === state.total) showResult();
+}
+
+/* ═══════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════ */
+function updateStats(){
+  document.getElementById('statTotal').textContent    = state.total;
+  document.getElementById('statAnswered').textContent = state.answered;
+  document.getElementById('statCorrect').textContent  = state.correct;
+  const pct = state.total > 0 ? Math.round(state.correct / state.total * 100) : 0;
+  document.getElementById('statScore').textContent    = pct + '%';
+}
+
+/* ═══════════════════════════════════════════════
+   RESULT CARD
+═══════════════════════════════════════════════ */
+function showResult(){
+  const pct = Math.round(state.correct / state.total * 100);
+  let grade, msg, emoji;
+
+  if(pct >= 90){ grade='A+'; msg='Outstanding Performance!';  emoji='🌟'; }
+  else if(pct >= 80){ grade='A';  msg='Excellent Work!';           emoji='🎉'; }
+  else if(pct >= 70){ grade='B';  msg='Good Job!';                 emoji='👍'; }
+  else if(pct >= 60){ grade='C';  msg='Keep Practicing!';          emoji='📚'; }
+  else if(pct >= 50){ grade='D';  msg='More Effort Needed!';       emoji='💪'; }
+  else              { grade='F';  msg='Revise the Chapter Again!'; emoji='📖'; }
+
+  document.getElementById('resultCard').innerHTML = `
+    <div class="result-card">
+      <div class="grade-badge">${emoji}</div>
+      <h2>${msg}</h2>
+      <div class="result-grid">
+        <div class="result-stat">
+          <div class="result-stat-value">${state.correct} / ${state.total}</div>
+          <div class="result-stat-label">Correct Answers</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${pct}%</div>
+          <div class="result-stat-label">Score</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${grade}</div>
+          <div class="result-stat-label">Grade</div>
+        </div>
+      </div>
+      <p style="opacity:.85;font-size:13px;margin-bottom:16px">
+        Ch.2 Kinematics &nbsp;|&nbsp; Smart Study Center &nbsp;|&nbsp; Sir Ahmer Javed
+      </p>
+      <button class="result-btn" onclick="resetQuiz()">🔄 Try Again</button>
+    </div>`;
+
+  document.getElementById('resultCard').scrollIntoView({ behavior:'smooth' });
+}
+
+/* ═══════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════ */
+function resetQuiz(){
+  state.answered = 0;
+  state.correct  = 0;
+  Object.keys(userAnswers).forEach(k => delete userAnswers[k]);
+  buildQuiz();
+  window.scrollTo({ top: 0, behavior:'smooth' });
+}
+
+/* ── INIT ── */
+buildQuiz();
+</script>
+</body>
+</html>
