@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch.18 Chemical Coordination — Smart Study Center</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+  .timer-box{
+  position:sticky;
+  top:0;
+  z-index:9999;
+  width:100%;
+  text-align:center;
+  padding:10px 20px;
+  background:#fff3e0;
+  border-bottom:2px solid #ff9800;
+  font-size:18px;
+  font-weight:800;
+  color:#e65100;
+  letter-spacing:1px;
+}
+.timer-box.danger{
+  background:#ffebee;
+  border-color:#c62828;
+  color:#c62828;
+}
+
+/* ── BASE ── */
+body{
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:linear-gradient(135deg,#1a4731 0%,#2e7d32 50%,#388e3c 100%);
+  min-height:100vh;
+  padding:20px 16px;
+}
+
+/* ── WATERMARK ── */
+.watermark-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.watermark-overlay span{
+  position:absolute;font-size:14px;font-weight:700;
+  color:rgba(46,125,50,0.065);white-space:nowrap;
+  transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase;
+}
+
+/* ── CONTAINER ── */
+.container{
+  max-width:880px;margin:0 auto;background:#fff;
+  border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  overflow:visible;position:relative;z-index:1;
+}
+
+/* ── CHAPTER HEADER ── */
+.chapter-header{
+  background:linear-gradient(135deg,#1b5e20,#2e7d32);
+  color:#fff;padding:20px 24px;text-align:center;
+}
+.ch-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;margin-bottom:6px}
+.chapter-header h1{font-size:20px;font-weight:800;margin-bottom:6px;letter-spacing:.2px}
+.ch-meta{font-size:12px;opacity:.75;font-weight:500}
+
+/* ── STATS BAR ── */
+.stats{
+  display:flex;justify-content:space-around;padding:14px 20px;
+  background:#e8f5e9;border-bottom:2px solid #c8e6c9;flex-wrap:wrap;gap:8px;
+}
+.stat-item{text-align:center}
+.stat-label{font-size:10px;color:#2e7d32;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.stat-value{font-size:24px;font-weight:800;color:#1b5e20;margin-top:3px}
+
+/* ── TIMER BAR ── */
+.timer-bar{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  padding:11px 20px;background:#fff8f0;border-bottom:2px solid #ffe0b2;
+}
+.timer-icon{font-size:18px;line-height:1}
+.timer-label{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#e65100}
+.timer-display{
+  font-size:26px;font-weight:800;color:#e65100;
+  font-variant-numeric:tabular-nums;letter-spacing:1px;
+  transition:color .4s;
+}
+.timer-display.warning{color:#c62828;animation:pulse 1s infinite}
+.timer-progress-wrap{
+  flex:1;max-width:300px;height:6px;background:#ffe0b2;
+  border-radius:4px;overflow:hidden;
+}
+.timer-progress-fill{
+  height:100%;background:#e65100;border-radius:4px;
+  transition:width 1s linear, background .4s;
+}
+.timer-progress-fill.warning{background:#c62828}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+
+/* ── QUIZ AREA ── */
+.quiz-area{padding:24px 22px}
+
+/* ── QUESTION CARD ── */
+.question-card{
+  background:#f8f9fa;border-radius:12px;padding:20px;
+  margin-bottom:16px;border-left:5px solid #2e7d32;
+  transition:box-shadow .2s;
+}
+.question-card:hover{box-shadow:0 4px 16px rgba(46,125,50,.1)}
+.card-top{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;
+}
+.q-num{
+  background:#2e7d32;color:#fff;padding:4px 14px;
+  border-radius:20px;font-weight:700;font-size:12px;
+}
+.q-tag{
+  background:#2e7d32;color:#fff;padding:3px 10px;
+  border-radius:14px;font-size:10.5px;font-weight:700;letter-spacing:.3px;
+}
+.q-text{
+  font-size:15px;color:#1a1a1a;margin-bottom:14px;line-height:1.65;font-weight:500;
+}
+
+/* ── OPTIONS ── */
+.options{display:grid;gap:9px}
+.option{
+  padding:11px 16px;background:#fff;border:2px solid #dee2e6;
+  border-radius:9px;cursor:pointer;transition:all .25s;
+  font-size:14px;color:#333;line-height:1.4;
+}
+.option:hover:not(.disabled){border-color:#2e7d32;background:#e8f5e9;color:#1b5e20}
+.option.selected{border-color:#2e7d32;background:#c8e6c9;color:#1b5e20}
+.option.correct{border-color:#2e7d32!important;background:#e8f5e9!important;color:#1b5e20!important;font-weight:700}
+.option.wrong{border-color:#c62828!important;background:#ffebee!important;color:#b71c1c!important}
+.option.disabled{cursor:not-allowed}
+
+/* ── CHECK BUTTON ── */
+.check-btn{
+  margin-top:13px;background:#2e7d32;color:#fff;border:none;
+  padding:9px 26px;border-radius:9px;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all .25s;
+}
+.check-btn:hover:not(:disabled){background:#388e3c;transform:translateY(-1px);box-shadow:0 4px 14px rgba(46,125,50,.35)}
+.check-btn:disabled{background:#bdbdbd;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ── FEEDBACK / EXPLANATION ── */
+.feedback{
+  display:none;margin-top:11px;padding:10px 14px;
+  border-radius:8px;font-size:13px;line-height:1.5;
+}
+.feedback.show{display:block}
+.feedback.correct{background:#e8f5e9;color:#1b5e20;border:2px solid #66bb6a;font-weight:600}
+.feedback.wrong{background:#ffebee;color:#b71c1c;border:2px solid #ef9a9a;font-weight:600}
+.explanation-box{
+  display:none;margin-top:8px;padding:10px 14px;
+  background:#fffde7;border:2px solid #f9a825;
+  border-radius:8px;font-size:13px;color:#5d4037;line-height:1.5;
+}
+.explanation-box.show{display:block}
+.exp-label{font-weight:700;color:#f57f17;margin-right:4px}
+
+/* ── RESULT CARD ── */
+.result-card{
+  background:linear-gradient(135deg,#1b5e20,#2e7d32);
+  color:#fff;border-radius:14px;padding:30px 24px;text-align:center;
+  margin:8px 0 4px;
+}
+.result-card h2{font-size:23px;margin-bottom:18px;font-weight:800}
+.result-grid{
+  display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap;margin-bottom:22px;
+}
+.result-stat{text-align:center;background:rgba(255,255,255,.14);border-radius:12px;padding:14px 22px}
+.result-stat-value{font-size:32px;font-weight:800}
+.result-stat-label{font-size:12px;opacity:.85;margin-top:4px;letter-spacing:.5px;text-transform:uppercase}
+.grade-badge{
+  display:inline-block;font-size:42px;font-weight:900;
+  background:rgba(255,255,255,.2);border-radius:50%;
+  width:80px;height:80px;line-height:80px;margin-bottom:16px;
+}
+.result-btn{
+  background:rgba(255,255,255,.18);color:#fff;
+  border:2px solid rgba(255,255,255,.7);padding:10px 24px;border-radius:9px;
+  cursor:pointer;font-size:14px;font-weight:700;margin:6px;transition:all .25s;
+}
+.result-btn:hover{background:#fff;color:#2e7d32}
+
+/* ── FOOTER ── */
+.brand-footer{
+  background:#f5f5f5;border-top:1px solid #e0e0e0;
+  color:#9e9e9e;text-align:center;padding:12px;font-size:11px;letter-spacing:.3px;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:540px){
+  .chapter-header h1{font-size:17px}
+  .stat-value{font-size:20px}
+  .result-stat-value{font-size:26px}
+  .quiz-area{padding:16px 14px}
+}
+</style>
+</head>
+<body>
+
+<!-- WATERMARK -->
+<div class="watermark-overlay" id="wmOverlay"></div>
+
+<div class="container">
+
+  <!-- CHAPTER HEADER -->
+  <div class="chapter-header">
+    <div class="ch-label">🦴 Biology Class XII</div>
+    <h1>Chapter 18 — Chemical Coordination</h1>
+    <div class="ch-meta">Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed</div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-label">Total Qs</div>
+      <div class="stat-value" id="statTotal">60</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Answered</div>
+      <div class="stat-value" id="statAnswered">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Correct</div>
+      <div class="stat-value" id="statCorrect">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Score</div>
+      <div class="stat-value" id="statScore">0%</div>
+    </div>
+  </div>
+  </div>
+
+<!-- TIMER -->
+<div id="timerBox" class="timer-box">
+  ⏱ Time Remaining: <span id="timerDisplay">60:00</span>
+</div>
+
+<!-- QUIZ AREA -->
+
+  <!-- QUIZ AREA -->
+  <div class="quiz-area" id="quizArea"></div>
+
+  <!-- FOOTER -->
+  <div class="brand-footer">
+    Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed &nbsp;·&nbsp; 0345-3090057
+  </div>
+
+</div><!-- /container -->
+
+<script>
+/* ═══════════════════════════════════════════════
+   MCQ DATA — Chapter 18: Chemical Coordination
+═══════════════════════════════════════════════ */
+const questions = [
+  {q:"Neurosecretory cells that control the anterior pituitary by secreting releasing and inhibiting hormones are located in:", o:["Hypothalamus","Thalamus","Hippocampus","Amygdala"], c:0, exp:"The hypothalamus contains two sets of neurosecretory cells — one set regulates the anterior pituitary via releasing/inhibiting hormones, and the other produces ADH and oxytocin stored in the posterior pituitary."},
+{q:"The three major chemical categories of hormones are peptide/protein, amino acid derivatives, and:", o:["Nucleotide hormones","Steroid hormones","Phospholipid hormones","Glycoprotein hormones"], c:1, exp:"Steroid hormones are the third category, manufactured through enzymatic modification of cholesterol; they include testosterone, estrogen, progesterone, aldosterone, and cortisol."},
+{q:"Melatonin, secreted by the pineal gland, is an amine hormone derived from which amino acid?", o:["Tryptophan","Tyrosine","Phenylalanine","Histidine"], c:0, exp:"Unlike catecholamines and thyroid hormones (which derive from tyrosine), melatonin is uniquely derived from tryptophan, making it distinct among amine hormones."},
+{q:"Epinephrine, norepinephrine, and thyroxin are all classified as amino acid derivative hormones synthesized from:", o:["Tryptophan","Leucine","Phenylalanine","Tyrosine"], c:3, exp:"Catecholamines (epinephrine and norepinephrine) from the adrenal medulla and all thyroid hormones are derived from the amino acid tyrosine through enzymatic modification."},
+{q:"cAMP (cyclic adenosine monophosphate) is called a \"second messenger\" because it:", o:["Transfers the hormonal signal from the membrane receptor to molecules within the cell","Is the hormone released by the target gland after stimulation","Crosses the cell membrane to directly activate the nucleus","Acts as a primary messenger that activates gene expression"], c:0, exp:"cAMP is produced when a hydrophilic hormone binds to its receptor, activating adenylyl cyclase; it then relays the signal inside the cell to trigger specific cellular responses like enzyme activation or protein synthesis."},
+{q:"Hydrophilic (protein) hormones bind to surface receptors rather than entering the cell because:", o:["They are derived from cholesterol","They are soluble in water but insoluble in lipids","They directly alter DNA transcription","They require specialized intracellular carrier proteins"], c:1, exp:"Hydrophilic hormones cannot cross the phospholipid bilayer due to their water-soluble, lipid-insoluble nature, so they must bind to protein receptors on the outer surface of the target cell membrane."},
+{q:"Which of the following correctly distinguishes peptide hormones from protein hormones?", o:["Peptide hormones have long chains (e.g., GH); protein hormones have short chains (e.g., ADH)","Peptide hormones are steroid-derived; protein hormones are amino acid-derived","Both peptide and protein hormones bind exclusively to nuclear receptors","Peptide hormones are short-chain (e.g., ADH); protein hormones are long-chain amino acid hormones (e.g., GH, Insulin)"], c:3, exp:"Chain length is the key distinction — ADH is a short-chain peptide hormone, while GH and Insulin are long-chain protein hormones; both types are water-soluble and cannot cross cell membranes."},
+{q:"Steroid and thyroid hormones (lipophilic) exert their effects primarily by:", o:["Binding to surface receptors and triggering cAMP production","Using second messengers to activate cytoplasmic enzymes","Activating adenylyl cyclase on the outer cell membrane","Diffusing into the cell and binding nuclear receptors to initiate mRNA transcription from specific genes"], c:3, exp:"Because lipophilic hormones can cross the cell membrane, they bind to protein receptors in the nucleus; the receptor-hormone complex then binds to DNA and initiates transcription, eventually directing synthesis of new proteins."},
+{q:"Gonadotropin Releasing Hormone (GnRH) from the hypothalamus specifically stimulates the anterior pituitary to secrete:", o:["FSH and LH","TSH and ACTH","GH and Prolactin","MSH and ADH"], c:0, exp:"GnRH targets the anterior pituitary to release FSH (Follicle Stimulating Hormone) and LH (Luteinizing Hormone), which together regulate gonadal function in both males and females."},
+{q:"Growth Hormone Inhibiting Hormone (GHIH), also known as somatostatin, acts on the anterior pituitary to:", o:["Stimulate GH release","Inhibit GH secretion","Inhibit prolactin secretion","Stimulate TSH release"], c:1, exp:"Somatostatin (GHIH) is one of the hypothalamic inhibiting hormones; it specifically suppresses Growth Hormone secretion from the anterior pituitary and is part of the classic negative feedback regulation of GH."},
+{q:"The pituitary gland, a pea-sized structure that hangs from the hypothalamus by a stalk, is also called the:", o:["Adenohypophysis","Neurohypophysis","Hypophysis","Diencephalon"], c:2, exp:"Hypophysis is the alternate name for the entire pituitary gland; adenohypophysis refers only to the anterior lobe, and neurohypophysis refers only to the posterior lobe."},
+{q:"ACTH (Adrenocorticotropic Hormone) from the anterior pituitary stimulates:", o:["Thyroid gland to produce thyroxin","Bone and muscle growth","Gonads to produce sex hormones","Adrenal cortex to produce corticosteroids"], c:3, exp:"ACTH is a tropic hormone that acts specifically on the adrenal cortex, stimulating it to produce corticosteroids including glucocorticoids (cortisol) and mineralocorticoids (aldosterone)."},
+{q:"Which anterior pituitary hormone stimulates the synthesis and dispersion of melanin pigment in the skin?", o:["MSH (Melanocyte Stimulating Hormone)","GH (Growth Hormone)","Prolactin","TSH (Thyroid Stimulating Hormone)"], c:0, exp:"MSH acts on melanocytes in the skin to stimulate melanin production and dispersion; it is one of the seven essential hormones secreted by the anterior pituitary."},
+{q:"FSH and LH are collectively called gonadotropins (GnTH) because they:", o:["Are both steroid hormones derived from cholesterol","Stimulate the activities of both male and female gonads","Are secreted directly from gonadal tissue","Inhibit sex hormone production through negative feedback"], c:1, exp:"Gonadotropins means gonad-stimulating — FSH stimulates follicle development (females) or spermatogenesis (males), while LH triggers ovulation and steroid hormone production, collectively regulating gonadal function."},
+{q:"ADH (Antidiuretic Hormone) prevents dehydration primarily by:", o:["Stimulating aldosterone release to retain sodium","Reducing blood flow to the kidneys","Increasing permeability of kidney collecting ducts to water, promoting reabsorption","Stimulating gluconeogenesis in the liver"], c:2, exp:"ADH literally means hormone that prevents urination — it acts on the collecting ducts of nephrons to increase their permeability to water, allowing more water to be reabsorbed back into the body rather than excreted."},
+{q:"Which of the following correctly states the iodine content of T3 and T4 thyroid hormones?", o:["T3 has 4 iodine atoms; T4 has 3 iodine atoms","Both T3 and T4 have 4 iodine atoms each","T3 has 3 iodine atoms; T4 has 4 iodine atoms","T3 has 2 iodine atoms; T4 has 3 iodine atoms"], c:2, exp:"T4 (tetra-iodothyronine/thyroxin) has four iodine atoms and is secreted in greater amounts, while T3 (tri-iodothyronine) has only three iodine atoms but is more potent biologically."},
+{q:"The isthmus of the thyroid gland:", o:["Connects and binds the two lobes of the thyroid gland together","Produces calcitonin in response to high blood calcium","Contains the parathyroid glands embedded within it","Regulates TSH secretion through feedback inhibition"], c:0, exp:"The thyroid gland is bilobed, and the isthmus is the bridge of thyroid tissue that joins the right and left lobes — it contains no special hormone-producing cells separate from the lobes."},
+{q:"Which set of symptoms is characteristic of hyperthyroidism (excessive thyroid hormone secretion)?", o:["Weight gain, lethargy, and cold intolerance","Profuse sweating, weight loss, heat intolerance, irritability, and high blood pressure","Stunted growth and severe intellectual disability","Goiter, fatigue, and depression"], c:1, exp:"Excessive thyroid hormone accelerates metabolic rate throughout the body, producing a characteristic cluster of symptoms — profuse sweating, unexplained weight loss, heat intolerance, irritability, and elevated blood pressure."},
+{q:"Cretinism is a developmental disorder caused by:", o:["Excessive GH secretion in children causing accelerated growth","Excessive thyroid hormone production in infants","Hypothyroidism in children, resulting in stunted growth and severe intellectual disability","Iodine excess causing thyroid hypertrophy"], c:2, exp:"Thyroid hormones are essential for normal brain and physical development — children born with hypothyroidism develop cretinism if untreated, characterized by severe intellectual disability and markedly stunted growth."},
+{q:"Goiter (enlargement of the thyroid gland) is most commonly associated with:", o:["Excessive TSH stimulation from a pituitary adenoma","Excessive thyroxin suppressing TSH secretion","Parathyroid hormone excess affecting thyroid vasculature","A shortage of thyroid hormones, often due to dietary iodine deficiency"], c:3, exp:"Iodine is required for T3 and T4 synthesis; without sufficient iodine, the thyroid cannot produce adequate hormone, leading to persistent TSH stimulation and compensatory gland enlargement (goiter)."},
+{q:"Calcitonin from the thyroid gland maintains calcium homeostasis by:", o:["Stimulating uptake of calcium into bones when blood calcium is abnormally high","Stimulating osteoclasts to release calcium from the bone matrix","Activating vitamin D for intestinal calcium absorption","Stimulating the kidneys to reabsorb calcium from urine"], c:0, exp:"Calcitonin is released when blood calcium rises too high; it works antagonistically to PTH by promoting calcium deposition into bones, effectively lowering blood calcium concentration."},
+{q:"The parathyroid glands in humans are correctly described as:", o:["Two glands located in front of the thyroid gland","Four small glands attached to the posterior (back) surface of the thyroid gland","Two glands embedded within the anterior pituitary","Four glands located adjacent to the adrenal cortex"], c:1, exp:"There are four parathyroid glands, each attached to the back of the thyroid gland; despite their proximity, they are anatomically and functionally distinct from the thyroid."},
+{q:"PTH (Parathyroid Hormone) raises blood calcium by stimulating osteoclasts to:", o:["Deposit calcium phosphate into the bone matrix","Activate vitamin D synthesis in the skin","Dissolve calcium phosphate crystals of the bone matrix and release calcium into the blood","Increase phosphate reabsorption from the kidneys"], c:2, exp:"PTH stimulates osteoclasts (bone-resorbing cells) to break down bone matrix and release calcium; it also promotes calcium reabsorption by the kidneys and activates Vitamin D for intestinal calcium absorption — a three-pronged response to low blood calcium."},
+{q:"The clusters of endocrine cells scattered throughout the pancreas were first described in 1869 by:", o:["Frederick Banting, a Canadian physician","Wilhelm Kühne, a German physiologist","Ernst Starling, a British physiologist","Paul Langerhans, a German medical student"], c:3, exp:"Paul Langerhans, then a medical student, described these unusual cell clusters in 1869; they were subsequently named the Islets of Langerhans in his honor and are now known to secrete insulin and glucagon."},
+{q:"Alpha cells of the Islets of Langerhans secrete:", o:["Glucagon; a peptide hormone","Insulin; a steroid hormone derived from cholesterol","Somatostatin; an inhibiting hormone","Insulin; a peptide hormone"], c:0, exp:"Each islet contains alpha cells (secreting glucagon) and beta cells (secreting insulin); both glucagon and insulin are peptide hormones that work antagonistically to regulate blood glucose levels."},
+{q:"Insulin secretion from beta cells is triggered when:", o:["Blood glucose drops after prolonged fasting","Blood glucose rises, for example, after a meal","Blood calcium concentration falls below normal","Blood cortisol level rises during prolonged stress"], c:1, exp:"Beta cells sense rising blood glucose after a meal and release insulin, which then causes most body cells to take up glucose — either metabolizing it for energy or converting it to fat or glycogen for storage."},
+{q:"The most important glycogen storage organ in the body is:", o:["Kidney","Skeletal muscle","Liver","Adipose tissue"], c:2, exp:"By far the most important storage organ for glycogen is the liver — glucagon stimulates liver glycogen breakdown to release glucose into the blood when blood sugar drops."},
+{q:"Which of the following best distinguishes Diabetes Type-I from Diabetes Type-II?", o:["Type-I is treated by diet control alone; Type-II requires insulin injections","Type-I involves insulin resistance; Type-II produces no insulin","Type-I is caused by obesity and genetic factors; Type-II is autoimmune","Type-I is an autoimmune disorder that destroys beta cells; Type-II involves insulin resistance of target cells despite insulin production"], c:3, exp:"Type-I is fundamentally an autoimmune disease where the immune system attacks beta cells (antibodies against Islets of Langerhans), while Type-II is a metabolic disorder where insulin is produced but target cells fail to respond, often linked to obesity, genetics, and sedentary lifestyle."},
+{q:"The adrenal glands are anatomically located:", o:["Just above each kidney","Adjacent to the stomach and pancreas","Attached to the posterior surface of the thyroid gland","In the posterior cranial fossa of the skull"], c:0, exp:"Each adrenal gland sits directly superior (above) to each kidney; they have a distinct inner medulla and outer cortex that produce entirely different categories of hormones."},
+{q:"Epinephrine and norepinephrine are released from the adrenal medulla primarily in response to:", o:["Low blood glucose sensed by pancreatic receptors","Stress, triggered by sympathetic nervous system activation","ACTH stimulation from the anterior pituitary","Low blood pressure and renin release from the kidneys"], c:1, exp:"The adrenal medulla is essentially a modified sympathetic ganglion — it is activated by the sympathetic nervous system in response to stress, releasing epinephrine and norepinephrine to prepare the body for emergency responses."},
+{q:"Which of the following is NOT a characteristic effect of epinephrine during the fight or flight response?", o:["Increased heart rate and elevated blood pressure","Dilation of bronchioles","Increased blood flow to skin and digestive organs","Elevation of blood glucose"], c:2, exp:"During fight-or-flight, blood flow is actually REDUCED to the skin and digestive organs (to divert resources to muscles and heart); all other listed options are genuine effects of epinephrine and norepinephrine."},
+{q:"Glucocorticoids (cortisol) promote gluconeogenesis, which specifically involves:", o:["Converting glucose to glycogen for storage in the liver","Breaking down fatty acids into ketone bodies","Converting glycogen back to glucose for immediate energy","Converting amino acids from muscle protein breakdown into glucose in the liver"], c:3, exp:"Cortisol first stimulates muscle protein breakdown into amino acids, which are transported to the liver; the liver then converts these amino acids into glucose (gluconeogenesis), raising blood glucose during sustained stress."},
+{q:"Cushing's syndrome (Hypercortisolism) is caused by:", o:["Excessive secretion of cortisol from the adrenal cortex","Deficiency of adrenal cortex hormones","Excessive ADH secretion from the posterior pituitary","Deficiency of thyroid hormones in adults"], c:0, exp:"Over-secretion of cortisol produces Cushing's syndrome, characterized by high blood pressure, weight gain (especially truncal obesity), muscle wasting, weakened bones, and mood swings."},
+{q:"Addison's disease results from:", o:["Excessive aldosterone causing fluid and sodium retention","Low secretion of adrenal cortex hormones, particularly cortisol","Excessive epinephrine secretion from the adrenal medulla","Autoimmune destruction of pancreatic beta cells"], c:1, exp:"In Addison's disease, insufficient cortisol causes a drop in blood glucose and extreme vulnerability to stress — even a mild infection can be fatal due to inadequate energy supply and stress response."},
+{q:"Aldosterone, classified as a mineralocorticoid, acts primarily on the kidneys to:", o:["Promote water reabsorption in the collecting ducts","Regulate calcium balance by stimulating bone resorption","Stimulate reabsorption of sodium (Na+) from the urine to maintain blood volume and pressure","Increase potassium retention to regulate cardiac function"], c:2, exp:"Aldosterone's primary role is sodium regulation — by stimulating Na+ reabsorption in the kidneys, it increases osmotic water retention, thereby maintaining blood volume and blood pressure."},
+{q:"In the Renin-Angiotensin-Aldosterone System (RAAS), the initial trigger involves:", o:["Lungs converting angiotensin-I to angiotensin-II via ACE","Adrenal cortex directly releasing aldosterone in response to low pressure","Liver converting renin into angiotensinogen during hypotension","Kidneys secreting renin during low blood sodium, converting plasma angiotensinogen to angiotensin-I"], c:3, exp:"RAAS begins when low blood sodium triggers renal renin secretion; renin cleaves angiotensinogen (from liver) into angiotensin-I, which is then converted to angiotensin-II in the lungs to stimulate aldosterone release from the adrenal cortex."},
+{q:"Luteinizing Hormone (LH) from the anterior pituitary stimulates which cells in the testes to produce testosterone?", o:["Leydig cells (interstitial cells)","Sertoli cells","Spermatogonia","Seminiferous tubule lining cells"], c:0, exp:"Leydig cells are located in the interstitial tissues between the seminiferous tubules — they are specifically stimulated by LH to secrete testosterone, which drives spermatogenesis and secondary sexual characteristics."},
+{q:"FSH (Follicle Stimulating Hormone) acts on which specific cells in the testes?", o:["Sertoli cells to facilitate sperm development (spermatogenesis)","Leydig cells to produce testosterone","Spermatids to complete meiosis II","Epididymis cells for sperm maturation and storage"], c:0, exp:"FSH stimulates Sertoli cells (nurse cells of the seminiferous tubules) to support and facilitate sperm development; in females, FSH stimulates development of ovarian follicles."},
+{q:"Inhibin, released from Sertoli cells of the testes, functions to inhibit:", o:["Testosterone production by Leydig cells","LH release from the anterior pituitary","FSH secretion from the anterior pituitary","GnRH release from the hypothalamus"], c:2, exp:"Inhibin is a peptide hormone produced by Sertoli cells (testes) and granulosa cells (ovaries) that acts via negative feedback to specifically inhibit FSH secretion from the anterior pituitary, regulating sperm production."},
+{q:"Which of the following is an ANDROGENIC (not anabolic) effect of testosterone?", o:["Increased muscle mass and strength","Increased bone density and linear bone growth","Stimulation of red blood cell production","Deepening of voice, formation of scrotum in the fetus, and maturation of sex organs"], c:3, exp:"Androgenic effects relate to male sexual development (sex organ maturation, scrotum formation, deepening voice, facial/axillary hair), while anabolic effects relate to tissue building (muscle mass, bone density, linear growth)."},
+{q:"Estrogen promotes which of the following female secondary sex characteristics?", o:["Development of breasts, fat distribution in hips and legs, and onset of menarche","Deepening of voice and increased muscle mass","Increased bone resorption by osteoclasts","Stimulation of FSH and LH secretion from the anterior pituitary"], c:0, exp:"Estrogen drives female secondary sexual development including breast development, characteristic fat distribution in hips/legs/breasts, growth of pubic and axillary hair, and menarche (first menstrual cycle)."},
+{q:"Progesterone, secreted by the ovaries, primarily functions to:", o:["Stimulate ovulation and follicle development in the ovary","Regulate menstruation and maintain pregnancy in human females","Stimulate FSH and LH secretion from the anterior pituitary","Promote secondary sex characteristics such as breast development"], c:1, exp:"Progesterone works primarily after ovulation — it prepares the uterine lining for implantation, regulates the menstrual cycle, and is essential for maintaining pregnancy by preventing further ovulation and supporting the fetus."},
+{q:"Gastrin, a peptide hormone secreted from the walls of the stomach, is responsible for:", o:["Stimulating the gallbladder to contract and release bile","Neutralizing acid in the duodenum by stimulating bicarbonate secretion","Enhancing mucosal growth, gastric motility, and secretion of HCl from stomach walls","Stimulating the pancreas to release digestive enzymes into the small intestine"], c:2, exp:"Gastrin is the principal gastric hormone, stimulating HCl production (which activates pepsinogen), promoting stomach wall mucosal growth, and increasing gastric motility to mix food thoroughly."},
+{q:"Cholecystokinin (CCK), a peptide hormone from the duodenum, stimulates:", o:["Increased HCl production in the stomach","Neutralization of gastric acid to protect the duodenal mucosa","Red blood cell synthesis in the bone marrow","Gallbladder contraction (releasing bile) and pancreatic digestive enzyme release"], c:3, exp:"When fats and proteins enter the duodenum, CCK is released to stimulate gallbladder contraction (sending bile into the duodenum) and to prompt the pancreas to release digestive enzymes — both necessary for nutrient digestion."},
+{q:"Erythropoietin, produced by the kidneys, stimulates:", o:["Red blood cell synthesis in the bone marrow","Sodium retention by the adrenal cortex","Calcium reabsorption in the kidney collecting ducts","Blood pressure reduction through peripheral vasodilation"], c:0, exp:"Erythropoietin is released by the kidneys (especially during hypoxia) and stimulates erythropoiesis — red blood cell production in the bone marrow — increasing oxygen-carrying capacity of the blood."},
+{q:"Prostaglandins are unique among hormones because they:", o:["Are peptide hormones produced exclusively by the pituitary gland","Are lipophilic hormones produced in every tissue of the body, involved in inflammation, blood flow regulation, and injury protection","Are steroid hormones derived from cholesterol in the adrenal cortex only","Are neurotransmitters released at chemical synapses"], c:1, exp:"Unlike most hormones produced by a single gland, prostaglandins are produced ubiquitously — in every tissue — making them tissue hormones (local hormones) that regulate inflammation, blood flow, pain, and protection from injury."},
+{q:"Atrial Natriuretic Hormone (ANH), produced by the heart, functions to:", o:["Stimulate aldosterone release to increase sodium and water retention","Increase blood pressure through arterial vasoconstriction","Increase salt and water excretion by the kidneys, reducing blood pressure","Constrict blood vessels in response to sympathetic stress signals"], c:2, exp:"ANH is released by cardiac atria in response to elevated blood pressure; it promotes sodium and water excretion by the kidneys, acting as a natural counter-regulatory hormone to the RAAS system."},
+{q:"Oxytocin represents a positive feedback mechanism during childbirth because:", o:["Oxytocin release is inhibited by uterine contractions, slowing delivery","Oxytocin decreases progressively as labor approaches completion","Oxytocin feedback is mediated through progesterone withdrawal","Uterine contractions caused by oxytocin trigger additional oxytocin release, progressively intensifying contractions until delivery"], c:3, exp:"In positive feedback, the initial response amplifies itself — oxytocin causes uterine contractions, which stimulate more oxytocin release, causing stronger contractions, continuing until the baby is delivered and the stimulus is removed."},
+{q:"The best example of negative feedback in the endocrine system is:", o:["Rising blood glucose triggers insulin release, which lowers glucose, stopping further insulin secretion","Oxytocin release during breastfeeding causing more milk ejection","LH surge causing ovulation and further LH increase","CRH stimulating ACTH, which then stimulates more CRH production"], c:0, exp:"Insulin-glucose regulation is the textbook example of negative feedback — elevated glucose stimulates insulin release, insulin lowers glucose back to homeostatic levels, and normal glucose then stops insulin secretion."},
+{q:"Thyrotropin Releasing Hormone (TRH) from the hypothalamus stimulates the anterior pituitary to release:", o:["T3 and T4 directly into the bloodstream","TSH (Thyroid Stimulating Hormone)","Both TSH and ACTH simultaneously","CRH (Corticotropin Releasing Hormone) as a downstream signal"], c:1, exp:"The hypothalamic-pituitary-thyroid axis works in sequence: TRH → TSH → T3/T4; TRH only stimulates TSH from the anterior pituitary, and it is TSH that then acts on the thyroid gland itself."},
+{q:"Corticotropin Releasing Hormone (CRH) from the hypothalamus is produced specifically in response to:", o:["High blood glucose levels following a carbohydrate-rich meal","Low levels of thyroid hormones detected in the blood","Stressful events including trauma, infection, or exposure to severe temperatures","High aldosterone levels signaling excess fluid retention"], c:2, exp:"CRH is the hypothalamic stress-response hormone — it is triggered by physical or psychological stressors and initiates the HPA (Hypothalamic-Pituitary-Adrenal) axis to ultimately produce cortisol."},
+{q:"Which of the following is NOT a hormone secreted by the anterior pituitary?", o:["ACTH (Adrenocorticotropic Hormone)","MSH (Melanocyte Stimulating Hormone)","GH (Growth Hormone)","ADH (Antidiuretic Hormone)"], c:3, exp:"ADH is produced by neurosecretory cells in the hypothalamus and is merely stored and released from the posterior pituitary (neurohypophysis) — it is not made by the anterior pituitary."},
+{q:"The two primary physiological effects of oxytocin are:", o:["Stimulates uterine contractions during labour and promotes lactation (milk ejection) after childbirth","Stimulates water reabsorption in kidneys and promotes uterine growth","Increases metabolic rate and stimulates milk production in mammary glands","Regulates blood pressure and promotes social bonding behavior only"], c:0, exp:"Oxytocin has two well-defined physiological roles: uterine smooth muscle contraction during labor, and contraction of breast tissue to eject milk; it additionally functions as a brain neurotransmitter affecting social behavior."},
+{q:"The serious vascular complications of diabetes mellitus (retinal damage, kidney failure, heart disease) arise primarily because:", o:["Excessive insulin causes dangerous hypoglycemia damaging neural tissue","Lack of functional insulin forces the body to rely on fats, causing high circulating cholesterol and fat deposits in blood vessels","High blood glucose directly damages glomerular filtration membranes","Glucagon excess causes total breakdown of muscle and organ proteins"], c:1, exp:"Without insulin, the body burns fats heavily, elevating blood lipids and cholesterol; fat deposits in blood vessels raise blood pressure and cause atherosclerosis, damaging small vessels in the retina (blindness) and kidneys (renal failure)."},
+{q:"Which hormone from the adrenal cortex is specifically classified as a mineralocorticoid that regulates mineral balance?", o:["Cortisol","Androgen","Aldosterone","Epinephrine"], c:2, exp:"Aldosterone is the primary mineralocorticoid; the three main corticosteroid types from the adrenal cortex are glucocorticoids (cortisol), mineralocorticoids (aldosterone), and androgens — epinephrine comes from the adrenal medulla, not cortex."},
+{q:"Which statement correctly distinguishes the anterior pituitary (adenohypophysis) from the posterior pituitary (neurohypophysis)?", o:["The anterior pituitary stores and releases hormones manufactured by the hypothalamus","Both lobes independently produce their own complete sets of tropic hormones","The posterior pituitary produces at least seven essential tropic hormones","The anterior pituitary produces its own hormones; the posterior pituitary stores and releases hypothalamic hormones (ADH and oxytocin)"], c:3, exp:"This is a fundamental distinction: the adenohypophysis (anterior) is an independent endocrine gland producing 7 hormones; the neurohypophysis (posterior) is essentially a storage/release site for ADH and oxytocin, which are actually synthesized in the hypothalamus."},
+{q:"Prolactin, secreted by the anterior pituitary, primarily stimulates:", o:["The mammary glands to produce milk (lactation)","Ovulation and corpus luteum formation in the ovary","The thyroid gland to produce thyroxin","The adrenal cortex to produce corticosteroids"], c:0, exp:"Prolactin's primary function is stimulating milk production in the mammary glands; its secretion is tonically inhibited by Prolactin Inhibiting Hormone (PIH/dopamine) from the hypothalamus, which is suppressed during suckling."},
+{q:"Which hormones does the placenta release as an endocrine tissue during pregnancy?", o:["FSH and LH to maintain the ovarian cycle throughout gestation","Human Chorionic Gonadotropin (HCG) and progesterone","Erythropoietin and aldosterone to maintain fetal fluid homeostasis","Insulin and glucagon to regulate fetal blood glucose levels"], c:1, exp:"The placenta is a temporary but important endocrine organ — it secretes HCG (which maintains the corpus luteum in early pregnancy) and progesterone (which maintains the uterine lining throughout gestation)."},
+{q:"Secretin, a peptide hormone from the duodenum, functions to:", o:["Increase gastric acid production and gastric motility","Stimulate gallbladder contraction and bile release into the duodenum","Regulate the environment of the stomach, pancreas, and liver to maintain neutral-to-basic pH in the duodenum","Stimulate red blood cell production in the bone marrow"], c:2, exp:"Secretin is released when acidic chyme enters the duodenum; it signals the stomach (to reduce acid), liver (to increase bile), and pancreas (to secrete bicarbonate) — all aimed at neutralizing the acid and protecting the duodenal mucosa."},
+{q:"Unlike most body cells that can use carbohydrates, fats, and proteins for energy, brain cells can only use:", o:["Fatty acids and ketone bodies during prolonged fasting","Amino acids converted via gluconeogenesis","Both glucose and fatty acids with equal efficiency","Glucose exclusively as their energy substrate"], c:3, exp:"This is why tight blood glucose regulation is critical — brain cells cannot switch to fat or protein metabolism, so if blood glucose falls too low, neurons rapidly starve, leading to unconsciousness and potentially death."},
+];
+
+/* ═══════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════ */
+const state = {
+  answered : 0,
+  correct  : 0,
+  total    : questions.length,
+};
+
+/* ═══════════════════════════════════════════════
+   SHUFFLE
+   Randomises option order; tracks which option
+   is now correct after the shuffle.
+═══════════════════════════════════════════════ */
+function shuffleOptions(q) {
+  const opts = q.o.map((text, i) => ({ text, isCorrect: i === q.c }));
+
+  /* Fisher-Yates shuffle */
+  for (let i = opts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [opts[i], opts[j]] = [opts[j], opts[i]];
+  }
+
+  return {
+    o : opts.map(x => x.text),
+    c : opts.findIndex(x => x.isCorrect),
+  };
+}
+
+let renderedQuestions = [];
+
+/* ═══════════════════════════════════════════════
+   WATERMARK
+═══════════════════════════════════════════════ */
+(function buildWatermarks(){
+  const overlay = document.getElementById('wmOverlay');
+  const text = 'Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057';
+  for(let r = 0; r < 7; r++){
+    for(let c = 0; c < 3; c++){
+      const span = document.createElement('span');
+      span.textContent = text;
+      span.style.left  = (c * 40 - 5) + '%';
+      span.style.top   = (r * 16 - 4) + '%';
+      overlay.appendChild(span);
+    }
+  }
+})();
+
+/* ═══════════════════════════════════════════════
+   BUILD QUIZ
+═══════════════════════════════════════════════ */
+function buildQuiz(){
+  const area = document.getElementById('quizArea');
+  area.innerHTML = '';
+  renderedQuestions = [];
+
+  questions.forEach((q, i) => {
+    const labels = ['a','b','c','d'];
+
+    const shuffled  = shuffleOptions(q);
+    const displayQ  = { ...q, o: shuffled.o, c: shuffled.c };
+    renderedQuestions[i] = displayQ;
+
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = 'card-' + i;
+
+    const optionsHTML = displayQ.o.map((opt, j) =>
+      `<div class="option" id="opt-${i}-${j}" onclick="selectOpt(${i},${j})">
+        <strong>${labels[j]})</strong> ${opt}
+      </div>`
+    ).join('');
+
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="q-num">Q ${i + 1}</span>
+        <span class="q-tag">📖 MCQ</span>
+      </div>
+      <div class="q-text">${displayQ.q}</div>
+      <div class="options" id="opts-${i}">${optionsHTML}</div>
+      <button class="check-btn" id="check-${i}" onclick="checkAnswer(${i})">
+        ✔ Check Answer
+      </button>
+      <div class="feedback" id="fb-${i}"></div>
+      <div class="explanation-box" id="exp-${i}">
+        <span class="exp-label">💡 Explanation:</span>${displayQ.exp}
+      </div>`;
+
+    area.appendChild(card);
+  });
+
+  const res = document.createElement('div');
+  res.id = 'resultCard';
+  area.appendChild(res);
+
+  updateStats();
+}
+
+/* ═══════════════════════════════════════════════
+   INTERACTION
+═══════════════════════════════════════════════ */
+const userAnswers = {};
+
+function selectOpt(qi, oi){
+  if(userAnswers[qi]?.checked) return;
+  document.querySelectorAll(`#opts-${qi} .option`).forEach(el => el.classList.remove('selected'));
+  document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
+  userAnswers[qi] = { selected: oi, checked: false };
+}
+
+function checkAnswer(qi){
+  const entry = userAnswers[qi];
+  if(!entry || entry.checked) return;
+
+  entry.checked = true;
+  const q   = renderedQuestions[qi];
+  const ok  = entry.selected === q.c;
+
+  if(ok) state.correct++;
+  state.answered++;
+
+  document.querySelectorAll(`#opts-${qi} .option`).forEach((el, i) => {
+    el.classList.add('disabled');
+    if(i === q.c)                       el.classList.add('correct');
+    else if(i === entry.selected && !ok) el.classList.add('wrong');
+  });
+
+  const fb = document.getElementById(`fb-${qi}`);
+  if(ok){
+    fb.className = 'feedback show correct';
+    fb.textContent = '✓ Correct! Well done!';
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.textContent = `✗ Incorrect! The correct answer is: ${String.fromCharCode(97 + q.c)}) ${q.o[q.c]}`;
+  }
+
+  if(q.exp){
+    document.getElementById(`exp-${qi}`).classList.add('show');
+  }
+
+  document.getElementById(`check-${qi}`).disabled = true;
+
+  updateStats();
+
+  if(state.answered === state.total) showResult();
+}
+
+/* ═══════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════ */
+function updateStats(){
+  document.getElementById('statTotal').textContent    = state.total;
+  document.getElementById('statAnswered').textContent = state.answered;
+  document.getElementById('statCorrect').textContent  = state.correct;
+  const pct = state.total > 0 ? Math.round(state.correct / state.total * 100) : 0;
+  document.getElementById('statScore').textContent    = pct + '%';
+}
+
+/* ═══════════════════════════════════════════════
+   RESULT CARD
+═══════════════════════════════════════════════ */
+function showResult(){
+  const pct = Math.round(state.correct / state.total * 100);
+  let grade, msg, emoji;
+
+  if(pct >= 90){ grade='A+'; msg='Outstanding Performance!';  emoji='🌟'; }
+  else if(pct >= 80){ grade='A';  msg='Excellent Work!';           emoji='🎉'; }
+  else if(pct >= 70){ grade='B';  msg='Good Job!';                 emoji='👍'; }
+  else if(pct >= 60){ grade='C';  msg='Keep Practicing!';          emoji='📚'; }
+  else if(pct >= 50){ grade='D';  msg='More Effort Needed!';       emoji='💪'; }
+  else              { grade='F';  msg='Revise the Chapter Again!'; emoji='📖'; }
+
+  document.getElementById('resultCard').innerHTML = `
+    <div class="result-card">
+      <div class="grade-badge">${emoji}</div>
+      <h2>${msg}</h2>
+      <div class="result-grid">
+        <div class="result-stat">
+          <div class="result-stat-value">${state.correct} / ${state.total}</div>
+          <div class="result-stat-label">Correct Answers</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${pct}%</div>
+          <div class="result-stat-label">Score</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${grade}</div>
+          <div class="result-stat-label">Grade</div>
+        </div>
+      </div>
+      <p style="opacity:.85;font-size:13px;margin-bottom:16px">
+        Ch.18 Chemical Coordination &nbsp;|&nbsp; Smart Study Center &nbsp;|&nbsp; Sir Ahmer Javed
+      </p>
+      <button class="result-btn" onclick="resetQuiz()">🔄 Try Again</button>
+    </div>`;
+
+  document.getElementById('resultCard').scrollIntoView({ behavior:'smooth' });
+}
+
+/* ═══════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════ */
+function resetQuiz(){
+  state.answered = 0;
+  state.correct  = 0;
+  Object.keys(userAnswers).forEach(k => delete userAnswers[k]);
+  buildQuiz();
+  window.scrollTo({ top: 0, behavior:'smooth' });
+}
+
+/* ── INIT ── */
+buildQuiz();
+  // ── STICKY TIMER ──
+let timeLeft = 60 * 60;
+const timerDisplay = document.getElementById('timerDisplay');
+const timerBox = document.getElementById('timerBox');
+
+const timerInterval = setInterval(() => {
+  const mins = Math.floor(timeLeft / 60);
+  const secs = timeLeft % 60;
+  timerDisplay.textContent =
+    String(mins).padStart(2,'0') + ':' +
+    String(secs).padStart(2,'0');
+  if(timeLeft <= 300){
+    timerBox.classList.add('danger');
+  }
+  if(timeLeft <= 0){
+    clearInterval(timerInterval);
+    timerDisplay.textContent = '⏰ TIME UP';
+    showResult();
+  }
+  timeLeft--;
+}, 1000);
+</script>
+</body>
+</html>
