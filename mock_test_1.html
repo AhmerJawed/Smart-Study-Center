@@ -522,6 +522,18 @@ questions.forEach(q => { subjectState[q.s].total++; });
 const userAnswers = {};
 let renderedQuestions = [];
 
+function handleSubmit() {
+  const unanswered = state.total - state.answered;
+  let msg = 'Are you sure you want to submit and see your results?';
+  if (unanswered > 0) {
+    msg = `You still have ${unanswered} unanswered question(s).\n\nAre you sure you want to submit anyway?`;
+  }
+  if (confirm(msg)) {
+    document.getElementById('submitWrap').remove();
+    showResult();
+  }
+}
+
 /* ─── WATERMARK ─── */
 (function(){
   const ov = document.getElementById('wmOverlay');
@@ -589,9 +601,22 @@ function buildQuiz(){
     area.appendChild(card);
   });
 
-  const res = document.createElement('div');
-  res.id = 'resultCard';
-  area.appendChild(res);
+  const submitWrap = document.createElement('div');
+submitWrap.id = 'submitWrap';
+submitWrap.style = 'text-align:center;padding:20px 0 10px';
+submitWrap.innerHTML = `
+  <button onclick="handleSubmit()" style="
+    background:#1a1a2e;color:#fff;border:none;
+    padding:14px 40px;border-radius:12px;
+    font-size:16px;font-weight:800;cursor:pointer;
+    font-family:'Nunito',sans-serif;letter-spacing:.5px;">
+    🏁 Submit Test &amp; See Results
+  </button>`;
+area.appendChild(submitWrap);
+
+const res = document.createElement('div');
+res.id = 'resultCard';
+area.appendChild(res);
   updateStats();
 }
 
@@ -633,7 +658,6 @@ function checkAnswer(qi){
   if(q.exp) document.getElementById(`exp-${qi}`).classList.add('show');
   document.getElementById(`check-${qi}`).disabled=true;
   updateStats();
-  if(state.answered===state.total) showResult();
 }
 
 /* ─── STATS ─── */
