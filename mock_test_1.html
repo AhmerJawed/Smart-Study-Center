@@ -258,8 +258,14 @@ body{
 
   <!-- TIMER -->
   <div id="timerBox" class="timer-box">
-    ⏱ Time Remaining: <span id="timerDisplay">180:00</span>
-  </div>
+  <span id="timerDisplay">⏱ Press START to begin your test</span>
+  &nbsp;
+  <button id="startBtn" onclick="handleStart()" 
+    style="background:#e65100;color:#fff;border:none;padding:6px 20px;
+    border-radius:8px;font-weight:800;font-size:14px;cursor:pointer;">
+    ▶ START TEST
+  </button>
+</div>
 
   <!-- WARNING -->
   <div class="warning-banner">
@@ -538,6 +544,11 @@ function shuffleOptions(q){
   }
   return { o:opts.map(x=>x.text), c:opts.findIndex(x=>x.isCorrect) };
 }
+function handleStart() {
+  document.getElementById('startBtn').remove();
+  timerDisplay.textContent = '180:00';
+  startTimer();
+}
 
 /* ─── BUILD QUIZ ─── */
 function buildQuiz(){
@@ -723,19 +734,29 @@ function resetQuiz(){
 buildQuiz();
 
 /* ─── TIMER ─── */
-let timeLeft = 180*60;
-const timerDisplay = document.getElementById('timerDisplay');
-const timerBox     = document.getElementById('timerBox');
+let timeLeft = 180 * 60;
+  timeLeft = 180 * 60;
+timerDisplay.textContent = '⏱ Press START to begin your test';
+timerBox.classList.remove('danger');
+const sb = document.createElement('button');
+sb.id = 'startBtn';
+sb.textContent = '▶ START TEST';
+sb.onclick = handleStart;
+sb.style = 'background:#e65100;color:#fff;border:none;padding:6px 20px;border-radius:8px;font-weight:800;font-size:14px;cursor:pointer;margin-left:10px';
+timerBox.appendChild(sb);
+let timerInterval = null;
 
-const timerInterval = setInterval(()=>{
-  if(timeLeft<0){ clearInterval(timerInterval); return; }
-  const m = String(Math.floor(timeLeft/60)).padStart(2,'0');
-  const s = String(timeLeft%60).padStart(2,'0');
-  timerDisplay.textContent = m+':'+s;
-  if(timeLeft<=300) timerBox.classList.add('danger');
-  if(timeLeft===0){ clearInterval(timerInterval); timerDisplay.textContent='⏰ TIME UP!'; showResult(); }
-  timeLeft--;
-},1000);
+function startTimer() {
+  timerInterval = setInterval(() => {
+    if (timeLeft < 0) { clearInterval(timerInterval); return; }
+    const m = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+    const s = String(timeLeft % 60).padStart(2, '0');
+    timerDisplay.textContent = m + ':' + s;
+    if (timeLeft <= 300) timerBox.classList.add('danger');
+    if (timeLeft === 0) { clearInterval(timerInterval); timerDisplay.textContent = '⏰ TIME UP!'; showResult(); }
+    timeLeft--;
+  }, 1000);
+}
 </script>
 </body>
 </html>
