@@ -738,12 +738,6 @@ let timeLeft = 180 * 60;
   timeLeft = 180 * 60;
 timerDisplay.textContent = '⏱ Press START to begin your test';
 timerBox.classList.remove('danger');
-const sb = document.createElement('button');
-sb.id = 'startBtn';
-sb.textContent = '▶ START TEST';
-sb.onclick = handleStart;
-sb.style = 'background:#e65100;color:#fff;border:none;padding:6px 20px;border-radius:8px;font-weight:800;font-size:14px;cursor:pointer;margin-left:10px';
-timerBox.appendChild(sb);
 let timerInterval = null;
 
 function startTimer() {
