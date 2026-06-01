@@ -4,240 +4,298 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mock Test 1 — MDCAT Simulation | Smart Study Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-/* ── WARNING BANNER ── */
-.warning-banner{
-  background:#fff3e0;
-  border-left:4px solid #ff9800;
-  padding:12px 20px;
-  font-size:13px;
-  color:#5d4037;
-  line-height:1.6;
-}
-.timer-box{
-  position:sticky;
-  top:0;
-  z-index:9999;
-  width:100%;
-  text-align:center;
-  padding:10px 20px;
-  background:#fff3e0;
-  border-bottom:2px solid #ff9800;
-  font-size:18px;
-  font-weight:800;
-  color:#e65100;
-  letter-spacing:1px;
-}
-.timer-box.danger{
-  background:#ffebee;
-  border-color:#c62828;
-  color:#c62828;
+
+:root{
+  --bio:#1b6ca8;
+  --chem:#c0392b;
+  --phy:#6d4c41;
+  --eng:#6a1b9a;
+  --log:#00695c;
+  --green:#2e7d32;
+  --green-light:#e8f5e9;
+  --red:#c62828;
+  --red-light:#ffebee;
+  --yellow:#f9a825;
+  --yellow-light:#fffde7;
 }
 
-/* ── BASE ── */
 body{
-  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-  background:linear-gradient(135deg,#1a4731 0%,#2e7d32 50%,#388e3c 100%);
+  font-family:'Nunito',sans-serif;
+  background:linear-gradient(135deg,#0f2027 0%,#203a43 50%,#2c5364 100%);
   min-height:100vh;
-  padding:20px 16px;
+  padding:16px;
 }
 
-/* ── WATERMARK ── */
+/* WATERMARK */
 .watermark-overlay{
   position:fixed;top:0;left:0;width:100%;height:100%;
   pointer-events:none;z-index:0;overflow:hidden;
 }
 .watermark-overlay span{
-  position:absolute;font-size:14px;font-weight:700;
-  color:rgba(46,125,50,0.065);white-space:nowrap;
+  position:absolute;font-size:13px;font-weight:700;
+  color:rgba(46,125,50,0.06);white-space:nowrap;
   transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase;
 }
 
-/* ── CONTAINER ── */
+/* CONTAINER */
 .container{
-  
-  max-width:880px;margin:0 auto;background:#fff;
-  border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,0.35);
-  overflow:visible;position:relative;z-index:1;
-  border-top:4px solid #e63946;
+  max-width:900px;margin:0 auto;background:#fff;
+  border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,0.45);
+  overflow:hidden;position:relative;z-index:1;
 }
 
-/* ── CHAPTER HEADER ── */
+/* HEADER */
 .chapter-header{
-  background:linear-gradient(135deg,#1a1a2e,#2d2d44);
-  color:#fff;padding:20px 24px;text-align:center;
+  background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);
+  color:#fff;padding:28px 28px 22px;text-align:center;
+  border-bottom:3px solid #e63946;
 }
 .ch-label{
-  font-size:11px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;opacity:.8;margin-bottom:6px;
-  color:#e63946;
+  font-size:11px;font-weight:800;letter-spacing:2px;
+  text-transform:uppercase;color:#e63946;margin-bottom:8px;
 }
 .chapter-header h1{
-  font-size:20px;font-weight:800;margin-bottom:6px;letter-spacing:.2px;
+  font-family:'Outfit',sans-serif;
+  font-size:22px;font-weight:800;margin-bottom:6px;
 }
-.ch-meta{font-size:12px;opacity:.75;font-weight:500}
+.ch-meta{font-size:12px;opacity:.7;font-weight:600;letter-spacing:.3px}
 
-/* ── STATS BAR ── */
+/* TIMER */
+.timer-box{
+  position:sticky;top:0;z-index:9999;
+  width:100%;text-align:center;padding:11px 20px;
+  background:#fff3e0;border-bottom:2px solid #ff9800;
+  font-family:'Outfit',sans-serif;
+  font-size:19px;font-weight:800;color:#e65100;letter-spacing:1px;
+}
+.timer-box.danger{background:#ffebee;border-color:#c62828;color:#c62828;animation:pulse .8s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+
+/* WARNING */
+.warning-banner{
+  background:#fff3e0;border-left:4px solid #ff9800;
+  padding:12px 22px;font-size:13px;color:#5d4037;line-height:1.6;font-weight:600;
+}
+
+/* STATS */
 .stats{
-  display:flex;justify-content:space-around;padding:14px 20px;
-  background:#2d2d44;border-bottom:2px solid #1a1a2e;
-  flex-wrap:wrap;gap:8px;
+  display:flex;justify-content:space-around;
+  padding:14px 20px;background:#1a1a2e;
+  flex-wrap:wrap;gap:10px;
 }
-.stat-label{
-  font-size:10px;color:#90caf9;text-transform:uppercase;
-  letter-spacing:1.2px;font-weight:700;
-}
-.stat-value{
-  font-size:24px;font-weight:800;color:#ffffff;margin-top:3px;
-}
+.stat-item{text-align:center}
+.stat-label{font-size:10px;color:#90caf9;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.stat-value{font-size:26px;font-weight:800;color:#fff;margin-top:2px;font-family:'Outfit',sans-serif;}
 
-/* ── QUIZ AREA ── */
+/* QUIZ AREA */
 .quiz-area{padding:24px 22px}
 
-/* ── QUESTION CARD ── */
+/* SUBJECT LEGEND */
+.subject-legend{
+  display:flex;flex-wrap:wrap;gap:8px;
+  padding:14px 22px;background:#f8f9fa;
+  border-bottom:1px solid #e0e0e0;
+}
+.legend-item{
+  display:flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:700;letter-spacing:.4px;
+}
+.legend-dot{width:10px;height:10px;border-radius:50%;}
+
+/* QUESTION CARD */
 .question-card{
-  background:#f8f9fa;border-radius:12px;padding:20px;
-  margin-bottom:16px;border-left:5px solid #2e7d32;
+  background:#f8f9fa;border-radius:14px;padding:20px;
+  margin-bottom:18px;border-left:5px solid #2e7d32;
   transition:box-shadow .2s;
 }
-.question-card:hover{box-shadow:0 4px 16px rgba(46,125,50,.1)}
+.question-card[data-subject="Biology"]{border-left-color:var(--bio);}
+.question-card[data-subject="Chemistry"]{border-left-color:var(--chem);}
+.question-card[data-subject="Physics"]{border-left-color:var(--phy);}
+.question-card[data-subject="English"]{border-left-color:var(--eng);}
+.question-card[data-subject="Logical Reasoning"]{border-left-color:var(--log);}
+.question-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.1)}
+
 .card-top{
-  display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;gap:8px;flex-wrap:wrap;
 }
 .q-num{
-  background:#2e7d32;color:#fff;padding:4px 14px;
-  border-radius:20px;font-weight:700;font-size:12px;
+  background:#1a1a2e;color:#fff;padding:4px 14px;
+  border-radius:20px;font-weight:800;font-size:12px;font-family:'Outfit',sans-serif;
 }
 .q-tag{
-  background:#2e7d32;color:#fff;padding:3px 10px;
-  border-radius:14px;font-size:10.5px;font-weight:700;letter-spacing:.3px;
+  padding:3px 12px;border-radius:14px;font-size:10.5px;font-weight:800;letter-spacing:.5px;color:#fff;
 }
+.q-tag.bio{background:var(--bio);}
+.q-tag.chem{background:var(--chem);}
+.q-tag.phy{background:var(--phy);}
+.q-tag.eng{background:var(--eng);}
+.q-tag.log{background:var(--log);}
+
 .q-text{
-  font-size:15px;color:#1a1a1a;margin-bottom:14px;line-height:1.65;font-weight:500;
+  font-size:15px;color:#1a1a1a;margin-bottom:14px;line-height:1.7;font-weight:600;
 }
 
-/* ── OPTIONS ── */
+/* OPTIONS */
 .options{display:grid;gap:9px}
 .option{
   padding:11px 16px;background:#fff;border:2px solid #dee2e6;
-  border-radius:9px;cursor:pointer;transition:all .25s;
-  font-size:14px;color:#333;line-height:1.4;
+  border-radius:10px;cursor:pointer;transition:all .22s;
+  font-size:14px;color:#333;line-height:1.4;font-weight:600;
 }
 .option:hover:not(.disabled){border-color:#2e7d32;background:#e8f5e9;color:#1b5e20}
-.option.selected{border-color:#2e7d32;background:#c8e6c9;color:#1b5e20}
-.option.correct{border-color:#2e7d32!important;background:#e8f5e9!important;color:#1b5e20!important;font-weight:700}
+.option.selected{border-color:#1a1a2e;background:#e8eaf6;color:#1a1a2e}
+.option.correct{border-color:#2e7d32!important;background:#e8f5e9!important;color:#1b5e20!important;font-weight:800}
 .option.wrong{border-color:#c62828!important;background:#ffebee!important;color:#b71c1c!important}
 .option.disabled{cursor:not-allowed}
 
-/* ── CHECK BUTTON ── */
+/* CHECK BTN */
 .check-btn{
-  margin-top:13px;background:#2e7d32;color:#fff;border:none;
-  padding:9px 26px;border-radius:9px;font-size:14px;font-weight:700;
-  cursor:pointer;transition:all .25s;
+  margin-top:13px;background:#1a1a2e;color:#fff;border:none;
+  padding:10px 28px;border-radius:10px;font-size:14px;font-weight:800;
+  cursor:pointer;transition:all .22s;font-family:'Nunito',sans-serif;
 }
-.check-btn:hover:not(:disabled){background:#388e3c;transform:translateY(-1px);box-shadow:0 4px 14px rgba(46,125,50,.35)}
+.check-btn:hover:not(:disabled){background:#2e7d32;transform:translateY(-1px);box-shadow:0 4px 14px rgba(46,125,50,.3)}
 .check-btn:disabled{background:#bdbdbd;cursor:not-allowed;transform:none;box-shadow:none}
 
-/* ── FEEDBACK / EXPLANATION ── */
-.feedback{
-  display:none;margin-top:11px;padding:10px 14px;
-  border-radius:8px;font-size:13px;line-height:1.5;
-}
+/* FEEDBACK */
+.feedback{display:none;margin-top:11px;padding:10px 14px;border-radius:9px;font-size:13px;line-height:1.5;}
 .feedback.show{display:block}
-.feedback.correct{background:#e8f5e9;color:#1b5e20;border:2px solid #66bb6a;font-weight:600}
-.feedback.wrong{background:#ffebee;color:#b71c1c;border:2px solid #ef9a9a;font-weight:600}
+.feedback.correct{background:#e8f5e9;color:#1b5e20;border:2px solid #66bb6a;font-weight:700}
+.feedback.wrong{background:#ffebee;color:#b71c1c;border:2px solid #ef9a9a;font-weight:700}
 .explanation-box{
   display:none;margin-top:8px;padding:10px 14px;
-  background:#fffde7;border:2px solid #f9a825;
-  border-radius:8px;font-size:13px;color:#5d4037;line-height:1.5;
+  background:var(--yellow-light);border:2px solid var(--yellow);
+  border-radius:9px;font-size:13px;color:#5d4037;line-height:1.5;
 }
 .explanation-box.show{display:block}
-.exp-label{font-weight:700;color:#f57f17;margin-right:4px}
+.exp-label{font-weight:800;color:#f57f17;margin-right:4px}
 
 /* ── RESULT CARD ── */
 .result-card{
-  background:linear-gradient(135deg,#1b5e20,#2e7d32);
-  color:#fff;border-radius:14px;padding:30px 24px;text-align:center;
+  background:linear-gradient(135deg,#0f3460,#16213e,#1a1a2e);
+  color:#fff;border-radius:16px;padding:32px 24px;text-align:center;
   margin:8px 0 4px;
 }
-.result-card h2{font-size:23px;margin-bottom:18px;font-weight:800}
-.result-grid{
-  display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap;margin-bottom:22px;
-}
-.result-stat{text-align:center;background:rgba(255,255,255,.14);border-radius:12px;padding:14px 22px}
-.result-stat-value{font-size:32px;font-weight:800}
-.result-stat-label{font-size:12px;opacity:.85;margin-top:4px;letter-spacing:.5px;text-transform:uppercase}
+.result-card h2{font-family:'Outfit',sans-serif;font-size:24px;margin-bottom:20px;font-weight:800}
 .grade-badge{
-  display:inline-block;font-size:42px;font-weight:900;
-  background:rgba(255,255,255,.2);border-radius:50%;
-  width:80px;height:80px;line-height:80px;margin-bottom:16px;
+  display:inline-block;font-size:48px;font-weight:900;
+  background:rgba(255,255,255,.15);border-radius:50%;
+  width:90px;height:90px;line-height:90px;margin-bottom:18px;
 }
-.result-btn{
-  background:rgba(255,255,255,.18);color:#fff;
-  border:2px solid rgba(255,255,255,.7);padding:10px 24px;border-radius:9px;
-  cursor:pointer;font-size:14px;font-weight:700;margin:6px;transition:all .25s;
+.result-grid{
+  display:flex;justify-content:space-around;gap:12px;flex-wrap:wrap;margin-bottom:24px;
 }
-.result-btn:hover{background:#fff;color:#2e7d32}
+.result-stat{
+  text-align:center;background:rgba(255,255,255,.12);
+  border-radius:12px;padding:14px 18px;min-width:100px;
+}
+.result-stat-value{font-size:30px;font-weight:800;font-family:'Outfit',sans-serif;}
+.result-stat-label{font-size:11px;opacity:.8;margin-top:4px;letter-spacing:.5px;text-transform:uppercase}
 
-/* ── FOOTER ── */
+/* SUBJECT BREAKDOWN */
+.subject-breakdown{
+  margin:20px 0 24px;
+  background:rgba(255,255,255,.08);
+  border-radius:14px;padding:20px;text-align:left;
+}
+.subject-breakdown h3{
+  font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;
+  text-transform:uppercase;letter-spacing:1px;
+  margin-bottom:16px;text-align:center;opacity:.9;
+}
+.subj-row{
+  display:flex;align-items:center;gap:12px;margin-bottom:12px;
+}
+.subj-name{
+  font-size:12px;font-weight:800;letter-spacing:.3px;
+  width:130px;flex-shrink:0;
+}
+.subj-bar-wrap{
+  flex:1;background:rgba(255,255,255,.15);border-radius:20px;height:14px;overflow:hidden;
+}
+.subj-bar{height:100%;border-radius:20px;transition:width .8s ease;}
+.subj-score{font-size:12px;font-weight:800;width:60px;text-align:right;flex-shrink:0;}
+.subj-pct{font-size:11px;opacity:.7;width:36px;text-align:right;flex-shrink:0;}
+
+.result-btn{
+  background:rgba(255,255,255,.15);color:#fff;
+  border:2px solid rgba(255,255,255,.6);padding:11px 28px;border-radius:10px;
+  cursor:pointer;font-size:14px;font-weight:800;margin:6px;
+  transition:all .22s;font-family:'Nunito',sans-serif;
+}
+.result-btn:hover{background:#fff;color:#1a1a2e}
+
+/* FOOTER */
 .brand-footer{
   background:#f5f5f5;border-top:1px solid #e0e0e0;
-  color:#9e9e9e;text-align:center;padding:12px;font-size:11px;letter-spacing:.3px;
+  color:#9e9e9e;text-align:center;padding:14px;font-size:11px;font-weight:700;letter-spacing:.3px;
 }
 
-/* ── RESPONSIVE ── */
-@media(max-width:540px){
+@media(max-width:560px){
   .chapter-header h1{font-size:17px}
-  .stat-value{font-size:20px}
-  .result-stat-value{font-size:26px}
-  .quiz-area{padding:16px 14px}
+  .stat-value{font-size:21px}
+  .quiz-area{padding:14px 12px}
+  .subj-name{width:90px;font-size:11px}
+  .result-stat-value{font-size:24px}
 }
 </style>
 </head>
 <body>
 
-<!-- WATERMARK -->
 <div class="watermark-overlay" id="wmOverlay"></div>
 
 <div class="container">
 
-  <!-- CHAPTER HEADER -->
+  <!-- HEADER -->
   <div class="chapter-header">
-    <div class="ch-label">🎯 MOCK TEST · EXAM SIMULATION</div>
-    <h1>Mock Test 1 — Full Paper</h1>
-    <div class="ch-meta">Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed</div>
+    <div class="ch-label">🎯 Mock Test · MDCAT Simulation</div>
+    <h1>Mock Test 1 — Full Paper (180 Questions)</h1>
+    <div class="ch-meta">Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed &nbsp;·&nbsp; 0345-3090057</div>
   </div>
 
-  <!-- STATS BAR -->
+  <!-- TIMER -->
+  <div id="timerBox" class="timer-box">
+    ⏱ Time Remaining: <span id="timerDisplay">180:00</span>
+  </div>
+
+  <!-- WARNING -->
+  <div class="warning-banner">
+    ⚠️ <strong>Exam Rules:</strong> Attempt all questions honestly · No peeking at explanations · Treat this exactly like your real MDCAT
+  </div>
+
+  <!-- SUBJECT LEGEND -->
+  <div class="subject-legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--bio)"></div>Biology</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--chem)"></div>Chemistry</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--phy)"></div>Physics</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--eng)"></div>English</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--log)"></div>Logical Reasoning</div>
+  </div>
+
+  <!-- STATS -->
   <div class="stats">
-  <div class="stat-item">
-    <div class="stat-label">Questions</div>
-    <div class="stat-value">
-      <span id="statAnswered">0</span>
-      /
-      <span id="statTotal">0</span>
+    <div class="stat-item">
+      <div class="stat-label">Total</div>
+      <div class="stat-value" id="statTotal">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Attempted</div>
+      <div class="stat-value" id="statAttempted">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Correct</div>
+      <div class="stat-value" id="statCorrect">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Remaining</div>
+      <div class="stat-value" id="statRemaining">0</div>
     </div>
   </div>
-  <div class="stat-item">
-    <div class="stat-label">Attempted</div>
-    <div class="stat-value" id="statAttempted">0</div>
-  </div>
-</div>
-  <!-- WARNING BANNER -->
-<div class="warning-banner">
-  ⚠️ <strong>Exam Rules:</strong>
-  Attempt all questions honestly ·
-  No explanations shown during test ·
-  Results revealed only at end ·
-  Treat this exactly like your real MDCAT
-</div>
-  <!-- TIMER -->
-<div id="timerBox" class="timer-box">
-  ⏱ Time Remaining: <span id="timerDisplay">180:00</span>
-</div>
 
-  <!-- QUIZ AREA -->
+  <!-- QUIZ -->
   <div class="quiz-area" id="quizArea"></div>
 
   <!-- FOOTER -->
@@ -245,278 +303,276 @@ body{
     Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed &nbsp;·&nbsp; 0345-3090057
   </div>
 
-</div><!-- /container -->
+</div>
 
 <script>
-/* ═══════════════════════════════════════════════
-   MCQ DATA — MOCK TEST 1 - FULL PAPER
-═══════════════════════════════════════════════ */
+/* ═══════════════════════════════
+   QUESTION DATA WITH SUBJECT TAGS
+═══════════════════════════════ */
 const questions = [
-  {q:"Overconsumption of which of the following foods increases the risk of calcium oxalate stone?", o:["Leafy vegetables","Fruits containing Vitamin C","Fruits containing high fiber","Whole grains"], c:1, exp:"Excess Vitamin C converts into oxalate in the body, which combines with calcium to form kidney stones."},
-{q:"Which product is produced by genetically modified bacteria for diabetes?", o:["Insulin","Erythropoietin","Growth hormone","Vaccine"], c:0, exp:"GM bacteria like E. coli have human insulin gene inserted to allow mass production of insulin for diabetes treatment."},
-{q:"Which changes occur in the endometrium during proliferative phase?", o:["It begins to shed","It regenerates and thickens","It becomes secretory","No change occurs"], c:1, exp:"Estrogen stimulates endometrial growth; the lining thickens after menstruation to prepare for implantation."},
-{q:"Role of mRNA in COVID-19 vaccines is to:", o:["Helps immune recognition","Produces spike protein","Immediate antibodies","Destroys virus"], c:1, exp:"mRNA carries instructions for spike protein production; the immune system recognizes it and builds immunity."},
-{q:"Living cells of cartilage are called:", o:["Osteocytes","Thrombocytes","Chondrocytes","Osteoblasts"], c:2, exp:"Chondrocytes are cartilage cells that maintain the cartilage matrix; osteocytes are bone cells."},
-{q:"The regulator of muscle contraction released from SR is:", o:["Tropomyosin","Troponin","Calcium ions","ATP"], c:2, exp:"Calcium ions released from the sarcoplasmic reticulum bind to troponin, allowing muscle contraction."},
-{q:"Automatic rapid actions without conscious brain are:", o:["Reflex actions","Conditioned reflexes","Taxes","Synapses"], c:0, exp:"Reflexes are fast and involuntary, controlled by the spinal cord with no conscious brain involvement."},
-{q:"Crossing over involves exchange between:", o:["Sister chromatids","Non-sister chromatids","Non-homologous chromatids","Sister chromatids of homologous"], c:1, exp:"Crossing over occurs in meiosis I between non-sister chromatids of homologous chromosomes, increasing variation."},
-{q:"Biomolecule for information storage:", o:["Carbohydrates","Lipids","Nucleic acids","Proteins"], c:2, exp:"DNA stores genetic information and RNA helps in its expression; other biomolecules cannot store genes."},
-{q:"Chromosome composition:", o:["RNA & lipids","DNA & proteins","Carbs & nucleic acids","Proteins & carbs"], c:1, exp:"Chromosomes contain DNA and histone proteins that help in packaging DNA."},
-{q:"Structure storing Ca2+ around myofibrils:", o:["Sarcolemma","Sarcoplasmic reticulum","T-tubules","Sarcoplasm"], c:1, exp:"The sarcoplasmic reticulum stores calcium ions and releases them during contraction; it surrounds myofibrils."},
-{q:"Shivering thermogenesis involves:", o:["Voluntary contraction","Involuntary contraction","Dehydration","Hormones"], c:1, exp:"Shivering produces heat automatically and is controlled by the hypothalamus."},
-{q:"GC pair stability due to:", o:["Larger size","Closer pairing","More hydrogen bonds","Ring structure"], c:2, exp:"GC has 3 hydrogen bonds while AT has only 2; more bonds increase stability."},
-{q:"Neurons carrying impulses to CNS:", o:["Sensory","Motor","Efferent","Interneurons"], c:0, exp:"Sensory neurons carry signals from receptors to the CNS; motor neurons carry signals away from the CNS."},
-{q:"Lamarck is remembered because:", o:["Rejected but appealing theory","Accepted theory","Heredity theory","Natural selection"], c:0, exp:"Lamarck proposed acquired inheritance, which was later rejected but influenced evolutionary theory."},
-{q:"Which is NOT part of DNA?", o:["Adenine","Thymine","Uracil","Guanine"], c:2, exp:"DNA contains A, T, G, C; uracil is found in RNA where it replaces thymine."},
-{q:"Hemophilic male x normal female (sons):", o:["50%","100%","0%","25%"], c:2, exp:"Father gives Y to sons and mother gives normal X; since the disease is X-linked, sons are unaffected."},
-{q:"Non-competitive inhibitor binds at:", o:["Active site","Substrate site","Speeds reaction","Allosteric site"], c:3, exp:"Non-competitive inhibitors bind at the allosteric site, changing enzyme structure so the substrate cannot overcome it."},
-{q:"Prevents backflow from ventricles to atria:", o:["Atrial contraction","AV valve closure","Semilunar opening","AV opening"], c:1, exp:"AV valves close during ventricular systole to prevent backflow into atria and ensure one-way flow."},
-{q:"Energy release from food occurs in:", o:["Respiration","Photosynthesis","Replication","Protein synthesis"], c:0, exp:"Food is oxidized and ATP is produced in mitochondria through respiration."},
-{q:"How many NADH are produced when one acetyl-CoA is oxidized in Krebs cycle?", o:["1","2","3","4"], c:2, exp:"Three NADH molecules are produced per Krebs cycle turn; they later enter the electron transport chain to generate ATP."},
-{q:"Which of the following best describes glycoproteins?", o:["Protein + carbohydrate","Protein + DNA","Protein + lipid","Protein + minerals"], c:0, exp:"Glycoproteins are proteins with carbohydrate chains attached, commonly found on cell membrane surfaces for recognition and communication."},
-{q:"Common function of cerebellum and hippocampus is:", o:["Equilibrium","Memory formation","Body positioning","Sexual arousal"], c:1, exp:"The hippocampus forms new memories, and the cerebellum contributes to procedural memory; both play a role in memory."},
-{q:"In males, which is a urogenital organ?", o:["Urethra","Ureter","Urinary bladder","Vas deferens"], c:0, exp:"The male urethra serves both urinary and reproductive functions, carrying urine and semen; other organs serve only one system."},
-{q:"The most common type of arthritis is:", o:["Gout","Rheumatoid arthritis","Osteoarthritis","Spondylitis"], c:2, exp:"Osteoarthritis is the most common form, caused by gradual wear and tear of joint cartilage, especially in weight-bearing joints."},
-{q:"Other name for interstitial cells in testes:", o:["Leydig cells","Spermatogonia","Sertoli cells","Spermatocytes"], c:0, exp:"Interstitial cells are also called Leydig cells; they produce testosterone and are located between seminiferous tubules."},
-{q:"Binding of hemoglobin with oxygen is catalyzed by:", o:["Carbonic anhydrase","Carboxylase","Oxygenase","Dehydrogenase"], c:0, exp:"Hemoglobin binds oxygen directly without an enzyme, but carbonic anhydrase is the only respiration-related enzyme in the options, making it the MCQ key."},
-{q:"Transfer of phosphate requires enzyme:", o:["Oxidoreductase","Transferase","Hydrolase","Ligase"], c:1, exp:"Transferases (specifically kinases) catalyze the transfer of phosphate groups between molecules, important in glycolysis and ATP formation."},
-{q:"Linkage of genes in Drosophila discovered by:", o:["Thomas Hunt Morgan","Sturtevant","Mendel","de Vries"], c:0, exp:"Thomas Hunt Morgan discovered gene linkage while working on fruit flies, showing that certain genes are on the same chromosome."},
-{q:"Which phenomenon increases variation?", o:["Crossing over","Linkage","Epistasis","Dominance"], c:0, exp:"Crossing over during prophase I of meiosis exchanges genetic material, creating new gene combinations and increasing diversity."},
-{q:"When antibodies kill antigens, it is called:", o:["Cell-mediated response","Passive response","Humoral response","Collaborative response"], c:2, exp:"Humoral immunity involves B-lymphocytes producing antibodies that circulate in body fluids and neutralize extracellular pathogens."},
-{q:"B-lymphocytes are formed and matured in:", o:["Liver","Spleen","Bone marrow","Thymus"], c:2, exp:"B-lymphocytes originate and mature in the bone marrow, developing specific receptors before entering circulation."},
-{q:"Which is a route of HIV transmission?", o:["Unhygienic conditions","Contaminated blood transfusion","Hand shaking","Living together"], c:1, exp:"HIV is transmitted through infected body fluids; contaminated blood transfusion is a major route; casual contact does not spread it."},
-{q:"Which part of small intestine absorbs nutrients?", o:["Duodenum","Jejunum","Ileum","Rectum"], c:2, exp:"The ileum is the final part of the small intestine and plays a major role in absorbing nutrients, especially vitamin B12 and bile salts."},
-{q:"Water circulates in organisms due to:", o:["Surface tension & polarity","Cohesion & adhesion","Solubility","Stable liquid range"], c:1, exp:"Cohesion keeps water molecules together and adhesion attracts water to vessel walls, enabling upward movement in xylem."},
-{q:"X-linked gene transmitted to male by:", o:["Female gamete","Male gamete","Bacteria","Mutation"], c:0, exp:"Males receive their X chromosome from the mother; any X-linked gene, including defective ones, must come from the female parent."},
-{q:"Viruses causing influenza, measles, rabies belong to:", o:["Plant viruses","Animal viruses","Fungal viruses","Bacteriophages"], c:1, exp:"Influenza, measles, and rabies viruses infect animals and humans, so they are classified as animal viruses."},
-{q:"Which biomolecule gives highest energy per gram?", o:["Carbohydrates","Lipids","Proteins","Water"], c:1, exp:"Lipids provide approximately 9 kcal/g, more than double carbohydrates and proteins (~4 kcal/g), making them the most energy-dense biomolecules."},
-{q:"Best way to avoid AIDS is:", o:["Preventive measures","Vaccination","Medication","None"], c:0, exp:"No fully effective vaccine exists for HIV/AIDS; prevention through safe practices and screened blood transfusions is the most effective strategy."},
-{q:"Which substance passes into Bowman's capsule?", o:["Glucose","RBCs","Platelets","Albumin"], c:0, exp:"During glomerular filtration, small molecules like glucose, water, and urea pass through; larger components like RBCs and albumin remain in blood."},
-{q:"The appendix is attached to which part of large intestine?", o:["Rectum","Caecum","Colon","Ileum"], c:1, exp:"The appendix is a small finger-like projection attached to the caecum, the first part of the large intestine."},
-{q:"Which structural characteristic is most accurate for arteries?", o:["Thin walls with valves","Thick and muscular walls","Highly permeable walls","Large lumen lacking muscles"], c:1, exp:"Arteries carry blood under high pressure from the heart and have thick, elastic, muscular walls to prevent bursting."},
-{q:"Long chains of amino acids indicate the presence of:", o:["Carbohydrates","Lipids","Proteins","Nucleic acids"], c:2, exp:"Amino acids are building blocks of proteins; when joined via peptide bonds they form polypeptides (proteins)."},
-{q:"Monoclonal antibodies are useful in cancer diagnosis by:", o:["Replacing damaged tissue","Changing genetic code of cancer cells","Killing healthy cells","Detecting specific tumor markers in samples"], c:3, exp:"Monoclonal antibodies bind to specific antigens (tumor markers) on cancer cells, enabling early and accurate diagnosis."},
-{q:"Main function of pharynx in respiratory system:", o:["Passage for both food and air","Produces mucus","Produces voice","Filters air"], c:0, exp:"The pharynx is a shared pathway for both the respiratory and digestive systems, guiding air to the trachea and food to the esophagus."},
-{q:"Main cause of acute kidney failure is:", o:["Less sweating","Hypothermia","Liver failure","Excess water intake"], c:2, exp:"Acute kidney failure usually occurs due to toxins, severe infection, dehydration, or organ failure disrupting kidney function suddenly."},
-{q:"During diastole, the heart chambers:", o:["Relax and fill with blood","Contract strongly","Eject blood into arteries","Remain closed"], c:0, exp:"Diastole is the relaxation phase of the heart when chambers fill with blood."},
-{q:"Effect of ADH on kidneys produces:", o:["Hypotonic urine with increased volume","Hypotonic urine with decreased volume","Hypertonic urine with decreased volume","Hypertonic urine with increased volume"], c:2, exp:"ADH increases water reabsorption in kidney tubules, producing a small amount of concentrated (hypertonic) urine."},
-{q:"Swollen lymph nodes after throat infection indicate:", o:["Failure of circulatory system","Extra glucose storage","Active immune response","Blockage of digestive tract"], c:2, exp:"Lymph nodes swell because they produce and store WBCs (lymphocytes) to fight infection."},
-{q:"Correct statement about brain structure:", o:["Cerebral cortex is outer grey matter","Cerebral medulla is inner grey matter","Cortex is inner white matter","Medulla is outer white matter"], c:0, exp:"The brain has outer grey matter (cortex) for processing and inner white matter for nerve connections."},
-{q:"Plant cells are rigid due to:", o:["Cell wall","Vacuole","Cytoskeleton","Plasma membrane"], c:0, exp:"The cell wall made of cellulose provides strength, protection, and rigid structure to plant cells."},
-{q:"Joint allowing elbow movement is:", o:["Cartilaginous joint","Fibrous joint","Pubic symphysis","Hinge joint"], c:3, exp:"Hinge joints allow movement in one direction only (flexion and extension), like the elbow and knee."},
-{q:"Round seeded pea plant self-fertilized and all offspring round:", o:["Both parents and offspring must be true breed","Both may be true breed","Only parents true breed","Only offspring true breed"], c:0, exp:"All offspring showing the same trait indicates a homozygous dominant condition (RR) in the parent."},
-{q:"Single-celled organism without nucleus is:", o:["Unicellular prokaryote","Unicellular eukaryote","Multicellular eukaryote","Multicellular prokaryote"], c:0, exp:"Prokaryotes like bacteria have no nucleus or membrane-bound organelles."},
-{q:"In biotechnology vaccines are developed by cloning:", o:["Gene for antigen of pathogen","Gene for receptor of patient","Gene for antibody of patient","Gene for enzyme of patient"], c:0, exp:"The antigen gene is cloned to produce a safe immune response without causing the disease."},
-{q:"AV valve closed during:", o:["Ventricular systole","Ventricular diastole","Atrial systole","Atrial diastole"], c:0, exp:"AV valves close during ventricular contraction to prevent backflow into atria."},
-{q:"RRYy x rryy ratio of RRYY to rryy:", o:["1:1","9:3:3:1","3:1","1:2:1"], c:0, exp:"A test cross produces equal proportions of offspring genotypes."},
-{q:"Increase of beneficial traits in population is due to:", o:["Gene flow","Genetic drift","Artificial selection","Natural selection"], c:3, exp:"Organisms with advantageous traits survive and reproduce more, leading to evolution through natural selection."},
-{q:"Minimum number of saccharide units in polysaccharide:", o:["Many (>10 units)","2 units","3 units","5 units"], c:0, exp:"Polysaccharides are long chains of many monosaccharides (typically more than 10 units)."},
-{q:"Knee jerk reflex is:", o:["Conditional response","Voluntary action","Involuntary reflex","Delayed response"], c:2, exp:"It is a spinal reflex action that is automatic and fast."},
-{q:"If fertilization does not occur, which part degenerates?", o:["Myometrium","Endometrium","Perimetrium","Cervix"], c:1, exp:"Endometrium breaks down and is shed during the menstrual cycle if fertilization does not occur."},
-{q:"mRNA is used to make protein in:", o:["Replication","Transcription","Translation","Cell division"], c:2, exp:"Ribosomes read mRNA and assemble amino acids into proteins during translation."},
-{q:"Sexually transmitted disease is:", o:["Syphilis","Lung cancer","Tuberculosis","Autoimmune disorder"], c:0, exp:"Syphilis is caused by bacteria and spreads through sexual contact."},
-{q:"Golgi apparatus is made of:", o:["Grana","Cristae","Cisternae","Vesicles"], c:2, exp:"Golgi apparatus consists of stacked flattened sacs called cisternae."},
-{q:"Which type of change is a nerve impulse?", o:["Electrical and mechanical change","Chemical and mechanical change","Electrical and chemical change","Chemical change only"], c:2, exp:"Nerve impulse travels as an electrical signal along the neuron and chemical neurotransmitters are used at synapses."},
-{q:"Which fluid flows through lymphatic vessels?", o:["Plasma","Lymph","Bile","Serum"], c:1, exp:"Lymph is a clear fluid derived from tissue fluid that flows in lymphatic vessels."},
-{q:"Most common nitrogenous waste in humans:", o:["Ammonia","Urea","Uric acid","Creatinine"], c:1, exp:"Humans are ureotelic, so urea is the main nitrogenous waste in urine."},
-{q:"Hippocampus is mainly involved in:", o:["Vision and hearing reflexes","Voluntary muscle movement","Memory storage","Speech production"], c:2, exp:"The hippocampus plays a key role in the formation and storage of memories."},
-{q:"The non-protein part of a conjugated enzyme is called:", o:["Activator","Prosthetic group","Coenzyme","Apoenzyme"], c:1, exp:"A tightly bound non-protein component of a conjugated enzyme is called a prosthetic group."},
-{q:"Outer surface of axon membrane in resting neuron is:", o:["Negative due to sodium ions","Positive due to sodium ions","Positive due to potassium ions","Neutral due to balanced ions"], c:1, exp:"Outside has more Na+ ions giving a positive charge, while the inside is negative in a resting neuron."},
-{q:"Animals that excrete ammonia are:", o:["Uricotelic","Urotelic","Ammonotelic","Ureotelic"], c:2, exp:"Aquatic animals excrete ammonia directly; it is highly toxic but water soluble."},
-{q:"Direction of nerve impulse in neuron:", o:["Axon to dendrite to cell body","Dendrite to cell body to axon","Synapse to axon to dendrite","Cell body to dendrite to axon"], c:1, exp:"Impulse always flows one direction: dendrite to soma to axon."},
-{q:"Found in fungal cell wall and arthropod exoskeleton:", o:["Cellulose","Glycogen","Starch","Chitin"], c:3, exp:"Chitin provides strength and protection in fungi and insects (arthropods)."},
-{q:"Most abundant lipids in living organisms:", o:["Terpenes","Waxes","Steroids","Acylglycerols"], c:3, exp:"Triglycerides (acylglycerols) are the main storage fats and most abundant lipids in organisms."},
-{q:"Bond joining amino acids:", o:["Hydrogen bond","Ionic bond","Glycosidic bond","Peptide bond"], c:3, exp:"Amino acids join via peptide bonds to form polypeptides and proteins."},
-{q:"Not a globular protein:", o:["Enzyme","Hormone","Channel protein","Collagen"], c:3, exp:"Collagen is a fibrous protein, not a globular one."},
-{q:"Supporting cells of nervous system forming myelin sheath:", o:["Kupffer cells","Schwann cells","Parietal cells","Chief cells"], c:1, exp:"Schwann cells are supporting cells of the nervous system that form the myelin sheath."},
-{q:"According to Darwin, main force behind evolution:", o:["Migration","Genetic mutation","Artificial selection","Natural selection"], c:3, exp:"Survival of the fittest organisms leads to evolution through natural selection."},
-{q:"Function of fallopian tube besides fertilization:", o:["Nourishment of embryo","Transport of ovum to uterus","Hormone secretion","Implantation"], c:1, exp:"The fallopian tube carries the ovum from the ovary to the uterus."},
-{q:"Water property allowing it to stick to surfaces:", o:["Density","Adhesion","Cohesion","Non-polar attraction"], c:1, exp:"Adhesion is the attraction between water molecules and other surfaces."},
-{q:"ADH is secreted by:", o:["Adrenal gland","Pituitary gland","Thyroid gland","Parathyroid gland"], c:1, exp:"ADH is released from the posterior pituitary to control water balance."},
-{q:"Heat of combustion of CO (Hess Law):", o:["+26.4 Kcal","-67.6 Kcal","+94.0 Kcal","-120.4 Kcal"], c:1, exp:"Using Hess's Law: CO to CO2 difference = (-94) - (-26.4) = -67.6 kcal."},
-{q:"Rate of dehydration of alcohol:", o:["3 > 2 > 1","1 > 3 > 2","2 > 3 > 1","3 > 1 > 2"], c:0, exp:"More substituted alcohols form more stable carbocations, resulting in faster dehydration."},
-{q:"Reaction where Kc increases with temperature:", o:["CH4 + O2 to CO2 + H2O","NaOH + HCl to NaCl + H2O","2SO2 + O2 to 2SO3","H2 + I2 to 2HI"], c:2, exp:"It is exothermic; equilibrium shifts with temperature, affecting Kc depending on conditions."},
-{q:"Correct bond energy order:", o:["H-I > H-Br > H-Cl","H-Br > H-Cl > H-I","H-Cl > H-I > H-Br","H-Cl > H-Br > H-I"], c:3, exp:"Down the group, bond strength decreases due to increasing bond length, giving H-Cl > H-Br > H-I."},
-{q:"Least volatile compound:", o:["Glycerol","Water","Acetic acid","Diethyl ether"], c:0, exp:"Glycerol has strong hydrogen bonding resulting in very low volatility."},
-{q:"IUPAC name of the compound CH(CH3)CH(CH3) is:", o:["2-methylheptane","3-methylheptane","4-methylheptane","Octane"], c:1, exp:"The longest carbon chain is heptane (7 carbons); the methyl group is at the 3rd carbon to give the lowest locant."},
-{q:"IUPAC name of the compound CH=C(CH3)CH3 is:", o:["2-diethyl-2-propylethene","3-ethnylhept-3-ene","4-ethylhept-3-ene","4-ethylhept-2-ene"], c:3, exp:"Longest chain has 7 carbons with a double bond; numbering gives the lowest locant to the double bond at position 2, ethyl substituent at position 4."},
-{q:"Which of the following molecules have similar molecular shape?", o:["NH3 & AlCl3","BCl3 & NH3","AlCl3 & PCl3","H2O & SnCl2"], c:3, exp:"Both H2O and SnCl2 have a bent shape due to lone pairs according to VSEPR theory."},
-{q:"Value of electronegativity difference (1.20 and 4.0) percent ionic character is:", o:["43%","50%","55%","73%"], c:3, exp:"Electronegativity difference = 4.0 - 1.20 = 2.8; a large difference indicates a highly ionic bond, corresponding to ~73% ionic character."},
-{q:"Phenol differs from ethanol because it:", o:["Forms stronger hydrogen bonds to its aromatic ring","Is more acidic because of resonance stabilized conjugate base","Readily undergoes nucleophilic substitution at -OH group","Is completely insoluble in water due to benzene ring"], c:1, exp:"Phenol is more acidic than ethanol because the phenoxide ion is stabilized by resonance in the benzene ring, making proton loss easier."},
-{q:"Reagent for conversion of toluene to p-chlorotoluene:", o:["Cl2 in dark","Cl2 in presence of AlCl3","Cl2 in presence of UV light","Concentrated HCl under reflux"], c:1, exp:"This is an electrophilic aromatic substitution (EAS) reaction requiring Lewis acid catalyst AlCl3."},
-{q:"Percentage yield when actual = 2g, theoretical = 4g:", o:["25%","50%","75%","85%"], c:1, exp:"% yield = (actual/theoretical) x 100 = (2/4) x 100 = 50%."},
-{q:"IUPAC name of CH3CH2Cl is:", o:["Chloroethane","Chloroethyne","Chloroethene","Ethyl chloride"], c:0, exp:"Two-carbon chain with Cl substituent forms a haloalkane named chloroethane."},
-{q:"Correct order of reactivity of R-X:", o:["RF > RCl > RBr > RI","RBr > RF > RCl > RI","RCl > RF > RBr > RI","RI > RBr > RCl > RF"], c:3, exp:"Reactivity depends on bond strength; the C-I bond is weakest so RI is most reactive."},
-{q:"Most susceptible to nucleophilic attack:", o:["CH3COCl","CH3CHO","CH3COOCH3","CH3COOCOCH3"], c:0, exp:"Acyl chlorides are most reactive due to the strong electron-withdrawing Cl and its good leaving group ability."},
-{q:"Most paramagnetic substance:", o:["O2","N2","CO2","H2"], c:0, exp:"O2 has two unpaired electrons in antibonding orbitals, making it paramagnetic."},
-{q:"Formation of activated complex is:", o:["Exothermic","Endothermic","Either endo or exo","Always energy released"], c:1, exp:"Energy is required to reach the transition state; activated complex formation absorbs energy."},
-{q:"Maximum probability of finding electron in hydrogen atom is at:", o:["0.53 nm","0.35 nm","0.053 nm","0.0053 nm"], c:2, exp:"The Bohr radius of the hydrogen atom in ground state is 0.053 nm."},
-{q:"IUPAC name of vinyl acetylene is:", o:["But-1-en-3-yne","But-3-en-1-yne","Pent-3-en-1-yne","Pent-2-en-4-yne"], c:0, exp:"4-carbon chain with double and triple bond; correct numbering gives lowest locants as but-1-en-3-yne."},
-{q:"Atom with single electron in dumbbell orbital:", o:["H","He","Li","Na"], c:2, exp:"Lithium has one valence electron in the 2s orbital; in excited state it shows p orbital involvement with unpaired electron."},
-{q:"Adhesive used in jewelry repair:", o:["Super glue","Epoxy resin","Silicon resin","Starch"], c:1, exp:"Epoxy resin gives strong, durable bonding for metals and jewelry."},
-{q:"Ratio of sigma and pi bonds in benzene:", o:["6:1","1:4","2:3","4:1"], c:3, exp:"Benzene has 6 sigma bonds + 3 pi bonds, giving a ratio of approximately 4:1 depending on counting method."},
-{q:"Addition polymer is:", o:["PVC","Nylon 6,6","Nylon 6,10","Polyester"], c:0, exp:"PVC forms by addition polymerization of vinyl chloride."},
-{q:"At start of reaction:", o:["Average rate is high","Instantaneous rate is high","Both same","Both slow"], c:0, exp:"At the start, reactant concentration is maximum so the reaction rate is highest."},
-{q:"Not true about benzene:", o:["sp2 hybridization","Fractional bond order","No elimination reaction","6 sites for monosubstitution"], c:2, exp:"Benzene mainly undergoes electrophilic substitution; elimination is not a defining property of benzene."},
-{q:"Clemmensen reduction uses:", o:["H2 and Pd","LiAlH4","Zn-Hg + conc HCl","NH2NH2/KOH"], c:2, exp:"Clemmensen reduction uses Zn-Hg with concentrated HCl to reduce carbonyl group to alkane in acidic medium."},
-{q:"N2 + 3H2 to 2NH3. If 56g of N2 reacts with 12g of H2 and produces 51g of NH3, what is the theoretical yield and percentage yield?", o:["TY=68g and PY=75%","TY=34g and PY=67%","TY=68g and PY=33%","TY=34g and PY=75%"], c:0, exp:"N2 is the limiting reagent; theoretical yield of NH3 = 68g; percentage yield = (51/68) x 100 = 75%."},
-{q:"When SHE is connected with Cu electrode using salt bridge, what happens?", o:["Cu reduces","Cu oxidizes","H+ reduces","H2 reduces"], c:0, exp:"Cu2+ gains electrons at the cathode, so reduction of Cu occurs."},
-{q:"The ionic compound with highest lattice energy is:", o:["LiF","NaCl","KCl","CsI"], c:0, exp:"Li+ and F- are smallest ions with highest charge density, giving the strongest electrostatic attraction."},
-{q:"All of the following have two bond pairs and linear geometry EXCEPT:", o:["SnCl2","CS2","HCN","CO2"], c:0, exp:"SnCl2 has a lone pair on Sn giving it a bent shape, while the others are linear."},
-{q:"If ionization energy of an element is high then:", o:["More reducing power","More electropositivity","Less metallic character","Larger atomic radius"], c:2, exp:"High ionization energy means electrons are tightly held, so there is less tendency to lose electrons and less metallic character."},
-{q:"Which compound does NOT show geometrical isomerism?", o:["But-2-ene","1,2-dichlorocyclopropane","Pent-2-ene","1,4-dimethylcyclopentane"], c:3, exp:"1,4-dimethylcyclopentane lacks the proper restricted rotation/cis-trans requirement for geometrical isomerism."},
-{q:"Mass of hydrogen gas needed to produce 51g of NH3 is:", o:["6g","9g","12g","15g"], c:1, exp:"From stoichiometry (N2 + 3H2 to 2NH3), 6g H2 produces 34g NH3; for 51g NH3, 9g H2 is required."},
-{q:"Digestion of proteins starts in:", o:["Mouth","Stomach","Intestine","Epiglottis"], c:1, exp:"Enzyme pepsin in the stomach begins protein digestion."},
-{q:"Standard temperature and pressure (STP) is:", o:["1 atm and 0°C","760 torr and 25°C","2 bar and 25°C","14.7 psi and 0°C"], c:0, exp:"STP conditions are defined as 1 atm pressure and 273 K (0°C)."},
-{q:"Which of the following is NOT a state function?", o:["Enthalpy","Work","Internal energy","Pressure"], c:1, exp:"Work depends on the path taken, so it is a path function, not a state function."},
-{q:"Which one is NOT a type of stereoisomerism?", o:["Conformational isomerism","Optical isomerism","Geometrical isomerism","Metamerism"], c:3, exp:"Metamerism is a type of structural isomerism, not stereoisomerism."},
-{q:"Formic acid reacts with ethanol in presence of acid catalyst produces:", o:["Ester","Ether","Acid anhydride","Phenol"], c:0, exp:"This is an esterification reaction forming ethyl formate + water."},
-{q:"K is called specific rate constant because it is:", o:["Rate per unit concentration","Temperature independent","Depends on concentration","Unitless"], c:0, exp:"Rate constant relates rate to concentration and is characteristic of the reaction."},
-{q:"Which equation is used to calculate concentration for n moles of an ideal gas?", o:["P/RT","PV/RT","PVART","PM/RT"], c:0, exp:"Concentration (C) = n/V = P/RT from the ideal gas equation."},
-{q:"6g Mg is burnt with 32g O2 to form MgO. Excess reagent left is:", o:["2g Mg","8g O2","16g O2","4g Mg"], c:1, exp:"Mg is the limiting reagent; oxygen remains in excess = 8g O2."},
-{q:"Which carbonyl carbon is more electrophilic?", o:["HCOOH","HCHO","CH3COCH3","CH3COOH"], c:1, exp:"Formaldehyde (HCHO) has no electron-donating groups, so its carbonyl carbon is most electrophilic."},
-{q:"Electron projected along +x-axis in magnetic field in xz-plane. Force direction is:", o:["x-axis","-x-axis","y-axis","-y-axis"], c:2, exp:"Force = q(v x B); applying the right-hand rule and reversing for electron charge gives force along the y-axis."},
-{q:"Magnetic flux equivalence condition:", o:["1.0 T at 0°","1.0 T at 60°","2.0 T at 90°","0.5 T at 90°"], c:0, exp:"Flux = BAcos(theta) is maximum at theta = 0°."},
-{q:"Body at terminal velocity net force is:", o:["0 N","9.8 N","98 N","980 N"], c:0, exp:"At terminal velocity, net force = 0 since drag equals gravitational force."},
-{q:"Temperature coefficient = 0 means resistance:", o:["Increases","Decreases","Remains same","Becomes zero"], c:2, exp:"A temperature coefficient of zero means resistance does not change with temperature."},
-{q:"Path difference = 100 cm, wavelength = 50 cm produces:", o:["Beats","Echo","Loudness","Silence"], c:2, exp:"100/50 = 2 wavelengths, constructive interference produces loud sound."},
-{q:"Potential energy decreases when:", o:["Compressing spring","Stretching spring","Releasing stretched spring","Holding max extension"], c:2, exp:"When a stretched spring is released, stored potential energy converts to kinetic energy."},
-{q:"GPE of diver at depth h:", o:["0","mgh","-mgh","2mgh"], c:2, exp:"Below the reference level, gravitational potential energy is negative."},
-{q:"Rate of work done (power):", o:["F x delta-d","F x delta-t","F x delta-d / delta-t","F x delta-t / delta-d"], c:2, exp:"Power = Work/time = F x displacement/time = Fv."},
-{q:"Circular motion: radius decreases, effect on linear displacement:", o:["Increase linear displacement","Increase linear velocity","Decrease linear displacement","No effect"], c:2, exp:"s = r*theta; smaller r gives smaller s (linear displacement)."},
-{q:"Work done when force opposite displacement:", o:["Positive","Negative","Infinite","Maximum"], c:1, exp:"W = Fd*cos(180°) = negative work."},
-{q:"Step-up transformer (V x 10) current becomes:", o:["10x higher","10x lower","Same","1/10 primary"], c:3, exp:"Power is conserved; voltage increases so current decreases to 1/10 of primary."},
-{q:"At terminal velocity acceleration is:", o:["Zero","Variable","Not changed","Negative"], c:0, exp:"No net force means no acceleration at terminal velocity."},
-{q:"Newton underestimated speed of sound because he assumed:", o:["Viscosity ignored","Isothermal process","Vacuum conditions","Adiabatic process"], c:1, exp:"Newton assumed an isothermal process; the correct model is adiabatic, giving a higher speed."},
-{q:"Electric field zero point lies:", o:["Near + charge","Midpoint","Near - charge","Nowhere"], c:2, exp:"The field cancels closer to the smaller (usually negative) charge."},
-{q:"Angle between A = 2i + 3j and B = -6i + 4j:", o:["90°","120°","45°","60°"], c:1, exp:"Using the dot product, cos(theta) is negative, indicating an obtuse angle of approximately 120°."},
-{q:"Displacement-time graph straight line at 45° means velocity is:", o:["Increasing","Decreasing","Constant","Variable"], c:2, exp:"A straight line slope = constant velocity."},
-{q:"A 150 kg car reduces speed from 20 m/s to 10 m/s in 3s. Average retarding force is:", o:["500 N","2500 N","1500 N","1000 N"], c:0, exp:"a = (10-20)/3 = -10/3 m/s²; F = ma = 150 x 10/3 = 500 N (retarding)."},
-{q:"Interference of sound requires:", o:["Different frequencies","Two coherent sources","Single source","Source + reflector"], c:1, exp:"Coherent sources have the same frequency and constant phase difference."},
-{q:"Work done = P*delta-V (2 Pa, 1 to 3 m³):", o:["2 J","4 J","6 J","8 J"], c:1, exp:"W = 2 x (3-1) = 4 J."},
-{q:"If frequency of AC is doubled, inductive reactance:", o:["Remain same","Halved","Doubled","Zero"], c:2, exp:"XL = 2*pi*f*L; inductive reactance is directly proportional to frequency."},
-{q:"Force in medium (k = 2.8), if original force = 28 N:", o:["25 N","20 N","15 N","10 N"], c:3, exp:"F = 28/2.8 = 10 N."},
-{q:"Semicircle distance to displacement ratio:", o:["pi:1","pi:2","2:pi","1:pi"], c:1, exp:"Distance = pi*r, displacement = 2r; ratio = pi*r/2r = pi:2."},
-{q:"If speed is doubled, range of projectile becomes:", o:["R/2","R","2R","4R"], c:3, exp:"R is proportional to v²; doubling speed quadruples the range."},
-{q:"Change in momentum (rebound same speed):", o:["0","mv","-2mv","-mv"], c:2, exp:"Final momentum = -mv, initial = mv; change = -2mv."},
-{q:"A point lies 3m from a +5 uC charge and 4m from a -3 uC charge. The net electric field direction is:", o:["Away from +5 uC charge","Towards +5 uC charge","Away from -3 uC charge","Perpendicular to line joining charges"], c:0, exp:"Electric field due to the +5 uC charge is stronger and dominant; net field direction is away from the +5 uC charge."},
-{q:"Increase in kinetic energy due to pressure drop in a horizontal pipe is due to:", o:["Bernoulli's principle","Continuity equation","Pascal's principle","Torricelli's theorem"], c:0, exp:"Bernoulli's principle states total energy is constant; pressure energy converts into kinetic energy."},
-{q:"Electric field = 200 N/C. If test charge = -4 C, force and field are:", o:["200 N/C and 50 N","200 N/C and 200 N","200 N/C and 800 N","800 N/C and 500 N"], c:2, exp:"Electric field remains unchanged (property of space); Force = qE = 4 x 200 = 800 N."},
-{q:"Internal resistance reduces terminal voltage because it:", o:["Produces back emf","Causes power loss inside battery","Increases current","Decreases emf"], c:1, exp:"Some energy is lost as heat inside the battery, reducing output voltage (V = E - Ir)."},
-{q:"Angle formed at center of a circle by movement of body is:", o:["Angular displacement","Angular velocity","Angular acceleration","Angular momentum"], c:0, exp:"The angle traced by the radius vector is angular displacement."},
-{q:"Heat generated while drilling metal comes from:", o:["Vibration of tool","Work done against friction","Electric current flow","Compression of air"], c:1, exp:"Mechanical energy converts into heat due to friction between the drill and metal."},
-{q:"Potential difference if W = 2J and Q = 2C:", o:["1 J/C","2 J/C","1 C/J","2 C/J"], c:0, exp:"V = W/Q = 2/2 = 1 volt."},
-{q:"Transverse waves involve particle vibration:", o:["Along wave direction","Opposite energy flow","Perpendicular to wave propagation","Random direction"], c:2, exp:"In transverse waves, particles vibrate at right angles to the direction of wave movement."},
-{q:"In laminar flow, adjacent layers:", o:["Resist each other","Mix with each other","Slide smoothly past each other","Produce turbulence"], c:2, exp:"Laminar flow is smooth and orderly without mixing between layers."},
-{q:"Half revolution in radians equals:", o:["2pi","pi","pi/2","pi/6"], c:1, exp:"Full circle = 2pi; half = pi radians."},
-{q:"If A = i + j and B = 4(i + j), then |A x B| =", o:["4(a² + b²)","4abk","8(a + b)","0"], c:3, exp:"Both vectors are parallel; cross product = 0."},
-{q:"A proton and alpha particle enter same magnetic field with equal speed. Alpha particle path has:", o:["Larger radius","Smaller radius","Smaller path length","Greater deflection"], c:0, exp:"Radius r is proportional to m/q; the alpha particle has higher mass, so it follows a larger circular path."},
-{q:"Passive voice conversion (future tense with conditional):", o:["The budget will be approved by the board only after the accounts are verified by the auditor.","The budget is approved after accounts are verified.","The budget is being approved after verification.","The budget has been approved after verification."], c:0, exp:"Correct future passive structure with proper sequence of actions."},
-{q:"Identify simile:", o:["She trembled like a leaf in the wind","She was a statue frozen in fear","Her thoughts were a whirlwind","She was drowning in doubt"], c:0, exp:"The use of 'like' shows comparison, making it a simile."},
-{q:"Synonym of lachrymose:", o:["Joyful","Weepy","Monotonous","Humorous"], c:1, exp:"Lachrymose means tearful or sad, synonymous with weepy."},
-{q:"Indirect speech: 'Will you listen to such a man?'", o:["He asked them that they would listen to such a man.","He asked them whether they would listen to such a man.","He told them whether they will listen to such a man.","He asked them to listen to such a man."], c:1, exp:"Yes/No questions are converted using 'whether' + past form in indirect speech."},
-{q:"'Only Jamila said she was tired.' Correct usage of ONLY is:", o:["Only Jamila said she was tired.","Jamila only said she was tired.","Jamila said only she was tired.","Jamila said she was only tired."], c:0, exp:"'Only' before the subject means Jamila is the only person who spoke."},
-{q:"Correct sentence is:", o:["The new policy aims at reduce waste, to promote recycling, and creating awareness among citizens.","The new policy aims to reducing waste, promoting recycling, and create awareness among citizens.","The new policy aims to reduce waste, to promote recycling, and creating awareness among citizens.","The new policy aims to reduce waste, promote recycling, and create awareness among citizens."], c:3, exp:"Parallel structure after 'aims to' requires all verbs in base form."},
-{q:"Purpose of exaggerated language in parody is:", o:["To create a serious tone","To criticize societal norms","To entertain and mock","To confuse the reader"], c:2, exp:"Parody uses exaggeration for humor and satire."},
-{q:"Choose the word with incorrect spelling:", o:["Immigrant","Ancestors","Montessori","Pregmetic"], c:3, exp:"The correct spelling is 'pragmatic,' so 'pregmetic' is wrong."},
-{q:"'He does his work without any care.' Underlined part 'without any care' is:", o:["Adverb phrase","Adjective phrase","Noun phrase","Appositive phrase"], c:0, exp:"'Without any care' describes how he does work, functioning as an adverb phrase."},
-{q:"POWER to OPXFS, code for given word is:", o:["HVPFE","HVRFE","HVOFE","IVRFG"], c:1, exp:"Each letter is shifted consistently following a fixed alphabet shift rule pattern."},
-{q:"Travel restrictions help control virus spread. This statement is:", o:["True","False","Cannot be determined","Partially true"], c:0, exp:"Limiting movement reduces the transmission rate of infectious diseases."},
-{q:"Tank capacity = 240 L, filled 1/3. Remaining water capacity:", o:["60 L","80 L","100 L","160 L"], c:3, exp:"Filled = 80 L; remaining = 240 - 80 = 160 L."},
-{q:"M, N, P, Q, S, ?", o:["T","U","V","W"], c:0, exp:"Alphabet skipping pattern: R is skipped; next logical continuation is T."},
-{q:"Amna older than Muneeb, Muneeb younger than Jaffar. Relation between Amna and Jaffar:", o:["Amna is older","Jaffar is older","They are the same age","Cannot be determined"], c:3, exp:"No direct comparison between Amna and Jaffar, so there is not enough information."},
-{q:"Statements: All melons are apples. No apples are mangoes. Conclusions: I. All melons are mangoes. II. Apples are not mangoes.", o:["Only I","Only II","Both I and II","Neither I nor II"], c:1, exp:"'No apples are mangoes' makes Conclusion II true; Conclusion I is false."},
-{q:"Who is Uncle of Q?", o:["P","T","Q's father","Cannot be determined"], c:1, exp:"T is brother of P; P is father of Q; therefore T = paternal uncle."},
-{q:"A is mother of B, C is child of B. Relation of A and C:", o:["Mother","Aunt","Grandmother","Sister"], c:2, exp:"A is mother of B; C is B's child; therefore A is grandmother of C."},
-{q:"Number series: 120, 119, 117, 114, 110, ?", o:["95","100","105","167"], c:2, exp:"Pattern: -1, -2, -3, -4; next -5; 110 - 5 = 105."},
+  // ── BIOLOGY (Q1–Q81) ──
+  {s:"Biology",q:"Overconsumption of which of the following foods increases the risk of calcium oxalate stone?", o:["Leafy vegetables","Fruits containing Vitamin C","Fruits containing high fiber","Whole grains"], c:1, exp:"Excess Vitamin C converts into oxalate in the body, which combines with calcium to form kidney stones."},
+  {s:"Biology",q:"Which product is produced by genetically modified bacteria for diabetes?", o:["Insulin","Erythropoietin","Growth hormone","Vaccine"], c:0, exp:"GM bacteria like E. coli have human insulin gene inserted to allow mass production of insulin for diabetes treatment."},
+  {s:"Biology",q:"Which changes occur in the endometrium during proliferative phase?", o:["It begins to shed","It regenerates and thickens","It becomes secretory","No change occurs"], c:1, exp:"Estrogen stimulates endometrial growth; the lining thickens after menstruation to prepare for implantation."},
+  {s:"Biology",q:"Role of mRNA in COVID-19 vaccines is to:", o:["Helps immune recognition","Produces spike protein","Immediate antibodies","Destroys virus"], c:1, exp:"mRNA carries instructions for spike protein production; the immune system recognizes it and builds immunity."},
+  {s:"Biology",q:"Living cells of cartilage are called:", o:["Osteocytes","Thrombocytes","Chondrocytes","Osteoblasts"], c:2, exp:"Chondrocytes are cartilage cells that maintain the cartilage matrix; osteocytes are bone cells."},
+  {s:"Biology",q:"The regulator of muscle contraction released from SR is:", o:["Tropomyosin","Troponin","Calcium ions","ATP"], c:2, exp:"Calcium ions released from the sarcoplasmic reticulum bind to troponin, allowing muscle contraction."},
+  {s:"Biology",q:"Automatic rapid actions without conscious brain are:", o:["Reflex actions","Conditioned reflexes","Taxes","Synapses"], c:0, exp:"Reflexes are fast and involuntary, controlled by the spinal cord with no conscious brain involvement."},
+  {s:"Biology",q:"Crossing over involves exchange between:", o:["Sister chromatids","Non-sister chromatids","Non-homologous chromatids","Sister chromatids of homologous"], c:1, exp:"Crossing over occurs in meiosis I between non-sister chromatids of homologous chromosomes, increasing variation."},
+  {s:"Biology",q:"Biomolecule for information storage:", o:["Carbohydrates","Lipids","Nucleic acids","Proteins"], c:2, exp:"DNA stores genetic information and RNA helps in its expression; other biomolecules cannot store genes."},
+  {s:"Biology",q:"Chromosome composition:", o:["RNA & lipids","DNA & proteins","Carbs & nucleic acids","Proteins & carbs"], c:1, exp:"Chromosomes contain DNA and histone proteins that help in packaging DNA."},
+  {s:"Biology",q:"Structure storing Ca2+ around myofibrils:", o:["Sarcolemma","Sarcoplasmic reticulum","T-tubules","Sarcoplasm"], c:1, exp:"The sarcoplasmic reticulum stores calcium ions and releases them during contraction; it surrounds myofibrils."},
+  {s:"Biology",q:"Shivering thermogenesis involves:", o:["Voluntary contraction","Involuntary contraction","Dehydration","Hormones"], c:1, exp:"Shivering produces heat automatically and is controlled by the hypothalamus."},
+  {s:"Biology",q:"GC pair stability due to:", o:["Larger size","Closer pairing","More hydrogen bonds","Ring structure"], c:2, exp:"GC has 3 hydrogen bonds while AT has only 2; more bonds increase stability."},
+  {s:"Biology",q:"Neurons carrying impulses to CNS:", o:["Sensory","Motor","Efferent","Interneurons"], c:0, exp:"Sensory neurons carry signals from receptors to the CNS; motor neurons carry signals away from the CNS."},
+  {s:"Biology",q:"Lamarck is remembered because:", o:["Rejected but appealing theory","Accepted theory","Heredity theory","Natural selection"], c:0, exp:"Lamarck proposed acquired inheritance, which was later rejected but influenced evolutionary theory."},
+  {s:"Biology",q:"Which is NOT part of DNA?", o:["Adenine","Thymine","Uracil","Guanine"], c:2, exp:"DNA contains A, T, G, C; uracil is found in RNA where it replaces thymine."},
+  {s:"Biology",q:"Hemophilic male x normal female (sons):", o:["50%","100%","0%","25%"], c:2, exp:"Father gives Y to sons and mother gives normal X; since the disease is X-linked, sons are unaffected."},
+  {s:"Biology",q:"Non-competitive inhibitor binds at:", o:["Active site","Substrate site","Speeds reaction","Allosteric site"], c:3, exp:"Non-competitive inhibitors bind at the allosteric site, changing enzyme structure so the substrate cannot overcome it."},
+  {s:"Biology",q:"Prevents backflow from ventricles to atria:", o:["Atrial contraction","AV valve closure","Semilunar opening","AV opening"], c:1, exp:"AV valves close during ventricular systole to prevent backflow into atria and ensure one-way flow."},
+  {s:"Biology",q:"Energy release from food occurs in:", o:["Respiration","Photosynthesis","Replication","Protein synthesis"], c:0, exp:"Food is oxidized and ATP is produced in mitochondria through respiration."},
+  {s:"Biology",q:"How many NADH are produced when one acetyl-CoA is oxidized in Krebs cycle?", o:["1","2","3","4"], c:2, exp:"Three NADH molecules are produced per Krebs cycle turn; they later enter the electron transport chain to generate ATP."},
+  {s:"Biology",q:"Which of the following best describes glycoproteins?", o:["Protein + carbohydrate","Protein + DNA","Protein + lipid","Protein + minerals"], c:0, exp:"Glycoproteins are proteins with carbohydrate chains attached, commonly found on cell membrane surfaces for recognition and communication."},
+  {s:"Biology",q:"Common function of cerebellum and hippocampus is:", o:["Equilibrium","Memory formation","Body positioning","Sexual arousal"], c:1, exp:"The hippocampus forms new memories, and the cerebellum contributes to procedural memory; both play a role in memory."},
+  {s:"Biology",q:"In males, which is a urogenital organ?", o:["Urethra","Ureter","Urinary bladder","Vas deferens"], c:0, exp:"The male urethra serves both urinary and reproductive functions, carrying urine and semen; other organs serve only one system."},
+  {s:"Biology",q:"The most common type of arthritis is:", o:["Gout","Rheumatoid arthritis","Osteoarthritis","Spondylitis"], c:2, exp:"Osteoarthritis is the most common form, caused by gradual wear and tear of joint cartilage, especially in weight-bearing joints."},
+  {s:"Biology",q:"Other name for interstitial cells in testes:", o:["Leydig cells","Spermatogonia","Sertoli cells","Spermatocytes"], c:0, exp:"Interstitial cells are also called Leydig cells; they produce testosterone and are located between seminiferous tubules."},
+  {s:"Biology",q:"Binding of hemoglobin with oxygen is catalyzed by:", o:["Carbonic anhydrase","Carboxylase","Oxygenase","Dehydrogenase"], c:0, exp:"Hemoglobin binds oxygen directly without an enzyme, but carbonic anhydrase is the only respiration-related enzyme in the options, making it the MCQ key."},
+  {s:"Biology",q:"Transfer of phosphate requires enzyme:", o:["Oxidoreductase","Transferase","Hydrolase","Ligase"], c:1, exp:"Transferases (specifically kinases) catalyze the transfer of phosphate groups between molecules, important in glycolysis and ATP formation."},
+  {s:"Biology",q:"Linkage of genes in Drosophila discovered by:", o:["Thomas Hunt Morgan","Sturtevant","Mendel","de Vries"], c:0, exp:"Thomas Hunt Morgan discovered gene linkage while working on fruit flies, showing that certain genes are on the same chromosome."},
+  {s:"Biology",q:"Which phenomenon increases variation?", o:["Crossing over","Linkage","Epistasis","Dominance"], c:0, exp:"Crossing over during prophase I of meiosis exchanges genetic material, creating new gene combinations and increasing diversity."},
+  {s:"Biology",q:"When antibodies kill antigens, it is called:", o:["Cell-mediated response","Passive response","Humoral response","Collaborative response"], c:2, exp:"Humoral immunity involves B-lymphocytes producing antibodies that circulate in body fluids and neutralize extracellular pathogens."},
+  {s:"Biology",q:"B-lymphocytes are formed and matured in:", o:["Liver","Spleen","Bone marrow","Thymus"], c:2, exp:"B-lymphocytes originate and mature in the bone marrow, developing specific receptors before entering circulation."},
+  {s:"Biology",q:"Which is a route of HIV transmission?", o:["Unhygienic conditions","Contaminated blood transfusion","Hand shaking","Living together"], c:1, exp:"HIV is transmitted through infected body fluids; contaminated blood transfusion is a major route; casual contact does not spread it."},
+  {s:"Biology",q:"Which part of small intestine absorbs nutrients?", o:["Duodenum","Jejunum","Ileum","Rectum"], c:2, exp:"The ileum is the final part of the small intestine and plays a major role in absorbing nutrients, especially vitamin B12 and bile salts."},
+  {s:"Biology",q:"Water circulates in organisms due to:", o:["Surface tension & polarity","Cohesion & adhesion","Solubility","Stable liquid range"], c:1, exp:"Cohesion keeps water molecules together and adhesion attracts water to vessel walls, enabling upward movement in xylem."},
+  {s:"Biology",q:"X-linked gene transmitted to male by:", o:["Female gamete","Male gamete","Bacteria","Mutation"], c:0, exp:"Males receive their X chromosome from the mother; any X-linked gene, including defective ones, must come from the female parent."},
+  {s:"Biology",q:"Viruses causing influenza, measles, rabies belong to:", o:["Plant viruses","Animal viruses","Fungal viruses","Bacteriophages"], c:1, exp:"Influenza, measles, and rabies viruses infect animals and humans, so they are classified as animal viruses."},
+  {s:"Biology",q:"Which biomolecule gives highest energy per gram?", o:["Carbohydrates","Lipids","Proteins","Water"], c:1, exp:"Lipids provide approximately 9 kcal/g, more than double carbohydrates and proteins (~4 kcal/g), making them the most energy-dense biomolecules."},
+  {s:"Biology",q:"Best way to avoid AIDS is:", o:["Preventive measures","Vaccination","Medication","None"], c:0, exp:"No fully effective vaccine exists for HIV/AIDS; prevention through safe practices and screened blood transfusions is the most effective strategy."},
+  {s:"Biology",q:"Which substance passes into Bowman's capsule?", o:["Glucose","RBCs","Platelets","Albumin"], c:0, exp:"During glomerular filtration, small molecules like glucose, water, and urea pass through; larger components like RBCs and albumin remain in blood."},
+  {s:"Biology",q:"The appendix is attached to which part of large intestine?", o:["Rectum","Caecum","Colon","Ileum"], c:1, exp:"The appendix is a small finger-like projection attached to the caecum, the first part of the large intestine."},
+  {s:"Biology",q:"Which structural characteristic is most accurate for arteries?", o:["Thin walls with valves","Thick and muscular walls","Highly permeable walls","Large lumen lacking muscles"], c:1, exp:"Arteries carry blood under high pressure from the heart and have thick, elastic, muscular walls to prevent bursting."},
+  {s:"Biology",q:"Long chains of amino acids indicate the presence of:", o:["Carbohydrates","Lipids","Proteins","Nucleic acids"], c:2, exp:"Amino acids are building blocks of proteins; when joined via peptide bonds they form polypeptides (proteins)."},
+  {s:"Biology",q:"Monoclonal antibodies are useful in cancer diagnosis by:", o:["Replacing damaged tissue","Changing genetic code of cancer cells","Killing healthy cells","Detecting specific tumor markers in samples"], c:3, exp:"Monoclonal antibodies bind to specific antigens (tumor markers) on cancer cells, enabling early and accurate diagnosis."},
+  {s:"Biology",q:"Main function of pharynx in respiratory system:", o:["Passage for both food and air","Produces mucus","Produces voice","Filters air"], c:0, exp:"The pharynx is a shared pathway for both the respiratory and digestive systems, guiding air to the trachea and food to the esophagus."},
+  {s:"Biology",q:"Main cause of acute kidney failure is:", o:["Less sweating","Hypothermia","Liver failure","Excess water intake"], c:2, exp:"Acute kidney failure usually occurs due to toxins, severe infection, dehydration, or organ failure disrupting kidney function suddenly."},
+  {s:"Biology",q:"During diastole, the heart chambers:", o:["Relax and fill with blood","Contract strongly","Eject blood into arteries","Remain closed"], c:0, exp:"Diastole is the relaxation phase of the heart when chambers fill with blood."},
+  {s:"Biology",q:"Effect of ADH on kidneys produces:", o:["Hypotonic urine with increased volume","Hypotonic urine with decreased volume","Hypertonic urine with decreased volume","Hypertonic urine with increased volume"], c:2, exp:"ADH increases water reabsorption in kidney tubules, producing a small amount of concentrated (hypertonic) urine."},
+  {s:"Biology",q:"Swollen lymph nodes after throat infection indicate:", o:["Failure of circulatory system","Extra glucose storage","Active immune response","Blockage of digestive tract"], c:2, exp:"Lymph nodes swell because they produce and store WBCs (lymphocytes) to fight infection."},
+  {s:"Biology",q:"Correct statement about brain structure:", o:["Cerebral cortex is outer grey matter","Cerebral medulla is inner grey matter","Cortex is inner white matter","Medulla is outer white matter"], c:0, exp:"The brain has outer grey matter (cortex) for processing and inner white matter for nerve connections."},
+  {s:"Biology",q:"Plant cells are rigid due to:", o:["Cell wall","Vacuole","Cytoskeleton","Plasma membrane"], c:0, exp:"The cell wall made of cellulose provides strength, protection, and rigid structure to plant cells."},
+  {s:"Biology",q:"Joint allowing elbow movement is:", o:["Cartilaginous joint","Fibrous joint","Pubic symphysis","Hinge joint"], c:3, exp:"Hinge joints allow movement in one direction only (flexion and extension), like the elbow and knee."},
+  {s:"Biology",q:"Round seeded pea plant self-fertilized and all offspring round:", o:["Both parents and offspring must be true breed","Both may be true breed","Only parents true breed","Only offspring true breed"], c:0, exp:"All offspring showing the same trait indicates a homozygous dominant condition (RR) in the parent."},
+  {s:"Biology",q:"Single-celled organism without nucleus is:", o:["Unicellular prokaryote","Unicellular eukaryote","Multicellular eukaryote","Multicellular prokaryote"], c:0, exp:"Prokaryotes like bacteria have no nucleus or membrane-bound organelles."},
+  {s:"Biology",q:"In biotechnology vaccines are developed by cloning:", o:["Gene for antigen of pathogen","Gene for receptor of patient","Gene for antibody of patient","Gene for enzyme of patient"], c:0, exp:"The antigen gene is cloned to produce a safe immune response without causing the disease."},
+  {s:"Biology",q:"AV valve closed during:", o:["Ventricular systole","Ventricular diastole","Atrial systole","Atrial diastole"], c:0, exp:"AV valves close during ventricular contraction to prevent backflow into atria."},
+  {s:"Biology",q:"RRYy x rryy ratio of RRYY to rryy:", o:["1:1","9:3:3:1","3:1","1:2:1"], c:0, exp:"A test cross produces equal proportions of offspring genotypes."},
+  {s:"Biology",q:"Increase of beneficial traits in population is due to:", o:["Gene flow","Genetic drift","Artificial selection","Natural selection"], c:3, exp:"Organisms with advantageous traits survive and reproduce more, leading to evolution through natural selection."},
+  {s:"Biology",q:"Minimum number of saccharide units in polysaccharide:", o:["Many (>10 units)","2 units","3 units","5 units"], c:0, exp:"Polysaccharides are long chains of many monosaccharides (typically more than 10 units)."},
+  {s:"Biology",q:"Knee jerk reflex is:", o:["Conditional response","Voluntary action","Involuntary reflex","Delayed response"], c:2, exp:"It is a spinal reflex action that is automatic and fast."},
+  {s:"Biology",q:"If fertilization does not occur, which part degenerates?", o:["Myometrium","Endometrium","Perimetrium","Cervix"], c:1, exp:"Endometrium breaks down and is shed during the menstrual cycle if fertilization does not occur."},
+  {s:"Biology",q:"mRNA is used to make protein in:", o:["Replication","Transcription","Translation","Cell division"], c:2, exp:"Ribosomes read mRNA and assemble amino acids into proteins during translation."},
+  {s:"Biology",q:"Sexually transmitted disease is:", o:["Syphilis","Lung cancer","Tuberculosis","Autoimmune disorder"], c:0, exp:"Syphilis is caused by bacteria and spreads through sexual contact."},
+  {s:"Biology",q:"Golgi apparatus is made of:", o:["Grana","Cristae","Cisternae","Vesicles"], c:2, exp:"Golgi apparatus consists of stacked flattened sacs called cisternae."},
+  {s:"Biology",q:"Which type of change is a nerve impulse?", o:["Electrical and mechanical change","Chemical and mechanical change","Electrical and chemical change","Chemical change only"], c:2, exp:"Nerve impulse travels as an electrical signal along the neuron and chemical neurotransmitters are used at synapses."},
+  {s:"Biology",q:"Which fluid flows through lymphatic vessels?", o:["Plasma","Lymph","Bile","Serum"], c:1, exp:"Lymph is a clear fluid derived from tissue fluid that flows in lymphatic vessels."},
+  {s:"Biology",q:"Most common nitrogenous waste in humans:", o:["Ammonia","Urea","Uric acid","Creatinine"], c:1, exp:"Humans are ureotelic, so urea is the main nitrogenous waste in urine."},
+  {s:"Biology",q:"Hippocampus is mainly involved in:", o:["Vision and hearing reflexes","Voluntary muscle movement","Memory storage","Speech production"], c:2, exp:"The hippocampus plays a key role in the formation and storage of memories."},
+  {s:"Biology",q:"The non-protein part of a conjugated enzyme is called:", o:["Activator","Prosthetic group","Coenzyme","Apoenzyme"], c:1, exp:"A tightly bound non-protein component of a conjugated enzyme is called a prosthetic group."},
+  {s:"Biology",q:"Outer surface of axon membrane in resting neuron is:", o:["Negative due to sodium ions","Positive due to sodium ions","Positive due to potassium ions","Neutral due to balanced ions"], c:1, exp:"Outside has more Na+ ions giving a positive charge, while the inside is negative in a resting neuron."},
+  {s:"Biology",q:"Animals that excrete ammonia are:", o:["Uricotelic","Urotelic","Ammonotelic","Ureotelic"], c:2, exp:"Aquatic animals excrete ammonia directly; it is highly toxic but water soluble."},
+  {s:"Biology",q:"Direction of nerve impulse in neuron:", o:["Axon to dendrite to cell body","Dendrite to cell body to axon","Synapse to axon to dendrite","Cell body to dendrite to axon"], c:1, exp:"Impulse always flows one direction: dendrite to soma to axon."},
+  {s:"Biology",q:"Found in fungal cell wall and arthropod exoskeleton:", o:["Cellulose","Glycogen","Starch","Chitin"], c:3, exp:"Chitin provides strength and protection in fungi and insects (arthropods)."},
+  {s:"Biology",q:"Most abundant lipids in living organisms:", o:["Terpenes","Waxes","Steroids","Acylglycerols"], c:3, exp:"Triglycerides (acylglycerols) are the main storage fats and most abundant lipids in organisms."},
+  {s:"Biology",q:"Bond joining amino acids:", o:["Hydrogen bond","Ionic bond","Glycosidic bond","Peptide bond"], c:3, exp:"Amino acids join via peptide bonds to form polypeptides and proteins."},
+  {s:"Biology",q:"Not a globular protein:", o:["Enzyme","Hormone","Channel protein","Collagen"], c:3, exp:"Collagen is a fibrous protein, not a globular one."},
+  {s:"Biology",q:"Supporting cells of nervous system forming myelin sheath:", o:["Kupffer cells","Schwann cells","Parietal cells","Chief cells"], c:1, exp:"Schwann cells are supporting cells of the nervous system that form the myelin sheath."},
+  {s:"Biology",q:"According to Darwin, main force behind evolution:", o:["Migration","Genetic mutation","Artificial selection","Natural selection"], c:3, exp:"Survival of the fittest organisms leads to evolution through natural selection."},
+  {s:"Biology",q:"Function of fallopian tube besides fertilization:", o:["Nourishment of embryo","Transport of ovum to uterus","Hormone secretion","Implantation"], c:1, exp:"The fallopian tube carries the ovum from the ovary to the uterus."},
+  {s:"Biology",q:"Water property allowing it to stick to surfaces:", o:["Density","Adhesion","Cohesion","Non-polar attraction"], c:1, exp:"Adhesion is the attraction between water molecules and other surfaces."},
+  {s:"Biology",q:"ADH is secreted by:", o:["Adrenal gland","Pituitary gland","Thyroid gland","Parathyroid gland"], c:1, exp:"ADH is released from the posterior pituitary to control water balance."},
+
+  // ── CHEMISTRY (Q82–Q126) ──
+  {s:"Chemistry",q:"Heat of combustion of CO (Hess Law):", o:["+26.4 Kcal","-67.6 Kcal","+94.0 Kcal","-120.4 Kcal"], c:1, exp:"Using Hess's Law: CO to CO2 difference = (-94) - (-26.4) = -67.6 kcal."},
+  {s:"Chemistry",q:"Rate of dehydration of alcohol:", o:["3 > 2 > 1","1 > 3 > 2","2 > 3 > 1","3 > 1 > 2"], c:0, exp:"More substituted alcohols form more stable carbocations, resulting in faster dehydration."},
+  {s:"Chemistry",q:"Reaction where Kc increases with temperature:", o:["CH4 + O2 to CO2 + H2O","NaOH + HCl to NaCl + H2O","2SO2 + O2 to 2SO3","H2 + I2 to 2HI"], c:2, exp:"It is exothermic; equilibrium shifts with temperature, affecting Kc depending on conditions."},
+  {s:"Chemistry",q:"Correct bond energy order:", o:["H-I > H-Br > H-Cl","H-Br > H-Cl > H-I","H-Cl > H-I > H-Br","H-Cl > H-Br > H-I"], c:3, exp:"Down the group, bond strength decreases due to increasing bond length, giving H-Cl > H-Br > H-I."},
+  {s:"Chemistry",q:"Least volatile compound:", o:["Glycerol","Water","Acetic acid","Diethyl ether"], c:0, exp:"Glycerol has strong hydrogen bonding resulting in very low volatility."},
+  {s:"Chemistry",q:"IUPAC name of the compound CH(CH3)CH(CH3) is:", o:["2-methylheptane","3-methylheptane","4-methylheptane","Octane"], c:1, exp:"The longest carbon chain is heptane (7 carbons); the methyl group is at the 3rd carbon to give the lowest locant."},
+  {s:"Chemistry",q:"IUPAC name of the compound CH=C(CH3)CH3 is:", o:["2-diethyl-2-propylethene","3-ethnylhept-3-ene","4-ethylhept-3-ene","4-ethylhept-2-ene"], c:3, exp:"Longest chain has 7 carbons with a double bond; numbering gives the lowest locant to the double bond at position 2, ethyl substituent at position 4."},
+  {s:"Chemistry",q:"Which of the following molecules have similar molecular shape?", o:["NH3 & AlCl3","BCl3 & NH3","AlCl3 & PCl3","H2O & SnCl2"], c:3, exp:"Both H2O and SnCl2 have a bent shape due to lone pairs according to VSEPR theory."},
+  {s:"Chemistry",q:"Value of electronegativity difference (1.20 and 4.0) percent ionic character is:", o:["43%","50%","55%","73%"], c:3, exp:"Electronegativity difference = 4.0 - 1.20 = 2.8; a large difference indicates a highly ionic bond, corresponding to ~73% ionic character."},
+  {s:"Chemistry",q:"Phenol differs from ethanol because it:", o:["Forms stronger hydrogen bonds to its aromatic ring","Is more acidic because of resonance stabilized conjugate base","Readily undergoes nucleophilic substitution at -OH group","Is completely insoluble in water due to benzene ring"], c:1, exp:"Phenol is more acidic than ethanol because the phenoxide ion is stabilized by resonance in the benzene ring, making proton loss easier."},
+  {s:"Chemistry",q:"Reagent for conversion of toluene to p-chlorotoluene:", o:["Cl2 in dark","Cl2 in presence of AlCl3","Cl2 in presence of UV light","Concentrated HCl under reflux"], c:1, exp:"This is an electrophilic aromatic substitution (EAS) reaction requiring Lewis acid catalyst AlCl3."},
+  {s:"Chemistry",q:"Percentage yield when actual = 2g, theoretical = 4g:", o:["25%","50%","75%","85%"], c:1, exp:"% yield = (actual/theoretical) x 100 = (2/4) x 100 = 50%."},
+  {s:"Chemistry",q:"IUPAC name of CH3CH2Cl is:", o:["Chloroethane","Chloroethyne","Chloroethene","Ethyl chloride"], c:0, exp:"Two-carbon chain with Cl substituent forms a haloalkane named chloroethane."},
+  {s:"Chemistry",q:"Correct order of reactivity of R-X:", o:["RF > RCl > RBr > RI","RBr > RF > RCl > RI","RCl > RF > RBr > RI","RI > RBr > RCl > RF"], c:3, exp:"Reactivity depends on bond strength; the C-I bond is weakest so RI is most reactive."},
+  {s:"Chemistry",q:"Most susceptible to nucleophilic attack:", o:["CH3COCl","CH3CHO","CH3COOCH3","CH3COOCOCH3"], c:0, exp:"Acyl chlorides are most reactive due to the strong electron-withdrawing Cl and its good leaving group ability."},
+  {s:"Chemistry",q:"Most paramagnetic substance:", o:["O2","N2","CO2","H2"], c:0, exp:"O2 has two unpaired electrons in antibonding orbitals, making it paramagnetic."},
+  {s:"Chemistry",q:"Formation of activated complex is:", o:["Exothermic","Endothermic","Either endo or exo","Always energy released"], c:1, exp:"Energy is required to reach the transition state; activated complex formation absorbs energy."},
+  {s:"Chemistry",q:"Maximum probability of finding electron in hydrogen atom is at:", o:["0.53 nm","0.35 nm","0.053 nm","0.0053 nm"], c:2, exp:"The Bohr radius of the hydrogen atom in ground state is 0.053 nm."},
+  {s:"Chemistry",q:"IUPAC name of vinyl acetylene is:", o:["But-1-en-3-yne","But-3-en-1-yne","Pent-3-en-1-yne","Pent-2-en-4-yne"], c:0, exp:"4-carbon chain with double and triple bond; correct numbering gives lowest locants as but-1-en-3-yne."},
+  {s:"Chemistry",q:"Atom with single electron in dumbbell orbital:", o:["H","He","Li","Na"], c:2, exp:"Lithium has one valence electron in the 2s orbital; in excited state it shows p orbital involvement with unpaired electron."},
+  {s:"Chemistry",q:"Adhesive used in jewelry repair:", o:["Super glue","Epoxy resin","Silicon resin","Starch"], c:1, exp:"Epoxy resin gives strong, durable bonding for metals and jewelry."},
+  {s:"Chemistry",q:"Ratio of sigma and pi bonds in benzene:", o:["6:1","1:4","2:3","4:1"], c:3, exp:"Benzene has 6 sigma bonds + 3 pi bonds, giving a ratio of approximately 4:1 depending on counting method."},
+  {s:"Chemistry",q:"Addition polymer is:", o:["PVC","Nylon 6,6","Nylon 6,10","Polyester"], c:0, exp:"PVC forms by addition polymerization of vinyl chloride."},
+  {s:"Chemistry",q:"At start of reaction:", o:["Average rate is high","Instantaneous rate is high","Both same","Both slow"], c:0, exp:"At the start, reactant concentration is maximum so the reaction rate is highest."},
+  {s:"Chemistry",q:"Not true about benzene:", o:["sp2 hybridization","Fractional bond order","No elimination reaction","6 sites for monosubstitution"], c:2, exp:"Benzene mainly undergoes electrophilic substitution; elimination is not a defining property of benzene."},
+  {s:"Chemistry",q:"Clemmensen reduction uses:", o:["H2 and Pd","LiAlH4","Zn-Hg + conc HCl","NH2NH2/KOH"], c:2, exp:"Clemmensen reduction uses Zn-Hg with concentrated HCl to reduce carbonyl group to alkane in acidic medium."},
+  {s:"Chemistry",q:"N2 + 3H2 to 2NH3. If 56g of N2 reacts with 12g of H2 and produces 51g of NH3, what is the theoretical yield and percentage yield?", o:["TY=68g and PY=75%","TY=34g and PY=67%","TY=68g and PY=33%","TY=34g and PY=75%"], c:0, exp:"N2 is the limiting reagent; theoretical yield of NH3 = 68g; percentage yield = (51/68) x 100 = 75%."},
+  {s:"Chemistry",q:"When SHE is connected with Cu electrode using salt bridge, what happens?", o:["Cu reduces","Cu oxidizes","H+ reduces","H2 reduces"], c:0, exp:"Cu2+ gains electrons at the cathode, so reduction of Cu occurs."},
+  {s:"Chemistry",q:"The ionic compound with highest lattice energy is:", o:["LiF","NaCl","KCl","CsI"], c:0, exp:"Li+ and F- are smallest ions with highest charge density, giving the strongest electrostatic attraction."},
+  {s:"Chemistry",q:"All of the following have two bond pairs and linear geometry EXCEPT:", o:["SnCl2","CS2","HCN","CO2"], c:0, exp:"SnCl2 has a lone pair on Sn giving it a bent shape, while the others are linear."},
+  {s:"Chemistry",q:"If ionization energy of an element is high then:", o:["More reducing power","More electropositivity","Less metallic character","Larger atomic radius"], c:2, exp:"High ionization energy means electrons are tightly held, so there is less tendency to lose electrons and less metallic character."},
+  {s:"Chemistry",q:"Which compound does NOT show geometrical isomerism?", o:["But-2-ene","1,2-dichlorocyclopropane","Pent-2-ene","1,4-dimethylcyclopentane"], c:3, exp:"1,4-dimethylcyclopentane lacks the proper restricted rotation/cis-trans requirement for geometrical isomerism."},
+  {s:"Chemistry",q:"Mass of hydrogen gas needed to produce 51g of NH3 is:", o:["6g","9g","12g","15g"], c:1, exp:"From stoichiometry (N2 + 3H2 to 2NH3), 6g H2 produces 34g NH3; for 51g NH3, 9g H2 is required."},
+  {s:"Chemistry",q:"Digestion of proteins starts in:", o:["Mouth","Stomach","Intestine","Epiglottis"], c:1, exp:"Enzyme pepsin in the stomach begins protein digestion."},
+  {s:"Chemistry",q:"Standard temperature and pressure (STP) is:", o:["1 atm and 0°C","760 torr and 25°C","2 bar and 25°C","14.7 psi and 0°C"], c:0, exp:"STP conditions are defined as 1 atm pressure and 273 K (0°C)."},
+  {s:"Chemistry",q:"Which of the following is NOT a state function?", o:["Enthalpy","Work","Internal energy","Pressure"], c:1, exp:"Work depends on the path taken, so it is a path function, not a state function."},
+  {s:"Chemistry",q:"Which one is NOT a type of stereoisomerism?", o:["Conformational isomerism","Optical isomerism","Geometrical isomerism","Metamerism"], c:3, exp:"Metamerism is a type of structural isomerism, not stereoisomerism."},
+  {s:"Chemistry",q:"Formic acid reacts with ethanol in presence of acid catalyst produces:", o:["Ester","Ether","Acid anhydride","Phenol"], c:0, exp:"This is an esterification reaction forming ethyl formate + water."},
+  {s:"Chemistry",q:"K is called specific rate constant because it is:", o:["Rate per unit concentration","Temperature independent","Depends on concentration","Unitless"], c:0, exp:"Rate constant relates rate to concentration and is characteristic of the reaction."},
+  {s:"Chemistry",q:"Which equation is used to calculate concentration for n moles of an ideal gas?", o:["P/RT","PV/RT","PVART","PM/RT"], c:0, exp:"Concentration (C) = n/V = P/RT from the ideal gas equation."},
+  {s:"Chemistry",q:"6g Mg is burnt with 32g O2 to form MgO. Excess reagent left is:", o:["2g Mg","8g O2","16g O2","4g Mg"], c:1, exp:"Mg is the limiting reagent; oxygen remains in excess = 8g O2."},
+  {s:"Chemistry",q:"Which carbonyl carbon is more electrophilic?", o:["HCOOH","HCHO","CH3COCH3","CH3COOH"], c:1, exp:"Formaldehyde (HCHO) has no electron-donating groups, so its carbonyl carbon is most electrophilic."},
+
+  // ── PHYSICS (Q127–Q162) ──
+  {s:"Physics",q:"Electron projected along +x-axis in magnetic field in xz-plane. Force direction is:", o:["x-axis","-x-axis","y-axis","-y-axis"], c:2, exp:"Force = q(v x B); applying the right-hand rule and reversing for electron charge gives force along the y-axis."},
+  {s:"Physics",q:"Magnetic flux equivalence condition:", o:["1.0 T at 0°","1.0 T at 60°","2.0 T at 90°","0.5 T at 90°"], c:0, exp:"Flux = BAcos(theta) is maximum at theta = 0°."},
+  {s:"Physics",q:"Body at terminal velocity net force is:", o:["0 N","9.8 N","98 N","980 N"], c:0, exp:"At terminal velocity, net force = 0 since drag equals gravitational force."},
+  {s:"Physics",q:"Temperature coefficient = 0 means resistance:", o:["Increases","Decreases","Remains same","Becomes zero"], c:2, exp:"A temperature coefficient of zero means resistance does not change with temperature."},
+  {s:"Physics",q:"Path difference = 100 cm, wavelength = 50 cm produces:", o:["Beats","Echo","Loudness","Silence"], c:2, exp:"100/50 = 2 wavelengths, constructive interference produces loud sound."},
+  {s:"Physics",q:"Potential energy decreases when:", o:["Compressing spring","Stretching spring","Releasing stretched spring","Holding max extension"], c:2, exp:"When a stretched spring is released, stored potential energy converts to kinetic energy."},
+  {s:"Physics",q:"GPE of diver at depth h:", o:["0","mgh","-mgh","2mgh"], c:2, exp:"Below the reference level, gravitational potential energy is negative."},
+  {s:"Physics",q:"Rate of work done (power):", o:["F x delta-d","F x delta-t","F x delta-d / delta-t","F x delta-t / delta-d"], c:2, exp:"Power = Work/time = F x displacement/time = Fv."},
+  {s:"Physics",q:"Circular motion: radius decreases, effect on linear displacement:", o:["Increase linear displacement","Increase linear velocity","Decrease linear displacement","No effect"], c:2, exp:"s = r*theta; smaller r gives smaller s (linear displacement)."},
+  {s:"Physics",q:"Work done when force opposite displacement:", o:["Positive","Negative","Infinite","Maximum"], c:1, exp:"W = Fd*cos(180°) = negative work."},
+  {s:"Physics",q:"Step-up transformer (V x 10) current becomes:", o:["10x higher","10x lower","Same","1/10 primary"], c:3, exp:"Power is conserved; voltage increases so current decreases to 1/10 of primary."},
+  {s:"Physics",q:"At terminal velocity acceleration is:", o:["Zero","Variable","Not changed","Negative"], c:0, exp:"No net force means no acceleration at terminal velocity."},
+  {s:"Physics",q:"Newton underestimated speed of sound because he assumed:", o:["Viscosity ignored","Isothermal process","Vacuum conditions","Adiabatic process"], c:1, exp:"Newton assumed an isothermal process; the correct model is adiabatic, giving a higher speed."},
+  {s:"Physics",q:"Electric field zero point lies:", o:["Near + charge","Midpoint","Near - charge","Nowhere"], c:2, exp:"The field cancels closer to the smaller (usually negative) charge."},
+  {s:"Physics",q:"Angle between A = 2i + 3j and B = -6i + 4j:", o:["90°","120°","45°","60°"], c:1, exp:"Using the dot product, cos(theta) is negative, indicating an obtuse angle of approximately 120°."},
+  {s:"Physics",q:"Displacement-time graph straight line at 45° means velocity is:", o:["Increasing","Decreasing","Constant","Variable"], c:2, exp:"A straight line slope = constant velocity."},
+  {s:"Physics",q:"A 150 kg car reduces speed from 20 m/s to 10 m/s in 3s. Average retarding force is:", o:["500 N","2500 N","1500 N","1000 N"], c:0, exp:"a = (10-20)/3 = -10/3 m/s²; F = ma = 150 x 10/3 = 500 N (retarding)."},
+  {s:"Physics",q:"Interference of sound requires:", o:["Different frequencies","Two coherent sources","Single source","Source + reflector"], c:1, exp:"Coherent sources have the same frequency and constant phase difference."},
+  {s:"Physics",q:"Work done = P*delta-V (2 Pa, 1 to 3 m³):", o:["2 J","4 J","6 J","8 J"], c:1, exp:"W = 2 x (3-1) = 4 J."},
+  {s:"Physics",q:"If frequency of AC is doubled, inductive reactance:", o:["Remain same","Halved","Doubled","Zero"], c:2, exp:"XL = 2*pi*f*L; inductive reactance is directly proportional to frequency."},
+  {s:"Physics",q:"Force in medium (k = 2.8), if original force = 28 N:", o:["25 N","20 N","15 N","10 N"], c:3, exp:"F = 28/2.8 = 10 N."},
+  {s:"Physics",q:"Semicircle distance to displacement ratio:", o:["pi:1","pi:2","2:pi","1:pi"], c:1, exp:"Distance = pi*r, displacement = 2r; ratio = pi*r/2r = pi:2."},
+  {s:"Physics",q:"If speed is doubled, range of projectile becomes:", o:["R/2","R","2R","4R"], c:3, exp:"R is proportional to v²; doubling speed quadruples the range."},
+  {s:"Physics",q:"Change in momentum (rebound same speed):", o:["0","mv","-2mv","-mv"], c:2, exp:"Final momentum = -mv, initial = mv; change = -2mv."},
+  {s:"Physics",q:"A point lies 3m from a +5 uC charge and 4m from a -3 uC charge. The net electric field direction is:", o:["Away from +5 uC charge","Towards +5 uC charge","Away from -3 uC charge","Perpendicular to line joining charges"], c:0, exp:"Electric field due to the +5 uC charge is stronger and dominant; net field direction is away from the +5 uC charge."},
+  {s:"Physics",q:"Increase in kinetic energy due to pressure drop in a horizontal pipe is due to:", o:["Bernoulli's principle","Continuity equation","Pascal's principle","Torricelli's theorem"], c:0, exp:"Bernoulli's principle states total energy is constant; pressure energy converts into kinetic energy."},
+  {s:"Physics",q:"Electric field = 200 N/C. If test charge = -4 C, force and field are:", o:["200 N/C and 50 N","200 N/C and 200 N","200 N/C and 800 N","800 N/C and 500 N"], c:2, exp:"Electric field remains unchanged (property of space); Force = qE = 4 x 200 = 800 N."},
+  {s:"Physics",q:"Internal resistance reduces terminal voltage because it:", o:["Produces back emf","Causes power loss inside battery","Increases current","Decreases emf"], c:1, exp:"Some energy is lost as heat inside the battery, reducing output voltage (V = E - Ir)."},
+  {s:"Physics",q:"Angle formed at center of a circle by movement of body is:", o:["Angular displacement","Angular velocity","Angular acceleration","Angular momentum"], c:0, exp:"The angle traced by the radius vector is angular displacement."},
+  {s:"Physics",q:"Heat generated while drilling metal comes from:", o:["Vibration of tool","Work done against friction","Electric current flow","Compression of air"], c:1, exp:"Mechanical energy converts into heat due to friction between the drill and metal."},
+  {s:"Physics",q:"Potential difference if W = 2J and Q = 2C:", o:["1 J/C","2 J/C","1 C/J","2 C/J"], c:0, exp:"V = W/Q = 2/2 = 1 volt."},
+  {s:"Physics",q:"Transverse waves involve particle vibration:", o:["Along wave direction","Opposite energy flow","Perpendicular to wave propagation","Random direction"], c:2, exp:"In transverse waves, particles vibrate at right angles to the direction of wave movement."},
+  {s:"Physics",q:"In laminar flow, adjacent layers:", o:["Resist each other","Mix with each other","Slide smoothly past each other","Produce turbulence"], c:2, exp:"Laminar flow is smooth and orderly without mixing between layers."},
+  {s:"Physics",q:"Half revolution in radians equals:", o:["2pi","pi","pi/2","pi/6"], c:1, exp:"Full circle = 2pi; half = pi radians."},
+  {s:"Physics",q:"If A = i + j and B = 4(i + j), then |A x B| =", o:["4(a² + b²)","4abk","8(a + b)","0"], c:3, exp:"Both vectors are parallel; cross product = 0."},
+  {s:"Physics",q:"A proton and alpha particle enter same magnetic field with equal speed. Alpha particle path has:", o:["Larger radius","Smaller radius","Smaller path length","Greater deflection"], c:0, exp:"Radius r is proportional to m/q; the alpha particle has higher mass, so it follows a larger circular path."},
+
+  // ── ENGLISH (Q163–Q171) ──
+  {s:"English",q:"Passive voice conversion (future tense with conditional):", o:["The budget will be approved by the board only after the accounts are verified by the auditor.","The budget is approved after accounts are verified.","The budget is being approved after verification.","The budget has been approved after verification."], c:0, exp:"Correct future passive structure with proper sequence of actions."},
+  {s:"English",q:"Identify simile:", o:["She trembled like a leaf in the wind","She was a statue frozen in fear","Her thoughts were a whirlwind","She was drowning in doubt"], c:0, exp:"The use of 'like' shows comparison, making it a simile."},
+  {s:"English",q:"Synonym of lachrymose:", o:["Joyful","Weepy","Monotonous","Humorous"], c:1, exp:"Lachrymose means tearful or sad, synonymous with weepy."},
+  {s:"English",q:"Indirect speech: 'Will you listen to such a man?'", o:["He asked them that they would listen to such a man.","He asked them whether they would listen to such a man.","He told them whether they will listen to such a man.","He asked them to listen to such a man."], c:1, exp:"Yes/No questions are converted using 'whether' + past form in indirect speech."},
+  {s:"English",q:"'Only Jamila said she was tired.' Correct usage of ONLY is:", o:["Only Jamila said she was tired.","Jamila only said she was tired.","Jamila said only she was tired.","Jamila said she was only tired."], c:0, exp:"'Only' before the subject means Jamila is the only person who spoke."},
+  {s:"English",q:"Correct sentence is:", o:["The new policy aims at reduce waste, to promote recycling, and creating awareness among citizens.","The new policy aims to reducing waste, promoting recycling, and create awareness among citizens.","The new policy aims to reduce waste, to promote recycling, and creating awareness among citizens.","The new policy aims to reduce waste, promote recycling, and create awareness among citizens."], c:3, exp:"Parallel structure after 'aims to' requires all verbs in base form."},
+  {s:"English",q:"Purpose of exaggerated language in parody is:", o:["To create a serious tone","To criticize societal norms","To entertain and mock","To confuse the reader"], c:2, exp:"Parody uses exaggeration for humor and satire."},
+  {s:"English",q:"Choose the word with incorrect spelling:", o:["Immigrant","Ancestors","Montessori","Pregmetic"], c:3, exp:"The correct spelling is 'pragmatic,' so 'pregmetic' is wrong."},
+  {s:"English",q:"'He does his work without any care.' Underlined part 'without any care' is:", o:["Adverb phrase","Adjective phrase","Noun phrase","Appositive phrase"], c:0, exp:"'Without any care' describes how he does work, functioning as an adverb phrase."},
+
+  // ── LOGICAL REASONING (Q172–Q180) ──
+  {s:"Logical Reasoning",q:"POWER to OPXFS, code for given word is:", o:["HVPFE","HVRFE","HVOFE","IVRFG"], c:1, exp:"Each letter is shifted consistently following a fixed alphabet shift rule pattern."},
+  {s:"Logical Reasoning",q:"Travel restrictions help control virus spread. This statement is:", o:["True","False","Cannot be determined","Partially true"], c:0, exp:"Limiting movement reduces the transmission rate of infectious diseases."},
+  {s:"Logical Reasoning",q:"Tank capacity = 240 L, filled 1/3. Remaining water capacity:", o:["60 L","80 L","100 L","160 L"], c:3, exp:"Filled = 80 L; remaining = 240 - 80 = 160 L."},
+  {s:"Logical Reasoning",q:"M, N, P, Q, S, ?", o:["T","U","V","W"], c:0, exp:"Alphabet skipping pattern: R is skipped; next logical continuation is T."},
+  {s:"Logical Reasoning",q:"Amna older than Muneeb, Muneeb younger than Jaffar. Relation between Amna and Jaffar:", o:["Amna is older","Jaffar is older","They are the same age","Cannot be determined"], c:3, exp:"No direct comparison between Amna and Jaffar, so there is not enough information."},
+  {s:"Logical Reasoning",q:"Statements: All melons are apples. No apples are mangoes. Conclusions: I. All melons are mangoes. II. Apples are not mangoes.", o:["Only I","Only II","Both I and II","Neither I nor II"], c:1, exp:"'No apples are mangoes' makes Conclusion II true; Conclusion I is false."},
+  {s:"Logical Reasoning",q:"Who is Uncle of Q?", o:["P","T","Q's father","Cannot be determined"], c:1, exp:"T is brother of P; P is father of Q; therefore T = paternal uncle."},
+  {s:"Logical Reasoning",q:"A is mother of B, C is child of B. Relation of A and C:", o:["Mother","Aunt","Grandmother","Sister"], c:2, exp:"A is mother of B; C is B's child; therefore A is grandmother of C."},
+  {s:"Logical Reasoning",q:"Number series: 120, 119, 117, 114, 110, ?", o:["95","100","105","167"], c:2, exp:"Pattern: -1, -2, -3, -4; next -5; 110 - 5 = 105."},
 ];
 
-/* ═══════════════════════════════════════════════
-   STATE
-═══════════════════════════════════════════════ */
-const state = {
-  answered : 0,
-  correct  : 0,
-  total    : questions.length,
+/* ─── SUBJECT CONFIG ─── */
+const SUBJECTS = {
+  "Biology":         { color:"#1b6ca8", cls:"bio" },
+  "Chemistry":       { color:"#c0392b", cls:"chem" },
+  "Physics":         { color:"#6d4c41", cls:"phy" },
+  "English":         { color:"#6a1b9a", cls:"eng" },
+  "Logical Reasoning":{ color:"#00695c", cls:"log" },
 };
 
-/* ═══════════════════════════════════════════════
-   SHUFFLE
-   Randomises option order; tracks which option
-   is now correct after the shuffle.
-═══════════════════════════════════════════════ */
-function shuffleOptions(q) {
-  const opts = q.o.map((text, i) => ({ text, isCorrect: i === q.c }));
+/* ─── STATE ─── */
+const state = { answered:0, correct:0, total:questions.length };
+const subjectState = {};
+Object.keys(SUBJECTS).forEach(s => { subjectState[s] = { total:0, correct:0 }; });
+questions.forEach(q => { subjectState[q.s].total++; });
 
-  /* Fisher-Yates shuffle */
-  for (let i = opts.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [opts[i], opts[j]] = [opts[j], opts[i]];
-  }
-
-  return {
-    o : opts.map(x => x.text),
-    c : opts.findIndex(x => x.isCorrect),
-  };
-}
-
+const userAnswers = {};
 let renderedQuestions = [];
 
-/* ═══════════════════════════════════════════════
-   WATERMARK
-═══════════════════════════════════════════════ */
-(function buildWatermarks(){
-  const overlay = document.getElementById('wmOverlay');
-  const text = 'Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057';
-  for(let r = 0; r < 7; r++){
-    for(let c = 0; c < 3; c++){
-      const span = document.createElement('span');
-      span.textContent = text;
-      span.style.left  = (c * 40 - 5) + '%';
-      span.style.top   = (r * 16 - 4) + '%';
-      overlay.appendChild(span);
-    }
+/* ─── WATERMARK ─── */
+(function(){
+  const ov = document.getElementById('wmOverlay');
+  const txt = 'Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057';
+  for(let r=0;r<8;r++) for(let c=0;c<3;c++){
+    const sp = document.createElement('span');
+    sp.textContent = txt;
+    sp.style.left = (c*40-5)+'%';
+    sp.style.top  = (r*14-4)+'%';
+    ov.appendChild(sp);
   }
 })();
 
-/* ═══════════════════════════════════════════════
-   BUILD QUIZ
-═══════════════════════════════════════════════ */
+/* ─── SHUFFLE ─── */
+function shuffleOptions(q){
+  const opts = q.o.map((text,i)=>({text, isCorrect: i===q.c}));
+  for(let i=opts.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [opts[i],opts[j]]=[opts[j],opts[i]];
+  }
+  return { o:opts.map(x=>x.text), c:opts.findIndex(x=>x.isCorrect) };
+}
+
+/* ─── BUILD QUIZ ─── */
 function buildQuiz(){
   const area = document.getElementById('quizArea');
   area.innerHTML = '';
   renderedQuestions = [];
 
-  questions.forEach((q, i) => {
+  questions.forEach((q,i)=>{
     const labels = ['a','b','c','d'];
+    const sh = shuffleOptions(q);
+    const dq = {...q, o:sh.o, c:sh.c};
+    renderedQuestions[i] = dq;
 
-    const shuffled  = shuffleOptions(q);
-    const displayQ  = { ...q, o: shuffled.o, c: shuffled.c };
-    renderedQuestions[i] = displayQ;
-
+    const subj = SUBJECTS[q.s];
     const card = document.createElement('div');
     card.className = 'question-card';
-    card.id = 'card-' + i;
-
-    const optionsHTML = displayQ.o.map((opt, j) =>
-      `<div class="option" id="opt-${i}-${j}" onclick="selectOpt(${i},${j})">
-        <strong>${labels[j]})</strong> ${opt}
-      </div>`
-    ).join('');
+    card.id = 'card-'+i;
+    card.dataset.subject = q.s;
 
     card.innerHTML = `
       <div class="card-top">
-        <span class="q-num">Q ${i + 1}</span>
-        <span class="q-tag">📖 MCQ</span>
+        <span class="q-num">Q ${i+1}</span>
+        <span class="q-tag ${subj.cls}">📚 ${q.s}</span>
       </div>
-      <div class="q-text">${displayQ.q}</div>
-      <div class="options" id="opts-${i}">${optionsHTML}</div>
-      <button class="check-btn" id="check-${i}" onclick="checkAnswer(${i})">
-        ✔ Check Answer
-      </button>
+      <div class="q-text">${dq.q}</div>
+      <div class="options" id="opts-${i}">
+        ${dq.o.map((opt,j)=>`
+          <div class="option" id="opt-${i}-${j}" onclick="selectOpt(${i},${j})">
+            <strong>${labels[j]})</strong> ${opt}
+          </div>`).join('')}
+      </div>
+      <button class="check-btn" id="check-${i}" onclick="checkAnswer(${i})">✔ Check Answer</button>
       <div class="feedback" id="fb-${i}"></div>
       <div class="explanation-box" id="exp-${i}">
-        <span class="exp-label">💡 Explanation:</span>${displayQ.exp}
+        <span class="exp-label">💡 Explanation:</span>${dq.exp}
       </div>`;
 
     area.appendChild(card);
@@ -525,114 +581,96 @@ function buildQuiz(){
   const res = document.createElement('div');
   res.id = 'resultCard';
   area.appendChild(res);
-
   updateStats();
 }
 
-/* ═══════════════════════════════════════════════
-   INTERACTION
-═══════════════════════════════════════════════ */
-const userAnswers = {};
-
-function selectOpt(qi, oi){
+/* ─── SELECT OPTION ─── */
+function selectOpt(qi,oi){
   if(userAnswers[qi]?.checked) return;
-  document.querySelectorAll(`#opts-${qi} .option`).forEach(el => el.classList.remove('selected'));
+  document.querySelectorAll(`#opts-${qi} .option`).forEach(el=>el.classList.remove('selected'));
   document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
-  userAnswers[qi] = { selected: oi, checked: false };
+  userAnswers[qi] = {selected:oi, checked:false};
 }
 
+/* ─── CHECK ANSWER ─── */
 function checkAnswer(qi){
   const entry = userAnswers[qi];
-  if(!entry || entry.checked) return;
-
+  if(!entry||entry.checked) return;
   entry.checked = true;
-  const q   = renderedQuestions[qi];
-  const ok  = entry.selected === q.c;
 
-  if(ok) state.correct++;
+  const q  = renderedQuestions[qi];
+  const ok = entry.selected === q.c;
+  const subjectKey = q.s;
+
+  if(ok){ state.correct++; subjectState[subjectKey].correct++; }
   state.answered++;
 
-  document.querySelectorAll(`#opts-${qi} .option`).forEach((el, i) => {
+  document.querySelectorAll(`#opts-${qi} .option`).forEach((el,i)=>{
     el.classList.add('disabled');
-    if(i === q.c)                       el.classList.add('correct');
-    else if(i === entry.selected && !ok) el.classList.add('wrong');
+    if(i===q.c)                         el.classList.add('correct');
+    else if(i===entry.selected && !ok)  el.classList.add('wrong');
   });
 
   const fb = document.getElementById(`fb-${qi}`);
   if(ok){
-    fb.className = 'feedback show correct';
-    fb.textContent = '✓ Correct! Well done!';
+    fb.className='feedback show correct';
+    fb.textContent='✓ Correct! Well done!';
   } else {
-    fb.className = 'feedback show wrong';
-    fb.textContent = `✗ Incorrect! The correct answer is: ${String.fromCharCode(97 + q.c)}) ${q.o[q.c]}`;
+    fb.className='feedback show wrong';
+    fb.textContent=`✗ Incorrect! Correct answer: ${String.fromCharCode(97+q.c)}) ${q.o[q.c]}`;
   }
-
-  if(q.exp){
-    document.getElementById(`exp-${qi}`).classList.add('show');
-  }
-
-  document.getElementById(`check-${qi}`).disabled = true;
-
+  if(q.exp) document.getElementById(`exp-${qi}`).classList.add('show');
+  document.getElementById(`check-${qi}`).disabled=true;
   updateStats();
-
-  if(state.answered === state.total) showResult();
+  if(state.answered===state.total) showResult();
 }
 
-/* ═══════════════════════════════════════════════
-   STATS
-═══════════════════════════════════════════════ */
+/* ─── STATS ─── */
 function updateStats(){
-  const total = document.getElementById('statTotal');
-  const answered = document.getElementById('statAnswered');
-  const attempted = document.getElementById('statAttempted');
-  if(total) total.textContent = state.total;
-  if(answered) answered.textContent = state.answered;
-  if(attempted) attempted.textContent = state.answered;
+  document.getElementById('statTotal').textContent     = state.total;
+  document.getElementById('statAttempted').textContent = state.answered;
+  document.getElementById('statCorrect').textContent   = state.correct;
+  document.getElementById('statRemaining').textContent = state.total - state.answered;
 }
 
-/* ═══════════════════════════════════════════════
-   RESULT CARD
-═══════════════════════════════════════════════ */
-function getTimeUsed(){
-  const totalSeconds = Math.round(questions.length * 63);
-  const usedSeconds = totalSeconds - timeLeft;
-  const mins = Math.floor(usedSeconds / 60);
-  const secs = usedSeconds % 60;
-  return String(mins).padStart(2,'0') + ':' + 
-         String(secs).padStart(2,'0');
+/* ─── RESULT ─── */
 function showResult(){
-const timeUsed = getTimeUsed()
-  document.getElementById('resultCard').innerHTML = `
-  <div class="result-card">
-    <div class="grade-badge">${emoji}</div>
-    <h2>${msg}</h2>
-    <div class="result-grid">
-      <div class="result-stat">
-        <div class="result-stat-value">${state.correct}/${state.total}</div>
-        <div class="result-stat-label">Correct Answers</div>
-      </div>
-      <div class="result-stat">
-        <div class="result-stat-value">${pct}%</div>
-        <div class="result-stat-label">Score</div>
-      </div>
-      <div class="result-stat">
-        <div class="result-stat-value">${grade}</div>
-        <div class="result-stat-label">Grade</div>
-      </div>
-      <div class="result-stat">
-        <div class="result-stat-value">${timeUsed}</div>
-        <div class="result-stat-label">Time Used</div>
-      </div>
-    </div>
-    <p style="opacity:.85;font-size:13px;margin-bottom:16px">
-      Mock Test 1 &nbsp;|&nbsp; 
-      Smart Study Center &nbsp;|&nbsp; 
-      Sir Ahmer Javed
-    </p>
-    <button class="result-btn" onclick="resetQuiz()">
-      🔄 Try Again
-    </button>
-  </div>`;
+  clearInterval(timerInterval);
+
+  const pct   = Math.round((state.correct/state.total)*100);
+  const marks = state.correct; // +1 per correct (no negative)
+
+  let grade='F', emoji='😞', msg='Keep Practising — You Can Do It!';
+  if(pct>=85){grade='A+';emoji='🏆';msg='Outstanding! MDCAT Ready!';}
+  else if(pct>=75){grade='A';emoji='🎉';msg='Excellent Performance!';}
+  else if(pct>=65){grade='B';emoji='👍';msg='Good Work! Keep Going!';}
+  else if(pct>=50){grade='C';emoji='📚';msg='Average — Push Harder!';}
+  else if(pct>=40){grade='D';emoji='⚠️';msg='Below Average — More Practice Needed!';}
+
+  /* per-subject bars */
+  const subjBarColors = {
+    "Biology":"#1b6ca8","Chemistry":"#c0392b",
+    "Physics":"#6d4c41","English":"#6a1b9a","Logical Reasoning":"#00695c"
+  };
+  const subjRows = Object.keys(SUBJECTS).map(name=>{
+    const ss  = subjectState[name];
+    const sp  = ss.total ? Math.round((ss.correct/ss.total)*100) : 0;
+    const col = subjBarColors[name];
+    return `
+      <div class="subj-row">
+        <div class="subj-name" style="color:${col}">${name}</div>
+        <div class="subj-bar-wrap">
+          <div class="subj-bar" style="width:${sp}%;background:${col}"></div>
+        </div>
+        <div class="subj-score">${ss.correct}/${ss.total}</div>
+        <div class="subj-pct">${sp}%</div>
+      </div>`;
+  }).join('');
+
+  /* time used */
+  const usedSec = (180*60) - timeLeft;
+  const um = String(Math.floor(usedSec/60)).padStart(2,'0');
+  const us = String(usedSec%60).padStart(2,'0');
 
   document.getElementById('resultCard').innerHTML = `
     <div class="result-card">
@@ -640,61 +678,64 @@ const timeUsed = getTimeUsed()
       <h2>${msg}</h2>
       <div class="result-grid">
         <div class="result-stat">
-          <div class="result-stat-value">${state.correct} / ${state.total}</div>
-          <div class="result-stat-label">Correct Answers</div>
+          <div class="result-stat-value">${state.correct}/${state.total}</div>
+          <div class="result-stat-label">Score</div>
         </div>
         <div class="result-stat">
           <div class="result-stat-value">${pct}%</div>
-          <div class="result-stat-label">Score</div>
+          <div class="result-stat-label">Percentage</div>
         </div>
         <div class="result-stat">
           <div class="result-stat-value">${grade}</div>
           <div class="result-stat-label">Grade</div>
         </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${um}:${us}</div>
+          <div class="result-stat-label">Time Used</div>
+        </div>
       </div>
-      <p style="opacity:.85;font-size:13px;margin-bottom:16px">
-        Ch.2 Enzymes &nbsp;|&nbsp; Smart Study Center &nbsp;|&nbsp; Sir Ahmer Javed
+
+      <div class="subject-breakdown">
+        <h3>📊 Subject-wise Performance</h3>
+        ${subjRows}
+      </div>
+
+      <p style="opacity:.75;font-size:12px;margin-bottom:18px">
+        Mock Test 1 &nbsp;·&nbsp; Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed
       </p>
       <button class="result-btn" onclick="resetQuiz()">🔄 Try Again</button>
     </div>`;
 
-  document.getElementById('resultCard').scrollIntoView({ behavior:'smooth' });
+  document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});
 }
 
-/* ═══════════════════════════════════════════════
-   RESET
-═══════════════════════════════════════════════ */
+/* ─── RESET ─── */
 function resetQuiz(){
-  state.answered = 0;
-  state.correct  = 0;
-  Object.keys(userAnswers).forEach(k => delete userAnswers[k]);
+  state.answered=0; state.correct=0;
+  Object.keys(SUBJECTS).forEach(s=>{ subjectState[s].correct=0; });
+  Object.keys(userAnswers).forEach(k=>delete userAnswers[k]);
+  timeLeft = 180*60;
   buildQuiz();
-  window.scrollTo({ top: 0, behavior:'smooth' });
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* ── INIT ── */
+/* ─── INIT ─── */
 buildQuiz();
-// ── STICKY TIMER ──
-let timeLeft = 180 * 60;
-const timerDisplay = document.getElementById('timerDisplay');
-const timerBox = document.getElementById('timerBox');
 
-const timerInterval = setInterval(() => {
-  const mins = Math.floor(timeLeft / 60);
-  const secs = timeLeft % 60;
-  timerDisplay.textContent =
-    String(mins).padStart(2,'0') + ':' +
-    String(secs).padStart(2,'0');
-  if(timeLeft <= 300){
-    timerBox.classList.add('danger');
-  }
-  if(timeLeft <= 0){
-    clearInterval(timerInterval);
-    timerDisplay.textContent = '⏰ TIME UP';
-    showResult();
-  }
+/* ─── TIMER ─── */
+let timeLeft = 180*60;
+const timerDisplay = document.getElementById('timerDisplay');
+const timerBox     = document.getElementById('timerBox');
+
+const timerInterval = setInterval(()=>{
+  if(timeLeft<0){ clearInterval(timerInterval); return; }
+  const m = String(Math.floor(timeLeft/60)).padStart(2,'0');
+  const s = String(timeLeft%60).padStart(2,'0');
+  timerDisplay.textContent = m+':'+s;
+  if(timeLeft<=300) timerBox.classList.add('danger');
+  if(timeLeft===0){ clearInterval(timerInterval); timerDisplay.textContent='⏰ TIME UP!'; showResult(); }
   timeLeft--;
-}, 1000);
+},1000);
 </script>
 </body>
 </html>
