@@ -582,11 +582,12 @@ function checkAnswer(qi){
    STATS
 ═══════════════════════════════════════════════ */
 function updateStats(){
-  document.getElementById('statTotal').textContent    = state.total;
-  document.getElementById('statAnswered').textContent = state.answered;
-  document.getElementById('statCorrect').textContent  = state.correct;
-  const pct = state.total > 0 ? Math.round(state.correct / state.total * 100) : 0;
-  document.getElementById('statScore').textContent    = pct + '%';
+  const total = document.getElementById('statTotal');
+  const answered = document.getElementById('statAnswered');
+  const attempted = document.getElementById('statAttempted');
+  if(total) total.textContent = state.total;
+  if(answered) answered.textContent = state.answered;
+  if(attempted) attempted.textContent = state.answered;
 }
 
 /* ═══════════════════════════════════════════════
