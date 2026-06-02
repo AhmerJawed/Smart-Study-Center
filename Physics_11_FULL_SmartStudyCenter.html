@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physics Class XI - Full MCQ Practice | Smart Study Center</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#0d47a1 0%,#1565c0 50%,#1976d2 100%);min-height:100vh;padding:20px}
+.container{max-width:960px;margin:0 auto;background:white;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.35);overflow:hidden;position:relative;z-index:1}
+.brand-header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:white;padding:12px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.brand-logo{display:flex;align-items:center;gap:12px}
+.brand-text-group{display:flex;flex-direction:column}
+.brand-name{font-size:17px;font-weight:800;color:#fff}
+.brand-center{font-size:12px;color:#a8b4d8;font-weight:500;letter-spacing:1px;text-transform:uppercase}
+.brand-contact{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:6px 16px;font-size:14px;font-weight:600;color:#e0e6ff}
+.social-row{display:flex;justify-content:center;gap:12px;padding:10px;background:#0a1628;flex-wrap:wrap}
+.social-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:25px;font-size:13px;font-weight:700;text-decoration:none;color:white;transition:all .3s;border:none;cursor:pointer}
+.social-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.wa-btn{background:linear-gradient(135deg,#25d366,#128c7e)}
+.ig-btn{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)}
+.watermark-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;overflow:hidden}
+.watermark-overlay span{position:absolute;font-size:15px;font-weight:700;color:rgba(13,71,161,0.07);white-space:nowrap;transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase}
+.header{background:linear-gradient(135deg,#0d47a1 0%,#1976d2 100%);color:white;padding:28px;text-align:center}
+.header h1{font-size:25px;margin-bottom:6px}
+.header p{opacity:.9;font-size:14px}
+.badge-row{display:flex;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700}
+.stats{display:flex;justify-content:space-around;padding:16px;background:#f8f9fa;border-bottom:2px solid #e9ecef;flex-wrap:wrap;gap:8px}
+.stat-item{text-align:center}
+.stat-label{font-size:11px;color:#6c757d;text-transform:uppercase;letter-spacing:1px}
+.stat-value{font-size:22px;font-weight:bold;color:#0d47a1;margin-top:4px}
+.chapter-selector{padding:20px;background:#f8f9fa}
+.chapter-selector h3{margin-bottom:14px;color:#333;font-size:15px}
+.chapter-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:10px}
+.chapter-btn{padding:10px 14px;background:white;border:2px solid #0d47a1;border-radius:8px;cursor:pointer;font-size:12px;transition:all .3s;color:#0d47a1;font-weight:700;text-align:left}
+.chapter-btn:hover,.chapter-btn.active{background:#0d47a1;color:white;transform:translateY(-2px);box-shadow:0 5px 15px rgba(13,71,161,.3)}
+.chapter-btn .q-count{display:block;font-size:11px;opacity:.75;margin-top:2px}
+.quiz-container{padding:25px;display:none}
+.quiz-container.active{display:block}
+.section-heading{padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;margin:22px 0 14px;letter-spacing:.5px;text-transform:uppercase}
+.sh-mcq{background:linear-gradient(135deg,#0d47a1,#1976d2);color:white}
+.sh-summary{background:linear-gradient(135deg,#6a1b9a,#8e24aa);color:white}
+.sh-concept{background:linear-gradient(135deg,#00695c,#00897b);color:white}
+.question-card{background:#f8f9fa;border-radius:12px;padding:20px;margin-bottom:16px;border-left:5px solid #0d47a1}
+.question-card.sum-card{border-left-color:#6a1b9a}
+.question-card.con-card{border-left-color:#00695c}
+.question-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.question-number{color:white;padding:4px 14px;border-radius:20px;font-weight:bold;font-size:12px;background:#0d47a1}
+.question-card.sum-card .question-number{background:#6a1b9a}
+.question-card.con-card .question-number{background:#00695c}
+.question-type{color:white;padding:4px 10px;border-radius:15px;font-size:11px;font-weight:700}
+.t-mcq{background:#0d47a1}
+.t-sum{background:#6a1b9a}
+.t-con{background:#00695c}
+.question-text{font-size:15px;color:#333;margin-bottom:14px;line-height:1.6}
+.options{display:grid;gap:9px}
+.option{padding:11px 16px;background:white;border:2px solid #dee2e6;border-radius:8px;cursor:pointer;transition:all .3s;font-size:14px}
+.option:hover{border-color:#0d47a1;background:#e3f2fd}
+.option.selected{border-color:#0d47a1;background:#bbdefb}
+.option.correct{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20;font-weight:600}
+.option.wrong{border-color:#c62828;background:#ffebee;color:#b71c1c}
+.option.disabled{cursor:not-allowed;opacity:.7}
+.check-btn{background:#0d47a1;color:white;border:none;padding:9px 24px;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer;margin-top:11px;transition:all .3s}
+.check-btn:hover{background:#1565c0;transform:translateY(-2px)}
+.check-btn:disabled{background:#ccc;cursor:not-allowed;transform:none}
+.feedback{margin-top:11px;padding:11px;border-radius:8px;font-weight:bold;display:none;font-size:13px}
+.feedback.show{display:block}
+.feedback.correct{background:#e8f5e9;color:#1b5e20;border:2px solid #2e7d32}
+.feedback.wrong{background:#ffebee;color:#b71c1c;border:2px solid #c62828}
+.result-summary{background:linear-gradient(135deg,#0d47a1 0%,#1976d2 100%);color:white;padding:28px;border-radius:12px;text-align:center;margin-top:22px}
+.result-summary h2{font-size:24px;margin-bottom:16px}
+.result-stats{display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap}
+.result-stat{text-align:center}
+.result-stat-value{font-size:32px;font-weight:bold}
+.result-stat-label{font-size:13px;opacity:.85}
+.reset-btn{background:rgba(255,255,255,0.2);color:white;border:2px solid white;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:bold;margin-top:16px;margin-right:8px;transition:all .3s}
+.reset-btn:hover{background:white;color:#0d47a1}
+.brand-footer{background:linear-gradient(135deg,#1a1a2e,#0f3460);color:#a8b4d8;text-align:center;padding:14px;font-size:13px}
+.footer-main{font-weight:700;color:white;margin-bottom:4px}
+.footer-sub{font-size:11px;opacity:.7;margin-bottom:8px}
+.footer-divider{margin:0 8px;opacity:.4}
+.footer-social{display:flex;justify-content:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.footer-social a{color:#a8b4d8;text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(168,180,216,0.3);border-radius:15px;transition:all .3s}
+.footer-social a:hover{background:rgba(255,255,255,0.1);color:white}
+</style>
+</head>
+<body>
+<div id="watermarkOverlay" class="watermark-overlay"></div>
+<div class="container">
+<div class="brand-header">
+<div class="brand-logo">
+<div class="brand-text-group">
+<span class="brand-name">Sir Ahmer Javed</span>
+<span class="brand-center">Smart Study Center</span>
+</div>
+</div>
+<div class="brand-contact">📞 0345-3090057</div>
+</div>
+<div class="social-row">
+<a class="social-btn wa-btn" href="https://wa.me/923453090057" target="_blank" rel="noopener">💬 WhatsApp 0345-3090057</a>
+<a class="social-btn ig-btn" href="https://instagram.com/smartstudycenter_khi" target="_blank" rel="noopener">📸 @smartstudycenter_khi</a>
+</div>
+<div class="header">
+<h1>⚡ Physics Class XI — Full Coverage</h1>
+<p>Complete MCQ Practice Tool — 100% Exam Ready | BIEK / Sindh Board</p>
+<div class="badge-row">
+<span class="badge">📖 Book MCQs</span>
+<span class="badge">🌟 Summary</span>
+<span class="badge">💡 Concepts</span>
+</div>
+</div>
+<div class="stats">
+<div class="stat-item"><div class="stat-label">Total</div><div class="stat-value" id="totalQuestions">0</div></div>
+<div class="stat-item"><div class="stat-label">Answered</div><div class="stat-value" id="answeredQuestions">0</div></div>
+<div class="stat-item"><div class="stat-label">Correct</div><div class="stat-value" id="correctAnswers">0</div></div>
+<div class="stat-item"><div class="stat-label">Score</div><div class="stat-value" id="scorePercentage">0%</div></div>
+</div>
+<div class="chapter-selector">
+<h3>📚 Select Unit:</h3>
+<div class="chapter-buttons" id="chapterButtons"></div>
+</div>
+<div class="quiz-container" id="quizContainer"></div>
+<div class="brand-footer">
+<div class="footer-main">Sir Ahmer Javed <span class="footer-divider">|</span> Smart Study Center <span class="footer-divider">|</span> 📞 0345-3090057</div>
+<div class="footer-sub">Physics Class XI — Full Coverage MCQ Tool | BIEK / Sindh Board</div>
+<div class="footer-social">
+<a href="https://wa.me/923453090057" target="_blank" rel="noopener">💬 WhatsApp</a>
+<a href="https://instagram.com/smartstudycenter_khi" target="_blank" rel="noopener">📸 Instagram</a>
+</div>
+</div>
+</div>
+<script>
+const mcqData = {
+
+"Unit 1: Physics & Measurements": [
+  // BOOK MCQs (textbook end-of-chapter)
+  {q:"The respective number of significant figures for the numbers 23.023, 0.0003 and 2.1×10⁷ are:", o:["5, 1, 2","5, 1, 5","5, 5, 2","4, 4, 2"], c:0, t:"mcq"},
+  {q:"Which among the following is the supplementary unit:", o:["Mass","Time","Solid angle","Luminosity"], c:2, t:"mcq"},
+  {q:"The unit of solid angle is:", o:["Second","Steradian","Kilogram","Candela"], c:1, t:"mcq"},
+  {q:"The quantity having the same unit in all systems of units is:", o:["Mass","Time","Length","Temperature"], c:1, t:"mcq"},
+  {q:"Random errors can be eliminated by:", o:["Taking a number of observations and their mean","Measuring the quantity with more than one instrument","Eliminating the cause","Careful observations"], c:0, t:"mcq"},
+  {q:"Systematic error can be:", o:["Either positive or negative","Negative only","Positive only","Zero error"], c:0, t:"mcq"},
+  {q:"[MLT⁻²] is the dimensional formula of:", o:["Strain","Force","Displacement","Pressure"], c:1, t:"mcq"},
+  {q:"Which of the following pair has the same dimensions?", o:["Moment of inertia and torque","Surface tension and force","Impulse and momentum","Specific heat and latent heat"], c:2, t:"mcq"},
+  {q:"Dependent variable is:", o:["Cause","Effect","Cause and effect","Reason"], c:1, t:"mcq"},
+  {q:"Dimensions of kinetic energy are the same as that of:", o:["Acceleration","Velocity","Work","Force"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Physics is a branch of science that studies:", o:["Living organisms only","Nature and behaviour of matter, energy and their interaction","Chemical reactions only","Stars and galaxies only"], c:1, t:"summary"},
+  {q:"Which of the following is NOT an SI base unit?", o:["Meter","Kilogram","Newton","Second"], c:2, t:"summary"},
+  {q:"Number of SI base units is:", o:["5","6","7","8"], c:2, t:"summary"},
+  {q:"The SI unit of luminous intensity is:", o:["Lumen","Lux","Candela","Watt"], c:2, t:"summary"},
+  {q:"Accuracy refers to how close a measurement is to:", o:["Other measurements","Its agreed (true) value","The mean value","The mode"], c:1, t:"summary"},
+  {q:"Precision refers to how close two or more measurements are to:", o:["The true value","Each other","Zero","The mean of the universe"], c:1, t:"summary"},
+  {q:"Errors caused by faulty apparatus or incorrect zero mark are called:", o:["Random errors","Systematic errors","Personal errors","Negligible errors"], c:1, t:"summary"},
+  {q:"Resolution (least count) of a measuring instrument is:", o:["The largest value it can measure","The smallest increment it can measure","Its physical size","Its accuracy percentage"], c:1, t:"summary"},
+  {q:"A graph used to display data with continuous lines and best-fit curves is called:", o:["Pie chart","Bar chart","Line graph","Histogram"], c:2, t:"summary"},
+  {q:"Independent variable in an experiment is the:", o:["Effect","Cause","Result","Constant"], c:1, t:"summary"},
+  {q:"Dimensions of pressure are:", o:["[ML⁻¹T⁻²]","[MLT⁻²]","[ML²T⁻²]","[MT⁻²]"], c:0, t:"summary"},
+  // CONCEPT MCQs (high-likelihood exam style)
+  {q:"LT⁻² are dimensions of:", o:["Acceleration due to gravity","Moment of inertia","Moment of force","Angular momentum"], c:0, t:"concept"},
+  {q:"The dimensions of Planck's constant are the same as those of:", o:["Energy","Power","Angular momentum","Force"], c:2, t:"concept"},
+  {q:"Which one is a dimensionless quantity?", o:["Strain","Stress","Force","Density"], c:0, t:"concept"},
+  {q:"How many significant figures are in 0.00450?", o:["2","3","4","5"], c:1, t:"concept"},
+  {q:"Least count of a Vernier callipers (standard) is:", o:["0.001 cm","0.01 cm","0.1 cm","1 cm"], c:1, t:"concept"},
+  {q:"Least count of a screw gauge / micrometer is usually:", o:["0.01 mm","0.1 mm","1 mm","0.001 cm"], c:0, t:"concept"},
+  {q:"Which of the following has the same dimensions as work?", o:["Power","Torque","Force","Velocity"], c:1, t:"concept"},
+  {q:"The number 3.500 has how many significant figures?", o:["2","3","4","5"], c:2, t:"concept"},
+],
+
+"Unit 2: Kinematics": [
+  // BOOK MCQs
+  {q:"To get a resultant displacement of 10 m, two displacement vectors of magnitude 6 m and 8 m should be combined:", o:["Parallel","Antiparallel","At an angle of 45°","Perpendicular to each other"], c:3, t:"mcq"},
+  {q:"The velocity of a particle at an instant is 10 m/s and after 5 s the velocity is 20 m/s. The velocity 3 s before (m/s) is:", o:["8","4","6","7"], c:1, t:"mcq"},
+  {q:"A ball is thrown upwards with a velocity of 100 m/s. It will reach the ground after approximately:", o:["10 s","20 s","5 s","40 s"], c:1, t:"mcq"},
+  {q:"Two projectiles are fired from the same point with the same speed at angles of projection 60° and 30° respectively. Then:", o:["The range will be the same","Their maximum heights will be the same","Their landing velocities will be the same","Their times of flight will be the same"], c:0, t:"mcq"},
+  {q:"The ratio of the numerical values of average velocity and average speed of a body is always:", o:["Unity","Unity or less","Unity or more","Less than unity"], c:1, t:"mcq"},
+  {q:"If the average velocity of a body becomes equal to its instantaneous velocity, the body is said to be moving with:", o:["Uniform acceleration","Uniform velocity","Variable velocity","Variable acceleration"], c:1, t:"mcq"},
+  {q:"At the highest point of the trajectory of a projectile, the acceleration is:", o:["Maximum","Minimum","Zero","g (9.8 m/s² downward)"], c:3, t:"mcq"},
+  {q:"At what angle does the range of a projectile become equal to the maximum height of the projectile?", o:["65°","45°","≈ 76°","30°"], c:2, t:"mcq"},
+  {q:"The angle at which the dot product becomes equal to the cross product is:", o:["65°","45°","76°","30°"], c:1, t:"mcq"},
+  {q:"If the dot product of two non-zero vectors vanishes, the vectors will be:", o:["In the same direction","In opposite directions","Perpendicular to each other","Zero"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The study of motion without considering the forces involved is called:", o:["Dynamics","Kinematics","Statics","Kinetics"], c:1, t:"summary"},
+  {q:"Total path length traveled by a body is called:", o:["Displacement","Distance","Velocity","Speed"], c:1, t:"summary"},
+  {q:"The shortest directed distance between initial and final positions is called:", o:["Distance","Displacement","Speed","Length"], c:1, t:"summary"},
+  {q:"Rate of change of position with direction is called:", o:["Speed","Velocity","Acceleration","Distance"], c:1, t:"summary"},
+  {q:"The maximum range of a projectile is obtained at an angle of:", o:["30°","45°","60°","90°"], c:1, t:"summary"},
+  {q:"Negative acceleration is called:", o:["Velocity","Retardation (deceleration)","Inertia","Momentum"], c:1, t:"summary"},
+  {q:"Motion under the influence of gravity alone is called:", o:["Projectile motion","Free fall","Circular motion","Linear motion"], c:1, t:"summary"},
+  {q:"The horizontal range of a projectile is given by:", o:["v₀²/g","v₀² sin2θ / g","v₀ sinθ / g","v₀² sin²θ / 2g"], c:1, t:"summary"},
+  {q:"î · ĵ equals:", o:["1","0","−1","î"], c:1, t:"summary"},
+  {q:"î × ĵ equals:", o:["0","î","ĵ","k̂"], c:3, t:"summary"},
+  {q:"î · î equals:", o:["0","1","ĵ","k̂"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The acceleration of a projectile at the highest point of its trajectory is:", o:["Zero","980 m/s²","9.8 m/s² (downward)","19.8 m/s²"], c:2, t:"concept"},
+  {q:"Area under a velocity–time graph represents:", o:["Distance","Displacement","Acceleration","Force"], c:1, t:"concept"},
+  {q:"Slope of a displacement–time graph gives:", o:["Acceleration","Velocity","Distance","Time"], c:1, t:"concept"},
+  {q:"Slope of a velocity–time graph gives:", o:["Distance","Displacement","Acceleration","Speed"], c:2, t:"concept"},
+  {q:"For a projectile, the horizontal component of velocity:", o:["Increases","Decreases","Remains constant","Becomes zero"], c:2, t:"concept"},
+  {q:"At the maximum height of a projectile, the vertical component of velocity is:", o:["Maximum","Equal to horizontal component","Zero","Equal to initial velocity"], c:2, t:"concept"},
+  {q:"Time of flight of a projectile is given by:", o:["v₀ sinθ / g","2 v₀ sinθ / g","v₀² sin2θ / g","v₀ / g"], c:1, t:"concept"},
+],
+
+"Unit 3: Dynamics": [
+  // BOOK MCQs
+  {q:"The rate of change of linear momentum of a body is called:", o:["Linear force","Angular force","Power","Impulse"], c:0, t:"mcq"},
+  {q:"The term 'mass' refers to the same physical concept as:", o:["Weight","Inertia","Force","Acceleration"], c:1, t:"mcq"},
+  {q:"Which one of the following forces is also called a self-adjusting force?", o:["Frictional force","Tension","Weight","Thrust"], c:0, t:"mcq"},
+  {q:"The laws of motion show the relationship between:", o:["Velocity and acceleration","Mass and velocity","Mass and acceleration","Force and acceleration"], c:3, t:"mcq"},
+  {q:"The motion of a rocket in space is according to the law of conservation of:", o:["Energy","Linear momentum","Mass","Angular momentum"], c:1, t:"mcq"},
+  {q:"A bomb of mass 12 kg initially at rest explodes into two pieces of masses 4 kg and 8 kg. The speed of the 8 kg mass is 6 m/s. The kinetic energy of the 4 kg mass is:", o:["32 J","48 J","114 J","288 J"], c:3, t:"mcq"},
+  {q:"If momentum is increased by 20%, then K.E increases by:", o:["44%","55%","66%","77%"], c:0, t:"mcq"},
+  {q:"The kinetic energy of a body of mass 2 kg and momentum 2 kg·m/s is:", o:["1 J","2 J","3 J","4 J"], c:0, t:"mcq"},
+  {q:"For the same kinetic energy, the momentum is maximum for:", o:["An electron","A proton","A deuteron","An alpha particle"], c:3, t:"mcq"},
+  {q:"A 3 kg bowling ball experiences a net force of 15 N. Its acceleration will be:", o:["35 m/s²","7 m/s²","5 m/s²","3.5 m/s²"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The study of forces and torques that cause motion is called:", o:["Statics","Kinematics","Dynamics","Optics"], c:2, t:"summary"},
+  {q:"Newton's first law is also called the law of:", o:["Inertia","Action and reaction","Conservation","Universal gravitation"], c:0, t:"summary"},
+  {q:"Newton's second law is mathematically expressed as:", o:["F = mv","F = m/a","F = ma","F = a/m"], c:2, t:"summary"},
+  {q:"For every action there is an equal and opposite reaction. This is:", o:["Newton's first law","Newton's second law","Newton's third law","Law of conservation"], c:2, t:"summary"},
+  {q:"Momentum is defined as the product of:", o:["Force and time","Mass and acceleration","Mass and velocity","Force and distance"], c:2, t:"summary"},
+  {q:"The change in momentum of a body due to applied force over a time interval is called:", o:["Power","Impulse","Energy","Torque"], c:1, t:"summary"},
+  {q:"In a closed system, total momentum is:", o:["Zero","Conserved","Always increasing","Always decreasing"], c:1, t:"summary"},
+  {q:"In an elastic collision:", o:["Only momentum is conserved","Only kinetic energy is conserved","Both momentum and kinetic energy are conserved","Neither is conserved"], c:2, t:"summary"},
+  {q:"In an inelastic collision:", o:["Momentum is not conserved","Momentum is conserved but kinetic energy is not","Both are not conserved","Only kinetic energy is conserved"], c:1, t:"summary"},
+  {q:"The maximum value of static friction is called:", o:["Kinetic friction","Sliding friction","Rolling friction","Limiting friction"], c:3, t:"summary"},
+  {q:"Friction between two surfaces in relative motion is called:", o:["Static friction","Kinetic friction","Limiting friction","Normal reaction"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"SI unit of force is:", o:["Joule","Watt","Newton","Pascal"], c:2, t:"concept"},
+  {q:"SI unit of momentum is:", o:["kg·m/s","kg·m²/s","N·m","kg/m"], c:0, t:"concept"},
+  {q:"SI unit of impulse is:", o:["N","N·s (or kg·m/s)","J","W"], c:1, t:"concept"},
+  {q:"Kinetic friction is generally:", o:["Greater than limiting friction","Equal to limiting friction","Less than limiting friction","Always zero"], c:2, t:"concept"},
+  {q:"The coefficient of friction depends on:", o:["Area of contact","Nature of surfaces in contact","Mass of body only","Speed of body only"], c:1, t:"concept"},
+  {q:"A body of mass m moving with velocity v has momentum:", o:["½mv","½mv²","mv","mv²"], c:2, t:"concept"},
+  {q:"Newton's third law is the basis for:", o:["Working of a rocket / jet","Free fall motion","Circular motion","Friction only"], c:0, t:"concept"},
+],
+
+"Unit 4: Rotational & Circular Motion": [
+  // BOOK MCQs
+  {q:"One radian is approximately equal to:", o:["25°","37°","45°","57°"], c:3, t:"mcq"},
+  {q:"A wheel turns with constant angular speed, then:", o:["Each point on its rim moves with constant velocity","Each point on its rim moves with constant acceleration","The wheel turns through equal angles in equal times","The angle through which the wheel turns each second increases with time"], c:2, t:"mcq"},
+  {q:"The rotational inertia of a wheel about its axle does NOT depend upon its:", o:["Diameter","Mass","Distribution of mass","Speed of rotation"], c:3, t:"mcq"},
+  {q:"A force of given magnitude is to be applied to a wheel. The torque is maximized by:", o:["Applying the force near the axle, radially outward","Applying the force near the rim, radially outward","Applying the force near the axle, parallel to a tangent","Applying the force at the rim, tangent to the rim"], c:3, t:"mcq"},
+  {q:"For an object rotating about a fixed axis, τ = Iα:", o:["Is the definition of torque","Is the definition of rotational inertia","Is the definition of angular acceleration","Follows directly from Newton's second law"], c:3, t:"mcq"},
+  {q:"The angular momentum vector of Earth about its rotation axis (due to its daily rotation) is directed:", o:["Tangent to the equator towards east","Tangent to the equator towards the west","North","Towards the Sun"], c:2, t:"mcq"},
+  {q:"A 2 kg stone tied to a 0.50 m string is swung in a circle at angular velocity 12 rad/s. The net torque on the stone about the centre is:", o:["0 N·m","6 N·m","12 N·m","72 N·m"], c:0, t:"mcq"},
+  {q:"A man with arms at his sides is spinning on a frictionless turntable. When he extends his arms:", o:["His angular velocity increases","His angular velocity remains the same","His rotational inertia decreases","His angular momentum remains the same"], c:3, t:"mcq"},
+  {q:"A space station revolves around the Earth at 100 km altitude. The net force on an astronaut at rest inside the space station is:", o:["Equal to her weight on Earth","A little less than her weight on Earth","Less than half her weight on Earth","Zero (she is weightless)"], c:1, t:"mcq"},
+  {q:"If the external torque acting on a body is zero, then its:", o:["Angular momentum is zero","Angular momentum is conserved","Angular acceleration is maximum","Rotational motion is maximum"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Angular displacement is the ratio of:", o:["Length of arc to radius","Radius to length of arc","Time to angle","Velocity to radius"], c:0, t:"summary"},
+  {q:"Angular velocity is the rate of change of:", o:["Linear displacement","Angular displacement","Linear acceleration","Mass"], c:1, t:"summary"},
+  {q:"The force which keeps a body moving in a circle, directed towards the centre, is called:", o:["Centrifugal force","Centripetal force","Gravitational force","Normal force"], c:1, t:"summary"},
+  {q:"Centripetal acceleration is given by:", o:["v/r","v²/r","v²r","r/v²"], c:1, t:"summary"},
+  {q:"The turning effect of a force about an axis of rotation is called:", o:["Force","Torque","Power","Energy"], c:1, t:"summary"},
+  {q:"Angular momentum is the vector product of:", o:["Force and distance","Mass and velocity","Position vector and linear momentum","Mass and acceleration"], c:2, t:"summary"},
+  {q:"The minimum speed required to put a satellite in orbit is called:", o:["Escape velocity","Orbital velocity","Critical velocity","Terminal velocity"], c:1, t:"summary"},
+  {q:"Moment of inertia depends on:", o:["Only mass","Only distance from axis","Mass and distribution of mass about axis","Speed of rotation"], c:2, t:"summary"},
+  {q:"Static torque is one which does NOT produce:", o:["Force","Mass","Angular acceleration","Linear motion"], c:2, t:"summary"},
+  {q:"Parallel axis theorem relates the moment of inertia about a parallel axis to the one through:", o:["Surface","Edge","Centre of mass","External point only"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"One revolution per minute (RPM) is equal to:", o:["2π/30 rad/s","2π/60 rad/s","2π/60 rad/s²","60/2π rad/s"], c:1, t:"concept"},
+  {q:"One degree (1°) is equal to:", o:["π radians","(180/π) radians","(π/180) radians","2π radians"], c:2, t:"concept"},
+  {q:"Work done by a centripetal force is always:", o:["Maximum","Half of maximum","Quarter of maximum","Zero"], c:3, t:"concept"},
+  {q:"The angular velocity of the second hand of a clock is:", o:["π/30 rad/s","π/60 rad/s","2π rad/s","π/3600 rad/s"], c:0, t:"concept"},
+  {q:"Moment of inertia of a thin uniform rod of mass M and length L about an axis through its centre and perpendicular to its length is:", o:["ML²/3","ML²/12","ML²/2","ML²"], c:1, t:"concept"},
+  {q:"SI unit of torque is:", o:["N·s","N·m (joule equivalent)","J/s","kg·m/s"], c:1, t:"concept"},
+  {q:"Relation between linear velocity v and angular velocity ω is:", o:["v = ω/r","v = rω","v = r/ω","v = r²ω"], c:1, t:"concept"},
+],
+
+"Unit 5: Work, Energy & Power": [
+  // BOOK MCQs
+  {q:"Work done by a centripetal force is always:", o:["Maximum","Minimum","Zero","None of these"], c:2, t:"mcq"},
+  {q:"A body of mass 5 kg has momentum 10 kg·m/s. A force of 0.2 N acts on it in the direction of motion for 10 s. The increase in kinetic energy is:", o:["2.8 J","3.2 J","3.8 J","4.4 J"], c:3, t:"mcq"},
+  {q:"The kinetic energies of a light and a heavy object are equal. Which has the maximum momentum?", o:["Light object","Heavy object","Both have same momentum","Cannot be determined"], c:1, t:"mcq"},
+  {q:"Two bodies of mass 1 kg and 2 kg have equal momentum. The ratio of their kinetic energies is:", o:["2 : 1","3 : 1","1 : 3","1 : 1"], c:0, t:"mcq"},
+  {q:"A body falls from height h. After it has fallen a height h/2, it will possess:", o:["Only potential energy","Only kinetic energy","Half potential and half kinetic energy","More kinetic and less potential"], c:2, t:"mcq"},
+  {q:"Which of the following quantities can be calculated by multiplying force and velocity?", o:["Acceleration","Power","Torque","Work"], c:1, t:"mcq"},
+  {q:"The minimum velocity required for an object to escape the gravitational field of Earth is about:", o:["11.2 km/s","15.3 km/s","5 km/s","9.8 km/s"], c:0, t:"mcq"},
+  {q:"When one joule of work is done on a body in one second, the power is:", o:["One watt","0.5 watt","Zero","100 watt"], c:0, t:"mcq"},
+  {q:"The absolute potential energy of an object depends on:", o:["The object's mass and height","The object's mass and speed","The object's shape and size","The object's colour and temperature"], c:0, t:"mcq"},
+  {q:"The escape velocity of a planet depends on:", o:["The mass of the planet only","The radius of the planet only","Both the mass and radius of the planet","The colour of the planet"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Work done by a force is defined as:", o:["F + d","F · d (dot product of force and displacement)","F × d (cross product)","F / d"], c:1, t:"summary"},
+  {q:"SI unit of work is:", o:["Newton","Joule","Watt","Pascal"], c:1, t:"summary"},
+  {q:"SI unit of power is:", o:["Joule","Newton","Watt","Pascal"], c:2, t:"summary"},
+  {q:"Kinetic energy of a body of mass m moving with velocity v is:", o:["mv","½mv","½mv²","mv²"], c:2, t:"summary"},
+  {q:"Gravitational potential energy of a body of mass m at height h is:", o:["m/h","mg/h","mgh","½mgh"], c:2, t:"summary"},
+  {q:"The dot product of two vectors A and B is given by:", o:["AB sinθ","AB cosθ","AB tanθ","A + B"], c:1, t:"summary"},
+  {q:"Power is defined as:", o:["Work done per unit force","Work done per unit time","Force per unit time","Energy per unit force"], c:1, t:"summary"},
+  {q:"1 horsepower (hp) is approximately equal to:", o:["546 W","746 W","946 W","1000 W"], c:1, t:"summary"},
+  {q:"The work-energy theorem states that work done on a body equals change in its:", o:["Momentum","Kinetic energy","Potential energy","Velocity"], c:1, t:"summary"},
+  {q:"In a conservative force field, total mechanical energy is:", o:["Always increasing","Always decreasing","Conserved","Zero"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The dot product of force and velocity is called:", o:["Work","Power","Energy","Torque"], c:1, t:"concept"},
+  {q:"Dimensions of energy are the same as those of:", o:["Force","Work","Momentum","Power"], c:1, t:"concept"},
+  {q:"1 electron volt (eV) equals:", o:["1.6 × 10⁻¹⁹ J","1.6 × 10⁻¹⁹ N","1.6 × 10⁻¹⁹ W","1.6 × 10⁻¹⁹ C"], c:0, t:"concept"},
+  {q:"1.6 × 10⁻¹⁹ J is equal to:", o:["Charge of electron","1 volt","1 watt","1 electron volt (eV)"], c:3, t:"concept"},
+  {q:"If the speed of a body is doubled, its kinetic energy becomes:", o:["Half","Double","Four times","Eight times"], c:2, t:"concept"},
+  {q:"Work done is zero when the angle between force and displacement is:", o:["0°","45°","60°","90°"], c:3, t:"concept"},
+  {q:"Power consumed by a force F producing velocity v is:", o:["F + v","F · v (dot product)","F × v (cross product)","F / v"], c:1, t:"concept"},
+],
+
+"Unit 6: Fluid Statics": [
+  // BOOK MCQs
+  {q:"A completely submerged object always displaces its own:", o:["Weight of fluid","Volume of fluid","Density of fluid","Area of fluid"], c:1, t:"mcq"},
+  {q:"The pressure exerted on the ground by a man is greatest when:", o:["He stands with both feet flat on the ground","He stands flat on one foot","He stands on the toes of one foot","He lies down on the ground"], c:2, t:"mcq"},
+  {q:"In a stationary homogeneous liquid:", o:["Pressure is the same at all points","Pressure depends on direction","Pressure is independent of atmospheric pressure on the upper surface","Pressure is the same at all points at the same level"], c:3, t:"mcq"},
+  {q:"One piston in a hydraulic lift has area twice the other. When the pressure at the smaller piston is increased by Δp, the pressure at the larger piston:", o:["Increases by 2Δp","Increases by Δp/2","Increases by Δp","Increases by 4Δp"], c:2, t:"mcq"},
+  {q:"In a vacuum, an object has:", o:["No buoyant force","No mass","No weight","None of these"], c:0, t:"mcq"},
+  {q:"The pressure at the bottom of a pond does NOT depend on:", o:["Water density","Depth of the pond","Surface area of the pond","g (acceleration due to gravity)"], c:2, t:"mcq"},
+  {q:"A rock weighs 8 N in air and 3 N when submerged in water. The buoyant force on the rock is:", o:["3 N","5 N","8 N","11 N"], c:1, t:"mcq"},
+  {q:"'An object completely submerged in a fluid displaces fluid equal to its own volume.' This is:", o:["Pascal's paradox","Archimedes' principle","Pascal's principle","Bernoulli's principle"], c:1, t:"mcq"},
+  {q:"Salt water has greater density than fresh water. A boat floats in both. The buoyant force on the boat in salt water is __ that in fresh water.", o:["Equal to","Smaller than","Larger than","Zero compared to"], c:0, t:"mcq"},
+  {q:"You fill a tall glass with ice and water to the rim. When the ice melts, the water level:", o:["Overflows the rim","Drops below the rim","Stays at the rim","Becomes zero"], c:2, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Pressure is defined as:", o:["Force × area","Force / area","Force + area","Mass × acceleration"], c:1, t:"summary"},
+  {q:"SI unit of pressure is:", o:["Newton","Joule","Pascal","Watt"], c:2, t:"summary"},
+  {q:"1 Pascal is equal to:", o:["1 N·m","1 N/m²","1 J/m","1 W/m"], c:1, t:"summary"},
+  {q:"Pressure at depth h in a liquid of density ρ is:", o:["ρg/h","ρgh","ρh/g","g/(ρh)"], c:1, t:"summary"},
+  {q:"Pascal's principle states that pressure applied to an enclosed fluid is:", o:["Reduced as it travels","Transmitted equally in all directions","Absorbed by the walls","Increased with depth"], c:1, t:"summary"},
+  {q:"Atmospheric pressure at sea level is approximately:", o:["1.013 × 10⁵ Pa","9.8 × 10⁵ Pa","1.013 × 10³ Pa","9.8 × 10³ Pa"], c:0, t:"summary"},
+  {q:"The upward force exerted by a fluid on an immersed object is called:", o:["Pressure","Tension","Upthrust / Buoyancy","Friction"], c:2, t:"summary"},
+  {q:"A floating body displaces a weight of fluid equal to its:", o:["Volume","Density","Own weight","Own volume only"], c:2, t:"summary"},
+  {q:"Density is defined as:", o:["Mass + volume","Mass × volume","Mass / volume","Volume / mass"], c:2, t:"summary"},
+  {q:"Hydraulic press / lift works on the principle of:", o:["Archimedes' principle","Pascal's principle","Bernoulli's principle","Newton's law"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"An object completely submerged in a fluid, displaces fluid equal to its own volume. This is:", o:["Pascal's law","Boyle's law","Archimedes' principle","Charles' law"], c:2, t:"concept"},
+  {q:"A submerged object always displaces fluid equal to its own:", o:["Weight","Volume","Density","Mass"], c:1, t:"concept"},
+  {q:"A ship floats higher in salt water than in fresh water because salt water has:", o:["Lower density","Higher density","Lower viscosity","Higher temperature"], c:1, t:"concept"},
+  {q:"The condition for a body to float is that its average density should be:", o:["Greater than fluid density","Equal to fluid density","Less than or equal to fluid density","Twice the fluid density"], c:2, t:"concept"},
+  {q:"A balloon filled with helium rises in air because:", o:["It is heavier than air","Its density is less than air","Air has no weight","Of pressure only"], c:1, t:"concept"},
+  {q:"Buoyant force on a body fully immersed in a liquid is given by:", o:["ρgV","ρ/g","ρ + g + V","V/(ρg)"], c:0, t:"concept"},
+  {q:"Pressure increases with depth because:", o:["Volume increases","Weight of fluid above increases","Density decreases","Temperature decreases"], c:1, t:"concept"},
+],
+
+"Unit 7: Fluid Dynamics": [
+  // BOOK MCQs
+  {q:"For an incompressible fluid, the flow rate is:", o:["Equal for all surfaces","Constant throughout the pipe","Greater for the larger parts of the pipe","None of the above"], c:1, t:"mcq"},
+  {q:"Bernoulli's principle states that for horizontal flow of fluid through a tube, the sum of the pressure and the energy of motion per unit volume is:", o:["Increasing with time","Decreasing with time","Constant","Varying with time"], c:2, t:"mcq"},
+  {q:"Which of the following is associated with the law of conservation of energy in fluids?", o:["Archimedes' principle","Bernoulli's principle","Pascal's principle","Equation of continuity"], c:1, t:"mcq"},
+  {q:"As the speed of a moving fluid increases, the pressure in the fluid:", o:["Increases","Remains constant","Decreases","Depends on viscosity"], c:2, t:"mcq"},
+  {q:"If the cross-sectional area of a pipe decreases, what happens to the fluid velocity?", o:["Increases","Decreases","Remains the same","Depends on the fluid density"], c:0, t:"mcq"},
+  {q:"A skydiver falls through the air at terminal velocity. The force of air resistance on him is:", o:["Half his weight","Equal to his weight","Twice his weight","Cannot be determined"], c:1, t:"mcq"},
+  {q:"Wind speeding up as it blows over the top of a hill:", o:["Increases atmospheric pressure there","Decreases atmospheric pressure there","Doesn't affect atmospheric pressure there","Equals atmospheric pressure"], c:1, t:"mcq"},
+  {q:"The equation of continuity (A₁v₁ = A₂v₂) is based on conservation of:", o:["Energy","Mass","Momentum","Charge"], c:1, t:"mcq"},
+  {q:"Stokes' law relates to the:", o:["Drag force on a sphere moving through a viscous fluid","Buoyant force on a body","Pressure at depth","Speed of sound"], c:0, t:"mcq"},
+  {q:"The unit of viscosity in SI is:", o:["N·s/m² (Pa·s)","N/m","kg/m³","m²/s"], c:0, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Fluid dynamics is the study of fluids in:", o:["Motion","Equilibrium only","Compression only","Solidification"], c:0, t:"summary"},
+  {q:"Streamline flow is also known as:", o:["Turbulent flow","Laminar flow","Compressible flow","Random flow"], c:1, t:"summary"},
+  {q:"The internal friction between layers of a fluid is called:", o:["Viscosity","Surface tension","Density","Cohesion"], c:0, t:"summary"},
+  {q:"Bernoulli's equation is: P + ½ρv² + ρgh = ?", o:["Variable","Zero","Constant","Infinite"], c:2, t:"summary"},
+  {q:"In equation of continuity A₁v₁ = A₂v₂, the product A·v represents:", o:["Mass","Volume flow rate","Density","Acceleration"], c:1, t:"summary"},
+  {q:"Maximum velocity at which a fluid can flow without becoming turbulent is called:", o:["Critical velocity","Terminal velocity","Escape velocity","Orbital velocity"], c:0, t:"summary"},
+  {q:"Reynolds number is used to:", o:["Determine type of flow (laminar/turbulent)","Find pressure","Find density","Calculate weight"], c:0, t:"summary"},
+  {q:"Terminal velocity is reached when:", o:["Net force becomes zero","Force is maximum","Acceleration is maximum","Velocity is zero"], c:0, t:"summary"},
+  {q:"Lift on an aeroplane wing is explained by:", o:["Pascal's law","Archimedes' principle","Bernoulli's principle","Hooke's law"], c:2, t:"summary"},
+  {q:"Venturi meter is used to measure:", o:["Density","Flow rate / speed of fluid","Pressure of solid","Mass"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"If the cross-sectional area of a pipe decreases, the fluid velocity:", o:["Increases","Remains the same","Decreases","First increases then decreases"], c:0, t:"concept"},
+  {q:"According to Bernoulli, where the speed of a fluid is high, the pressure is:", o:["High","Low","Zero","Atmospheric"], c:1, t:"concept"},
+  {q:"A ball thrown with spin curves due to:", o:["Magnus effect (Bernoulli's principle)","Gravity only","Air friction only","Inertia"], c:0, t:"concept"},
+  {q:"Two parallel boats moving close to each other tend to come together because of:", o:["Magnetic attraction","Lower pressure between them (Bernoulli)","Higher pressure between them","Gravity"], c:1, t:"concept"},
+  {q:"For laminar flow, Reynolds number is:", o:["Greater than 4000","Less than 2000","Exactly 3000","Zero"], c:1, t:"concept"},
+  {q:"A spray gun / atomizer works on:", o:["Pascal's law","Bernoulli's principle","Archimedes' principle","Hooke's law"], c:1, t:"concept"},
+  {q:"The viscosity of a liquid generally __ with rise in temperature.", o:["Increases","Decreases","Remains constant","Becomes zero immediately"], c:1, t:"concept"},
+],
+
+"Unit 8: Electric Fields": [
+  // BOOK MCQs
+  {q:"A 2 μC point charge is located at distance 'd' from a 6 μC point charge. The ratio F₁₂/F₂₁ is:", o:["1/3","3","1","1/2"], c:2, t:"mcq"},
+  {q:"The minimum charge on an object cannot be less than:", o:["1.6 × 10⁻¹⁹ C","3.2 × 10⁻⁹ C","9.1 × 10⁻⁹ C","No definite value exists"], c:0, t:"mcq"},
+  {q:"Two charges are placed at a certain distance. If the magnitude of each charge is doubled, the force will become:", o:["1/4 of its original value","4 times of its original value","1/8 of its original value","8 times of its original value"], c:1, t:"mcq"},
+  {q:"Which of the following can be deflected while moving in an electric field?", o:["Neutron","Photon","Electron","Both neutron and photon"], c:2, t:"mcq"},
+  {q:"The flux through a flat surface of area A in a uniform electric field E is maximum when the surface is:", o:["Parallel to E","Perpendicular to E","At 45° to E","At 60° to E"], c:1, t:"mcq"},
+  {q:"The product of charge q and small separation d between two equal and opposite charges is known as:", o:["Electric dipole","Moment arm","Electric dipole moment","Flux of electric field"], c:2, t:"mcq"},
+  {q:"12 J of work is done against an electric field to take a charge of 0.01 C from point A to B. The potential difference V_B − V_A is:", o:["120 V","1200 V","12 V","1.2 V"], c:1, t:"mcq"},
+  {q:"The force between two charges placed in air is F. If air is replaced by a medium of relative permittivity εᵣ, the force becomes:", o:["F·εᵣ","F/εᵣ","εᵣ/F","F·εᵣ²"], c:1, t:"mcq"},
+  {q:"The negative gradient of the potential is:", o:["Potential energy","Voltage","Electric field intensity","Electric flux"], c:2, t:"mcq"},
+  {q:"The electric flux through a plane area is half of its maximum value when the area is held at an angle to the electric field of:", o:["30°","60°","45°","90°"], c:0, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"SI unit of charge is:", o:["Newton","Coulomb","Joule","Volt"], c:1, t:"summary"},
+  {q:"Coulomb's law gives the force between:", o:["Two masses","Two point charges","Two currents","Two magnets"], c:1, t:"summary"},
+  {q:"Coulomb's constant k = 1/(4πε₀) ≈:", o:["9 × 10⁹ N·m²/C²","6 × 10⁻¹¹ N·m²/kg²","9 × 10⁻⁹ N·m²/C²","9 × 10⁻¹⁹ J"], c:0, t:"summary"},
+  {q:"Electric field intensity at a point is force per unit:", o:["Mass","Length","Charge","Area"], c:2, t:"summary"},
+  {q:"SI unit of electric field intensity is:", o:["N/C (or V/m)","C/N","V·m","C/m²"], c:0, t:"summary"},
+  {q:"Electric potential at a point is the work done in bringing a unit positive charge from infinity. Its SI unit is:", o:["Newton","Joule","Volt","Pascal"], c:2, t:"summary"},
+  {q:"Electric flux through a closed surface is proportional to:", o:["Mass enclosed","Net charge enclosed","Volume","Surface area only"], c:1, t:"summary"},
+  {q:"Gauss's law relates electric flux to the:", o:["Magnetic field","Charge enclosed","Force only","Distance only"], c:1, t:"summary"},
+  {q:"Like charges __ each other.", o:["Attract","Repel","Have no effect on","Annihilate"], c:1, t:"summary"},
+  {q:"Unlike charges __ each other.", o:["Repel","Attract","Have no effect on","Cancel exactly"], c:1, t:"summary"},
+  {q:"Electric dipole moment is a:", o:["Scalar","Vector pointing from − to + charge","Vector pointing from + to − charge","Tensor"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"Coulomb force between two charges varies with distance r as:", o:["1/r","1/r²","r","r²"], c:1, t:"concept"},
+  {q:"The ratio F₁₂/F₂₁ between two point charges (Newton's third law for electric force) is:", o:["1","2","½","Cannot be determined"], c:0, t:"concept"},
+  {q:"If the distance between two charges is doubled, the force becomes:", o:["Twice","Four times","Half","One-fourth"], c:3, t:"concept"},
+  {q:"Electric field lines start from __ charge and end at __ charge.", o:["Negative; positive","Positive; negative","Both positive","Both negative"], c:1, t:"concept"},
+  {q:"Electric field inside a hollow conductor (in equilibrium) is:", o:["Maximum","Zero","Equal to surface","Infinite"], c:1, t:"concept"},
+  {q:"Electron volt (eV) is a unit of:", o:["Charge","Potential","Energy","Field"], c:2, t:"concept"},
+  {q:"Two field lines:", o:["Can intersect","Never intersect","Always intersect","Are parallel only"], c:1, t:"concept"},
+],
+
+"Unit 9: Capacitors": [
+  // BOOK MCQs
+  {q:"The capacitance of a capacitor is NOT influenced by:", o:["Plate thickness","Plate area","Plate separation","Nature of the dielectric"], c:0, t:"mcq"},
+  {q:"What is the value of the capacitance of a capacitor that has a voltage of 4 V and 16 C of charge?", o:["2 F","4 F","6 F","8 F"], c:1, t:"mcq"},
+  {q:"Capacitors are used in electric power supply systems to:", o:["Improve power factor","Reduce line current","Provide voltage stability","All of these (improving power factor)"], c:0, t:"mcq"},
+  {q:"In a variable capacitor, the capacitance can be varied by:", o:["Turning the rotatable plates in or out","Changing the plates","Sliding the rotatable plates","Changing the material of plates"], c:0, t:"mcq"},
+  {q:"Energy stored in a capacitor is given by:", o:["E = ½CV","E = ½CV²","E = CV²","E = ½/CV"], c:1, t:"mcq"},
+  {q:"The time constant of a series RC circuit consisting of a 100 μF capacitor in series with a 100 Ω resistor is:", o:["0.1 s","0.1 ms","0.01 s","0.01 ms"], c:2, t:"mcq"},
+  {q:"The charging of a capacitor through a resistance follows:", o:["Linear law","Square law","Exponential law","Inverse square law"], c:2, t:"mcq"},
+  {q:"When the total charge on a capacitor is doubled, the energy stored:", o:["Remains the same","Is doubled","Is halved","Is quadrupled"], c:3, t:"mcq"},
+  {q:"A capacitance C is charged through a resistor R. The time constant of the charging circuit is:", o:["C/R","1/RC","RC","R/C"], c:2, t:"mcq"},
+  {q:"A capacitor blocks:", o:["Alternating current","Direct current","Both AC and DC","Neither AC nor DC"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"A capacitor is a device used to store:", o:["Mass","Electric charge / energy","Heat only","Sound"], c:1, t:"summary"},
+  {q:"SI unit of capacitance is:", o:["Coulomb","Farad","Volt","Joule"], c:1, t:"summary"},
+  {q:"1 Farad equals:", o:["1 C/V","1 V/C","1 J/C","1 V·C"], c:0, t:"summary"},
+  {q:"Capacitance of a parallel plate capacitor is given by:", o:["ε₀A/d","d/ε₀A","ε₀d/A","A/(ε₀d)"], c:0, t:"summary"},
+  {q:"With the presence of a dielectric between the plates, capacitance:", o:["Decreases","Remains the same","Increases","Becomes zero"], c:2, t:"summary"},
+  {q:"Capacitance of a parallel-plate capacitor is directly proportional to:", o:["Plate separation d","Area A of plates","1/A","Plate thickness"], c:1, t:"summary"},
+  {q:"Capacitance of a parallel-plate capacitor is inversely proportional to:", o:["Plate area","Plate separation d","Dielectric constant","Charge"], c:1, t:"summary"},
+  {q:"For capacitors in parallel, equivalent capacitance C_eq equals:", o:["C₁ + C₂ + ...","1/C₁ + 1/C₂ + ...","C₁ × C₂","Smallest C"], c:0, t:"summary"},
+  {q:"For capacitors in series, 1/C_eq equals:", o:["C₁ + C₂","1/C₁ + 1/C₂ + ...","C₁ × C₂","√(C₁²+C₂²)"], c:1, t:"summary"},
+  {q:"Dielectric constant (relative permittivity) of vacuum is:", o:["0","1","∞","2"], c:1, t:"summary"},
+  {q:"Time constant of an RC circuit has units of:", o:["Volts","Amps","Seconds","Farads"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"With the presence of a dielectric between the plates of a parallel plate capacitor, the capacitance:", o:["Decreases","Remains the same","Increases","Becomes zero"], c:2, t:"concept"},
+  {q:"The charging of a capacitor through a resistance follows:", o:["Linear law","Inverse square law","Exponential law","Power law"], c:2, t:"concept"},
+  {q:"Energy stored in a capacitor of capacitance C charged to voltage V is:", o:["CV","½CV","½CV²","CV²"], c:2, t:"concept"},
+  {q:"Two 4 μF capacitors in series have an equivalent capacitance of:", o:["8 μF","4 μF","2 μF","16 μF"], c:2, t:"concept"},
+  {q:"Two 4 μF capacitors in parallel have an equivalent capacitance of:", o:["2 μF","4 μF","8 μF","16 μF"], c:2, t:"concept"},
+  {q:"The dielectric placed between capacitor plates serves to:", o:["Reduce capacitance","Increase capacitance","Increase resistance only","Block current always"], c:1, t:"concept"},
+  {q:"In a capacitor, when fully charged, the current flowing in the circuit is:", o:["Maximum","Zero","Variable","Equal to V/R"], c:1, t:"concept"},
+],
+
+"Unit 10: D.C. Circuits": [
+  // BOOK MCQs
+  {q:"Kirchhoff's laws are useful in determining:", o:["Current flowing in a circuit","emf and voltage drops in a circuit","Power in a circuit","Only emf in a circuit"], c:0, t:"mcq"},
+  {q:"The resistance of a superconductor is:", o:["Finite","Infinite","Changes with every conductor","Zero"], c:3, t:"mcq"},
+  {q:"The reciprocal of resistance is called:", o:["Conductance","Resistivity","Resonance","Capacitance"], c:0, t:"mcq"},
+  {q:"The graphical representation of Ohm's law (V vs I) is:", o:["Parabola","Hyperbola","Ellipse","Straight line"], c:3, t:"mcq"},
+  {q:"A potential difference is applied across a wire. If the potential difference is doubled, then the drift velocity of free electrons will:", o:["Be quadrupled","Be doubled","Be halved","Remain unchanged"], c:1, t:"mcq"},
+  {q:"Internal resistance is the resistance offered by:", o:["Capacitor","Resistor","Conductor","Source of emf"], c:3, t:"mcq"},
+  {q:"Power dissipation in a resistor can be calculated using which formula?", o:["P = V²/R","P = F × R","P = V × I","P = R/(V × I)"], c:2, t:"mcq"},
+  {q:"What is a potentiometer primarily used for?", o:["Measuring electric current","Measuring electric charge","Measuring potential difference (voltage)","Measuring electric resistance"], c:2, t:"mcq"},
+  {q:"A heat-sensitive device whose resistivity changes with the change in temperature is called:", o:["Conductor","Resistor","Thermistor","Thermometer"], c:2, t:"mcq"},
+  {q:"A wire of uniform area of cross-section A, length L and resistance R is cut into two parts. The resistivity of each part:", o:["Becomes zero","Is halved","Is doubled","Remains the same"], c:3, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Ohm's law states V =:", o:["I/R","IR","R/I","I + R"], c:1, t:"summary"},
+  {q:"SI unit of resistance is:", o:["Volt","Ampere","Ohm (Ω)","Watt"], c:2, t:"summary"},
+  {q:"Resistance of a conductor depends on:", o:["Length only","Area only","Length, area and material (resistivity)","Voltage only"], c:2, t:"summary"},
+  {q:"R = ρL/A, where ρ is:", o:["Resistance","Resistivity (specific resistance)","Conductance","Capacitance"], c:1, t:"summary"},
+  {q:"For metallic conductors, as temperature increases, resistance:", o:["Decreases","Increases","Remains constant","Becomes zero"], c:1, t:"summary"},
+  {q:"For semiconductors, as temperature increases, resistance generally:", o:["Increases","Decreases","Remains constant","Becomes infinite"], c:1, t:"summary"},
+  {q:"Kirchhoff's first law (KCL) is based on conservation of:", o:["Energy","Charge","Mass","Momentum"], c:1, t:"summary"},
+  {q:"Kirchhoff's second law (KVL) is based on conservation of:", o:["Charge","Mass","Energy","Momentum"], c:2, t:"summary"},
+  {q:"emf of a cell is the energy supplied per unit:", o:["Mass","Charge","Time","Volume"], c:1, t:"summary"},
+  {q:"Wheatstone bridge is used to measure:", o:["Current","Unknown resistance","Potential difference","Capacitance"], c:1, t:"summary"},
+  {q:"Drift velocity is the average velocity of __ in a conductor due to applied electric field.", o:["Protons","Free electrons","Neutrons","Atoms"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"By increasing temperature of a metallic conductor, resistance will:", o:["Decrease","Increase","Remain same","Become zero"], c:1, t:"concept"},
+  {q:"If a wire of resistance R is cut into two equal parts, the resistance of each part is:", o:["R","R/2","2R","4R"], c:1, t:"concept"},
+  {q:"If a wire of length L is stretched to double its length, its resistance becomes:", o:["R","2R","4R","R/2"], c:2, t:"concept"},
+  {q:"SI unit of conductance is:", o:["Ohm","Siemens (S)","Volt","Henry"], c:1, t:"concept"},
+  {q:"Power consumed in a resistor R when current I flows is:", o:["IR","I²R","I/R","IR²"], c:1, t:"concept"},
+  {q:"In a series circuit, current is:", o:["Same in all components","Different in each component","Zero","Doubled at each branch"], c:0, t:"concept"},
+  {q:"In a parallel circuit, voltage across each branch is:", o:["Different","The same","Zero","Half of source"], c:1, t:"concept"},
+],
+
+"Unit 11: Oscillations": [
+  // BOOK MCQs
+  {q:"Two simple pendulums A and B have the same length and equal amplitude. Mass of A is twice the mass of B. Their periods T_A, T_B and energies E_A, E_B satisfy:", o:["T_A = T_B and E_A > E_B","T_A < T_B and E_A > E_B","T_A > T_B and E_A < E_B","T_A = T_B and E_A < E_B"], c:0, t:"mcq"},
+  {q:"In order to double the period of a simple pendulum:", o:["Its length should be doubled","Its length should be quadrupled","The mass should be doubled","The mass should be quadrupled"], c:1, t:"mcq"},
+  {q:"A simple harmonic oscillator has amplitude A and time period τ. Its maximum speed is:", o:["4A/τ","2A/τ","4πA/τ","2πA/τ"], c:3, t:"mcq"},
+  {q:"A spring with a load of weight W vibrates with period T. If the spring is divided into four equal parts and the same load is suspended from one of these parts, the new time period is:", o:["T/2","2T","T/4","4T"], c:0, t:"mcq"},
+  {q:"The total energy of a particle executing simple harmonic motion is proportional to:", o:["Frequency of oscillation","Maximum velocity","Amplitude","Square of amplitude"], c:3, t:"mcq"},
+  {q:"A child swinging on a swing in sitting position stands up. Then the time period of the swing will:", o:["Increase","Decrease","Remain the same","Increase if the child is long, decrease if short"], c:1, t:"mcq"},
+  {q:"If a body oscillates at the angular frequency ω_d of the driving force, then the oscillations are called:", o:["Forced oscillations","Coupled oscillations","Free oscillations","Maintained oscillations"], c:0, t:"mcq"},
+  {q:"A simple harmonic oscillator with natural frequency ω_n is forced to oscillate with driving frequency ω_d. Resonance occurs when:", o:["ω_n < ω_d","ω_n > ω_d","ω_n = ω_d","ω_n is half of ω_d"], c:2, t:"mcq"},
+  {q:"In vehicles, shock absorbers reduce jerks because:", o:["Shock absorber is an application of damped oscillations","Damping is due to frictional loss of energy","Shock absorbers reduce jerks","All of these"], c:3, t:"mcq"},
+  {q:"A heavily damped system has a fairly flat resonance curve in:", o:["An acceleration–time graph","An amplitude–frequency graph","A velocity–time graph","A distance–time graph"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Simple harmonic motion (SHM) is the periodic motion in which acceleration is proportional to:", o:["Velocity","Mass","Displacement (and oppositely directed)","Frequency"], c:2, t:"summary"},
+  {q:"In SHM, the restoring force is:", o:["Constant","Proportional to and opposite to displacement","Zero","Always positive"], c:1, t:"summary"},
+  {q:"Time period of a simple pendulum is T = 2π√(L/g). It depends on:", o:["Mass","Amplitude","Length and g","Material"], c:2, t:"summary"},
+  {q:"Time period of a mass-spring system is T = 2π√(m/k). It depends on:", o:["Length","Mass and spring constant","Amplitude","g"], c:1, t:"summary"},
+  {q:"Frequency is the reciprocal of:", o:["Velocity","Wavelength","Period","Amplitude"], c:2, t:"summary"},
+  {q:"At the mean position of SHM, the velocity is:", o:["Zero","Half of maximum","Maximum","Equal to amplitude"], c:2, t:"summary"},
+  {q:"At the extreme position of SHM, the velocity is:", o:["Maximum","Half of maximum","Zero","Twice the average"], c:2, t:"summary"},
+  {q:"At the extreme position of SHM, the acceleration is:", o:["Zero","Maximum","Half of maximum","Equal to velocity"], c:1, t:"summary"},
+  {q:"In SHM, the kinetic energy is maximum at:", o:["Extreme position","Mean / equilibrium position","One-fourth amplitude","Three-fourth amplitude"], c:1, t:"summary"},
+  {q:"Resonance occurs when the driving frequency equals the:", o:["Damping frequency","Natural frequency of the system","Twice the natural frequency","Zero"], c:1, t:"summary"},
+  {q:"Resistive forces that gradually reduce amplitude in oscillations cause:", o:["Resonance","Damping","Free oscillation","Forced oscillation"], c:1, t:"summary"},
+  // CONCEPT MCQs
+  {q:"Oscillations in which the amplitude gradually decreases over time due to energy loss are called:", o:["Free oscillations","Forced oscillations","Damped oscillations","Resonance"], c:2, t:"concept"},
+  {q:"The physical quantity which remains constant during simple harmonic motion (without damping) is:", o:["Velocity","Acceleration","Total energy","Momentum"], c:2, t:"concept"},
+  {q:"A child standing up on a swing decreases the effective length, so the period:", o:["Increases","Decreases","Remains constant","Becomes infinite"], c:1, t:"concept"},
+  {q:"Q-factor is a measure of:", o:["Mass of oscillator","Sharpness of resonance","Frequency only","Damping only"], c:1, t:"concept"},
+  {q:"Total energy of a particle in SHM is given by:", o:["½kA","½kA²","½ kx","kA²"], c:1, t:"concept"},
+  {q:"In SHM, when displacement is maximum, the kinetic energy is:", o:["Maximum","Half","Zero","Equal to PE"], c:2, t:"concept"},
+  {q:"Maximum acceleration in SHM is:", o:["ωA","ω²A","ωA²","ω/A"], c:1, t:"concept"},
+],
+
+"Unit 12: Acoustics": [
+  // BOOK MCQs
+  {q:"The speed v of a wave represented by y = A sin(ωt − kx) is:", o:["k/ω","ω/k","ωk","1/(ωk)"], c:1, t:"mcq"},
+  {q:"Two sound waves are y = A sin(ωt − kx) and y = A cos(ωt − kx). The phase difference between them is:", o:["π/2","π/4","π","0"], c:0, t:"mcq"},
+  {q:"If v_a, v_h and v_m are the speeds of sound in air, hydrogen gas, and a metal at the same temperature, then:", o:["v_a < v_h < v_m","v_a < v_m < v_h","v_h > v_m > v_a","v_h > v_a > v_m"], c:0, t:"mcq"},
+  {q:"The speed of sound in air at STP is 332 m/s. If the air pressure becomes double at the same temperature, the speed of sound becomes:", o:["1382 m/s","664 m/s","332 m/s","166 m/s"], c:2, t:"mcq"},
+  {q:"How does the speed v of sound in air depend on atmospheric pressure P (at constant temperature)?", o:["v ∝ P²","v ∝ P","v ∝ P⁻¹","v is independent of P (v ∝ P⁰)"], c:3, t:"mcq"},
+  {q:"The speed of sound in a gas is proportional to:", o:["Square root of isothermal elasticity","Square root of adiabatic elasticity","Isothermal elasticity","Adiabatic elasticity"], c:1, t:"mcq"},
+  {q:"The length of a pipe closed at one end is L. In the standing wave whose frequency is 7 times the fundamental, the closest distance between two adjacent nodes is:", o:["L/7","L/14","2L/7","4L/7"], c:2, t:"mcq"},
+  {q:"A 620 Hz frequency song from an ice-cream trolley approaches a stationary boy with speed v (heard frequency f₁). Then the trolley is stopped and the boy approaches it with the same speed v (heard frequency f₂). Choose the correct statement:", o:["f₁ = f₂; both > 620 Hz","f₂ > f₁ > 620 Hz","f₁ = f₂; both < 620 Hz","f₁ > f₂ > 620 Hz"], c:3, t:"mcq"},
+  {q:"The speed of sound in a gas in which two waves of wavelengths 50 cm and 50.4 cm produce 6 beats per second is:", o:["338 m/s","350 m/s","378 m/s","400 m/s"], c:2, t:"mcq"},
+  {q:"The speed of a wave in a medium is 760 m/s. If 3600 waves pass through a point in 2 minutes, its wavelength is:", o:["13.85 m","25.3 m","41.5 m","57.2 m"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Sound waves are:", o:["Transverse waves","Longitudinal waves (compressional)","Electromagnetic waves","Stationary waves only"], c:1, t:"summary"},
+  {q:"Audible range of human hearing is approximately:", o:["1 Hz to 10 Hz","20 Hz to 20 kHz","20 kHz to 200 kHz","Above 200 kHz"], c:1, t:"summary"},
+  {q:"Sound waves with frequencies above 20 kHz are called:", o:["Infrasound","Audible sound","Ultrasound","Microwaves"], c:2, t:"summary"},
+  {q:"Sound waves with frequencies below 20 Hz are called:", o:["Infrasound","Ultrasound","Audible sound","Radio waves"], c:0, t:"summary"},
+  {q:"The speed of sound in air at 0°C (273 K) is approximately:", o:["332 m/s","3 × 10⁸ m/s","1500 m/s","100 m/s"], c:0, t:"summary"},
+  {q:"When two sound waves close in frequency superimpose, they produce:", o:["Interference fringes","Beats","Diffraction","Polarization"], c:1, t:"summary"},
+  {q:"The frequency of beats equals:", o:["f₁ + f₂","f₁ × f₂","|f₁ − f₂|","f₁ / f₂"], c:2, t:"summary"},
+  {q:"In a pipe open at both ends, all harmonics that exist are:", o:["Odd only","Even only","All integral multiples of fundamental","None"], c:2, t:"summary"},
+  {q:"In a pipe closed at one end, only __ harmonics exist.", o:["Odd","Even","All","None"], c:0, t:"summary"},
+  {q:"The Doppler effect refers to the apparent change in __ due to relative motion between source and observer.", o:["Amplitude","Frequency","Speed of sound","Wavelength only"], c:1, t:"summary"},
+  {q:"Speed of sound in a fluid is given by v = √(B/ρ) where B is:", o:["Bulk modulus","Young's modulus","Shear modulus","Pressure"], c:0, t:"summary"},
+  // CONCEPT MCQs
+  {q:"At the same temperature, the speed of sound is highest in:", o:["Air","Hydrogen","Solid metal","Water"], c:2, t:"concept"},
+  {q:"Doubling the pressure of a gas at constant temperature changes the speed of sound by a factor of:", o:["2","√2","1 (no change)","½"], c:2, t:"concept"},
+  {q:"The pitch of a sound wave depends on its:", o:["Amplitude","Frequency","Speed","Phase"], c:1, t:"concept"},
+  {q:"The loudness of a sound depends on its:", o:["Frequency","Amplitude (intensity)","Wavelength","Speed"], c:1, t:"concept"},
+  {q:"A stationary observer hears a higher frequency when the source is:", o:["Moving away","Stationary","Approaching","Vibrating only"], c:2, t:"concept"},
+  {q:"If T is doubled (in kelvin), the speed of sound in a gas changes by factor:", o:["2","½","√2","1/√2"], c:2, t:"concept"},
+  {q:"SONAR uses:", o:["Infrasound","Ultrasound","Visible light","Radio waves"], c:1, t:"concept"},
+],
+
+"Unit 13: Physical Optics": [
+  // BOOK MCQs
+  {q:"If the wavelength of an electromagnetic wave is about the diameter of a cricket ball, the radiation is:", o:["X-rays","Ultraviolet","Radio waves","Visible light"], c:2, t:"mcq"},
+  {q:"Electromagnetic waves diffracted on passing through gaps of order 10 m are most likely:", o:["Microwaves","Ultraviolet","Radio waves","Infra-red waves"], c:2, t:"mcq"},
+  {q:"Huygens's conception of secondary waves:", o:["Helps to find focal length of a thick lens","Is a geometrical method to find a wavefront","Is used to determine the velocity of light","Is used to explain polarization of light"], c:1, t:"mcq"},
+  {q:"In Young's double-slit experiment, if the intensity from one slit is reduced, the interference pattern shows:", o:["All fringes brighter","All fringes darker","Bright fringes brighter and dark fringes darker","Bright fringes darker and dark fringes brighter"], c:3, t:"mcq"},
+  {q:"In Young's experiment, when the distance between slits and screen is doubled and the slit separation is halved, the fringe width becomes:", o:["4 times","½ times","Doubled","Unchanged"], c:0, t:"mcq"},
+  {q:"A ray of light passes from air into water. Striking the surface at angle of incidence 45°. Which quantities change as the light enters water? (i) wavelength (ii) frequency (iii) speed (iv) direction", o:["i and ii only","iii and iv only","i, iii and iv only","All of them"], c:2, t:"mcq"},
+  {q:"A hill separates a TV transmitter from a house. The transmitter cannot be seen from the house but the TV gets good reception. What wave phenomenon makes it possible?", o:["Coherence of waves","Diffraction of waves","Interference of waves","Refraction of waves"], c:1, t:"mcq"},
+  {q:"If a diffraction grating is replaced by one with more lines per millimetre, then:", o:["Number of maxima decreases as angle between first and second order maxima decreases","Number of maxima decreases as angle between first and second order maxima increases","Number of maxima increases as angle decreases","Number of maxima increases as angle increases"], c:1, t:"mcq"},
+  {q:"Optically active substances are those that:", o:["Produce polarized light","Rotate the plane of polarization of polarized light","Produce double refraction","Convert plane polarized light into circularly polarized light"], c:1, t:"mcq"},
+  {q:"Plane polarized light is passed through a Polaroid. As the Polaroid is given one complete rotation about the direction of light:", o:["Intensity gradually decreases to zero and stays zero","Intensity gradually increases to maximum and stays maximum","No change in intensity","Intensity varies — twice maximum and twice zero"], c:3, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"The bending of light around the corners of an obstacle is called:", o:["Reflection","Refraction","Diffraction","Polarization"], c:2, t:"summary"},
+  {q:"The phenomenon of superposition of two coherent waves giving regions of bright and dark fringes is called:", o:["Diffraction","Interference","Polarization","Dispersion"], c:1, t:"summary"},
+  {q:"The phenomenon that confirms the transverse nature of light is:", o:["Reflection","Refraction","Polarization","Diffraction"], c:2, t:"summary"},
+  {q:"In Young's double slit experiment, fringe width β =:", o:["λD/d","λd/D","Dd/λ","λ/(Dd)"], c:0, t:"summary"},
+  {q:"For constructive interference, the path difference must be:", o:["nλ (integer multiple of λ)","(n+½)λ","λ/4","Zero only"], c:0, t:"summary"},
+  {q:"For destructive interference, the path difference must be:", o:["nλ","(n+½)λ (odd multiples of λ/2)","2nλ","λ"], c:1, t:"summary"},
+  {q:"Two sources are coherent if they have:", o:["Different frequencies","Same frequency and constant phase difference","Different amplitudes only","No relation"], c:1, t:"summary"},
+  {q:"Newton's rings are formed by the interference of light reflected from:", o:["Two slits","Top and bottom of a thin air film","A grating","A prism"], c:1, t:"summary"},
+  {q:"Diffraction grating equation is:", o:["d sinθ = nλ","d cosθ = nλ","d tanθ = nλ","d/sinθ = nλ"], c:0, t:"summary"},
+  {q:"Polaroids work on the principle of:", o:["Reflection","Refraction","Selective absorption / polarization","Diffraction"], c:2, t:"summary"},
+  // CONCEPT MCQs
+  {q:"In Young's double slit experiment, when distance D is doubled and slit separation d is halved, fringe width becomes:", o:["4 times","Half","Doubled","Unchanged"], c:0, t:"concept"},
+  {q:"This property of light does NOT change when it passes from one medium to another:", o:["Velocity","Amplitude","Wavelength","Frequency"], c:3, t:"concept"},
+  {q:"When a ray of light enters obliquely from air into water, the quantities that change are:", o:["Wavelength only","Frequency only","Wavelength, speed and direction","Amplitude only"], c:2, t:"concept"},
+  {q:"In Young's double slit experiment, central fringe is:", o:["Dark","Bright","Coloured","Polarized"], c:1, t:"concept"},
+  {q:"Speed of light in vacuum is approximately:", o:["3 × 10⁶ m/s","3 × 10⁸ m/s","3 × 10¹⁰ m/s","3 × 10⁵ m/s"], c:1, t:"concept"},
+  {q:"Light is treated as a wave in:", o:["Reflection only","Photoelectric effect","Interference and diffraction","Compton effect"], c:2, t:"concept"},
+  {q:"Maximum intensity of fringe in Young's experiment occurs when path difference equals:", o:["λ/4","nλ","(2n+1)λ/2","λ/3"], c:1, t:"concept"},
+],
+
+"Unit 14: Communication": [
+  // BOOK MCQs
+  {q:"In Radio and Television broadcast, the information signal is in the form of:", o:["Analog signal","Digital signal","Both analog & digital signals","Neither analog nor digital"], c:0, t:"mcq"},
+  {q:"A communication channel may consist of:", o:["Transmission line only","Optical fibre only","Free space only","All of the above"], c:3, t:"mcq"},
+  {q:"The voltage signal generated by a microphone is:", o:["Digital in nature","Analog in nature","Hybrid in nature","Bits and bytes"], c:1, t:"mcq"},
+  {q:"As compared to sound waves, the frequency of radio waves is:", o:["Higher","Equal","Lower","May be higher or lower"], c:0, t:"mcq"},
+  {q:"The process of superimposing the signal frequency on a carrier wave is known as:", o:["Transmission","Detection","Reception","Modulation"], c:3, t:"mcq"},
+  {q:"What is the typical frequency range of signals that can be transmitted on a twisted pair of wires?", o:["10 MHz to 15 MHz","5 MHz to 10 MHz","100 Hz to 5 MHz","10 Hz to 100 Hz"], c:2, t:"mcq"},
+  {q:"The maintenance of a satellite's orbital position is called:", o:["Maintenance keeping","Station keeping","Station maintenance","Attitude control"], c:1, t:"mcq"},
+  {q:"The process of mapping sampled analog voltage values to discrete voltage levels is called:", o:["Sampling","Sampling frequency","Quantizing","Encoding"], c:2, t:"mcq"},
+  {q:"AM is used for broadcasting because:", o:["It requires less transmitting power","It is more noise immune than other systems","No other modulation can provide the necessary bandwidth","It avoids receiver complexity"], c:0, t:"mcq"},
+  {q:"Data in a compact disc is stored in the form of:", o:["Analog signal","Digital signal","Noise","Both analog and digital"], c:1, t:"mcq"},
+  // SUMMARY MCQs
+  {q:"Communication is the exchange of:", o:["Forces","Information between two or more bodies","Heat only","Sound only"], c:1, t:"summary"},
+  {q:"Analog signals are:", o:["Discrete","Continuous","Always digital","Square pulses only"], c:1, t:"summary"},
+  {q:"Digital signals have:", o:["Continuous values","Discrete values (e.g. 0 and 1)","Variable amplitude only","No values"], c:1, t:"summary"},
+  {q:"In communication systems, the carrier wave usually has:", o:["Very low frequency","Very high frequency compared to signal","Same frequency as signal","Zero frequency"], c:1, t:"summary"},
+  {q:"Two main types of modulation are:", o:["AM and FM","AC and DC","HF and VHF","Up and down"], c:0, t:"summary"},
+  {q:"In AM, the __ of the carrier wave varies with the signal.", o:["Frequency","Phase","Amplitude","Velocity"], c:2, t:"summary"},
+  {q:"In FM, the __ of the carrier wave varies with the signal.", o:["Amplitude","Phase only","Frequency","Velocity"], c:2, t:"summary"},
+  {q:"Bandwidth refers to:", o:["Total range of frequencies needed to transmit a signal","Voltage of carrier","Length of antenna","Speed of light"], c:0, t:"summary"},
+  {q:"Optical fibres carry information using:", o:["Sound","Light pulses","Electric current only","Mechanical waves"], c:1, t:"summary"},
+  {q:"Optical fibre works on the principle of:", o:["Reflection","Refraction","Total internal reflection","Diffraction"], c:2, t:"summary"},
+  {q:"Three steps in A/D conversion are:", o:["Sampling, quantizing, encoding","Modulation, demodulation, detection","Sending, receiving, decoding","Encoding, reception, modulation"], c:0, t:"summary"},
+  // CONCEPT MCQs
+  {q:"The process of superimposing signal frequency on the carrier wave is known as:", o:["Resonance","Modulation","Damping","Diffraction"], c:1, t:"concept"},
+  {q:"FM is generally __ noise immune than AM.", o:["Less","More","Equally","Not"], c:1, t:"concept"},
+  {q:"Coaxial cables typically support data rates of:", o:["10 to 100 Mbps","1 to 10 bps","Less than 1 bps",">1 Tbps always"], c:0, t:"concept"},
+  {q:"Satellite communication uses very high frequencies in the range:", o:["1 Hz to 50 Hz","1 kHz to 50 kHz","1 MHz to 50 MHz","1 GHz to 50 GHz"], c:3, t:"concept"},
+  {q:"Demodulation is the process of:", o:["Adding signal to carrier","Recovering the original signal from the modulated carrier","Increasing amplitude","Increasing frequency"], c:1, t:"concept"},
+  {q:"The function of a transducer in a communication system is to:", o:["Amplify signal","Convert one form of energy to another","Modulate carrier","Transmit signal directly"], c:1, t:"concept"},
+  {q:"In a digital communication system, the analog signal is first converted to digital using:", o:["D/A conversion","A/D conversion","Modulation","Encoding only"], c:1, t:"concept"},
+],
+
+};
+
+let currentChapter=null,userAnswers={},stats={total:0,answered:0,correct:0};
+function initializeApp(){generateWatermarks();createChapterButtons();updateStats();}
+function generateWatermarks(){
+  const o=document.getElementById('watermarkOverlay'),t="Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057";
+  for(let r=0;r<6;r++)for(let c=0;c<3;c++){const s=document.createElement('span');s.textContent=t;s.style.left=(c*38-5)+'%';s.style.top=(r*18-5)+'%';o.appendChild(s);}
+}
+function createChapterButtons(){
+  const container=document.getElementById('chapterButtons');
+  Object.keys(mcqData).forEach(ch=>{
+    const btn=document.createElement('button');btn.className='chapter-btn';
+    const qs=mcqData[ch],m=qs.filter(q=>q.t==='mcq').length,s=qs.filter(q=>q.t==='summary').length,c=qs.filter(q=>q.t==='concept').length;
+    btn.innerHTML=ch+'<span class="q-count">📖'+m+' 🌟'+s+' 💡'+c+' = '+qs.length+'Qs</span>';
+    btn.onclick=()=>loadChapter(ch);container.appendChild(btn);
+  });
+}
+function loadChapter(ch){
+  currentChapter=ch;userAnswers={};
+  document.querySelectorAll('.chapter-btn').forEach(b=>b.classList.toggle('active',b.innerHTML.startsWith(ch)));
+  const con=document.getElementById('quizContainer');con.innerHTML='';con.classList.add('active');
+  const qs=mcqData[ch];stats.total=qs.length;stats.answered=0;stats.correct=0;
+  let idx=0;
+  [{type:'mcq',label:'📖 Book Multiple Choice Questions',cls:'sh-mcq'},{type:'summary',label:'🌟 Summary — Key Points',cls:'sh-summary'},{type:'concept',label:'💡 Chapter Concepts — Exam Likely',cls:'sh-concept'}].forEach(g=>{
+    const gqs=qs.filter(q=>q.t===g.type);if(!gqs.length)return;
+    const h=document.createElement('div');h.className='section-heading '+g.cls;h.textContent=g.label;con.appendChild(h);
+    gqs.forEach(q=>con.appendChild(createCard(q,idx++)));
+  });
+  const sum=document.createElement('div');sum.id='resultSummary';con.appendChild(sum);
+  updateStats();con.scrollIntoView({behavior:'smooth'});
+}
+function createCard(q,i){
+  const tl={mcq:'📖 MCQ',summary:'🌟 Summary',concept:'💡 Concept'}[q.t];
+  const tc2={mcq:'t-mcq',summary:'t-sum',concept:'t-con'}[q.t];
+  const card=document.createElement('div');
+  card.className='question-card'+(q.t==='summary'?' sum-card':q.t==='concept'?' con-card':'');
+  card.id='question-'+i;
+  card.innerHTML=`<div class="question-header"><span class="question-number">Q ${i+1}</span><span class="question-type ${tc2}">${tl}</span></div><div class="question-text">${q.q}</div><div class="options" id="options-${i}">${q.o.map((o,j)=>`<div class="option" onclick="selectOption(${i},${j})">${String.fromCharCode(97+j)}) ${o}</div>`).join('')}</div><button class="check-btn" onclick="checkAnswer(${i})" id="check-${i}">Check Answer</button><div class="feedback" id="feedback-${i}"></div>`;
+  return card;
+}
+function selectOption(qi,oi){
+  if(userAnswers[qi]?.checked)return;
+  document.querySelectorAll(`#options-${qi} .option`).forEach((o,i)=>o.classList.toggle('selected',i===oi));
+  userAnswers[qi]={selected:oi,checked:false};
+}
+function checkAnswer(qi){
+  const qs=mcqData[currentChapter];
+  const allQ=[];
+  [{type:'mcq'},{type:'summary'},{type:'concept'}].forEach(g=>{qs.filter(q=>q.t===g.type).forEach(q=>allQ.push(q));});
+  const q=allQ[qi],a=userAnswers[qi];
+  if(!a||a.checked)return;a.checked=true;
+  const ok=a.selected===q.c;if(ok)stats.correct++;stats.answered++;
+  document.querySelectorAll(`#options-${qi} .option`).forEach((o,i)=>{o.classList.add('disabled');if(i===q.c)o.classList.add('correct');else if(i===a.selected&&!ok)o.classList.add('wrong');});
+  const fb=document.getElementById(`feedback-${qi}`);
+  fb.className=`feedback show ${ok?'correct':'wrong'}`;
+  fb.textContent=ok?'✓ Correct! Well done!':`✗ Wrong! Correct: ${String.fromCharCode(97+q.c)}) ${q.o[q.c]}`;
+  document.getElementById(`check-${qi}`).disabled=true;updateStats();
+  if(stats.answered===stats.total)showResult();
+}
+function updateStats(){
+  document.getElementById('totalQuestions').textContent=stats.total;
+  document.getElementById('answeredQuestions').textContent=stats.answered;
+  document.getElementById('correctAnswers').textContent=stats.correct;
+  document.getElementById('scorePercentage').textContent=(stats.total>0?Math.round(stats.correct/stats.total*100):0)+'%';
+}
+function showResult(){
+  const p=Math.round(stats.correct/stats.total*100);
+  let g='D',m='Need More Practice! 💪';
+  if(p>=90){g='A+';m='Outstanding! 🌟';}else if(p>=80){g='A';m='Excellent! 🎉';}else if(p>=70){g='B';m='Good Job! 👍';}else if(p>=60){g='C';m='Keep Practicing! 📚';}
+  document.getElementById('resultSummary').innerHTML=`<div class="result-summary"><h2>${m}</h2><div class="result-stats"><div class="result-stat"><div class="result-stat-value">${stats.correct}/${stats.total}</div><div class="result-stat-label">Correct</div></div><div class="result-stat"><div class="result-stat-value">${p}%</div><div class="result-stat-label">Score</div></div><div class="result-stat"><div class="result-stat-value">${g}</div><div class="result-stat-label">Grade</div></div></div><button class="reset-btn" onclick="loadChapter('${currentChapter}')">🔄 Try Again</button><button class="reset-btn" onclick="location.reload()">📚 Units</button></div>`;
+  document.getElementById('resultSummary').scrollIntoView({behavior:'smooth'});
+}
+initializeApp();
+</script>
+</body>
+</html>
