@@ -670,7 +670,7 @@ function renderQuestion(chapter, qIdx, q, displayNum){
   </div>`;
 }
 
-function loadChapter(chapter){
+function loadChapter(chapter, scrollToTop=true){
   state.currentChapter=chapter;
   state.bookmarkMode=false;
   document.querySelectorAll('.chapter-btn, .past-paper-btn').forEach(b=>b.classList.remove('active'));
@@ -742,7 +742,7 @@ function selectAnswer(chapter,qIdx,optIdx){
   state.answers[key]=optIdx;
   updateStats();
   if(state.bookmarkMode) showBookmarks();
-  else loadChapter(chapter);
+  else loadChapter(chapter, false);
 }
 
 function toggleBookmark(chapter,qIdx){
