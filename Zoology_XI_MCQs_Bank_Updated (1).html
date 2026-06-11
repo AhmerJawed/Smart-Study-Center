@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoology Class XI — MCQ Bank | Sir Ahmer Javed | Smart Study Center</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a4731 0%,#2d7a4f 50%,#1a6b3a 100%);min-height:100vh;padding:20px}
+.container{max-width:960px;margin:0 auto;background:white;border-radius:20px;box-shadow:0 25px 70px rgba(0,0,0,0.5);overflow:hidden}
+
+/* BRAND HEADER */
+.brand-header{background:linear-gradient(135deg,#0d1b2a 0%,#1b2d4a 60%,#0f3460 100%);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand-left{display:flex;align-items:center;gap:14px}
+.brand-logo{width:72px;height:72px;border-radius:50%;border:3px solid #ffd700;box-shadow:0 0 0 4px rgba(255,215,0,0.2);background:linear-gradient(135deg,#1a4731,#2d7a4f);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.brand-titles{display:flex;flex-direction:column;gap:4px;flex:1;text-align:center}
+.brand-name{font-size:22px;font-weight:900;color:#ffd700;letter-spacing:1.5px;text-shadow:0 1px 6px rgba(0,0,0,0.5);text-transform:uppercase}
+.brand-center-text{font-size:13px;color:#c8d8f0;font-weight:600;letter-spacing:.5px}
+.brand-contact{font-size:11px;color:#8aaed6;margin-top:2px;letter-spacing:.3px}
+.brand-right{display:flex;align-items:center}
+.sir-avatar{width:72px;height:72px;border-radius:50%;border:3px solid #ffd700;box-shadow:0 0 0 4px rgba(255,215,0,0.2);background:linear-gradient(135deg,#2d7a4f,#1a4731);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+
+/* SOCIAL ROW */
+.social-row{background:linear-gradient(90deg,#060d1a,#0a1628,#060d1a);display:flex;justify-content:center;align-items:center;gap:14px;padding:10px 16px;flex-wrap:wrap}
+.social-btn{display:inline-flex;align-items:center;gap:9px;padding:9px 22px;border-radius:30px;font-size:13px;font-weight:700;text-decoration:none;color:white;transition:all .3s;box-shadow:0 3px 10px rgba(0,0,0,0.35)}
+.social-btn:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,0.45)}
+.wa-btn{background:linear-gradient(135deg,#25d366,#128c7e)}
+.ig-btn{background:linear-gradient(135deg,#405de6,#5851db,#833ab4,#c13584,#e1306c,#fd1d1d)}
+
+/* MAIN HEADER */
+.header{background:linear-gradient(135deg,#1a4731 0%,#2d7a4f 100%);color:white;padding:28px 30px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.05)}
+.header::after{content:'';position:absolute;bottom:-60px;left:-40px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.04)}
+.header h1{font-size:23px;font-weight:900;margin-bottom:8px;position:relative;z-index:1;line-height:1.3}
+.header p{opacity:.85;font-size:13px;position:relative;z-index:1;line-height:1.6}
+.badge-row{display:flex;justify-content:center;gap:8px;margin-top:14px;flex-wrap:wrap;position:relative;z-index:1}
+.badge{background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:5px 15px;font-size:12px;font-weight:700}
+
+/* STATS */
+.stats{display:flex;justify-content:space-around;padding:14px;background:#f0f9f4;border-bottom:2px solid #c8e6d4;flex-wrap:wrap;gap:8px}
+.stat-item{text-align:center}
+.stat-label{font-size:10px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.stat-value{font-size:24px;font-weight:900;color:#2d7a4f;margin-top:3px}
+
+/* CHAPTER SELECTOR */
+.chapter-selector{padding:20px;background:#f8fdf9}
+.chapter-selector h3{margin-bottom:14px;color:#1a3d2b;font-size:15px;font-weight:700}
+.chapter-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.chapter-btn{padding:11px 14px;background:white;border:2px solid #2d7a4f;border-radius:10px;cursor:pointer;font-size:12px;transition:all .3s;color:#2d7a4f;font-weight:700;text-align:left;box-shadow:0 2px 6px rgba(45,122,79,0.08)}
+.chapter-btn:hover,.chapter-btn.active{background:linear-gradient(135deg,#2d7a4f,#1a4731);color:white;transform:translateY(-2px);box-shadow:0 6px 18px rgba(45,122,79,.35)}
+.chapter-btn .q-count{display:block;font-size:11px;opacity:.75;margin-top:3px}
+
+/* QUIZ AREA */
+.quiz-container{padding:25px;display:none}
+.quiz-container.active{display:block}
+.section-heading{padding:12px 20px;border-radius:10px;font-size:13px;font-weight:800;margin:22px 0 14px;letter-spacing:.6px;text-transform:uppercase;box-shadow:0 4px 12px rgba(45,122,79,.3)}
+.sh-mcq{background:linear-gradient(135deg,#1a4731,#2d7a4f);color:white}
+
+/* QUESTION CARDS */
+.question-card{background:white;border-radius:14px;padding:22px;margin-bottom:16px;border-left:5px solid #2d7a4f;box-shadow:0 3px 12px rgba(0,0,0,0.07);transition:box-shadow .2s}
+.question-card:hover{box-shadow:0 6px 22px rgba(0,0,0,0.12)}
+.question-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.question-number{color:white;padding:5px 16px;border-radius:20px;font-weight:800;font-size:12px;background:linear-gradient(135deg,#2d7a4f,#1a4731)}
+.question-badge{background:#e8f5ee;color:#2d7a4f;border:1px solid #b3dfc5;padding:4px 12px;border-radius:15px;font-size:11px;font-weight:700}
+.question-text{font-size:15px;color:#1a3d2b;margin-bottom:14px;line-height:1.65;font-weight:500}
+.options{display:grid;gap:9px}
+.option{padding:12px 16px;background:#f8fdf9;border:2px solid #e2e8f0;border-radius:9px;cursor:pointer;transition:all .25s;font-size:14px;color:#334155}
+.option:hover{border-color:#2d7a4f;background:#e8f5ee;color:#1a4731;transform:translateX(4px)}
+.option.selected{border-color:#2d7a4f;background:#c8e6d4;color:#1a4731;font-weight:600}
+.option.correct{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20;font-weight:700}
+.option.wrong{border-color:#c62828;background:#ffebee;color:#b71c1c;font-weight:600}
+.option.disabled{cursor:not-allowed}
+.check-btn{background:linear-gradient(135deg,#2d7a4f,#1a4731);color:white;border:none;padding:10px 28px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;transition:all .3s;box-shadow:0 3px 10px rgba(45,122,79,0.3)}
+.check-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(45,122,79,0.4)}
+.check-btn:disabled{background:#cbd5e1;cursor:not-allowed;transform:none;box-shadow:none}
+.feedback{margin-top:11px;padding:12px 16px;border-radius:9px;font-weight:700;display:none;font-size:13px}
+.feedback.show{display:block}
+.feedback.correct{background:#e8f5e9;color:#1b5e20;border:2px solid #4caf50}
+.feedback.wrong{background:#ffebee;color:#b71c1c;border:2px solid #ef5350}
+
+/* RESULT */
+.result-summary{background:linear-gradient(135deg,#1a4731 0%,#2d7a4f 100%);color:white;padding:32px;border-radius:16px;text-align:center;margin-top:22px;box-shadow:0 8px 30px rgba(45,122,79,0.4)}
+.result-summary h2{font-size:26px;margin-bottom:18px}
+.result-stats{display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap}
+.result-stat{text-align:center}
+.result-stat-value{font-size:38px;font-weight:900}
+.result-stat-label{font-size:13px;opacity:.85;margin-top:4px}
+.reset-btn{background:rgba(255,255,255,0.15);color:white;border:2px solid rgba(255,255,255,0.6);padding:10px 26px;border-radius:9px;cursor:pointer;font-size:14px;font-weight:700;margin-top:18px;margin-right:8px;transition:all .3s}
+.reset-btn:hover{background:white;color:#2d7a4f}
+
+/* FOOTER */
+.brand-footer{background:linear-gradient(135deg,#0d1b2a,#0f3460);color:#a8b4d8}
+.footer-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:16px 24px;border-bottom:1px solid rgba(255,255,255,0.07);flex-wrap:wrap}
+.footer-text{text-align:center;flex:1}
+.footer-main{font-weight:800;color:#ffd700;font-size:14px;margin-bottom:3px}
+.footer-sub{font-size:11px;color:#8aaed6;line-height:1.5}
+.footer-social{display:flex;justify-content:center;gap:10px;padding:10px 16px;flex-wrap:wrap}
+.footer-social a{display:inline-flex;align-items:center;gap:7px;color:#a8b4d8;text-decoration:none;font-size:12px;font-weight:600;padding:5px 15px;border:1px solid rgba(168,180,216,0.3);border-radius:20px;transition:all .3s}
+.footer-social a:hover{background:rgba(255,255,255,0.1);color:white}
+
+/* WATERMARK */
+.watermark-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;overflow:hidden}
+.watermark-overlay span{position:absolute;font-size:14px;font-weight:700;color:rgba(45,122,79,0.055);white-space:nowrap;transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div id="watermarkOverlay" class="watermark-overlay"></div>
+<div class="container">
+
+<!-- BRAND HEADER -->
+<div class="brand-header">
+  <div class="brand-left">
+    <div class="brand-logo">🌿</div>
+  </div>
+  <div class="brand-titles">
+    <div class="brand-name">Smart Study Center</div>
+    <div class="brand-center-text">Zoology Class XI — MCQ Bank (Old Book)</div>
+    <div class="brand-contact">Sir Ahmer Javed | 0345-3090057 | Syed Ali Academy</div>
+  </div>
+  <div class="brand-right">
+    <div class="sir-avatar">👨‍🏫</div>
+  </div>
+</div>
+
+<!-- SOCIAL ROW -->
+<div class="social-row">
+  <a href="https://wa.me/923453090057" class="social-btn wa-btn">
+    <span>📱</span> WhatsApp: 0345-3090057
+  </a>
+  <a href="#" class="social-btn ig-btn">
+    <span>📸</span> Smart Study Center
+  </a>
+</div>
+
+<!-- HEADER BANNER -->
+<div class="header">
+  <h1>📗 Zoology Class XI — MCQ Bank</h1>
+  <p>Chapter-wise Interactive MCQs | Prepare for Board Exams | Attempt & Check Instantly</p>
+  <div class="badge-row">
+    <span class="badge">🧬 Biological Molecules</span>
+    <span class="badge">⚗️ Enzymes</span>
+    <span class="badge">🔬 Cell Structure</span>
+    <span class="badge">🍄 Protoctists & Fungi</span>
+    <span class="badge">🐾 Diversity Among Animals</span>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-label">Total Questions</div>
+    <div class="stat-value" id="totalQuestions">0</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-label">Answered</div>
+    <div class="stat-value" id="answeredQuestions">0</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-label">Correct</div>
+    <div class="stat-value" id="correctAnswers">0</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-label">Score</div>
+    <div class="stat-value" id="scorePercentage">0%</div>
+  </div>
+</div>
+
+<!-- CHAPTER SELECTOR -->
+<div class="chapter-selector">
+  <h3>📚 Select a Chapter to Begin:</h3>
+  <div class="chapter-buttons" id="chapterButtons"></div>
+</div>
+
+<!-- QUIZ CONTAINER -->
+<div class="quiz-container" id="quizContainer"></div>
+
+<!-- FOOTER -->
+<div class="brand-footer">
+  <div class="footer-inner">
+    <div class="footer-text">
+      <div class="footer-main">Smart Study Center</div>
+      <div class="footer-sub">Sir Ahmer Javed | Zoology XI MCQ Bank | 0345-3090057</div>
+    </div>
+  </div>
+  <div class="footer-social">
+    <a href="https://wa.me/923453090057">📱 WhatsApp</a>
+    <a href="#">📸 Instagram</a>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+const mcqData = {
+
+"Ch.1 — Biological Molecules": [
+  {q:"The branch of biology which explains the biochemical basis of life is called:", o:["Cell Biology","Biochemistry","Molecular Biology","Microbiology"], c:1, t:"mcq"},
+  {q:"The percentage of water in a typical living cell varies approximately from:", o:["30% to 50%","60% to 70%","50% to 80%","70% to 90%"], c:3, t:"mcq"},
+  {q:"The remaining mass of a cell after evaporation of all water is called:", o:["Dry weight","Protoplasm","Biomass","Cytosol"], c:0, t:"mcq"},
+  {q:"The six main elements involved in the synthesis of biomolecules are:", o:["C, H, O, N, Ca, Fe","C, H, O, N, K, S","C, H, O, N, P, S","C, H, O, P, Fe, Cl"], c:2, t:"mcq"},
+  {q:"The breakdown of macromolecules into monomers by the addition of a water molecule is called:", o:["Condensation","Esterification","Dehydration synthesis","Hydrolysis"], c:3, t:"mcq"},
+  {q:"The joining of monomers to form a macromolecule by removal of a water molecule is called:", o:["Condensation or dehydration synthesis","Hydrolysis","Phosphorylation","Ionization"], c:0, t:"mcq"},
+  {q:"According to the chemical composition of a typical mammalian cell, the approximate percentage of protein is:", o:["10%","18%","25%","30%"], c:1, t:"mcq"},
+  {q:"The bond angle of the water molecule (H–O–H) is:", o:["90°","109.5°","120°","104.45°"], c:3, t:"mcq"},
+  {q:"The polar nature of a water molecule results from:", o:["Equal sharing of electrons between H and O","Presence of ionic bonds","Difference in electronegativities of H and O creating partial charges","Formation of covalent bonds in aqueous solution"], c:2, t:"mcq"},
+  {q:"The attractive force between similar molecules such as water–water is called:", o:["Adhesive force","Cohesive force","Hydrophobic exclusion","Surface tension"], c:1, t:"mcq"},
+  {q:"Water can behave as both an acid and a base due to which property?", o:["Amphoteric nature (ionization property)","High specific heat capacity","High heat of vaporization","Cohesion and adhesion"], c:0, t:"mcq"},
+  {q:"The anomalous behavior of water below 4°C results in:", o:["Water contracting like other liquids","Water becoming denser","Water expanding and decreasing in density, allowing ice to float","Permanent breaking of all hydrogen bonds"], c:2, t:"mcq"},
+  {q:"The general molecular formula of carbohydrates is:", o:["CₙHₙOₙ","CₙH₂ₙOₙ","CₙH₂ₙO₂ₙ","CₙHₙO₂ₙ"], c:1, t:"mcq"},
+  {q:"Monosaccharides containing 5 carbon atoms are classified as:", o:["Trioses","Tetroses","Hexoses","Pentoses"], c:3, t:"mcq"},
+  {q:"The pentose sugar that forms the basic structural skeleton of nucleic acids is:", o:["Ribose (in RNA) and deoxyribose (in DNA)","Glucose","Fructose","Galactose"], c:0, t:"mcq"},
+  {q:"The covalent bond that joins two monosaccharide units in a disaccharide is called:", o:["Peptide bond","Ester bond","Glycosidic bond","Phosphodiester bond"], c:2, t:"mcq"},
+  {q:"Sucrose is classified as a non-reducing sugar because:", o:["It lacks a carboxyl group","Both carbonyl groups are involved in the glycosidic bond","It cannot dissolve in water","It contains fructose only"], c:1, t:"mcq"},
+  {q:"Starch produces which color when treated with iodine solution?", o:["Red","Orange","Green","Blue"], c:3, t:"mcq"},
+  {q:"Which component of starch is soluble in hot water?", o:["Amylose","Amylopectin","Glycogen","Dextrin"], c:0, t:"mcq"},
+  {q:"Glycogen is primarily stored in animals in which two organs?", o:["Kidneys and lungs","Heart and spleen","Liver and muscles","Pancreas and intestine"], c:2, t:"mcq"},
+  {q:"The molecular formula of the repeating unit of chitin is:", o:["(C₆H₁₀O₅)ₙ","(C₈H₁₃O₅N)ₙ","(C₆H₁₂O₆)ₙ","(C₁₂H₂₂O₁₁)ₙ"], c:1, t:"mcq"},
+  {q:"Glycogen produces which color when treated with iodine?", o:["Blue","Green","Purple","Red"], c:3, t:"mcq"},
+  {q:"The Greek word 'Proteios' used in naming proteins means:", o:["First rank","Building block","Nitrogen compound","Complex structure"], c:0, t:"mcq"},
+  {q:"The bond formed between the amino group of one amino acid and the carboxyl group of another is:", o:["Hydrogen bond","Ester bond","Peptide bond","Glycosidic bond"], c:2, t:"mcq"},
+  {q:"The amino acid sequence of a protein molecule was first determined by which scientist?", o:["James Watson","F. Sanger","Friedrich Miescher","Bloor"], c:1, t:"mcq"},
+  {q:"In sickle cell anemia, which amino acid at the 6th position is changed to valine?", o:["Alanine","Glycine","Lysine","Glutamic acid"], c:3, t:"mcq"},
+  {q:"Which of the following correctly describes fibrous proteins?", o:["Insoluble in water; perform structural roles","Spherical; soluble in aqueous medium","Function as enzymes and antibodies","Consist of a single polypeptide chain only"], c:0, t:"mcq"},
+  {q:"Globular proteins include which of the following?", o:["Collagen and elastin","Keratin and myosin","Hemoglobin, enzymes, and antibodies","Silk fibroin and fibrin"], c:2, t:"mcq"},
+  {q:"The term 'lipid' was first proposed by:", o:["James Watson","Bloor in 1943","F. Sanger","Friedrich Miescher"], c:1, t:"mcq"},
+  {q:"Which of the following correctly describes a triglycerol (neutral fat)?", o:["Glycerol + 2 fatty acids + one phosphate","Glycerol + phosphate + choline","Glycerol + fatty acid + protein","Glycerol + 3 fatty acids with no free charge-bearing OH groups"], c:3, t:"mcq"},
+  {q:"Phospholipids are condensation products of:", o:["Glycerol, two fatty acids, one phosphate, and choline","Glycerol, three fatty acids, and choline","Fatty acids and carbohydrates only","Glycerol, fatty acids, and nitrogen bases"], c:0, t:"mcq"},
+  {q:"The steroid nucleus contains how many carbon atoms arranged in how many rings?", o:["15 carbons in 3 rings","20 carbons in 4 rings","17 carbons in 4 rings","21 carbons in 3 rings"], c:2, t:"mcq"},
+  {q:"Cholesterol serves as an important precursor for the synthesis of:", o:["Carotenoids and terpenes","Testosterone, progesterone, and estrogens","Waxes and phospholipids","Fatty acids and glycerol"], c:1, t:"mcq"},
+  {q:"Nucleic acids were first isolated and discovered by:", o:["James Watson","Francis Crick","F. Sanger","Friedrich Miescher"], c:3, t:"mcq"},
+  {q:"Which of the following correctly states the base-pairing rules in DNA?", o:["Adenine pairs with Thymine; Cytosine pairs with Guanine","Adenine pairs with Uracil; Cytosine pairs with Guanine","Adenine pairs with Guanine; Cytosine pairs with Thymine","Adenine pairs with Cytosine; Guanine pairs with Thymine"], c:0, t:"mcq"},
+],
+
+"Ch.2 — Enzymes": [
+  {q:"The term 'enzyme' was coined by:", o:["Camilo Golgi in 1898","Friedrich Wilhelm Kuhn in 1878","F. Sanger in 1950","Thomas Cech in 1980"], c:1, t:"mcq"},
+  {q:"Ribozymes were discovered by:", o:["Emil Fischer and Koshland","F. Sanger and Watson","Thomas Cech and Sidney Altman","Friedrich Miescher and Bloor"], c:2, t:"mcq"},
+  {q:"The Lock and Key model of enzyme action was proposed by:", o:["Emil Fischer in 1898","Koshland in 1959","Thomas Cech in 1980","Friedrich Kuhn in 1878"], c:0, t:"mcq"},
+  {q:"The Induced Fit model of enzyme action was proposed by:", o:["Emil Fischer","James Watson","Camilo Golgi","Koshland in 1959"], c:3, t:"mcq"},
+  {q:"The active site of an enzyme has two regions which are:", o:["Prosthetic group and co-enzyme","Binding site and catalytic site","Apo-enzyme and holoenzyme","Co-factor and activator"], c:1, t:"mcq"},
+  {q:"The non-protein organic co-factor that is permanently and covalently bound to an enzyme is called:", o:["Co-enzyme","Prosthetic group","Activator","Inhibitor"], c:1, t:"mcq"},
+  {q:"An enzyme without its co-factor is called:", o:["Apo-enzyme","Holoenzyme","Ribozyme","Endo-enzyme"], c:0, t:"mcq"},
+  {q:"An activated enzyme consisting of polypeptide chain and co-factor is called:", o:["Apo-enzyme","Endo-enzyme","Co-enzyme","Holoenzyme"], c:3, t:"mcq"},
+  {q:"The optimum temperature for most human enzymes is approximately:", o:["20°C","37°C","50°C","70°C"], c:1, t:"mcq"},
+  {q:"At 100°C, enzymes are:", o:["Most active","At optimum activity","Completely denatured","Partially inhibited"], c:2, t:"mcq"},
+  {q:"The optimum pH of pepsin (gastric enzyme) is:", o:["1.4 (works in range 1.5–2.5)","7.0","8.5","5.0"], c:0, t:"mcq"},
+  {q:"The optimum pH of salivary amylase is approximately:", o:["2.0","5.0","8.5","10.0"], c:2, t:"mcq"},
+  {q:"Penicillin is a classic example of:", o:["Non-competitive inhibition","Competitive inhibition","Un-competitive inhibition","Feed-back inhibition"], c:1, t:"mcq"},
+  {q:"In non-competitive inhibition, the inhibitor binds at:", o:["Active site","Binding site only","Allosteric site (away from active site)","Catalytic site"], c:2, t:"mcq"},
+  {q:"Feed-back inhibition is a type of:", o:["Competitive inhibition","Reversible non-competitive inhibition","Un-competitive inhibition","Irreversible inhibition"], c:1, t:"mcq"},
+  {q:"Hydrolases are enzymes that:", o:["Perform oxidation and reduction reactions","Transfer groups from one substance to another","Break bonds by addition of water (H₂O)","Catalyze intramolecular rearrangement"], c:2, t:"mcq"},
+  {q:"Isomerases are enzymes that:", o:["Transfer phosphate groups","Break bonds without hydrolysis","Convert oligomers to monomers","Catalyze intramolecular rearrangement of atoms"], c:3, t:"mcq"},
+  {q:"Transferases are enzymes responsible for:", o:["Oxidation-reduction reactions","Transferring a group from one substance to another","Breaking covalent bonds without hydrolysis","Joining two molecules with bond formation"], c:1, t:"mcq"},
+  {q:"The point at which further increase in substrate concentration has no effect on enzyme activity is called:", o:["Optimum point","Saturation point","Denaturation point","Inhibition point"], c:1, t:"mcq"},
+  {q:"Enzyme activity is measured as:", o:["The quantity of substrate transformed per unit time","The number of enzyme molecules present","The pH at which enzyme works best","The temperature at which enzyme works best"], c:0, t:"mcq"},
+],
+
+"Ch.3 — Cell Structure & Function": [
+  {q:"The primary purpose of cell fractionation is to:", o:["View cell membranes","Separate major organelles based on size and density","Increase processor speed","Store application data"], c:1, t:"mcq"},
+  {q:"The first step in cell fractionation is:", o:["Centrifugation","Electrophoresis","Homogenization","Sedimentation"], c:2, t:"mcq"},
+  {q:"The bacterial cell wall is made up of:", o:["Peptidoglycan","Chitin","Cellulose","Phospholipid"], c:0, t:"mcq"},
+  {q:"The fungal cell wall is composed of:", o:["Cellulose","Peptidoglycan","Starch","Chitin"], c:3, t:"mcq"},
+  {q:"The plant and algal cell wall is made up of:", o:["Peptidoglycan","Cellulose","Chitin","Phospholipid bilayer"], c:1, t:"mcq"},
+  {q:"The model that describes the plasma membrane structure is:", o:["Lock and key model","Induced fit model","Fluid mosaic model","Double helix model"], c:2, t:"mcq"},
+  {q:"One micrometer (micron) equals:", o:["0.001 mm (10⁻³ mm)","0.01 mm","1 mm","0.0001 mm"], c:0, t:"mcq"},
+  {q:"The Golgi complex was discovered by:", o:["F. Sanger","Watson and Crick","Camilo Golgi in 1898","Friedrich Miescher"], c:2, t:"mcq"},
+  {q:"The main function of the Golgi complex is:", o:["Protein synthesis","ATP production","Collection, packaging, and processing of cell secretions","DNA replication"], c:2, t:"mcq"},
+  {q:"Lysosomes are called 'suicidal bags' because:", o:["They explode during cell division","They contain hydrolytic enzymes that can digest cell components","They produce toxins","They destroy foreign DNA"], c:1, t:"mcq"},
+  {q:"Lysosomes originate from:", o:["Nucleus","Mitochondria","Ribosomes","Golgi bodies"], c:3, t:"mcq"},
+  {q:"Mitochondria are called the 'powerhouse of the cell' because:", o:["They store genetic information","They synthesize proteins","They produce ATP through cellular respiration","They package secretory proteins"], c:2, t:"mcq"},
+  {q:"The ribosomes of prokaryotes have a sedimentation coefficient of:", o:["80S","70S","60S","50S"], c:1, t:"mcq"},
+  {q:"Chloroplasts are the site of:", o:["Protein synthesis","ATP production by respiration","Photosynthesis","Lipid breakdown"], c:2, t:"mcq"},
+  {q:"The three types of cytoskeletal elements found in cells are:", o:["Microfilaments, microtubules, and intermediate filaments","Ribosomes, lysosomes, and peroxisomes","SER, RER, and Golgi","Chromatin, chromosomes, and nucleolus"], c:0, t:"mcq"},
+  {q:"Centrioles are short, barrel-shaped structures made of:", o:["Actin filaments","Chitin fibers","Microtubules","Intermediate filaments"], c:2, t:"mcq"},
+  {q:"The main function of the central vacuole in plant cells is to:", o:["Perform photosynthesis","Store genetic material","Maintain turgor pressure inside plant cells","Synthesize proteins"], c:3, t:"mcq"},
+  {q:"Which of the following is a key difference between prokaryotic and eukaryotic cells?", o:["Eukaryotes lack a cell wall","Prokaryotes have a membrane-bound nucleus","Eukaryotes have membrane-bound organelles; prokaryotes do not","Prokaryotes are always larger than eukaryotes"], c:2, t:"mcq"},
+  {q:"The Smooth Endoplasmic Reticulum (SER) is mainly involved in:", o:["Protein synthesis","Lipid synthesis and detoxification","DNA replication","Packaging of secretory proteins"], c:1, t:"mcq"},
+  {q:"Rough Endoplasmic Reticulum (RER) is rough because it has:", o:["A thick membrane","Ribosomes attached to its surface","Many vacuoles","Chitin deposits"], c:1, t:"mcq"},
+  {q:"Chromatin material inside the nucleus is composed of:", o:["RNA and lipids","DNA and histone protein","Carbohydrates and proteins","Fatty acids and DNA"], c:0, t:"mcq"},
+  {q:"Gel electrophoresis separates charged molecules on the basis of:", o:["Color and density","Temperature and concentration","Size and electrical charge","Shape and weight only"], c:2, t:"mcq"},
+  {q:"Spectrophotometry is used to:", o:["Separate cell organelles","Measure light absorption of a compound to identify or quantify it","Visualize cells under a microscope","Isolate DNA fragments"], c:1, t:"mcq"},
+  {q:"Organelles other than the nucleus that contain DNA are:", o:["Ribosomes only","Mitochondria only","Lysosomes and vacuoles","Mitochondria and chloroplasts"], c:3, t:"mcq"},
+  {q:"Which organelle is mainly responsible for the detoxification of alcohol and drugs in liver cells?", o:["Chloroplast","Lysosome","Smooth Endoplasmic Reticulum","Rough Endoplasmic Reticulum"], c:2, t:"mcq"},
+],
+
+"Ch.7 — Protoctists & Fungi": [
+  {q:"Kingdom Protoctista is considered the most controversial kingdom because:", o:["It contains only unicellular organisms","It contains a mix of eukaryotic organisms not fitting plants, animals, or fungi","It has no photosynthetic members","It lacks a cell wall in all members"], c:1, t:"mcq"},
+  {q:"The three major groups of Protoctista are:", o:["Algae, Protozoa, and Primitive Fungi (Oomycota)","Bacteria, Archaea, and Viruses","Mosses, Ferns, and Flowering plants","Insects, Worms, and Molluscs"], c:0, t:"mcq"},
+  {q:"Plasmodium, which causes malaria, belongs to which group?", o:["Plant-like Protoctista (Algae)","Fungi-like Protoctista","Animal-like Protoctista (Protozoa)","Kingdom Fungi"], c:2, t:"mcq"},
+  {q:"Trypanosoma is a Protoctist that causes:", o:["Malaria","Sleeping sickness","Tuberculosis","Cholera"], c:1, t:"mcq"},
+  {q:"Algae are classified as plant-like Protoctista because they:", o:["Have roots, stems, and leaves","Are photosynthetic and have plant-cell-wall composition","Are multicellular only","Reproduce only sexually"], c:1, t:"mcq"},
+  {q:"Kingdom Protoctista (Propetista) is regarded as a polyphyletic group meaning:", o:["All members share one common ancestor","Members come from a widely different origin","All members are unicellular","All members are aquatic"], c:1, t:"mcq"},
+  {q:"The cell wall of fungi is made up of:", o:["Cellulose","Peptidoglycan","Chitin","Starch"], c:2, t:"mcq"},
+  {q:"The body of fungi is called:", o:["Thallus","Mycelium which grows as filaments called hyphae","Prothallus","Rhizome"], c:1, t:"mcq"},
+  {q:"Fungi are described as absorptive heterotrophs because:", o:["They perform photosynthesis","They secrete enzymes to digest food externally and then absorb nutrients","They ingest food like animals","They synthesize food from CO₂ and H₂O"], c:1, t:"mcq"},
+  {q:"Fungal nuclei are normally:", o:["Diploid throughout the life cycle","Triploid","Haploid except for a transient diploid zygote during sexual reproduction","Polyploid"], c:0, t:"mcq"},
+  {q:"The characteristic nuclear mitosis in fungi where the nuclear membrane does NOT break is called:", o:["Open mitosis","Meiosis","Nuclear mitosis (closed mitosis)","Endomitosis"], c:2, t:"mcq"},
+  {q:"The four major divisions of fungi are:", o:["Mosses, Liverworts, Hornworts, Ferns","Zygomycota, Basidiomycota, Ascomycota, Deuteromycota","Bacteria, Archaea, Protista, Fungi","Algae, Protozoa, Slime molds, True fungi"], c:1, t:"mcq"},
+  {q:"Zygomycota are commonly called 'zygote fungi' because they produce:", o:["Basidiospores","Ascospores","Conidiospores","Zygospores as sexual spores"], c:3, t:"mcq"},
+  {q:"Basidiomycota are commonly called:", o:["Zygote fungi","Sac fungi","Club fungi","Imperfect fungi"], c:2, t:"mcq"},
+  {q:"Ascomycota are commonly called:", o:["Club fungi","Sac fungi","Zygote fungi","Imperfect fungi"], c:1, t:"mcq"},
+  {q:"Deuteromycota are called 'fungi imperfecti' because:", o:["They form only sexual spores","They lack a cell wall","The sexual stage of reproduction has not been observed","They cannot digest food externally"], c:3, t:"mcq"},
+  {q:"Mucor and Rhizopus are examples of:", o:["Basidiomycota","Deuteromycota","Ascomycota","Zygomycota (molds)"], c:3, t:"mcq"},
+  {q:"Ulva is a well-known example of:", o:["Animal-like Protoctista","Fungi-like Protoctista","Plant-like Protoctista (green algae)","Kingdom Fungi"], c:2, t:"mcq"},
+  {q:"Asexual reproduction in most fungi takes place by:", o:["Binary fission","Budding only","Spores, conidia, fragmentation, or budding","Conjugation"], c:2, t:"mcq"},
+  {q:"Fungi are important to humans as:", o:["Producers of oxygen","Food (mushrooms), decomposers, antibiotics, and in biotechnology","Primary producers in food chains","Photosynthetic organisms"], c:1, t:"mcq"},
+],
+
+"Ch.9 — Diversity Among Animals": [
+  {q:"Animals are defined as organisms that are:", o:["Unicellular, autotrophic prokaryotes","Multicellular, heterotrophic, ingestive eukaryotes capable of sexual reproduction","Unicellular, heterotrophic eukaryotes","Multicellular, photosynthetic eukaryotes"], c:1, t:"mcq"},
+  {q:"Kingdom Animalia is divided into how many groups called phyla?", o:["33 phyla","9 phyla","20 phyla","50 phyla"], c:0, t:"mcq"},
+  {q:"The nine major phyla studied include Porifera, Cnidaria, Platyhelminthes, Aschelminthes, Annelida, Mollusca, Arthropoda, Echinodermata, and:", o:["Nematoda","Chordata","Insecta","Amphibia"], c:1, t:"mcq"},
+  {q:"The classification or grouping of organisms based on evolutionary relationships is called:", o:["Morphology","Anatomy","Taxonomy or systematics","Ecology"], c:2, t:"mcq"},
+  {q:"Porifera are characterized by:", o:["Presence of a notochord","Cellular level of organization; body perforated by pores","Radial symmetry and tentacles","Segmented body with setae"], c:1, t:"mcq"},
+  {q:"Examples of phylum Cnidaria include:", o:["Tapeworm, Liver fluke, Planaria","Earthworm, Leech, Nereis","Hydra, Jellyfish, and Sea anemone","Snail, Squid, and Octopus"], c:2, t:"mcq"},
+  {q:"The digestive system of Cnidaria consists of:", o:["A complete digestive tract with two openings","A gastro-vascular cavity with a single opening for both ingestion and egestion","A closed circulatory system","Segmented intestines"], c:1, t:"mcq"},
+  {q:"The nervous system of Cnidaria is described as:", o:["A centralized brain with spinal cord","A ladder-like nervous system","A diffuse nerve network or nerve net","Absent — no nervous system"], c:3, t:"mcq"},
+  {q:"Red corals named Marjan are used by Hakeem in:", o:["Food preparation","Preparing eastern medicine","Making jewellery only","Producing antibiotics"], c:1, t:"mcq"},
+  {q:"Phylum Platyhelminthes (flatworms) are characterized by being:", o:["Radially symmetrical, diploblastic, coelomate","Bilaterally symmetrical, triploblastic, acoelomate","Radially symmetrical, triploblastic, pseudocoelomate","Bilaterally symmetrical, diploblastic, coelomate"], c:1, t:"mcq"},
+  {q:"The term 'Platyhelminthes' refers to:", o:["Round worms","Segmented worms","Flat worms","Spiny-skinned animals"], c:2, t:"mcq"},
+  {q:"Aschelminthes are also known as:", o:["Flatworms","Round worms with a pseudocoelom","Segmented worms","Spiny-skinned animals"], c:1, t:"mcq"},
+  {q:"Annelida are distinguished by:", o:["Absence of body segmentation","Presence of a notochord","Radial symmetry and tentacles","Segmented body (metamerism) and setae"], c:3, t:"mcq"},
+  {q:"Mollusca are generally characterized by:", o:["Segmented body and exoskeleton","Soft body, often enclosed in a hard shell, with a muscular foot","Water vascular system","Hollow dorsal nerve cord"], c:1, t:"mcq"},
+  {q:"The water vascular system is a unique feature of phylum:", o:["Arthropoda","Annelida","Chordata","Echinodermata"], c:3, t:"mcq"},
+  {q:"The defining features of phylum Chordata include:", o:["Chitin exoskeleton and compound eyes","Gastro-vascular cavity and nerve net","Notochord, dorsal hollow nerve cord, pharyngeal slits, and post-anal tail","Segmented body with setae and nephridia"], c:2, t:"mcq"},
+  {q:"Jelly fish are made up of more than what percentage of water?", o:["50%","75%","95%","99%"], c:2, t:"mcq"},
+  {q:"Cnidarians evolved from protoctista along three evolutionary lines. Which statement about Cnidaria's digestion is correct?", o:["They have a complete gut with two openings","They lack any digestive system","They have a gastro-vascular cavity helping both ingestion and egestion","They rely entirely on diffusion for nutrition"], c:2, t:"mcq"},
+  {q:"Which of the following phyla are coelomate (possess a true coelom)?", o:["Porifera and Cnidaria","Platyhelminthes and Aschelminthes","Annelida, Arthropoda, and Mollusca","Porifera only"], c:2, t:"mcq"},
+  {q:"The presence or absence of a notochord distinguishes:", o:["Flatworms from roundworms","Cnidaria from Porifera","Chordata (notochord present) from non-chordates (notochord absent)","Mollusca from Annelida"], c:2, t:"mcq"},
+  {q:"Animals which lack a backbone are called:", o:["Chordates","Vertebrates","Invertebrates","Protochordata"], c:2, t:"mcq"},
+  {q:"In the classification diagram, organisms with a pseudocoelom belong to phylum:", o:["Platyhelminthes","Aschelminthes (Nematoda)","Annelida","Chordata"], c:1, t:"mcq"},
+  {q:"The symmetry found in Cnidaria is:", o:["Bilateral symmetry","Radial symmetry","Asymmetry","Spherical symmetry"], c:1, t:"mcq"},
+  {q:"Arthropoda is considered important because it is:", o:["The only phylum with a notochord","The largest phylum in Kingdom Animalia","The only aquatic phylum","The phylum with the simplest body plan"], c:1, t:"mcq"},
+  {q:"Which phylum has a water vascular system used for movement, feeding, and gas exchange?", o:["Annelida","Mollusca","Arthropoda","Echinodermata"], c:3, t:"mcq"},
+],
+
+"Ch.11 — Holozoic Nutrition": [
+  {q:"Holozoic nutrition is a type of:", o:["Autotrophic nutrition","Heterotrophic nutrition","Saprophytic nutrition","Parasitic nutrition"], c:1, t:"mcq"},
+  {q:"The word 'Holozoic' is derived from Greek meaning:", o:["Half-animal","Whole-animal (Holo=Whole; zoikos=of animals)","Plant-like","Water-loving"], c:1, t:"mcq"},
+  {q:"Which of the following is the correct sequence of holozoic nutrition?", o:["Digestion → Ingestion → Absorption → Assimilation → Egestion","Ingestion → Digestion → Absorption → Assimilation → Egestion","Absorption → Ingestion → Digestion → Egestion → Assimilation","Ingestion → Absorption → Digestion → Assimilation → Egestion"], c:1, t:"mcq"},
+  {q:"Digestion of food inside a food vacuole within the cell is called:", o:["Extracellular digestion","Mechanical digestion","Intracellular digestion","Chemical digestion"], c:2, t:"mcq"},
+  {q:"In Amoeba, food is captured through temporary finger-like extensions called:", o:["Cilia","Flagella","Pseudopodia","Frenulum"], c:2, t:"mcq"},
+  {q:"The food vacuole in Amoeba is attached with organelles that supply hydrolytic enzymes. These are:", o:["Mitochondria","Ribosomes","Golgi bodies","Lysosomes"], c:3, t:"mcq"},
+  {q:"The movement of cytoplasm in Amoeba that moves the food vacuole deeper is called:", o:["Peristalsis","Cyclosis","Endocytosis","Phagocytosis"], c:1, t:"mcq"},
+  {q:"The digestive system of Planaria is considered:", o:["Tube-like with two openings","Complete with anus","Incomplete or sac-like with a single opening","Absent — relies on diffusion only"], c:2, t:"mcq"},
+  {q:"The intestine of Planaria divides into three blind branches — one anterior and two posterior-lateral — and each diverticulum further branches into:", o:["Villi","Lacteals","Ramifications","Tubules"], c:2, t:"mcq"},
+  {q:"The human digestive tract is also called the:", o:["Alimentary canal or Gastro-intestinal tract (GIT)","Gastrovascular cavity","Hepatic portal system","Lymphatic system"], c:0, t:"mcq"},
+  {q:"The condition in which teeth are embedded in sockets along the jaw is called:", o:["Diphydont","Heterodont","Thecodont","Homodont"], c:2, t:"mcq"},
+  {q:"Having two sets of teeth during a lifetime is referred to as:", o:["Thecodont","Heterodont","Homodont","Diphydont"], c:3, t:"mcq"},
+  {q:"The number of permanent teeth in an adult human is:", o:["20","28","32","36"], c:2, t:"mcq"},
+  {q:"Salivary amylase partially digests starch into:", o:["Glucose","Sucrose","Maltose","Fructose"], c:2, t:"mcq"},
+  {q:"The enzyme in saliva that kills bacteria is:", o:["Amylase","Pepsin","Lysozyme","Rennin"], c:2, t:"mcq"},
+  {q:"The ball-like mass of chewed food mixed with saliva is called:", o:["Chyme","Bolus","Emulsification product","Rugae"], c:1, t:"mcq"},
+  {q:"The lid-like structure that diverts the food bolus away from the larynx into the esophagus is the:", o:["Uvula","Soft palate","Epiglottis","Cardiac sphincter"], c:2, t:"mcq"},
+  {q:"The stomach is divided internally into four regions. Which region primarily serves as a reservoir?", o:["Fundus","Cardia","Corpus (body)","Pylorus"], c:2, t:"mcq"},
+  {q:"The HCl in gastric juice converts the inactive enzyme pepsinogen into the active enzyme:", o:["Chymotrypsin","Trypsin","Rennin","Pepsin"], c:3, t:"mcq"},
+  {q:"Which cells of the stomach (in gastric glands) secrete pepsinogen?", o:["Parietal cells (oxyntic cells)","Chief cells (zymogen cells)","Mucoid cells","Enteroendocrine cells"], c:1, t:"mcq"},
+  {q:"In infants, which enzyme converts soluble milk protein caseinogen into insoluble casein?", o:["Pepsin","Amylase","Lipase","Rennin (chymosin)"], c:3, t:"mcq"},
+  {q:"Bile is produced by the liver and stored in the:", o:["Pancreas","Duodenum","Gall bladder","Jejunum"], c:2, t:"mcq"},
+  {q:"The emulsification of fats in the duodenum is carried out by:", o:["Pepsin","Pancreatic amylase","Bile salts","Trypsin"], c:2, t:"mcq"},
+  {q:"The inactive enzyme trypsinogen in pancreatic juice is activated to trypsin by:", o:["HCl","Bile","Pepsin","Enterokinase"], c:3, t:"mcq"},
+  {q:"The finger-like projections of the small intestine wall that increase its surface area are called:", o:["Microvilli","Rugae","Villi","Plicae circulares"], c:2, t:"mcq"},
+  {q:"BMI over 30 kg/m² is medically classified as:", o:["Normal","Overweight","Underweight","Obesity"], c:3, t:"mcq"},
+  {q:"Anorexia nervosa is best described as:", o:["A bacterial infection of the gut","A psychological disorder involving fear of weight gain leading to refusal to eat adequately","Excessive eating followed by vomiting","Inflammation of the stomach lining"], c:1, t:"mcq"},
+  {q:"Bulimia nervosa is characterized by:", o:["Loss of appetite and refusal to eat","Binge eating followed by purging (induced vomiting)","Excessive accumulation of body fat","Inability to digest fats"], c:1, t:"mcq"},
+],
+
+"Ch.12 — Circulation": [
+  {q:"In arthropods and most molluscs, blood bathes the internal organs directly. This type is called:", o:["Closed circulatory system","Double circuit circulation","Open circulatory system","Single circuit circulation"], c:2, t:"mcq"},
+  {q:"In an open circulatory system, the general body fluid is correctly termed as:", o:["Plasma","Lymph","Serum","Haemolymph"], c:3, t:"mcq"},
+  {q:"In a closed circulatory system, blood is:", o:["In direct contact with body cells","Mixed with interstitial fluid","Confined to vessels and distinct from the interstitial fluid","Found only in the heart"], c:2, t:"mcq"},
+  {q:"The heart of a fish has how many chambers?", o:["Four — two atria and two ventricles","Three — two atria and one ventricle","Two — one atrium and one ventricle","One — a single chamber"], c:2, t:"mcq"},
+  {q:"From amphibians to mammals, the circulatory system has double circuit circulation with two separate circuits named:", o:["Coronary and hepatic","Renal and portal","Pulmonary and systemic","Lymphatic and vascular"], c:2, t:"mcq"},
+  {q:"In amphibians and reptiles, oxygenated and deoxygenated blood are mixed in the ventricle, so this is called:", o:["Complete double circuit circulation","Single circuit circulation","Incomplete double circuit circulation","Open circulation"], c:2, t:"mcq"},
+  {q:"In crocodiles, birds, and mammals the heart is four-chambered. Blood circulates through the heart twice, making it:", o:["Incomplete double circuit circulation","Single circuit circulation","Complete double circuit circulation","Open circulatory system"], c:2, t:"mcq"},
+  {q:"The human heart is located:", o:["On the right side of the thorax","In the abdomen, behind the liver","Between the lungs, with two-thirds on the left of midline and one-third on the right","Directly behind the sternum with no offset"], c:2, t:"mcq"},
+  {q:"The thick outer covering that encloses the human heart is called the:", o:["Myocardium","Endocardium","Epicardium","Pericardium"], c:3, t:"mcq"},
+  {q:"The muscular middle layer of the heart wall is called the:", o:["Pericardium","Endocardium","Myocardium","Epicardium"], c:2, t:"mcq"},
+  {q:"The valve between the right atrium and right ventricle is the:", o:["Bicuspid (mitral) valve","Aortic semilunar valve","Tricuspid valve","Pulmonary semilunar valve"], c:2, t:"mcq"},
+  {q:"A normal resting human heart beats approximately how many times per minute?", o:["50","60","72","100"], c:2, t:"mcq"},
+  {q:"The alternating contraction and relaxation of the heart chambers is called the:", o:["Cardiac output","Cardiac cycle","Blood pressure cycle","ECG cycle"], c:1, t:"mcq"},
+  {q:"The region of the heart that maintains the heart's pumping rhythm and is called the pacemaker is the:", o:["AV node","Purkinje fibers","Bundle of His","SA node (sino-atrial node)"], c:3, t:"mcq"},
+  {q:"The 'LUB' sound of the heart is produced by:", o:["Closing of semilunar valves","Opening of AV valves","Closing of AV valves (tricuspid and bicuspid)","Opening of the aortic valve"], c:2, t:"mcq"},
+  {q:"The P wave on an electrocardiogram (ECG) represents:", o:["Ventricular depolarization","Atrial repolarization","Atrial depolarization initiated by the SA node","Ventricular repolarization"], c:2, t:"mcq"},
+  {q:"Arteries are thick-walled blood vessels. Their middle layer (tunica media) consists of:", o:["Simple squamous endothelium","Fibrous connective tissue with collagen fibers","Smooth muscles and elastic fibers","One-way valves to prevent backflow"], c:2, t:"mcq"},
+  {q:"Veins carry blood toward the heart and prevent backflow by means of:", o:["Thick muscular walls","One-way valves","Elastic recoil","Semilunar valves"], c:1, t:"mcq"},
+  {q:"The pulmonary circulation carries deoxygenated blood from the:", o:["Left ventricle to the body","Right ventricle to the lungs and returns oxygenated blood to the left atrium","Right atrium to the body organs","Left atrium to the lungs"], c:1, t:"mcq"},
+  {q:"The systemic circulation carries oxygenated blood from the:", o:["Right ventricle to the lungs","Left atrium to the right ventricle","Left ventricle via the aorta to all body parts except lungs","Right atrium to the body"], c:2, t:"mcq"},
+  {q:"The coronary arteries supply blood to the:", o:["Lungs","Kidneys","Wall of the heart (myocardium)","Liver"], c:2, t:"mcq"},
+  {q:"The hepatic portal system is a portal system between:", o:["The lungs and the heart","The kidneys and the bladder","The small intestine and the liver","The liver and the heart"], c:2, t:"mcq"},
+  {q:"Normal blood pressure reading of 120/80 mmHg means systolic is 120 and diastolic is 80. Blood pressure above what reading is considered hypertension?", o:["100/60","110/70","140/95 or above","150/100"], c:2, t:"mcq"},
+  {q:"Atherosclerosis is a disease in which:", o:["Blood clots form in the veins","The inner layer of arterial wall thickens due to fatty plaques, narrowing the artery","The heart muscle is unable to pump blood adequately","The lymph nodes become enlarged"], c:1, t:"mcq"},
+  {q:"A myocardial infarction (heart attack) occurs when:", o:["Blood pressure drops suddenly","The valves of the heart become rigid","Blood supply to part of the heart muscle is blocked, causing cardiac muscle death","The SA node fails to generate impulses"], c:2, t:"mcq"},
+  {q:"Angioplasty is a procedure that:", o:["Removes the heart and replaces it","Uses a balloon catheter to open a narrowed artery and restore blood flow","Grafts veins to bypass a blocked coronary artery","Records the electrical activity of the heart"], c:1, t:"mcq"},
+  {q:"Lymph can be defined as:", o:["Oxygenated blood in arteries","A colourless body fluid containing lymphocytes, small proteins and fats, draining excess tissue fluid back to circulation","Plasma without red blood cells and platelets only","The fluid inside the heart chambers"], c:1, t:"mcq"},
+  {q:"The spleen is located in:", o:["The right side of the abdominal cavity near the liver","The upper left side of the abdominal cavity between the stomach and diaphragm","Behind the kidneys","In the thoracic cavity near the lungs"], c:1, t:"mcq"},
+],
+
+"Ch.13 — Immunity": [
+  {q:"The study of the functioning and disorders of the immune system is termed as:", o:["Immunity","Immunology","Immunotherapy","Pathology"], c:1, t:"mcq"},
+  {q:"The two main functional divisions of the immune system are:", o:["Active and Passive immunity","Innate and Adaptive immune system","Cellular and Humoral immunity","Specific and Non-specific immunity"], c:1, t:"mcq"},
+  {q:"The innate immune system provides immunity that is:", o:["Specific to particular antigens","Non-specific and present from birth against any pathogen","Only against viral infections","Developed only after vaccination"], c:1, t:"mcq"},
+  {q:"The first line of defense against pathogens consists of:", o:["Phagocytes and Natural Killer cells","Intact skin, mucous membrane, and ciliated epithelium","B and T lymphocytes","Complement proteins and interferons"], c:1, t:"mcq"},
+  {q:"The outermost layer of the skin is called:", o:["Dermis","Epidermis","Hypodermis","Subcutaneous layer"], c:1, t:"mcq"},
+  {q:"The skin's surface is made mechanically tough and resistant to bacterial enzymes by the protein:", o:["Collagen","Elastin","Keratin","Chitin"], c:2, t:"mcq"},
+  {q:"Immune cells called Langerhans Cells (skin macrophages) wander in the layers of the:", o:["Bone marrow","Lymph nodes","Skin","Blood vessels"], c:2, t:"mcq"},
+  {q:"Lymphoid tissue in the digestive tract includes Tonsils, Peyer's patches, and the:", o:["Liver","Pancreas","Appendix","Gallbladder"], c:2, t:"mcq"},
+  {q:"Neutrophils are the most abundant WBCs, constituting approximately ____ of all leukocytes:", o:["2–8%","20–30%","50–70%","80–90%"], c:2, t:"mcq"},
+  {q:"Monocytes, upon migrating from blood into tissues, grow in size and become:", o:["Neutrophils and eosinophils","Macrophages or dendritic cells","Plasma cells and memory cells","Natural Killer cells and T cells"], c:1, t:"mcq"},
+  {q:"Macrophages are also called Antigen Presenting Cells (APCs) because they:", o:["Produce specific antibodies directly","Remove and present antigens of phagocytized pathogens to T-cells","Directly kill virally infected cells using perforin","Secrete IgE antibodies for allergic responses"], c:1, t:"mcq"},
+  {q:"NK cells determine whether a cell is 'self' or 'non-self' by checking for a surface molecule called:", o:["T Cell Receptor (TCR)","B Cell Receptor (BCR)","MHC-I (Major Histocompatibility Complex-I)","CD8 co-receptor"], c:2, t:"mcq"},
+  {q:"The cytotoxic substances released by NK cells that form pores in the target cell membrane and cause its lysis are:", o:["Histamine and Prostaglandin","Interleukins and TNF","Perforin and Granzyme","Cytokines and Interferons"], c:2, t:"mcq"},
+  {q:"During inflammation, damaged tissue releases ___ and ___, which dilate nearby blood vessels and attract phagocytes:", o:["IL-1 and TNF","Perforin and Granzyme","Histamine and Prostaglandin","Interferons and Complement"], c:2, t:"mcq"},
+  {q:"Substances that induce fever are termed as:", o:["Allergens","Antigens","Pyrogens","Interferons"], c:2, t:"mcq"},
+  {q:"Important endogenous pyrogens include Interleukin-1 (IL-1), IL-6, Tumor Necrosis Factor (TNF), and:", o:["Perforin","Interferons (INF-alpha)","Histamine","Prostaglandin"], c:1, t:"mcq"},
+  {q:"Antipyretic drugs reduce fever by inhibiting the enzyme ___, thereby reducing prostaglandin production from the brain:", o:["Carbonic anhydrase","Cyclooxygenase","Adenylate cyclase","Phospholipase A2"], c:1, t:"mcq"},
+  {q:"The third line of defense is very complex, specific, and is called the:", o:["Innate immune system","First line of defense","Acquired or Adaptive Immune System","Second non-specific line of defense"], c:2, t:"mcq"},
+  {q:"B cells were named after their discovery in a glandular sac called:", o:["Bursa of Fabricius in the cloaca of chicken","Bone marrow of laboratory mice","Bursa of the thymus in humans","Basement membrane of the small intestine"], c:0, t:"mcq"},
+  {q:"Cytotoxic T cells (Tc cells) are identified by which co-receptor on their surface?", o:["CD4","CD8","BCR","MHC-II"], c:1, t:"mcq"},
+  {q:"T helper cells bear ____ co-receptor and play a key role in activating B cells, Tc cells, and macrophages:", o:["CD8 co-receptor","BCR (B-cell receptor)","CD4 co-receptor","MHC-I receptor"], c:2, t:"mcq"},
+  {q:"Antibody-secreting B cells are called:", o:["Memory B cells (BM)","Plasma cells","T suppressor cells (Ts)","Dendritic cells"], c:1, t:"mcq"},
+  {q:"In allergic reactions, the immune system produces a specific allergin-specific antibody called:", o:["IgG","IgM","IgA","IgE"], c:3, t:"mcq"},
+  {q:"Autoimmune diseases occur when the immune system:", o:["Fails to respond to any pathogen","Mistakenly attacks its own cells and tissues","Produces excessive antibodies only against foreign antigens","Completely loses all memory cells"], c:1, t:"mcq"},
+  {q:"Which of the following is an example of an autoimmune disease?", o:["Malaria","Tuberculosis","Rheumatoid arthritis","Sinusitis"], c:2, t:"mcq"},
+],
+
+"Ch.14 — Gaseous Exchange": [
+  {q:"Respiration is a process in which cells gain energy (ATP) by:", o:["Absorbing light energy through chlorophyll","Oxidizing food molecules such as glucose","Diffusing gases directly at body surfaces","Pumping blood through the circulatory system"], c:1, t:"mcq"},
+  {q:"The movement of air from the atmosphere into the lungs and back is called:", o:["Gas exchange","Respiration","Ventilation","Diffusion"], c:2, t:"mcq"},
+  {q:"The surface where the exchange of gases takes place between the organism and its environment is called the:", o:["Alveolar wall only","Respiratory surface","Pleural membrane","Capillary wall"], c:1, t:"mcq"},
+  {q:"Which of the following is NOT a required characteristic of the respiratory surface?", o:["Moist","Thin","Large surface area","Pigmented with melanin"], c:3, t:"mcq"},
+  {q:"The microscopic air sacs at the end of the bronchial tree where gaseous exchange with the blood occurs are called:", o:["Bronchi","Bronchioles","Alveoli","Sinuses"], c:2, t:"mcq"},
+  {q:"The bony midline cartilaginous partition that separates the nasal cavity into two chambers is called the:", o:["Vocal cord","Nasal septum","Nasal polyp","Epiglottis"], c:1, t:"mcq"},
+  {q:"The muscular tube serving as a common pathway for both the digestive and respiratory systems is the:", o:["Trachea","Larynx","Pharynx","Esophagus"], c:2, t:"mcq"},
+  {q:"The larynx is also known as the:", o:["Windpipe","Voicebox","Gullet","Air conditioner"], c:1, t:"mcq"},
+  {q:"The trachea has about 16–20 C-shaped cartilaginous rings. Before entering the lungs it bifurcates into two:", o:["Bronchioles","Alveoli","Bronchi","Sinuses"], c:2, t:"mcq"},
+  {q:"The right lung has ___ lobes while the left lung has ___ lobes:", o:["2 and 3","3 and 2","2 and 2","3 and 3"], c:1, t:"mcq"},
+  {q:"The left lung is slightly smaller than the right because it is displaced by:", o:["The liver","The diaphragm","The heart","The spleen"], c:2, t:"mcq"},
+  {q:"The serous fluid found in the pleural cavity serves as:", o:["A source of oxygen for the lungs","A lubricant allowing optimal expansion and contraction during breathing","A medium for gaseous exchange","A barrier against infection"], c:1, t:"mcq"},
+  {q:"Inspiration (inhalation) is an active energy-consuming process powered by contraction of:", o:["Internal inter-costal muscles only","External inter-costal muscles and diaphragm","Abdominal muscles alone","Smooth muscles of bronchioles"], c:1, t:"mcq"},
+  {q:"The volume of air breathed in and out during normal quiet breathing is called:", o:["Residual volume","Vital capacity","Tidal volume","Expiratory reserve volume"], c:2, t:"mcq"},
+  {q:"Lung volumes and capacities are measured using a special instrument called:", o:["Sphygmomanometer","Spirometer","Stethoscope","Oximeter"], c:1, t:"mcq"},
+  {q:"The automatic control of normal breathing is monitored by specific chemoreceptors located in blood vessels called:", o:["Pulmonary veins","Coronary arteries","Aortic and carotid bodies","Renal arteries"], c:2, t:"mcq"},
+  {q:"Approximately what percentage of oxygen in blood is transported by red blood cells attached to haemoglobin?", o:["50%","70%","85%","97%"], c:3, t:"mcq"},
+  {q:"About 70% of carbon dioxide is transported in the blood as:", o:["Dissolved gas","Carbaminohaemoglobin","Bicarbonate ions (HCO₃⁻)","Oxyhaemoglobin"], c:2, t:"mcq"},
+  {q:"The enzyme inside RBCs that converts CO₂ + H₂O into carbonic acid (H₂CO₃) is:", o:["Haemoglobinase","Carbonic anhydrase","Carbonic phosphatase","Carboxylase"], c:1, t:"mcq"},
+  {q:"Pneumonia is a lower respiratory infection caused by viruses, bacteria, and fungi, in which the alveoli are filled with:", o:["Excess surfactant only","Secretions and other fluid","Atmospheric air exclusively","Carbon dioxide only"], c:1, t:"mcq"},
+  {q:"Pulmonary tuberculosis (TB) is a bacterial chronic infection of the lungs caused by:", o:["Streptococcus pneumoniae","Staphylococcus aureus","Mycobacterium tuberculosis","Haemophilus influenzae"], c:2, t:"mcq"},
+  {q:"Emphysema is classified under which group of lung diseases?", o:["Upper respiratory tract infections","Autoimmune lung diseases","Chronic obstructive pulmonary disease (COPD)","Acute bacterial pneumonias"], c:2, t:"mcq"},
+  {q:"In emphysema, the alveoli cannot support the bronchial tubes because:", o:["They are filled with inflammatory fluid","The condition wall of the air sacs becomes damaged and cannot support the tubes","The pleural membrane thickens abnormally","The diaphragm becomes paralyzed"], c:1, t:"mcq"},
+  {q:"About 80% of lung cancer deaths are caused by:", o:["Air pollution","Genetic mutations only","Smoking","Viral infections"], c:2, t:"mcq"},
+  {q:"The human skull has ___ pairs of sinuses linked to the nasal air passage:", o:["2 pairs","3 pairs","4 pairs","6 pairs"], c:2, t:"mcq"},
+]
+
+};
+
+let currentChapter=null,userAnswers={},stats={total:0,answered:0,correct:0};
+
+function initializeApp(){generateWatermarks();createChapterButtons();updateStats();}
+
+function generateWatermarks(){
+  const o=document.getElementById('watermarkOverlay');
+  const t="Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057";
+  for(let r=0;r<6;r++)for(let c=0;c<3;c++){
+    const s=document.createElement('span');
+    s.textContent=t;s.style.left=(c*38-5)+'%';s.style.top=(r*18-5)+'%';
+    o.appendChild(s);
+  }
+}
+
+function createChapterButtons(){
+  const container=document.getElementById('chapterButtons');
+  Object.keys(mcqData).forEach(ch=>{
+    const btn=document.createElement('button');
+    btn.className='chapter-btn';
+    const total=mcqData[ch].length;
+    btn.innerHTML=ch+'<span class="q-count">📖 '+total+' MCQs</span>';
+    btn.onclick=()=>loadChapter(ch);
+    container.appendChild(btn);
+  });
+}
+
+function loadChapter(ch){
+  currentChapter=ch;userAnswers={};
+  document.querySelectorAll('.chapter-btn').forEach(b=>b.classList.toggle('active',b.innerHTML.startsWith(ch)));
+  const con=document.getElementById('quizContainer');
+  con.innerHTML='';con.classList.add('active');
+  const qs=mcqData[ch];
+  stats.total=qs.length;stats.answered=0;stats.correct=0;
+  const h=document.createElement('div');
+  h.className='section-heading sh-mcq';
+  h.textContent='📖 Exam MCQs — '+ch;
+  con.appendChild(h);
+  qs.forEach((q,i)=>con.appendChild(createCard(q,i)));
+  const sum=document.createElement('div');sum.id='resultSummary';con.appendChild(sum);
+  updateStats();con.scrollIntoView({behavior:'smooth'});
+}
+
+function createCard(q,i){
+  const card=document.createElement('div');
+  card.className='question-card';
+  card.id='question-'+i;
+  card.innerHTML=`
+    <div class="question-header">
+      <span class="question-number">Q ${i+1}</span>
+      <span class="question-badge">📖 MCQ</span>
+    </div>
+    <div class="question-text">${q.q}</div>
+    <div class="options" id="options-${i}">
+      ${q.o.map((o,j)=>`<div class="option" onclick="selectOption(${i},${j})">${String.fromCharCode(65+j)}) ${o}</div>`).join('')}
+    </div>
+    <button class="check-btn" onclick="checkAnswer(${i})" id="check-${i}">✔ Check Answer</button>
+    <div class="feedback" id="feedback-${i}"></div>`;
+  return card;
+}
+
+function selectOption(qi,oi){
+  if(userAnswers[qi]?.checked)return;
+  document.querySelectorAll(`#options-${qi} .option`).forEach((o,i)=>o.classList.toggle('selected',i===oi));
+  userAnswers[qi]={selected:oi,checked:false};
+}
+
+function checkAnswer(qi){
+  const q=mcqData[currentChapter][qi];
+  const a=userAnswers[qi];
+  if(!a||a.checked)return;
+  a.checked=true;
+  const ok=a.selected===q.c;
+  if(ok)stats.correct++;
+  stats.answered++;
+  document.querySelectorAll(`#options-${qi} .option`).forEach((o,i)=>{
+    o.classList.add('disabled');
+    if(i===q.c)o.classList.add('correct');
+    else if(i===a.selected&&!ok)o.classList.add('wrong');
+  });
+  const fb=document.getElementById(`feedback-${qi}`);
+  fb.className=`feedback show ${ok?'correct':'wrong'}`;
+  fb.textContent=ok
+    ?'✓ Correct! Excellent work!'
+    :`✗ Incorrect. Correct answer: ${String.fromCharCode(65+q.c)}) ${q.o[q.c]}`;
+  document.getElementById(`check-${qi}`).disabled=true;
+  updateStats();
+  if(stats.answered===stats.total)showResult();
+}
+
+function updateStats(){
+  document.getElementById('totalQuestions').textContent=stats.total;
+  document.getElementById('answeredQuestions').textContent=stats.answered;
+  document.getElementById('correctAnswers').textContent=stats.correct;
+  const pct=stats.total>0?Math.round(stats.correct/stats.total*100):0;
+  document.getElementById('scorePercentage').textContent=pct+'%';
+}
+
+function showResult(){
+  const p=Math.round(stats.correct/stats.total*100);
+  let g='D',m='Keep Practicing! 💪';
+  if(p>=90){g='A+';m='Outstanding! 🌟 Sir Ahmer is proud of you!';}
+  else if(p>=80){g='A';m='Excellent Performance! 🎉';}
+  else if(p>=70){g='B';m='Good Job! Keep it up! 👍';}
+  else if(p>=60){g='C';m='Getting There! More Practice Needed 📚';}
+  document.getElementById('resultSummary').innerHTML=`
+    <div class="result-summary">
+      <h2>${m}</h2>
+      <div class="result-stats">
+        <div class="result-stat">
+          <div class="result-stat-value">${stats.correct}/${stats.total}</div>
+          <div class="result-stat-label">Correct Answers</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${p}%</div>
+          <div class="result-stat-label">Score</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${g}</div>
+          <div class="result-stat-label">Grade</div>
+        </div>
+      </div>
+      <button class="reset-btn" onclick="loadChapter('${currentChapter}')">🔄 Try Again</button>
+      <button class="reset-btn" onclick="location.reload()">📚 All Chapters</button>
+    </div>`;
+  document.getElementById('resultSummary').scrollIntoView({behavior:'smooth'});
+}
+
+initializeApp();
+</script>
+</body>
+</html>
