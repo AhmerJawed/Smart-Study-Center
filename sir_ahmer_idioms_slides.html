@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Important Idioms – Class XII Commerce – Sir Ahmer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;display:flex;flex-direction:column;align-items:center;padding:70px 0 50px;font-family:'Poppins',sans-serif}
+.nav{position:fixed;top:12px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:999;background:rgba(0,0,0,0.88);padding:8px 20px;border-radius:30px}
+.nb{background:transparent;border:2px solid #F0B429;color:#F0B429;padding:9px 26px;border-radius:20px;cursor:pointer;font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;letter-spacing:.5px;transition:all .2s}
+.nb.on,.nb:hover{background:#F0B429;color:#0B0A2A}
+.hint{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.88);color:rgba(240,180,41,0.7);font-family:'Poppins',sans-serif;font-size:13px;padding:8px 20px;border-radius:20px;text-align:center;white-space:nowrap}
+
+/* Slide */
+.slide{display:none;width:1080px;height:1920px;background:#0B0A2A;position:relative;overflow:hidden;flex-direction:column}
+.slide.on{display:flex}
+
+/* Borders */
+.bt,.bb{position:absolute;left:0;right:0;height:9px;background:#F0B429;z-index:2}
+.bt{top:0}.bb{bottom:0}
+.bl,.br{position:absolute;top:9px;bottom:9px;width:6px;background:#F0B429;z-index:2}
+.bl{left:0}.br{right:0}
+
+/* Content */
+.sc{display:flex;flex-direction:column;height:100%;padding:52px 68px 46px;position:relative;z-index:1}
+
+/* Header */
+.hdr{text-align:center;padding-bottom:22px;border-bottom:2px solid rgba(240,180,41,0.28);margin-bottom:20px}
+.orn{font-size:22px;color:rgba(240,180,41,0.3);letter-spacing:14px;margin-bottom:10px;font-family:Georgia,serif}
+.mt{font-family:'Playfair Display',Georgia,serif;font-weight:900;font-size:62px;line-height:1.12;color:#F0B429;text-transform:uppercase;letter-spacing:2px}
+.sub{font-size:28px;font-weight:300;color:#7a7a9e;margin-top:12px;letter-spacing:4.5px}
+.pil{display:inline-block;margin-top:15px;background:rgba(240,180,41,0.1);border:1px solid rgba(240,180,41,0.32);color:rgba(240,180,41,0.88);font-size:19px;font-weight:600;padding:7px 26px;border-radius:20px;letter-spacing:.5px}
+
+/* Column Headers */
+.chr{display:grid;grid-template-columns:282px 1fr;gap:12px;margin-bottom:10px}
+.ch{background:#F0B429;color:#0B0A2A;font-size:23px;font-weight:800;text-transform:uppercase;letter-spacing:3px;padding:15px 20px;border-radius:8px;text-align:center}
+
+/* Rows */
+.rws{flex:1;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.row{flex:1;display:grid;grid-template-columns:282px 1fr;gap:0;min-height:0;border-left:6px solid #F0B429}
+.row:nth-child(odd){background:rgba(240,180,41,0.08)}
+.row:nth-child(even){background:rgba(255,255,255,0.04)}
+.idc{padding:14px 18px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(240,180,41,0.16)}
+.snc{padding:14px 22px;display:flex;align-items:center}
+.rn{font-size:14px;font-weight:700;color:rgba(240,180,41,0.42);letter-spacing:1px;margin-bottom:6px;line-height:1}
+.idn{font-size:24px;font-weight:700;color:#F5C542;line-height:1.25}
+.snt{font-size:26px;font-weight:500;color:#FFFFFF;line-height:1.46}
+.hl{color:#F5C542;font-style:italic;font-weight:700}
+
+/* Footer */
+.ftr{text-align:center;padding-top:18px;border-top:2px solid rgba(240,180,41,0.2);margin-top:14px}
+.fm{font-size:21px;font-weight:600;color:rgba(240,180,41,0.68);letter-spacing:1.5px}
+.fs{font-size:15px;color:rgba(180,175,215,0.42);margin-top:5px;letter-spacing:.5px}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <button class="nb on" onclick="go(1)">&#128194; Slide 1 / 3</button>
+  <button class="nb" onclick="go(2)">&#128194; Slide 2 / 3</button>
+  <button class="nb" onclick="go(3)">&#128194; Slide 3 / 3</button>
+</div>
+
+<div class="hint">&#128247; In Chrome: F12 &rarr; Device Toolbar (Ctrl+Shift+M) &rarr; Set 1080 &times; 1920 &rarr; Ctrl+Shift+P &rarr; &ldquo;Capture screenshot&rdquo;</div>
+
+<!-- ═══════════════ SLIDE 1 ═══════════════ -->
+<div class="slide on" id="s1">
+  <div class="bt"></div><div class="bb"></div><div class="bl"></div><div class="br"></div>
+  <div class="sc">
+    <div class="hdr">
+      <div class="orn">&#10022; &nbsp; &#10022; &nbsp; &#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
+      <div class="mt">Important Idioms<br>for Class XII Commerce</div>
+      <div class="sub">Prepared By Sir Ahmer</div>
+      <div class="pil">Slide 1 of 3 &nbsp;&nbsp;&middot;&nbsp;&nbsp; Idioms #01 &ndash; #10</div>
+    </div>
+    <div class="chr"><div class="ch">Idiom</div><div class="ch">Sentence</div></div>
+    <div class="rws">
+      <div class="row">
+        <div class="idc"><div class="rn">#01</div><div class="idn">The Ball Is in His Court</div></div>
+        <div class="snc"><div class="snt">I sent the offer. Now <span class="hl">the ball is in his court</span> &mdash; he just needs to reply.</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#02</div><div class="idn">A Chip on Someone's Shoulder</div></div>
+        <div class="snc"><div class="snt">He has <span class="hl">a chip on his shoulder</span> because no one believed in him when he was young.</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#03</div><div class="idn">Bite the Bullet</div></div>
+        <div class="snc"><div class="snt">I hate dentists, but I had to <span class="hl">bite the bullet</span> and book an appointment.</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#04</div><div class="idn">Spill the Beans</div></div>
+        <div class="snc"><div class="snt">Don&rsquo;t <span class="hl">spill the beans</span> about the surprise party &mdash; she has absolutely no idea!</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#05</div><div class="idn">The Best of Both Worlds</div></div>
+        <div class="snc"><div class="snt">She works from home but visits the office weekly &mdash; <span class="hl">the best of both worlds.</span></div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#06</div><div class="idn">Once in a Blue Moon</div></div>
+        <div class="snc"><div class="snt">My brother never cooks, but <span class="hl">once in a blue moon</span>, he makes dinner for the whole family.</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#07</div><div class="idn">To Cost an Arm and a Leg</div></div>
+        <div class="snc"><div class="snt">That designer bag is beautiful, but it would <span class="hl">cost an arm and a leg!</span></div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#08</div><div class="idn">Butterflies in My Stomach</div></div>
+        <div class="snc"><div class="snt">I had <span class="hl">butterflies in my stomach</span> before walking onto the stage for my speech.</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#09</div><div class="idn">A Short Fuse</div></div>
+        <div class="snc"><div class="snt">Be careful &mdash; he has <span class="hl">a short fuse</span> and gets very angry over tiny things.</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#10</div><div class="idn">Crying Wolf</div></div>
+        <div class="snc"><div class="snt">She faked illness so often that <span class="hl">crying wolf</span> meant no one believed her when truly sick.</div></div>
+      </div>
+    </div>
+    <div class="ftr">
+      <div class="fm">Class XII Commerce English &nbsp;&middot;&nbsp; Sir Ahmer</div>
+      <div class="fs">Save this post &middot; Share with your classmates</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SLIDE 2 ═══════════════ -->
+<div class="slide" id="s2">
+  <div class="bt"></div><div class="bb"></div><div class="bl"></div><div class="br"></div>
+  <div class="sc">
+    <div class="hdr">
+      <div class="orn">&#10022; &nbsp; &#10022; &nbsp; &#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
+      <div class="mt">Important Idioms<br>for Class XII Commerce</div>
+      <div class="sub">Prepared By Sir Ahmer</div>
+      <div class="pil">Slide 2 of 3 &nbsp;&nbsp;&middot;&nbsp;&nbsp; Idioms #11 &ndash; #20</div>
+    </div>
+    <div class="chr"><div class="ch">Idiom</div><div class="ch">Sentence</div></div>
+    <div class="rws">
+      <div class="row">
+        <div class="idc"><div class="rn">#11</div><div class="idn">Fish out of Water</div></div>
+        <div class="snc"><div class="snt">On his first day at school, he felt like a complete <span class="hl">fish out of water.</span></div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#12</div><div class="idn">Go the Extra Mile</div></div>
+        <div class="snc"><div class="snt">Our teacher always <span class="hl">goes the extra mile</span> &mdash; she stays after class to help every student.</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#13</div><div class="idn">Tip of the Iceberg</div></div>
+        <div class="snc"><div class="snt">The few errors you see in his work are just the <span class="hl">tip of the iceberg.</span></div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#14</div><div class="idn">Straight from the Horse's Mouth</div></div>
+        <div class="snc"><div class="snt">The caf&eacute; opens Monday &mdash; I heard it <span class="hl">straight from the horse&rsquo;s mouth.</span></div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#15</div><div class="idn">Spill the Tea</div></div>
+        <div class="snc"><div class="snt">Come sit with me and <span class="hl">spill the tea</span> &mdash; what happened at the party last night?</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#16</div><div class="idn">Glow Up</div></div>
+        <div class="snc"><div class="snt">She had a real <span class="hl">glow up</span> this summer &mdash; she looks so confident and happy now!</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#17</div><div class="idn">Go Viral</div></div>
+        <div class="snc"><div class="snt">His funny cat video <span class="hl">went viral</span> overnight &mdash; over five million views by morning!</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#18</div><div class="idn">No Cap</div></div>
+        <div class="snc"><div class="snt">That was honestly the best biryani I have ever tasted, <span class="hl">no cap.</span></div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#19</div><div class="idn">Drop the Mic</div></div>
+        <div class="snc"><div class="snt">She ended her speech so powerfully, she completely <span class="hl">dropped the mic.</span></div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#20</div><div class="idn">To Flex</div></div>
+        <div class="snc"><div class="snt">He posts his new car every day &mdash; he loves to <span class="hl">flex</span> on social media for everyone.</div></div>
+      </div>
+    </div>
+    <div class="ftr">
+      <div class="fm">Class XII Commerce English &nbsp;&middot;&nbsp; Sir Ahmer</div>
+      <div class="fs">Save this post &middot; Share with your classmates</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SLIDE 3 ═══════════════ -->
+<div class="slide" id="s3">
+  <div class="bt"></div><div class="bb"></div><div class="bl"></div><div class="br"></div>
+  <div class="sc">
+    <div class="hdr">
+      <div class="orn">&#10022; &nbsp; &#10022; &nbsp; &#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
+      <div class="mt">Important Idioms<br>for Class XII Commerce</div>
+      <div class="sub">Prepared By Sir Ahmer</div>
+      <div class="pil">Slide 3 of 3 &nbsp;&nbsp;&middot;&nbsp;&nbsp; Idioms #21 &ndash; #29</div>
+    </div>
+    <div class="chr"><div class="ch">Idiom</div><div class="ch">Sentence</div></div>
+    <div class="rws">
+      <div class="row">
+        <div class="idc"><div class="rn">#21</div><div class="idn">Clap Back</div></div>
+        <div class="snc"><div class="snt">When they mocked her, she <span class="hl">clapped back</span> with such a sharp and brilliant reply.</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#22</div><div class="idn">Ghost Someone</div></div>
+        <div class="snc"><div class="snt">They texted every day, then he just <span class="hl">ghosted her</span> &mdash; no message, no call, nothing.</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#23</div><div class="idn">It Hits Different</div></div>
+        <div class="snc"><div class="snt">This song on a rainy night <span class="hl">hits different</span> &mdash; it feels incredibly deep and emotional.</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#24</div><div class="idn">On Fleek</div></div>
+        <div class="snc"><div class="snt">Her outfit and makeup were totally <span class="hl">on fleek</span> at the event &mdash; she looked stunning.</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#25</div><div class="idn">Salad Days</div></div>
+        <div class="snc"><div class="snt">Those were my <span class="hl">salad days</span> &mdash; young, carefree, and full of big beautiful dreams.</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#26</div><div class="idn">A Wolf in Sheep's Clothing</div></div>
+        <div class="snc"><div class="snt">He seemed so kind at first, but he was <span class="hl">a wolf in sheep&rsquo;s clothing</span> all along.</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#27</div><div class="idn">Achilles' Heel</div></div>
+        <div class="snc"><div class="snt">She is a brilliant student, but mathematics is her <span class="hl">Achilles&rsquo; heel</span> &mdash; she struggles every time.</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#28</div><div class="idn">A Piece of Cake</div></div>
+        <div class="snc"><div class="snt">The exam was <span class="hl">a piece of cake</span> &mdash; I finished all the questions in just 20 minutes!</div></div>
+      </div>
+      <div class="row">
+        <div class="idc"><div class="rn">#29</div><div class="idn">A Bone of Contention</div></div>
+        <div class="snc"><div class="snt">Who should pay the bill became <span class="hl">a bone of contention</span> between the two close friends.</div></div>
+      </div>
+    </div>
+    <div class="ftr">
+      <div class="fm">Class XII Commerce English &nbsp;&middot;&nbsp; Sir Ahmer</div>
+      <div class="fs">Save this post &middot; Share with your classmates</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function go(n){
+  document.querySelectorAll('.slide').forEach(function(s){s.classList.remove('on')});
+  document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('on')});
+  document.getElementById('s'+n).classList.add('on');
+  document.querySelectorAll('.nb')[n-1].classList.add('on');
+}
+</script>
+</body>
+</html>
