@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pakistan Studies Class XII — MCQ Bank</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f2f4f7;color:#1a1a2e;min-height:100vh}
+
+/* HEADER */
+.main-header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:white;padding:28px 32px;text-align:center;border-bottom:4px solid #e94560}
+.main-header h1{font-size:26px;font-weight:900;letter-spacing:1px;margin-bottom:6px}
+.main-header p{font-size:13px;opacity:.8;line-height:1.6}
+.header-meta{display:flex;justify-content:center;gap:24px;margin-top:14px;flex-wrap:wrap}
+.meta-tag{background:rgba(233,69,96,0.2);border:1px solid rgba(233,69,96,0.5);padding:5px 18px;border-radius:20px;font-size:12px;font-weight:600;color:#f5a7b8}
+
+/* STATS BAR */
+.stats-bar{background:white;border-bottom:2px solid #e2e8f0;display:flex;justify-content:space-around;padding:14px 20px;flex-wrap:wrap;gap:8px;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.stat{text-align:center}
+.stat-val{font-size:22px;font-weight:800;color:#0f3460}
+.stat-lbl{font-size:10px;color:#718096;text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+
+/* CHAPTER SELECTOR */
+.chapter-selector{padding:22px;background:#f8fafc}
+.chapter-selector h3{font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:14px;padding-left:4px}
+.chapter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.ch-btn{padding:12px 16px;background:white;border:2px solid #e2e8f0;border-radius:10px;cursor:pointer;font-size:12px;font-weight:700;color:#2d3748;text-align:left;transition:all .25s;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.ch-btn:hover,.ch-btn.active{background:#0f3460;color:white;border-color:#0f3460;transform:translateY(-2px);box-shadow:0 6px 18px rgba(15,52,96,.3)}
+.ch-btn .q-count{display:block;font-size:11px;opacity:.65;margin-top:3px;font-weight:500}
+
+/* QUIZ AREA */
+.quiz-area{display:none;padding:24px}
+.quiz-area.active{display:block}
+
+/* SECTION HEADER */
+.sec-head{background:linear-gradient(135deg,#0f3460,#1a1a2e);color:white;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:800;margin:20px 0 14px;letter-spacing:.5px}
+
+/* QUESTION CARD */
+.q-card{background:white;border-radius:12px;padding:22px;margin-bottom:14px;border-left:5px solid #e94560;box-shadow:0 2px 10px rgba(0,0,0,.06);transition:box-shadow .2s}
+.q-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1)}
+.q-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.q-num{background:#e94560;color:white;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:800}
+.q-badge{background:#eef2ff;color:#3730a3;border:1px solid #c7d2fe;padding:3px 10px;border-radius:14px;font-size:11px;font-weight:700}
+.q-text{font-size:14.5px;color:#1a1a2e;margin-bottom:14px;line-height:1.65;font-weight:500}
+.opts{display:grid;gap:8px}
+.opt{padding:11px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:8px;cursor:pointer;font-size:13.5px;color:#374151;transition:all .2s}
+.opt:hover{border-color:#0f3460;background:#edf2ff;color:#0f3460}
+.opt.selected{border-color:#0f3460;background:#dbeafe;color:#1e40af;font-weight:600}
+.opt.correct{border-color:#15803d;background:#dcfce7;color:#14532d;font-weight:700}
+.opt.wrong{border-color:#b91c1c;background:#fee2e2;color:#7f1d1d;font-weight:600}
+.opt.disabled{cursor:not-allowed;opacity:.85}
+.check-btn{background:#0f3460;color:white;border:none;padding:9px 26px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;margin-top:12px;transition:all .25s}
+.check-btn:hover{background:#1a1a2e;transform:translateY(-1px)}
+.check-btn:disabled{background:#94a3b8;cursor:not-allowed;transform:none}
+.feedback{margin-top:10px;padding:11px 15px;border-radius:8px;font-weight:700;font-size:13px;display:none}
+.feedback.show{display:block}
+.feedback.correct{background:#dcfce7;color:#14532d;border:2px solid #4ade80}
+.feedback.wrong{background:#fee2e2;color:#7f1d1d;border:2px solid #f87171}
+
+/* RESULT */
+.result-box{background:linear-gradient(135deg,#0f3460,#1a1a2e);color:white;padding:30px;border-radius:14px;text-align:center;margin-top:20px;box-shadow:0 8px 28px rgba(15,52,96,.35)}
+.result-box h2{font-size:22px;margin-bottom:16px}
+.result-stats{display:flex;justify-content:space-around;gap:12px;flex-wrap:wrap}
+.r-stat-val{font-size:36px;font-weight:900}
+.r-stat-lbl{font-size:12px;opacity:.8;margin-top:4px}
+.result-btns{margin-top:18px}
+.reset-btn{background:rgba(255,255,255,.15);color:white;border:2px solid rgba(255,255,255,.5);padding:9px 22px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;margin:0 5px;transition:all .25s}
+.reset-btn:hover{background:white;color:#0f3460}
+
+/* BRAND BAR */
+.brand-bar{background:#0d1117;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.brand-left{font-size:15px;font-weight:900;color:#f0c040;letter-spacing:.8px}
+.brand-right{font-size:11px;color:#8b949e;font-weight:600;letter-spacing:.3px}
+
+
+
+/* FOOTER */
+.footer{background:#0d1117;color:#6b7280;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;font-size:11px;margin-top:10px}
+.footer-left{color:#f0c040;font-weight:700}
+.footer-right{color:#6b7280}
+</style>
+</head>
+<body>
+
+<div class="brand-bar">
+  <div class="brand-left">Smart Study Center</div>
+  <div class="brand-right">Pakistan Studies XII &mdash; MCQ Bank &nbsp;|&nbsp; Prepared by Sir Ahmer Javed</div>
+</div>
+
+<div class="main-header">
+  <h1>Pakistan Studies — Class XII MCQ Bank</h1>
+  <p>Chapter-wise Interactive MCQs based on Past Board Papers | Attempt &amp; Check Instantly</p>
+  <div class="header-meta">
+    <span class="meta-tag">Board of Higher Secondary Education</span>
+    <span class="meta-tag">Class XII (Regular &amp; Private)</span>
+    <span class="meta-tag">Sindh Textbook Board</span>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-val" id="totalQ">0</div><div class="stat-lbl">Total Questions</div></div>
+  <div class="stat"><div class="stat-val" id="answeredQ">0</div><div class="stat-lbl">Answered</div></div>
+  <div class="stat"><div class="stat-val" id="correctQ">0</div><div class="stat-lbl">Correct</div></div>
+  <div class="stat"><div class="stat-val" id="scoreQ">0%</div><div class="stat-lbl">Score</div></div>
+</div>
+
+<div class="chapter-selector">
+  <h3 style="padding:16px 22px 10px;font-size:14px;font-weight:700;color:#1a1a2e;">Select a Chapter to Begin:</h3>
+  <div style="padding:0 22px 22px"><div class="chapter-grid" id="chapterGrid"></div></div>
+</div>
+
+<div class="quiz-area" id="quizArea"></div>
+
+<div class="footer">
+  <div class="footer-left">Smart Study Center &mdash; Sir Ahmer Javed</div>
+  <div class="footer-right">Pakistan Studies Class XII &mdash; MCQ Bank | Sindh Textbook Board Curriculum &amp; Past Papers</div>
+</div>
+
+<script>
+const mcqData = {
+
+"Ch.1 — Establishment of Pakistan": [
+  {q:"Muhammad bin Qasim defeated Raja Dahir in the year:", o:["711 A.D.","712 A.D.","713 A.D.","714 A.D."], c:1},
+  {q:"The practice of burning a wife alive with her dead husband was called:", o:["Sati","Caste","Brahmin","Shudra"], c:0},
+  {q:"The first Sufi saint to come to the Sub-continent was:", o:["Khawaja Moin-ud-Din Chishti","Hazrat Abdullah Shah Ghazi","Hazrat Ali Hajveri (Data Gunj Buksh)","Lal Shahbaz Qalandar"], c:2},
+  {q:"The Hindu society was divided into how many main castes?", o:["Two","Three","Four","Five"], c:2},
+  {q:"The Suharwardiyya order flourished under:", o:["Khawaja Moin-ud-Din Chishti","Hazrat Baha-ud-Din Zakariyya Multani","Hazrat Ali Hajveri","Mujaddid Alf Sani"], c:1},
+  {q:"After the advent of Muslims in South Asia, the new art that came into being was called:", o:["Gandhara Art","Mughal Art","Indo-Islamic Art","British Art"], c:2},
+  {q:"The Muslim League was founded in December 1906 at:", o:["Lahore","Karachi","Dhaka","Delhi"], c:2},
+  {q:"The first President of the All India Muslim League was:", o:["Nawab Viqar-ul-Mulk","Nawab Saleemullah Khan","Sir Aga Khan","Quaid-i-Azam Jinnah"], c:2},
+  {q:"The principle of separate electorate for Muslims was accepted in the Government of India Act:", o:["1906","1909","1919","1935"], c:1},
+  {q:"The Lucknow Pact was signed between Muslim League and Congress in the year:", o:["1914","1915","1916","1917"], c:2},
+  {q:"The Khilafat Movement was launched under the leadership of:", o:["Allama Iqbal","Quaid-i-Azam Jinnah","Maulana Muhammad Ali Jauhar","Sir Syed Ahmed Khan"], c:2},
+  {q:"Nehru Committee was constituted for drafting a new constitutional scheme in the year:", o:["1926","1927","1928","1929"], c:2},
+  {q:"Quaid-i-Azam presented his famous Fourteen Points in:", o:["March 1927","March 1928","March 1929","March 1930"], c:2},
+  {q:"The Allahabad Address was delivered by Allama Iqbal in the year:", o:["1928","1929","1930","1931"], c:2},
+  {q:"The Round Table Conferences were held in London between:", o:["1928–1930","1929–1931","1930–1932","1931–1933"], c:2},
+  {q:"Sindh was separated from the Bombay Presidency under the Government of India Act:", o:["1919","1930","1932","1935"], c:3},
+  {q:"The Pakistan Resolution was presented on:", o:["23rd March 1939","23rd March 1940","23rd March 1941","23rd March 1942"], c:1},
+  {q:"The Pakistan Resolution was presented at the Lahore session. Who presided over this session?", o:["Allama Iqbal","A.K. Fazal-ul-Haq","Quaid-i-Azam Muhammad Ali Jinnah","Nawab Saleemullah Khan"], c:2},
+  {q:"Sir Stafford Cripps visited India with proposals in the year:", o:["1940","1941","1942","1943"], c:2},
+  {q:"The Congress launched the 'Quit India Movement' after:", o:["Cripps Proposals","Cabinet Mission Plan","Simla Conference","Mountbatten Plan"], c:0},
+  {q:"The Cabinet Mission visited India in:", o:["March 1945","March 1946","March 1947","March 1948"], c:1},
+  {q:"Lord Mountbatten announced the Partition Plan on:", o:["3rd June 1946","3rd June 1947","3rd August 1947","15th August 1947"], c:1},
+  {q:"The Indian Independence Act was passed by the British Parliament on:", o:["July 18, 1947","August 14, 1947","August 15, 1947","September 11, 1947"], c:0},
+  {q:"Sir Cyril Radcliffe was appointed as the chief of the Boundary Commission. He was by profession:", o:["A Judge","A General","A British Advocate","A Governor"], c:2},
+  {q:"The word 'Nation' for the Muslims of the Sub-continent was first used by:", o:["Shaikh Ahmed Sirhandi","Shah Waliullah","Sir Syed Ahmed Khan","Syed Ameer Ali"], c:2},
+  {q:"The pamphlet 'Now or Never' was written by:", o:["Allama Iqbal","Quaid-i-Azam","Chaudhry Rahmat Ali","Sir Syed Ahmed Khan"], c:2},
+  {q:"The first session of the Constituent Assembly of Pakistan was held at Karachi on:", o:["11 August 1947","14 August 1947","15 August 1947","3 June 1947"], c:0},
+  {q:"Sindh is called the 'Gateway of Islam' because:", o:["It is the largest province","Islam came to South Asia through Sindh","It has the most mosques","It borders Arabia"], c:1},
+  {q:"The first annual session of the Muslim League was held in 1907 at:", o:["Dhaka","Lahore","Karachi","Delhi"], c:2},
+  {q:"The border between Pakistan and Afghanistan is called the:", o:["Durand Line","McMahon Line","Radcliffe Line","Control Line"], c:0}
+],
+
+"Ch.2 — History of Pakistan": [
+  {q:"Quaid-i-Azam Muhammad Ali Jinnah became the first Governor-General of Pakistan on:", o:["11 August 1947","14 August 1947","15 August 1947","11 September 1947"], c:1},
+  {q:"The first Prime Minister of Pakistan was:", o:["Khawaja Nazimuddin","Liaquat Ali Khan","Malik Ghulam Muhammad","Iskander Mirza"], c:1},
+  {q:"Quaid-i-Azam passed away on:", o:["11 August 1948","11 September 1948","14 August 1948","11 October 1948"], c:1},
+  {q:"Liaquat Ali Khan was assassinated in the year:", o:["1949","1950","1951","1952"], c:2},
+  {q:"The first Constituent Assembly of Pakistan was dissolved by Governor-General:", o:["Iskander Mirza","Khawaja Nazimuddin","Malik Ghulam Muhammad","Ayub Khan"], c:2},
+  {q:"Islamabad was made the new capital of Pakistan during the tenure of:", o:["Yahya Khan","Iskander Mirza","Ayub Khan","Zulfiqar Ali Bhutto"], c:2},
+  {q:"The Tashkent Declaration was signed by President Ayub Khan and Indian PM Lal Bahadur Shastri after the war of:", o:["1962","1965","1967","1971"], c:1},
+  {q:"Pakistan People's Party was founded in a convention at Lahore on:", o:["October 31 – November 1, 1967","October 31 – November 1, 1968","October 31 – November 1, 1966","October 31 – November 1, 1965"], c:0},
+  {q:"The Indo-Pak War of 1971 began on:", o:["December 3, 1971","December 6, 1971","December 16, 1971","December 20, 1971"], c:0},
+  {q:"East Pakistan became the independent state of Bangladesh on:", o:["December 3, 1971","December 16, 1971","December 20, 1971","December 25, 1971"], c:1},
+  {q:"The 1973 Constitution of Pakistan was passed on:", o:["April 10, 1973","August 14, 1973","March 23, 1973","July 1, 1973"], c:0},
+  {q:"The second Islamic Summit was hosted by Pakistan at:", o:["Islamabad","Karachi","Lahore","Rawalpindi"], c:2},
+  {q:"Zulfiqar Ali Bhutto was hanged on:", o:["April 4, 1978","April 4, 1979","April 4, 1980","April 4, 1981"], c:1},
+  {q:"General Zia-ul-Haq died in a plane crash near Bahawalpur on:", o:["August 17, 1987","August 17, 1988","August 17, 1989","August 17, 1986"], c:1},
+  {q:"The first General Elections in Pakistan were held in:", o:["1965","1968","1970","1973"], c:2},
+  {q:"Under the Legal Framework Order of Yahya Khan, the condition set was that the National Assembly must frame the constitution within:", o:["60 days","90 days","120 days","180 days"], c:1},
+  {q:"In the Rann of Kutch clash of June 1965, the areas were vacated by:", o:["Pakistan","India","Both countries","UN forces"], c:1},
+  {q:"The 17-Day War between Pakistan and India (1965) started with India attacking:", o:["Karachi sector","Lahore sector","Quetta sector","Rawalpindi sector"], c:1},
+  {q:"The Indus Basin Treaty between Pakistan and India was signed in:", o:["1958","1959","1960","1961"], c:2},
+  {q:"Benazir Bhutto returned to Pakistan from exile on:", o:["April 10, 1985","April 10, 1986","April 10, 1987","April 10, 1988"], c:1},
+  {q:"Benazir Bhutto was assassinated in a terrorist attack at Rawalpindi on:", o:["27 December 2006","27 December 2007","27 December 2008","27 December 2005"], c:1},
+  {q:"The initial capital of Pakistan after independence was:", o:["Islamabad","Rawalpindi","Lahore","Karachi"], c:3},
+  {q:"According to the 1947 partition agreement, Pakistan's share in the national loans of United India was:", o:["10 percent","12.5 percent","17.5 percent","20 percent"], c:2},
+  {q:"After the 1970 elections, how many seats did Awami League win in the National Assembly from East Pakistan?", o:["All seats except one","All seats except two","All seats except three","All seats"], c:1},
+  {q:"The distribution of armed forces after partition was to be completed by:", o:["January 1948","April 1948","August 1948","December 1948"], c:1},
+  {q:"Pakistan was officially admitted to the United Nations in the year:", o:["1947","1948","1949","1950"], c:0},
+  {q:"According to 1941 census, the Muslims formed what percentage of total population in the valley of Kashmir?", o:["70 percent","80 percent","90 percent","96 percent"], c:3},
+  {q:"General Pervez Musharraf took power by removing Nawaz Sharif's government on:", o:["October 12, 1998","October 12, 1999","October 12, 2000","October 12, 2001"], c:1},
+  {q:"The Pakistan People's Party founding convention at Dr. Mubashir Hasan's residence was attended by how many persons?", o:["19","25","29","39"], c:2},
+  {q:"The Simla Agreement, under which prisoners of war were released, was signed between Pakistan and India in:", o:["1971","1972","1973","1974"], c:1}
+],
+
+"Ch.3 — Islamic Democratic State": [
+  {q:"Pakistan came into being as an independent sovereign state on:", o:["11 August 1947","14 August 1947","15 August 1947","23 March 1947"], c:1},
+  {q:"The Objectives Resolution was passed in the Constituent Assembly of Pakistan in the year:", o:["1947","1948","1949","1950"], c:2},
+  {q:"The first Constitution of Pakistan was promulgated on:", o:["23 March 1955","23 March 1956","23 March 1957","23 March 1958"], c:1},
+  {q:"The first Constitution of Pakistan had how many articles and appendices?", o:["234 articles and 4 appendices","234 articles and 6 appendices","250 articles and 3 appendices","280 articles and 5 appendices"], c:1},
+  {q:"The Martial Law was imposed for the first time in Pakistan on:", o:["October 7, 1956","October 7, 1957","October 7, 1958","October 7, 1959"], c:2},
+  {q:"Iskander Mirza, who imposed Martial Law in 1958, was forced to resign from the Presidentship after:", o:["10 days","15 days","20 days","25 days"], c:2},
+  {q:"Under Ayub Khan's system of Basic Democracy, the Electoral College consisted of how many basic democrats?", o:["40,000","60,000","80,000","100,000"], c:2},
+  {q:"The Constitution of 1962 was introduced by Ayub Khan on:", o:["March 1, 1961","March 1, 1962","March 1, 1963","March 1, 1964"], c:1},
+  {q:"The 1962 Constitution had how many articles and appendices?", o:["234 articles and 6 appendices","250 articles and 3 appendices","280 articles and 4 appendices","200 articles and 5 appendices"], c:1},
+  {q:"Mohtarma Fatima Jinnah contested for the Presidency of Pakistan against Ayub Khan in:", o:["1960","1962","1964","1966"], c:2},
+  {q:"The Construction of Islamabad as a new capital city began in:", o:["1958","1959","1960","1961"], c:2},
+  {q:"Under the 1974 Constitutional Amendment, who were declared non-Muslim?", o:["Shias","Qadianis/Ahmadis","Ismailis","Christians"], c:1},
+  {q:"The 1973 Constitution was enforced on:", o:["April 10, 1973","August 14, 1973","October 7, 1973","March 23, 1973"], c:1},
+  {q:"For the first time in Pakistani constitutional history, the 1973 Constitution declared Islam as the:", o:["Majority religion","National religion","State religion","Official religion"], c:2},
+  {q:"The Eighth Amendment to the 1973 Constitution gave the President the power to:", o:["Dismiss the Prime Minister and dissolve Assemblies","Declare Emergency","Appoint Chief Justices","Amend the Constitution alone"], c:0},
+  {q:"Who introduced the system of Basic Democracy in Pakistan?", o:["Ayub Khan","Yahya Khan","Zia-ul-Haq","Pervez Musharraf"], c:0},
+  {q:"The Muhammad Ali Bogra Formula was prepared on the basis of:", o:["Unitary system","Federal Parliamentary system with parity","Presidential system","Confederal system"], c:1},
+  {q:"Which governor-general dissolved the first Constituent Assembly of Pakistan?", o:["Quaid-i-Azam","Khawaja Nazimuddin","Malik Ghulam Muhammad","Iskander Mirza"], c:2},
+  {q:"In the 1956 Constitution, Pakistan was declared a/an:", o:["Federal Republic","Islamic Republic","Democratic Republic","People's Republic"], c:1},
+  {q:"The Objectives Resolution declared that sovereignty over the entire universe belongs to:", o:["The people of Pakistan","The Parliament of Pakistan","Almighty Allah alone","The Federal Government"], c:2},
+  {q:"Who became the first President of Pakistan after it became a Republic?", o:["Quaid-i-Azam Jinnah","Khawaja Nazimuddin","Malik Ghulam Muhammad","Iskander Mirza"], c:3},
+  {q:"The 1977 Martial Law was imposed by:", o:["Ayub Khan","Yahya Khan","Zia-ul-Haq","Pervez Musharraf"], c:2},
+  {q:"Non-party elections were held in Pakistan in:", o:["1983","1984","1985","1986"], c:2},
+  {q:"Khawaja Nazimuddin became the Governor-General of Pakistan after the death of:", o:["Liaquat Ali Khan","Quaid-i-Azam","Malik Ghulam Muhammad","Iskander Mirza"], c:1},
+  {q:"The PNA (Pakistan National Alliance) was formed against which government?", o:["Ayub Khan","Yahya Khan","Zulfiqar Ali Bhutto","Zia-ul-Haq"], c:2},
+  {q:"The Pakistan People's Party (PPP) was founded by:", o:["Zulfiqar Ali Bhutto","Benazir Bhutto","Z.A. Bhutto and J.A. Rahim jointly","Yousuf Raza Gilani"], c:0},
+  {q:"Asif Ali Zardari was elected as President of Pakistan on:", o:["6 September 2007","6 September 2008","6 September 2009","6 September 2010"], c:1},
+  {q:"In the elections of 2018, which party's leader Imran Khan became Prime Minister?", o:["PML-N","PPP","PTI","MQM"], c:2},
+  {q:"The speaker of the first Constituent Assembly who filed a writ petition against its dissolution was:", o:["Muhammad Ali Bogra","Moulvi Tamizuddin","Iskander Mirza","Chaudhry Muhammad Ali"], c:1},
+  {q:"Under the 1973 Constitution, the upper house of Parliament is:", o:["National Assembly","Senate","Federal Council","Provincial Assembly"], c:1}
+],
+
+"Ch.4 — The Land of Pakistan": [
+  {q:"The total area of Pakistan is:", o:["696,096 sq. km","796,096 sq. km","896,096 sq. km","996,096 sq. km"], c:1},
+  {q:"Pakistan lies between which latitudes?", o:["20.35° N and 35.05° N","23.35° N and 37.05° N","25.30° N and 38.00° N","22.00° N and 36.00° N"], c:1},
+  {q:"Pakistan borders China in the:", o:["South","East","North","Northwest"], c:2},
+  {q:"The highest peak of the Himalayan range in Pakistan is:", o:["K-2 (8611 m)","Tirich Mir (7690 m)","Nanga Parbat (8126 m)","Takht-i-Sulaiman (3487 m)"], c:2},
+  {q:"The highest peak of the Karakoram Mountains (K-2) is also known as:", o:["Nanga Parbat","Godwin Austin","Tirich Mir","Sia Kangri"], c:1},
+  {q:"K-2 (Godwin Austin) has a height of:", o:["7,690 metres","8,126 metres","8,611 metres","7,500 metres"], c:2},
+  {q:"The highest peak of Hindu Kush Mountains is:", o:["Nanga Parbat","K-2","Tirich Mir","Takht-i-Sulaiman"], c:2},
+  {q:"The famous Khyber Pass connects:", o:["Islamabad with Kabul","Peshawar with Kabul","Quetta with Tehran","Karachi with Gwadar"], c:1},
+  {q:"The Khyber Pass is situated in the south of river:", o:["Indus","Kabul","Kurram","Jhelum"], c:1},
+  {q:"The land between two rivers is locally called:", o:["Bar","Doaba","Thal","Derajat"], c:1},
+  {q:"Pakistan has how many distinct physical/geographical regions?", o:["Four","Five","Six","Seven"], c:2},
+  {q:"The Salt Range average height is:", o:["400 metres","500 metres","700 metres","1000 metres"], c:2},
+  {q:"Pakistan has how many climatic regions?", o:["Two","Three","Four","Five"], c:2},
+  {q:"Monsoon rains come to Pakistan during the months of:", o:["March and April","June–July and continue to mid-September","October and November","January and February"], c:1},
+  {q:"The natural lake of Balochistan which receives many small rivers is:", o:["Saif-ul-Mulook Lake","Keenjhar Lake","Hamun-i-Mashkhel Lake","Hanna Lake"], c:2},
+  {q:"The Bolan Pass is situated in the valley of river:", o:["Zhob","Bolan","Ravi","Chenab"], c:1},
+  {q:"The Potohar Plateau is situated in the:", o:["South of Salt Range","North of Salt Range","East of Salt Range","West of Salt Range"], c:1},
+  {q:"In the summer, the temperature at Sibi in Balochistan goes up to:", o:["38°","40°","42°","45°"], c:3},
+  {q:"The Thar Desert lies to the:", o:["North-east of Upper Indus Plain","South-east of Upper Indus Plain","Southwest of Upper Indus Plain","Northwest of Upper Indus Plain"], c:1},
+  {q:"The Balochistan Plateau is approximately how high above sea level?", o:["300 to 600 metres","600 to 900 metres","900 to 1200 metres","150 to 300 metres"], c:1},
+  {q:"Winter rainfall in Pakistan is mainly caused by cyclones from:", o:["Arabian Sea","Bay of Bengal","Indian Ocean","Mediterranean Sea"], c:3},
+  {q:"Takht-i-Sulaiman, the highest peak of the Sulaiman range, is how high?", o:["2,487 metres","3,087 metres","3,487 metres","4,487 metres"], c:2},
+  {q:"The Peshawar plain is irrigated by river:", o:["Indus","Kabul","Jhelum","Chenab"], c:1},
+  {q:"The province of Pakistan rich in gas, coal, chromium and copper is:", o:["Punjab","Sindh","Balochistan","Khyber Pakhtunkhwa"], c:2},
+  {q:"Pakistan's boundaries in the east meet:", o:["Iran","China","India","Afghanistan"], c:2},
+  {q:"Pakistan extends to which sea in the south?", o:["Red Sea","Arabian Sea","Bay of Bengal","Mediterranean Sea"], c:1},
+  {q:"The Lowari Pass is situated between:", o:["Peshawar and Kabul","Chitral and Peshawar","Swat and Peshawar","Peshawar and Quetta"], c:1},
+  {q:"The River Indus joins its five tributaries at a point called:", o:["Panjnad","Mithan Kot","Kotri","Guddu"], c:0},
+  {q:"The Siwalik mountain ranges have an average height of:", o:["100 to 500 metres","300 to 1000 metres","1000 to 2000 metres","2000 to 3000 metres"], c:1},
+  {q:"The provinces of Pakistan are:", o:["Two","Three","Four","Five"], c:2}
+],
+
+"Ch.5 — Culture of Pakistan": [
+  {q:"The Indus Valley Civilization is approximately how many years old?", o:["2,000 years","3,000 years","5,000 years","8,000 years"], c:2},
+  {q:"The archaeological site of Moen-jo-Daro is located in district:", o:["Sahiwal, Punjab","Larkana, Sindh","Sukkur, Sindh","Multan, Punjab"], c:1},
+  {q:"The archaeological site of Harappa is located in district:", o:["Sahiwal, Punjab","Larkana, Sindh","Sialkot, Punjab","Rahim Yar Khan"], c:0},
+  {q:"The 'Mother Goddess' idols found at Indus Valley sites were:", o:["Male statues","Female statues","Animal statues","Human-animal mixed statues"], c:1},
+  {q:"The Gandhara civilization flourished in the areas adjoining:", o:["Lahore and Multan","Rawalpindi and Peshawar","Karachi and Hyderabad","Sukkur and Larkana"], c:1},
+  {q:"The cultural seat of Gandhara civilization was:", o:["Lahore","Peshawar","Taxila","Multan"], c:2},
+  {q:"The Gandhara art is a combination of which civilizations?", o:["Egyptian and Roman","Local, Persian, and Greek","Arab and Indian","Greek and Chinese"], c:1},
+  {q:"Taj Mahal was built in:", o:["Delhi","Lahore","Agra","Fatehpur Sikri"], c:2},
+  {q:"The Badshahi (Royal) Mosque of Lahore was built during the reign of:", o:["Akbar","Shah Jahan","Jahangir","Aurangzeb"], c:3},
+  {q:"The Wazir Khan Mosque in Lahore is unique for its:", o:["Marble domes","Persian glazed tiles of multiple design and colour","Red sandstone","Minarets"], c:1},
+  {q:"The Jamia Masjid Thatta was built by:", o:["Akbar","Jahangir","Shah Jahan","Aurangzeb"], c:2},
+  {q:"Humayun brought two Persian painters from Iran. One of them was:", o:["Mian Tansen","Mir Syed Ali Tabrezi","Amir Khusro","Shah Abdul Aziz"], c:1},
+  {q:"The art of paintings reached its climax during the days of:", o:["Akbar","Humayun","Jahangir","Aurangzeb"], c:2},
+  {q:"Mian Tansen was the renowned musician of the court of Emperor:", o:["Humayun","Akbar","Jahangir","Aurangzeb"], c:1},
+  {q:"The raag 'Mian Ke Malhar' was invented by:", o:["Amir Khusro","Bilas Khan","Mian Tansen","Rahman Baba"], c:2},
+  {q:"The most famous foremost musician of the Muslim period who innovated several raags was:", o:["Mian Tansen","Amir Khusro","Bilas Khan","Farabi"], c:1},
+  {q:"'Sutti' was a custom in which:", o:["A widow is burned alive with her husband","Lower castes worshipped fire","Women fasted for 40 days","Daughters were sacrificed at birth"], c:0},
+  {q:"The glazed tile work today is mainly restricted to:", o:["Karachi and Lahore","Hala (Sindh) and Multan (Punjab)","Peshawar and Quetta","Hyderabad and Sukkur"], c:1},
+  {q:"Pakistan's biggest sports industry is situated in:", o:["Karachi","Lahore","Sialkot","Peshawar"], c:2},
+  {q:"'Malakhra' is the popular form of wrestling in which province?", o:["Punjab","Sindh","Balochistan","Khyber Pakhtunkhwa"], c:1},
+  {q:"The Aligarh College (later Muslim University) was established by:", o:["Allama Iqbal","Quaid-i-Azam","Sir Syed Ahmed Khan","Maulana Hali"], c:2},
+  {q:"The wood carving art is famous in:", o:["Hala, Multan, Peshawar and Swat","Karachi, Lahore and Islamabad","Quetta, Gwadar and Turbat","Sukkur, Larkana and Khairpur"], c:0},
+  {q:"The carpet industry during the Mughal period was most famous in:", o:["Karachi","Lahore","Multan","Peshawar"], c:1},
+  {q:"Sachal Sarmast was a Sufi poet of which province?", o:["Punjab","Sindh","Balochistan","Khyber Pakhtunkhwa"], c:1},
+  {q:"The Street width of the main roads in the Indus Valley cities was:", o:["20 feet","25 feet","33 feet","40 feet"], c:2},
+  {q:"Which Mughal emperor is known as a great admirer of the art of paintings who could name a painter by looking at his work?", o:["Akbar","Humayun","Jahangir","Aurangzeb"], c:2},
+  {q:"The 'Indo-Islamic Art' was a combination of Islamic art with the art of:", o:["Arabia, Persia and Turkey","Egypt, Rome, Greece, Persia and South Asian trends","China and Japan","Europe and America"], c:1},
+  {q:"The tomb of Jahangir at Lahore was built under the direction of Empress:", o:["Mumtaz Mahal","Noor Jahan","Ruqayya Begum","Hamida Banu"], c:1},
+  {q:"The Lahore Fort was originally built by Emperor:", o:["Humayun","Akbar","Shah Jahan","Aurangzeb"], c:1},
+  {q:"Qawwali (enchanting psalms) was popularized by which order of Muslim mystics?", o:["Naqshbandiyya","Qadariyya","Suharwardiyya","Chishtiyya"], c:3}
+],
+
+"Ch.6 — Languages of Pakistan": [
+  {q:"The national language of Pakistan is:", o:["Punjabi","Sindhi","Urdu","Pashto"], c:2},
+  {q:"The word 'Urdu' is a Turkish word meaning:", o:["Language","Culture","Army camp","People"], c:2},
+  {q:"In the beginning, Urdu was called:", o:["Arabic","Farsi","Hindavi/Hindi/Hindustani","Rekhta"], c:2},
+  {q:"The first Divan (collection) of Urdu ode (ghazal) was compiled on the orders of:", o:["Akbar","Sultan Muhammad Quli Qutub Shah","Aurangzeb","Shah Jahan"], c:1},
+  {q:"Which poet represents the 'Hindi or Hindavi phase' of Urdu?", o:["Ghalib","Zauq","Amir Khusro","Mir Taqi Mir"], c:2},
+  {q:"Urdu language developed in 'Rekhta' phase. Which poet represents this phase?", o:["Amir Khusro","Ghalib","Mushafi","Zauq"], c:2},
+  {q:"Allama Iqbal composed his poetry in:", o:["Urdu and Arabic","Urdu and Persian","Persian and Sindhi","Urdu, Persian and Sindhi"], c:1},
+  {q:"Pashto language began about five thousand years ago in:", o:["Afghanistan","Bactria (Bakhtar)","Khyber Pass area","Hindu Kush"], c:1},
+  {q:"The great poet of Pashto who was also a warrior was:", o:["Rahman Baba","Mulla Mast","Khushal Khan Khattak","Nooruddin"], c:2},
+  {q:"Rahman Baba is a prominent poet of:", o:["Sindhi","Punjabi","Pashto","Balochi"], c:2},
+  {q:"Pashto has how many dialects?", o:["Two","Three","Four","Five"], c:1},
+  {q:"The first language in which the Holy Quran was translated among the regional languages was:", o:["Punjabi","Pashto","Sindhi","Balochi"], c:2},
+  {q:"The 'golden period' of Sindhi literature is associated with which two poets?", o:["Sachal Sarmast and Makhdoom Muhammad Hashim","Shah Abdul Latif Bhittai and Sachal Sarmast","Qazi Qazan and Akhoond Azizullah","Waris Shah and Bulleh Shah"], c:1},
+  {q:"Shah Abdul Latif Bhittai lived approximately between:", o:["1589–1689","1689–1752 (or 1789)","1789–1889","1589–1652"], c:1},
+  {q:"Shah Abdul Latif Bhittai's collection of poetry is compiled in:", o:["Patta Khazana","Shah jo Risalo","Tuhf-tul-Ajaib","Divan-e-Khusro"], c:1},
+  {q:"Akhund Azizullah translated the Holy Quran into:", o:["Punjabi","Pashto","Balochi","Sindhi"], c:3},
+  {q:"Mirza Qaleech Beg was famous in:", o:["Punjabi literature","Pashto literature","Sindhi literature","Balochi literature"], c:2},
+  {q:"The standard dialect of Punjabi, considered the literary form, is:", o:["Potohari","Seraiki","Majhi","Chhachhi"], c:2},
+  {q:"The famous Punjabi story of 'Hir Ranjha' was written by:", o:["Hashim Shah","Hafiz Barkhurdar","Fazal Shah","Waris Shah"], c:3},
+  {q:"'Sussi Punhu' in Punjabi poetry was written by:", o:["Waris Shah","Hashim Shah","Fazal Shah","Hafiz Barkhurdar"], c:1},
+  {q:"Balochi language is related to:", o:["Dravidian languages","Aryan languages","Semitic languages","Turkic languages"], c:1},
+  {q:"The two dialects of Balochi are:", o:["Majhi and Seraiki","Sulaimani and Makrani","Lari and Kachhi","Vicholi and Thari"], c:1},
+  {q:"The prominent Balochi poet of the British period was:", o:["Hamal Rind","Mir Chakar Khan","Mast Tawakuli","Karimdad"], c:2},
+  {q:"The famous Kashmiri poet Haba Khattun was known for:", o:["War poetry","Love stories","Spiritual poetry","Folk songs"], c:1},
+  {q:"Brahvi is the language of the ancient race:", o:["Dravidian (Dravar)","Aryan","Semitic","Mongol"], c:0},
+  {q:"Brahvi is mainly spoken in which areas of Balochistan?", o:["Makran and Gwadar","Saravan, Jhalavan, Kech and Makran areas","Quetta and Pishin","Dera Bugti and Sui"], c:1},
+  {q:"The famous Brahvi literary work 'Tuhf-tul-Ajaib' was written by:", o:["Mast Tawakuli","Karimdad","Mir Chakar Khan","Hamal Rind"], c:1},
+  {q:"Baba Farid Ganj Shakar is a prominent name in which language's literature?", o:["Sindhi","Pashto","Punjabi","Balochi"], c:2},
+  {q:"The mystic poet Shah Hussain (Madhu Lal Hussain) wrote in:", o:["Sindhi","Pashto","Punjabi","Urdu"], c:2},
+  {q:"Sachal Sarmast wrote poetry in how many languages?", o:["Three","Four","Six","Eight"], c:2}
+],
+
+"Ch.7 — Economic Planning & Development": [
+  {q:"Pakistan is classified as a:", o:["Developed country","Developing country","Under-developed country","Least developed country"], c:1},
+  {q:"The population growth rate of Pakistan at the time the textbook was written was approximately:", o:["1.6 percent annually","2.0 percent annually","2.6 percent annually","3.0 percent annually"], c:2},
+  {q:"The share of agriculture in Pakistan's Gross National Product (GNP) is approximately:", o:["15%","20%","25%","30%"], c:2},
+  {q:"The main source of energy for domestic use in Pakistan is:", o:["Coal","Oil","Gas","Hydro-electricity"], c:2},
+  {q:"The literacy rate in Pakistan according to the 1981 census was:", o:["20.2%","26.2%","30.6%","36.8%"], c:1},
+  {q:"The First Five Year Development Plan of Pakistan was launched in:", o:["1950","1953","1955","1958"], c:2},
+  {q:"The Fifth Five Year Plan of Pakistan achieved what percentage of its targeted schemes?", o:["70 percent","80 percent","90 percent","100 percent"], c:2},
+  {q:"During the Fifth Five Year Plan, self-sufficiency was achieved in:", o:["Oil","Coal","Food","Electricity"], c:2},
+  {q:"The main import of Pakistan is:", o:["Sports goods","Leather goods","Rice","Petroleum"], c:3},
+  {q:"Pakistan's main export items include rice, cotton thread, cotton cloth, leather and:", o:["Sugar","Carpets","Wheat","Cement"], c:1},
+  {q:"Pakistan delinked the Pakistan Rupee from the US Dollar in:", o:["January 1980","January 1981","January 1982","January 1983"], c:2},
+  {q:"Approximately what percentage of Pakistan's population lives in villages?", o:["50%","60%","65-70%","80%"], c:2},
+  {q:"According to the 1998 census, the literacy rate in Pakistan was:", o:["36.8%","40%","45%","55%"], c:2},
+  {q:"Underground water obtained through tunnels under the ground is called:", o:["Tubewell","Canal","Karez","Barage"], c:2},
+  {q:"What twin problems has the canal irrigation system brought to Pakistan?", o:["Drought and famine","Water logging and salinity","Floods and erosion","Deforestation and pollution"], c:1},
+  {q:"The Eighth Development Plan aimed to raise the literacy rate to:", o:["60 percent","70 percent","80 percent","87 percent"], c:3},
+  {q:"The present annual population growth rate target in the Eighth Plan was fixed at:", o:["1.8%","2.0%","2.3%","2.6%"], c:2},
+  {q:"Export processing zones were established at:", o:["Islamabad and Rawalpindi","Lahore and Karachi","Karachi and Hyderabad","Faisalabad and Sialkot"], c:1},
+  {q:"The share of industries in Pakistan's Gross National Product is approximately:", o:["1.6 percent","2.0 percent","2.6 percent","3.0 percent"], c:2},
+  {q:"The Seventh Five Year Plan covered the period:", o:["1983–1988","1988–1993","1993–1998","1978–1983"], c:1},
+  {q:"The State Bank of Pakistan was inaugurated on:", o:["1 July 1947","1 July 1948","1 August 1948","14 August 1948"], c:1},
+  {q:"WAPDA (Water and Power Development Authority) works mainly to:", o:["Build roads","Reclaim waterlogged and saline lands","Provide health services","Manage exports"], c:1},
+  {q:"Oil has been discovered in Pakistan from areas including:", o:["Quetta, Peshawar, Lahore","Adhi, Leghari and Khaskheli","Thar, Cholistan, Nara","Sukkur, Kotri, Guddu"], c:1},
+  {q:"Gober gas, solar energy and small hydro-electric power houses development was emphasized in which plan?", o:["Fifth Plan","Sixth Plan","Seventh Plan","Eighth Plan"], c:2},
+  {q:"The drop-out rate at the primary school level in Pakistan is:", o:["10 to 20 percent","20 to 30 percent","30 to 40 percent","40 to 50 percent"], c:2},
+  {q:"The Six Five Year Plan (1983-1988) was launched from:", o:["July 1, 1982","July 1, 1983","July 1, 1984","July 1, 1985"], c:1},
+  {q:"Balochistan is specifically rich in natural resources including:", o:["Gold, silver, diamonds","Gas, coal, chromium, copper and manganese","Oil and natural rubber","Iron ore and aluminium"], c:1},
+  {q:"The mortality rate in Pakistan per 1000 persons is:", o:["7","11","15","20"], c:1},
+  {q:"Nitrogen fertilizer production capacity is nearly:", o:["Two million tons","Three million tons","Five million tons","Eight million tons"], c:2},
+  {q:"For the promotion of technical education, the target under the Seventh Plan was to open how many Polytechnical Institutes?", o:["10","20","29","40"], c:2}
+],
+
+"Ch.8 — Pakistan & Comity of Nations": [
+  {q:"The United Nations Organization was founded in:", o:["1943","1944","1945","1946"], c:2},
+  {q:"The Headquarters of the United Nations Organization is located at:", o:["London","Washington","New York","Geneva"], c:2},
+  {q:"Pakistan became a member of the United Nations in the year:", o:["1947","1948","1949","1950"], c:0},
+  {q:"The first Islamic Summit Conference was held in September 1969 at:", o:["Lahore","Jeddah","Rabat (Morocco)","Mecca"], c:2},
+  {q:"The second Islamic Summit Conference was held in 1974 at:", o:["Jeddah","Islamabad","Lahore","Mecca"], c:2},
+  {q:"The second Islamic Summit was organized by:", o:["King Faisal of Saudi Arabia","Quaid-i-Azam","Zulfiqar Ali Bhutto","Benazir Bhutto"], c:2},
+  {q:"The Headquarters of the Organization of Islamic Cooperation (OIC) is at:", o:["Mecca","Islamabad","Cairo","Jeddah (Saudi Arabia)"], c:3},
+  {q:"How many countries participated in the first Islamic Summit at Rabat?", o:["Eighteen","Twenty-two","Twenty-four","Thirty"], c:2},
+  {q:"The 'Mecca Declaration' was issued at the end of which Islamic Summit?", o:["First (Rabat, 1969)","Second (Lahore, 1974)","Third (Taif, 1981)","Fourth (Casablanca, 1984)"], c:2},
+  {q:"Egypt was expelled from the Islamic Conference in May 1979 when it signed peace agreement with:", o:["Iran","Iraq","Israel","USA"], c:2},
+  {q:"The Economic Co-operation Organization (ECO) was originally founded in 1964 as:", o:["ECO","OIC","RCD (Regional Cooperation for Development)","SAARC"], c:2},
+  {q:"The original three founding members of ECO (then RCD) were:", o:["Pakistan, India and Bangladesh","Pakistan, Iran and Turkey","Pakistan, Afghanistan and China","Pakistan, Saudi Arabia and Iran"], c:1},
+  {q:"The name Regional Cooperation for Development (RCD) was changed to ECO in:", o:["1980","1983","1985","1987"], c:2},
+  {q:"The first ECO Summit of heads of states was held in February 1992 at:", o:["Islamabad","Ankara","Tehran","Jeddah"], c:2},
+  {q:"The ECO membership was expanded in 1992 from 3 to how many countries?", o:["7","8","10","12"], c:2},
+  {q:"The Non-Aligned Movement (NAM) was established in:", o:["1955","1958","1961","1964"], c:2},
+  {q:"ILO stands for:", o:["International Language Organization","International Labour Organization","International Law Organization","International Logistics Organization"], c:1},
+  {q:"The fire in Al-Aqsa Mosque (Grand Mosque of Jerusalem) which led to the formation of OIC occurred in:", o:["August 1967","August 1968","August 1969","August 1970"], c:2},
+  {q:"The Islamic Development Bank is one of the specialized agencies of:", o:["UN","OIC","ECO","NAM"], c:1},
+  {q:"The Twelfth Islamic Summit Conference was held in 2013 at:", o:["Islamabad","Jeddah","Doha","Cairo, Egypt"], c:3},
+  {q:"The fundamental principle of Pakistan's foreign policy regarding Muslim states is:", o:["Non-interference","Friendly relations on basis of equality with emphasis on Muslim states","Economic competition","Military alliance"], c:1},
+  {q:"Which Pakistani city served as a venue for three meetings of the Foreign Ministers of OIC?", o:["Karachi","Lahore","Islamabad","Rawalpindi"], c:2},
+  {q:"The Eleventh Summit Conference of OIC was held in March 2008 at:", o:["Cairo","Islamabad","Dakar, Senegal","Doha"], c:2},
+  {q:"At present, the total membership of the United Nations is:", o:["185","187","193","195"], c:2},
+  {q:"The Iranian Islamic Revolution occurred in:", o:["1977","1978","1979","1981"], c:2},
+  {q:"The Tenth Islamic Summit was held at Putrajaya in:", o:["Malaysia","Indonesia","Bangladesh","Brunei"], c:0},
+  {q:"A 2-day ECO Summit was held on 14-15 March 1995 at:", o:["Tehran","Ankara","Islamabad","Tashkent"], c:2},
+  {q:"UNESCO is the acronym for which United Nations organization?", o:["United Nations Economic Society","United Nations Education, Scientific and Cultural Organization","United Nations Emergency Special Committee","United Nations Economic Survey Council"], c:1},
+  {q:"The Ninth Islamic Summit in Doha (Qatar) supported Pakistan's candidature for which body?", o:["World Bank","IMF","UN Security Council","International Court of Justice"], c:2},
+  {q:"The Soviet Union invited Pakistan and India to have talks at Tashkent after the:", o:["1948 Kashmir War","1965 War","1971 War","Kargil Conflict"], c:1}
+],
+
+"Ch.9 — Fundamental Rights": [
+  {q:"Fundamental Rights of citizens of Pakistan are enshrined in Part (II), Chapter (1) of the 1973 Constitution from Articles:", o:["5 to 20","9 to 28","15 to 35","20 to 40"], c:1},
+  {q:"Article 9 of the 1973 Constitution deals with:", o:["Freedom of speech","Equality of citizens","Security of Person","Freedom of movement"], c:2},
+  {q:"According to Article 10 of the 1973 Constitution, an arrested person must be produced before a Magistrate within:", o:["6 hours","12 hours","24 hours","48 hours"], c:2},
+  {q:"Article 11 of the 1973 Constitution prohibits:", o:["Forced taxation","Slavery and forced labour","Arrest without warrant","Double punishment"], c:1},
+  {q:"Article 12 of the 1973 Constitution protects against:", o:["Self-incrimination","Double punishment","Retrospective punishment","Discrimination"], c:2},
+  {q:"Article 13 of the 1973 Constitution protects against:", o:["Retrospective punishment","Double punishment and self-incrimination","Slavery","Forced labour"], c:1},
+  {q:"Article 14 of the 1973 Constitution declares that the dignity of man and privacy of home shall be:", o:["Regulated by government","Inviolable","Subject to taxation","Conditional"], c:1},
+  {q:"Article 15 of the 1973 Constitution guarantees:", o:["Freedom of speech","Freedom of assembly","Freedom of movement","Freedom of trade"], c:2},
+  {q:"Article 16 of the 1973 Constitution guarantees:", o:["Freedom of movement","Freedom of assembly","Freedom of association","Freedom of speech"], c:1},
+  {q:"Article 17 of the 1973 Constitution deals with:", o:["Freedom of trade","Freedom of speech","Freedom of assembly","Freedom of association"], c:3},
+  {q:"Article 18 of the 1973 Constitution deals with:", o:["Freedom of speech","Freedom of trade, business or profession","Freedom of assembly","Right to information"], c:1},
+  {q:"Article 19 of the 1973 Constitution guarantees:", o:["Freedom of trade","Right to information","Freedom of speech and expression","Freedom of assembly"], c:2},
+  {q:"Article 19-A of the 1973 Constitution deals with:", o:["Freedom of religion","Right to education","Right to information","Right to property"], c:2},
+  {q:"Article 20 of the 1973 Constitution deals with:", o:["Property rights","Freedom to profess religion and manage religious institutions","Right to information","Non-discrimination in service"], c:1},
+  {q:"Article 25 of the 1973 Constitution guarantees:", o:["Freedom of speech","Equality of citizens before law","Non-discrimination in public places","Property rights"], c:1},
+  {q:"Article 25-A of the 1973 Constitution provides:", o:["Equality of citizens","Non-discrimination","Right to free and compulsory education for children aged 5 to 16","Right to information"], c:2},
+  {q:"Article 26 of the 1973 Constitution deals with:", o:["Right to education","Non-discrimination in respect of access to public places","Equality before law","Property rights"], c:1},
+  {q:"Article 28 of the 1973 Constitution provides for:", o:["Non-discrimination in service","Safeguard against taxation","Preservation of Language, Script and Culture","Right to information"], c:2},
+  {q:"The Universal Declaration of Human Rights (UDHR) was adopted on:", o:["10 December 1945","10 December 1947","10 December 1948","10 December 1950"], c:2},
+  {q:"Fundamental rights are enforceable in the High Court under which Article of the 1973 Constitution?", o:["Article 184(3)","Article 199","Article 250","Article 25"], c:1},
+  {q:"The Supreme Court can enforce Fundamental Rights under:", o:["Article 184(3)","Article 199","Article 9","Article 25-A"], c:0},
+  {q:"According to Dr. Garner, what is a State?", o:["A group of people united by language","A community permanently occupying a territory with an independent organized government","An alliance of tribes","A collection of cities"], c:1},
+  {q:"What are the four main elements of a State?", o:["Language, culture, history, religion","Population, territory, government, sovereignty","Army, laws, courts, parliament","President, PM, Senate, Assembly"], c:1},
+  {q:"Article 23 of the 1973 Constitution deals with:", o:["Right to education","Provision as to Property","Freedom of assembly","Protection against double punishment"], c:1},
+  {q:"Article 24 of the 1973 Constitution deals with:", o:["Freedom of speech","Property rights – no one deprived of property save by law","Equality before law","Freedom of movement"], c:1},
+  {q:"Article 22 of the 1973 Constitution provides safeguards against:", o:["Forced labour","Forced religious education or worship of another religion","Slavery","Retrospective punishment"], c:1},
+  {q:"Article 27 of the 1973 Constitution provides safeguard against:", o:["Non-discrimination in service appointments","Retrospective punishment","Forced labour","Religious discrimination"], c:0},
+  {q:"The Head of State in Pakistan according to the 1973 Constitution is:", o:["Prime Minister","President","Chief Justice","Senate Chairman"], c:1},
+  {q:"The 1973 Constitution made it obligatory for the President and Prime Minister to be:", o:["A Pakistani citizen","A Muslim","A graduate","Above 50 years of age"], c:1},
+  {q:"Fundamental Rights in Pakistan were first guaranteed in the Constitution of:", o:["1949 (Objectives Resolution)","1956","1962","1973"], c:1}
+],
+
+"Ch.10 — Rights & Redressal of Grievances": [
+  {q:"The Sindh Ombudsman's (Mohtasib) office was established through:", o:["Sindh Act No. 1 of 1991","Sindh Act No. 1 of 1992","Sindh Act No. 1 of 1993","Sindh Act No. 1 of 1994"], c:1},
+  {q:"The Human Rights Cell is set up within:", o:["High Court of Pakistan","Supreme Court of Pakistan","National Assembly","Ministry of Human Rights"], c:1},
+  {q:"How many Ombudsman institutions are there in Pakistan (Federal + Provincial)?", o:["Five","Six","Seven","Eight"], c:2},
+  {q:"The Federal Ombudsman is also known as:", o:["Sindh Mohtasib","Wafaqi Mohtasib","Federal Inspector","Peoples' Advocate"], c:1},
+  {q:"Female Ombudspersons were appointed in each province of Pakistan since:", o:["2009","2010","2011","2012"], c:2},
+  {q:"Female victims of workplace harassment can register online complaints at:", o:["www.hrcp.org.pk","www.fospah.gov.pk","www.mohr.gov.pk","www.judiciary.gov.pk"], c:1},
+  {q:"Which province of Pakistan does NOT have a Provincial Ombudsman?", o:["Punjab","Sindh","Balochistan","Khyber Pakhtunkhwa"], c:3},
+  {q:"The Ombudsman can investigate complaints on which basis?", o:["Only when a complaint is filed","On complaint, government reference, court motion, or suo motu","Only on court order","Only on government reference"], c:1},
+  {q:"The Ombudsman investigates cases of:", o:["Civil disputes","Criminal cases","Maladministration by government agencies","Land disputes"], c:2},
+  {q:"The Ombudsman has the same powers to punish for contempt as:", o:["A District Court","The Supreme Court","The High Court","A Sessions Court"], c:2},
+  {q:"The Primary responsibility of the State is to protect:", o:["Government property","Sovereignty, territorial integrity and national unity","Politicians","Bureaucrats"], c:1},
+  {q:"The Children's Complaints Office (CCO) was established at the Secretariat of Provincial Ombudsman Sindh in partnership with:", o:["UNICEF","WHO","UNESCO","UNDP"], c:0},
+  {q:"The Ombudsman provides citizens access to:", o:["Free legal counsel","An independent, impartial and inexpensive dispute resolution mechanism","Government jobs","Education scholarships"], c:1},
+  {q:"The Ministry of Human Rights is mandated to:", o:["Conduct elections","Review human rights situation and coordinate human rights activities","Manage foreign affairs","Enforce criminal law"], c:1},
+  {q:"The administration of justice is the primary function of:", o:["The Executive","The Legislature","The Judiciary","The Bureaucracy"], c:2},
+  {q:"The UDHR stands for:", o:["Universal Declaration of Human Resources","Universal Declaration of Human Rights","United Declaration of Human Rights","Unified Declaration of Human Responsibilities"], c:1},
+  {q:"According to the 1973 Constitution, the 'State of Pakistan' includes:", o:["Only the Federal Government","Federal Government, Parliament, Provincial Governments, Provincial Assemblies, and local authorities empowered to impose tax","Only Provincial Governments","Only the National Assembly"], c:1},
+  {q:"The Ombudsman does NOT exercise jurisdiction over:", o:["Government departments","Statutory corporations","High Court and courts under it","Government ministries"], c:2},
+  {q:"The Human Rights Cell in the Supreme Court works under the direct supervision of:", o:["President of Pakistan","Attorney General","Honourable Chief Justice of Pakistan through Registrar","Minister of Law"], c:2},
+  {q:"Article 25, 26 and 27 of the 1973 Constitution collectively assure citizens:", o:["Freedom of religion","Equality, non-discrimination in public places and service","Property rights","Right to information"], c:1},
+  {q:"The role of the State in providing education as per constitutional obligations is:", o:["Provide fee-based education","Provide free and compulsory education","Provide technical education only","Provide higher education only"], c:1},
+  {q:"Provincial Ombudsmen currently exist in which three provinces?", o:["Punjab, Sindh and KPK","Punjab, Sindh and Balochistan","Sindh, Balochistan and KPK","Punjab, Balochistan and KPK"], c:1},
+  {q:"The single-mandate Federal ombudsman institutions include Banking Mohtasib, Insurance Mohtasib and:", o:["Wafaqi Mohtasib","Federal Tax Ombudsman","Education Ombudsman","Police Ombudsman"], c:1},
+  {q:"The Human Rights Department of Government of Sindh has launched what for easy access to justice?", o:["Mobile courts","An online portal and toll-free number","Walk-in centers in every district","Television helpline"], c:1},
+  {q:"According to the Constitution 1973, the State has special obligation to look after the rights and welfare of:", o:["Political parties","Children, women, elders and people with disability","Foreign investors","Government employees"], c:1},
+  {q:"Dispensation of justice is a function exclusively assigned to:", o:["The Executive organ","The Legislative organ","The Judicial organ of the State","The Military"], c:2},
+  {q:"The concept of 'Sovereignty' of the State means:", o:["Authority that can be shared equally","Authority that cannot be challenged or shared; it is binding","Authority that is temporary","Authority given by international community"], c:1},
+  {q:"The Ombudsman on his own motion (without a complaint) is called:", o:["Suo motu","Ex parte","Ex officio","In absentia"], c:0},
+  {q:"Territory as an element of the State is defined as:", o:["The government buildings","A certain portion of land inhabited by a community","The capital city only","The area controlled by the army"], c:1},
+  {q:"The 1973 Constitution provides that Islam shall be the State religion, which article deals with this?", o:["Article 1","Article 2","Article 3","Article 5"], c:1}
+]
+
+};
+
+// ——— State ———
+let totalAnswered = 0, totalCorrect = 0;
+let shuffleActive = true;
+let currentChapter = null;
+const questionStates = {};   // key -> {selected, correctPos, answered}
+const chapterRenderMap = {}; // ch -> [{origIdx, q, opts:[{text,origIdx}], correctPos}]
+
+// Fisher-Yates shuffle
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+
+
+
+
+function updateStats(){
+  let total = 0;
+  Object.values(mcqData).forEach(arr => total += arr.length);
+  document.getElementById('totalQ').textContent = total;
+  document.getElementById('answeredQ').textContent = totalAnswered;
+  document.getElementById('correctQ').textContent = totalCorrect;
+  const pct = totalAnswered > 0 ? Math.round((totalCorrect/totalAnswered)*100) : 0;
+  document.getElementById('scoreQ').textContent = pct + '%';
+}
+
+function buildChapterButtons(){
+  const grid = document.getElementById('chapterGrid');
+  Object.keys(mcqData).forEach(ch => {
+    const btn = document.createElement('button');
+    btn.className = 'ch-btn';
+    btn.innerHTML = ch + '<span class="q-count">' + mcqData[ch].length + ' questions</span>';
+    btn.onclick = () => showChapter(ch, btn);
+    btn.dataset.chapter = ch;
+    grid.appendChild(btn);
+  });
+}
+
+function showChapter(ch, btn){
+  document.querySelectorAll('.ch-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentChapter = ch;
+  const area = document.getElementById('quizArea');
+  area.className = 'quiz-area active';
+  renderQuiz(ch, area);
+  area.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* Build render data for a chapter — shuffles if shuffleActive */
+function buildRenderData(ch){
+  const questions = mcqData[ch];
+  let data = questions.map((item, origIdx) => {
+    const opts = item.o.map((text, i) => ({text, origIdx: i}));
+    return {origIdx, q: item.q, opts, correctPos: item.c};
+  });
+  if(shuffleActive){
+    data = shuffle(data);
+    data = data.map(d => {
+      const sOpts = shuffle(d.opts);
+      const correctPos = sOpts.findIndex(o => o.origIdx === mcqData[ch][d.origIdx].c);
+      return {...d, opts: sOpts, correctPos};
+    });
+  }
+  return data;
+}
+
+function renderQuiz(ch, container){
+  const renderData = buildRenderData(ch);
+  chapterRenderMap[ch] = renderData;
+
+  const safeId = ch.replace(/[^a-zA-Z0-9]/g, '_');
+  let html = '<div class="sec-head">MCQs — ' + ch + (shuffleActive ? ' &nbsp;<span style="font-size:11px;opacity:.7;font-weight:600;">&#x1F500; Shuffled</span>' : '') + '</div>';
+
+  renderData.forEach((item, displayIdx) => {
+    const key = ch + '_' + item.origIdx;
+    html += '<div class="q-card" id="card_' + key + '">';
+    html += '<div class="q-top"><span class="q-num">Q.' + (displayIdx+1) + '</span><span class="q-badge">MCQ</span></div>';
+    html += '<div class="q-text">' + item.q + '</div>';
+    html += '<div class="opts">';
+    item.opts.forEach((opt, oi) => {
+      html += '<div class="opt" id="opt_' + key + '_' + oi + '" onclick="selectOpt(\'' + key + '\',' + oi + ',' + item.correctPos + ')">' +
+              String.fromCharCode(65+oi) + ') ' + opt.text + '</div>';
+    });
+    html += '</div>';
+    html += '<button class="check-btn" id="chk_' + key + '" onclick="checkAnswer(\'' + key + '\',' + item.correctPos + ')" disabled>Check Answer</button>';
+    html += '<div class="feedback" id="fb_' + key + '"></div>';
+    html += '</div>';
+  });
+
+  // Chapter result box
+  html += '<div class="result-box" id="result_' + safeId + '" style="display:none">';
+  html += '<h2>Chapter Complete!</h2>';
+  html += '<div class="result-stats">';
+  html += '<div><div class="r-stat-val" id="r_score_' + safeId + '">—</div><div class="r-stat-lbl">Score</div></div>';
+  html += '<div><div class="r-stat-val" id="r_correct_' + safeId + '">—</div><div class="r-stat-lbl">Correct</div></div>';
+  html += '<div><div class="r-stat-val" id="r_total_' + safeId + '">' + renderData.length + '</div><div class="r-stat-lbl">Total</div></div>';
+  html += '</div>';
+  html += '<div class="result-btns">';
+  html += '<button class="reset-btn" onclick="resetChapter(\'' + ch + '\')">Retry Chapter</button>';
+  if(shuffleActive) html += '<button class="reset-btn" onclick="resetChapter(\'' + ch + '\')">Reshuffle &amp; Retry</button>';
+  html += '</div></div>';
+
+  container.innerHTML = html;
+}
+
+function selectOpt(key, selected, correctPos){
+  if(questionStates[key] && questionStates[key].answered) return;
+  document.querySelectorAll('[id^="opt_' + key + '_"]').forEach(el => el.classList.remove('selected'));
+  document.getElementById('opt_' + key + '_' + selected).classList.add('selected');
+  questionStates[key] = {selected, correctPos, answered: false};
+  document.getElementById('chk_' + key).disabled = false;
+}
+
+function checkAnswer(key, correctPos){
+  const state = questionStates[key];
+  if(!state || state.answered) return;
+  state.answered = true;
+  document.getElementById('chk_' + key).disabled = true;
+  const opts = document.querySelectorAll('[id^="opt_' + key + '_"]');
+  opts.forEach(el => { el.classList.add('disabled'); el.onclick = null; });
+  opts[correctPos].classList.add('correct');
+  const fb = document.getElementById('fb_' + key);
+  totalAnswered++;
+  if(state.selected === correctPos){
+    totalCorrect++;
+    opts[state.selected].classList.remove('selected');
+    opts[state.selected].classList.add('correct');
+    fb.textContent = '✓ Correct! Well done.';
+    fb.className = 'feedback show correct';
+  } else {
+    opts[state.selected].classList.remove('selected');
+    opts[state.selected].classList.add('wrong');
+    const correctText = opts[correctPos].textContent.trim().slice(3);
+    fb.textContent = '✗ Incorrect. The correct answer is: ' + String.fromCharCode(65+correctPos) + ') ' + correctText;
+    fb.className = 'feedback show wrong';
+  }
+  updateStats();
+  checkChapterComplete(key, correctPos);
+}
+
+function checkChapterComplete(key, correctPos){
+  const ch = key.substring(0, key.lastIndexOf('_'));
+  const questions = mcqData[ch];
+  if(!questions) return;
+  let answered = 0, correct = 0;
+  questions.forEach((_, origIdx) => {
+    const k = ch + '_' + origIdx;
+    if(questionStates[k] && questionStates[k].answered){
+      answered++;
+      if(questionStates[k].selected === questionStates[k].correctPos) correct++;
+    }
+  });
+  if(answered === questions.length){
+    const safeId = ch.replace(/[^a-zA-Z0-9]/g, '_');
+    const rbox = document.getElementById('result_' + safeId);
+    if(rbox){
+      rbox.style.display = 'block';
+      document.getElementById('r_score_' + safeId).textContent = Math.round((correct/questions.length)*100) + '%';
+      document.getElementById('r_correct_' + safeId).textContent = correct;
+      rbox.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }
+  }
+}
+
+function resetChapter(ch){
+  const questions = mcqData[ch];
+  questions.forEach((_, origIdx) => {
+    const key = ch + '_' + origIdx;
+    if(questionStates[key] && questionStates[key].answered){
+      if(questionStates[key].selected === questionStates[key].correctPos) totalCorrect--;
+      totalAnswered--;
+    }
+    delete questionStates[key];
+  });
+  delete chapterRenderMap[ch];
+  updateStats();
+  const area = document.getElementById('quizArea');
+  renderQuiz(ch, area);
+}
+
+// Init
+buildChapterButtons();
+updateStats();
+</script>
+</body>
+</html>
