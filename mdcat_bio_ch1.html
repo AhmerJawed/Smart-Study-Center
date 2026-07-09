@@ -206,10 +206,6 @@ body{
 </head>
 <body>
 
-<!-- WATERMARK -->
-<div class="watermark-overlay" id="wmOverlay"></div>
-
-<div class="container">
 
   <!-- CHAPTER HEADER -->
   <div class="chapter-header">
@@ -387,23 +383,6 @@ function shuffleOptions(q) {
   consistent with what the student actually sees on screen.
 */
 let renderedQuestions = [];
-
-/* ═══════════════════════════════════════════════
-   WATERMARK
-═══════════════════════════════════════════════ */
-(function buildWatermarks(){
-  const overlay = document.getElementById('wmOverlay');
-  const text = 'Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057';
-  for(let r = 0; r < 7; r++){
-    for(let c = 0; c < 3; c++){
-      const span = document.createElement('span');
-      span.textContent = text;
-      span.style.left  = (c * 40 - 5) + '%';
-      span.style.top   = (r * 16 - 4) + '%';
-      overlay.appendChild(span);
-    }
-  }
-})();
 
 /* ═══════════════════════════════════════════════
    BUILD QUIZ
