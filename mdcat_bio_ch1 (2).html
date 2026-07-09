@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 01: Acellular Life — Smart Study Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+.timer-box{
+  position:sticky;
+  top:0;
+  z-index:9999;
+  width:100%;
+  text-align:center;
+  padding:10px 20px;
+  background:#fbf1dd;
+  border-bottom:2px solid #c9922b;
+  font-size:18px;
+  font-weight:800;
+  color:#8a5a15;
+  letter-spacing:1px;
+}
+.timer-box.danger{
+  background:#fbe6e0;
+  border-color:#a6402f;
+  color:#8c3323;
+}
+
+/* ── BASE ── */
+body{
+  font-family:'Source Sans 3','Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:#efe8d6;
+  background-image:
+    radial-gradient(circle at 15% 8%, rgba(15,37,68,0.05) 0, transparent 40%),
+    radial-gradient(circle at 85% 92%, rgba(201,146,43,0.08) 0, transparent 40%);
+  min-height:100vh;
+  padding:20px 16px;
+}
+
+/* ── WATERMARK ── */
+.watermark-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.watermark-overlay span{
+  position:absolute;font-size:14px;font-weight:700;
+  color:rgba(15,37,68,0.05);white-space:nowrap;
+  transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase;
+}
+
+/* ── CONTAINER ── */
+.container{
+  max-width:880px;margin:0 auto;background:#fffdf8;
+  border-radius:14px;box-shadow:0 20px 60px rgba(15,37,68,0.28);
+  overflow:visible;position:relative;z-index:1;
+  border:1px solid #e7ddc4;
+}
+
+/* ── CHAPTER HEADER ── */
+.chapter-header{
+  background:linear-gradient(135deg,#0f2544,#1b3a63);
+  color:#fff;padding:24px 24px 22px;text-align:center;
+  border-bottom:3px solid #c9922b;
+}
+.ch-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.75;margin-bottom:8px}
+.chapter-header h1{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:24px;font-weight:800;margin-bottom:8px;letter-spacing:.3px;
+  color:#f0c869;
+}
+.ch-meta{font-size:12px;opacity:.7;font-weight:500;letter-spacing:.3px}
+
+/* ── STATS BAR ── */
+.stats{
+  display:flex;justify-content:space-around;padding:14px 20px;
+  background:#faf3e2;border-bottom:2px solid #ecdcb4;flex-wrap:wrap;gap:8px;
+}
+.stat-item{text-align:center}
+.stat-label{font-size:10px;color:#8a6d2f;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.stat-value{font-size:24px;font-weight:800;color:#0f2544;margin-top:3px}
+
+/* ── QUIZ AREA ── */
+.quiz-area{padding:24px 22px}
+
+/* ── QUESTION CARD ── */
+.question-card{
+  background:#fffdf8;border-radius:10px;padding:20px;
+  margin-bottom:16px;border-left:5px solid #0f2544;
+  border-top:1px solid #efe6cf;border-right:1px solid #efe6cf;border-bottom:1px solid #efe6cf;
+  transition:box-shadow .2s;
+}
+.question-card:hover{box-shadow:0 4px 16px rgba(15,37,68,.1)}
+.card-top{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;
+}
+.q-num{
+  background:#0f2544;color:#f0c869;padding:4px 14px;
+  border-radius:5px;font-weight:800;font-size:12px;
+  font-family:'Playfair Display',Georgia,serif;letter-spacing:.5px;
+}
+.q-tag{
+  background:#c9922b;color:#fff;padding:3px 10px;
+  border-radius:14px;font-size:10.5px;font-weight:700;letter-spacing:.3px;
+}
+.q-text{
+  font-size:15px;color:#1a1a1a;margin-bottom:14px;line-height:1.65;font-weight:500;
+}
+
+/* ── OPTIONS ── */
+.options{display:grid;gap:9px}
+.option{
+  padding:11px 16px;background:#fff;border:2px solid #e3dbc6;
+  border-radius:8px;cursor:pointer;transition:all .25s;
+  font-size:14px;color:#333;line-height:1.4;
+}
+.option:hover:not(.disabled){border-color:#0f2544;background:#f2f6fb;color:#0f2544}
+.option.selected{border-color:#c9922b;background:#fbf1dd;color:#8a5a15}
+.option.correct{border-color:#2f6f4e!important;background:#e9f4ee!important;color:#1e4d34!important;font-weight:700}
+.option.wrong{border-color:#a6402f!important;background:#fbeae6!important;color:#8c3323!important}
+.option.disabled{cursor:not-allowed}
+
+/* ── CHECK BUTTON ── */
+.check-btn{
+  margin-top:13px;background:#0f2544;color:#fff;border:none;
+  padding:9px 26px;border-radius:8px;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all .25s;
+}
+.check-btn:hover:not(:disabled){background:#1b3a63;transform:translateY(-1px);box-shadow:0 4px 14px rgba(15,37,68,.3)}
+.check-btn:disabled{background:#cfc9b8;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ── FEEDBACK / EXPLANATION ── */
+.feedback{
+  display:none;margin-top:11px;padding:10px 14px;
+  border-radius:8px;font-size:13px;line-height:1.5;
+}
+.feedback.show{display:block}
+.feedback.correct{background:#e9f4ee;color:#1e4d34;border:2px solid #5fa77f;font-weight:600}
+.feedback.wrong{background:#fbeae6;color:#8c3323;border:2px solid #d99181;font-weight:600}
+.explanation-box{
+  display:none;margin-top:8px;padding:10px 14px;
+  background:#fdf6e3;border:2px solid #c9922b;
+  border-radius:8px;font-size:13px;color:#5d4a2c;line-height:1.5;
+}
+.explanation-box.show{display:block}
+.exp-label{font-weight:700;color:#8a5a15;margin-right:4px}
+
+/* ── RESULT CARD ── */
+.result-card{
+  background:linear-gradient(135deg,#0f2544,#1b3a63);
+  color:#fff;border-radius:14px;padding:30px 24px;text-align:center;
+  margin:8px 0 4px;border:1px solid rgba(240,200,105,.3);
+}
+.result-card h2{font-family:'Playfair Display',Georgia,serif;font-size:23px;margin-bottom:18px;font-weight:800;color:#f0c869}
+.result-grid{
+  display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap;margin-bottom:22px;
+}
+.result-stat{text-align:center;background:rgba(255,255,255,.09);border-radius:12px;padding:14px 22px;border:1px solid rgba(240,200,105,.25)}
+.result-stat-value{font-size:32px;font-weight:800}
+.result-stat-label{font-size:12px;opacity:.85;margin-top:4px;letter-spacing:.5px;text-transform:uppercase}
+.grade-badge{
+  display:inline-block;font-size:42px;font-weight:900;
+  background:rgba(240,200,105,.18);border-radius:50%;
+  width:80px;height:80px;line-height:80px;margin-bottom:16px;
+}
+.result-btn{
+  background:rgba(240,200,105,.14);color:#fff;
+  border:2px solid #c9922b;padding:10px 24px;border-radius:8px;
+  cursor:pointer;font-size:14px;font-weight:700;margin:6px;transition:all .25s;
+}
+.result-btn:hover{background:#c9922b;color:#0f2544}
+
+/* ── FOOTER ── */
+.brand-footer{
+  background:#faf6ec;border-top:1px solid #ecdcb4;
+  color:#a08c5f;text-align:center;padding:12px;font-size:11px;letter-spacing:.3px;
+}
+
+/* ── START OVERLAY ── */
+.start-overlay{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:60px 24px;gap:16px;
+}
+.start-overlay h2{font-family:'Playfair Display',Georgia,serif}
+.start-overlay p{color:#5c5240;font-size:14px;max-width:420px;line-height:1.6}
+.start-btn{
+  background:#0f2544;color:#f0c869;border:2px solid #c9922b;padding:14px 38px;
+  border-radius:8px;font-size:16px;font-weight:800;cursor:pointer;
+  box-shadow:0 6px 18px rgba(15,37,68,.25);transition:all .25s;
+}
+.start-btn:hover{background:#1b3a63;transform:translateY(-2px)}
+.quiz-area.locked{display:none}
+
+/* ── FLAG BUTTON ── */
+.flag-btn{
+  background:none;border:2px solid #e3dbc6;color:#9e9482;
+  padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;
+  cursor:pointer;transition:all .2s;
+}
+.flag-btn:hover{border-color:#c9922b;color:#8a5a15}
+.flag-btn.flagged{background:#fdf6e3;border-color:#c9922b;color:#8a5a15}
+.card-top-right{display:flex;gap:8px;align-items:center}
+.question-card.is-flagged{border-left-color:#c9922b}
+
+/* ── TOOLBAR (filter + submit) ── */
+.toolbar{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  flex-wrap:wrap;padding:12px 20px;background:#faf6ec;border-bottom:1px solid #ecdcb4;
+}
+.filter-btn{
+  background:#fff;border:2px solid #c9922b;color:#8a5a15;
+  padding:7px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;
+}
+.filter-btn.active{background:#c9922b;color:#fff}
+.submit-btn{
+  background:#0f2544;color:#f0c869;border:none;padding:9px 22px;
+  border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;
+}
+.submit-btn:hover{background:#1b3a63}
+.no-flags-msg{text-align:center;color:#a08c5f;padding:30px;font-size:14px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:540px){
+  .chapter-header h1{font-size:17px}
+  .stat-value{font-size:20px}
+  .result-stat-value{font-size:26px}
+  .quiz-area{padding:16px 14px}
+}
+</style>
+</head>
+<body>
+
+<!-- WATERMARK -->
+<div class="watermark-overlay" id="wmOverlay"></div>
+
+<div class="container">
+
+  <!-- CHAPTER HEADER -->
+  <div class="chapter-header">
+    <div class="ch-label">⚗️ BIOLOGY </div>
+    <h1>UNIT 01 — ACELLULAR LIFE</h1>
+    <div class="ch-meta">Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed</div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-label">Total Qs</div>
+      <div class="stat-value" id="statTotal">40</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Answered</div>
+      <div class="stat-value" id="statAnswered">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Correct</div>
+      <div class="stat-value" id="statCorrect">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Score</div>
+      <div class="stat-value" id="statScore">0%</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">🚩 Flagged</div>
+      <div class="stat-value" id="statFlagged">0</div>
+    </div>
+  </div>
+
+   <!-- TIMER -->
+  <div id="timerBox" class="timer-box">
+    ⏱ Time Remaining: <span id="timerDisplay">74:00</span>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar" id="toolbar" style="display:none">
+    <button class="filter-btn" id="filterBtn" onclick="toggleFlagFilter()">⭐ Flagged Only</button>
+    <button class="submit-btn" onclick="requestSubmit()">📝 Submit / Show Result</button>
+  </div>
+
+  <!-- START SCREEN -->
+  <div class="start-overlay" id="startScreen">
+    <h2 style="color:#0f2544;font-size:20px">Ready to begin?</h2>
+    <p>The timer starts as soon as you press Start. You can flag any question to revise later — flags are saved on this device even after you refresh or come back tomorrow.</p>
+    <button class="start-btn" onclick="startQuiz()">🚀 Start Quiz</button>
+  </div>
+
+  <!-- QUIZ AREA -->
+  <div class="quiz-area locked" id="quizArea"></div>
+
+  <!-- FOOTER -->
+  <div class="brand-footer">
+    Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed &nbsp;·&nbsp; 0345-3090057
+  </div>
+
+</div><!-- /container -->
+
+<script>
+/* ═══════════════════════════════════════════════
+   MCQ DATA — UNIT 1 : ACELLULAR LIFE
+═══════════════════════════════════════════════ */
+const questions = [
+  {q:"Which of the following is considered a \"living\" characteristic of a virus?", o:["They can crystallize and be stored","They lack cellular organelles","They replicate using their own nucleic acid inside a host cell","They remain inactive for indefinite periods"], c:2, exp:"Living things reproduce/replicate. Viruses replicate — but only inside a host cell using their own DNA/RNA. This is the #1 reason biologists call them \"borderline living.\" Options A, B, D are all non-living traits (crystallizing, no organelles, staying dormant)."},
+{q:"The word \"virus\" is derived from a Latin word meaning:", o:["Small particle","Slimy liquid or poison","Infectious cell","Hidden invader"], c:1, exp:"\"Virus\" = Latin for slimy liquid/poison. Easy memory trick: viruses are literally named after being \"poisonous slime\" — matches how early scientists saw infected plant sap."},
+{q:"Who invented the porcelain filter that could remove all bacteria from a liquid sample?", o:["Dmitri Ivanovsky","Martinus Beijerinck","Charles Chamberland","W.M. Stanley"], c:2, exp:"Chamberland (assistant of Louis Pasteur) made the Chamberland-Pasteur filter in 1884. Memory hook: \"Chamberland → Chamberland filter.\" He built the tool; others used it to discover viruses."},
+{q:"Who first used the Chamberland filter to study infectious tobacco leaf extract in 1892?", o:["Adolf Mayer","Dmitri Ivanovsky","Martinus Beijerinck","W.M. Stanley"], c:1, exp:"Ivanovsky (1892) passed infected tobacco extract through the filter and found it still caused disease — meaning the agent was smaller than bacteria. Order to remember: Mayer → Ivanovsky → Beijerinck → Stanley (discovery timeline)."},
+{q:"Which scientist coined the term \"contagious living fluid\" and proposed the infectious agent was a new type of pathogen (not bacteria)?", o:["Charles Chamberland","Martinus Beijerinck","Adolf Mayer","W.M. Stanley"], c:1, exp:"Beijerinck (1899) concluded the filterable agent was a \"contagious living fluid,\" now known as a virus — he essentially named the concept, even though he didn't isolate the actual particle."},
+{q:"Who first crystallized Tobacco Mosaic Virus (TMV) in 1935, proving viruses could exist as a chemical crystal?", o:["Adolf Mayer","Dmitri Ivanovsky","W.M. Stanley","Martinus Beijerinck"], c:2, exp:"Stanley (1935) crystallized TMV — huge discovery because it proved viruses behave like chemicals (non-living trait) while still being infectious (living trait). This discovery basically created the \"living vs non-living\" debate."},
+{q:"Which of these is a NON-LIVING characteristic of viruses?", o:["They mutate and evolve","They contain enzymes that help them replicate","They can be stored and crystallized like a chemical","They interact physiologically with host organisms"], c:2, exp:"Crystallization = viruses can be reduced to inert chemical form, like salt or sugar — something no truly living cell can do. This is the strongest evidence used to argue viruses are non-living."},
+{q:"Viruses are described as \"obligate parasites.\" What does this mean?", o:["They can survive independently in soil","They must use a host cell to complete their life cycle","They only infect plants","They photosynthesize their own food"], c:1, exp:"\"Obligate\" = compulsory. Viruses have no choice — they cannot replicate, generate energy, or make proteins without hijacking a host cell's machinery. This is why they're called non-cellular obligate parasites."},
+{q:"Which statement about viruses and metabolism is TRUE?", o:["Viruses generate their own ATP","Viruses perform respiration independently","Viruses lack their own metabolic machinery","Viruses have functional mitochondria"], c:2, exp:"Viruses have zero organelles — no mitochondria, no ribosomes of their own. That's why outside a host cell, they're metabolically \"dead\" — just protein + nucleic acid, doing nothing."},
+{q:"A Chamberland filter can remove bacteria because bacteria are generally:", o:["Smaller than 0.1 µm","Larger than or equal to 0.2 µm","Made of RNA only","Non-motile"], c:1, exp:"Chamberland filter pore size = 0.1 µm, which blocks anything ≥0.2 µm (i.e., bacteria). Viruses are much smaller, so they pass right through — this is exactly how they were first \"discovered\" (by what could sneak through the filter)."},
+{q:"The protein coat that surrounds the nucleic acid of a virus is called:", o:["Envelope","Capsomere","Capsid","Nucleocapsid"], c:2, exp:"Capsid = the protein shell. It's made of small units called capsomeres. Memory trick: Capsid = Cap (covering) for the virus's genetic material."},
+{q:"Which of these viruses is classified as a Bacteriophage based on host?", o:["TMV","HIV","T-phage","Rhinovirus"], c:2, exp:"Bacteriophages infect bacteria — T-phages and λ (lambda) phages are classic examples. TMV infects plants (Phytophage), HIV and Rhinovirus infect animals (Zoophage)."},
+{q:"Viruses that infect plants are classified as:", o:["Zoophage","Bacteriophage","Phytophage","Mycophage"], c:2, exp:"\"Phyto\" = plant. Phytophages have mostly RNA genome and rod-shaped capsid (e.g., TMV, Cauliflower Mosaic Virus). Easy link: Phytophage → Phyto = plant, just like Photosynthesis starts with \"Photo/Phyto\" = plant-related."},
+{q:"Which shape of capsid is seen in bacteriophage viruses (like T4)?", o:["Helical only","Complex (polyhedral head + rod tail)","Spherical only","Icosahedral only"], c:1, exp:"Bacteriophages have a complex structure — polyhedral (many-sided) head PLUS a rod-shaped tail. This combo shape is unique to bacteriophages, unlike simple helical (TMV) or icosahedral (HIV, Adenovirus) viruses."},
+{q:"In Baltimore classification, a virus with double-stranded DNA that replicates using host cell enzymes and can cause cancer belongs to which group?", o:["Single-stranded DNA viruses","Double-stranded DNA viruses","Double-stranded RNA viruses","Retroviruses"], c:1, exp:"Double-stranded DNA viruses (e.g., Herpes) use host nucleus enzymes to make mRNA directly — no extra conversion steps needed. Some are linked to cancer. Memory: DNA viruses are the \"simplest\" group because DNA→mRNA is the normal cell process anyway."},
+{q:"Which virus is an example of a Positive-sense single-stranded RNA virus?", o:["Rabies virus","Corona virus","Reovirus","HIV"], c:1, exp:"Positive-sense RNA = acts directly as mRNA, no extra step needed for translation. Corona virus, Dengue, Hepatitis C are all positive-sense. Memory: \"Positive\" = ready to go immediately, like a positive attitude that jumps straight into action."},
+{q:"Which virus is an example of a Negative-sense single-stranded RNA virus?", o:["Corona virus","Dengue virus","Rabies virus","Hepatitis C virus"], c:2, exp:"Negative-sense RNA cannot be directly translated — it must first be converted into mRNA using an enzyme inside the host. Rabies and Influenza (Paramyxovirus) are classic examples. Memory: \"Negative\" = needs extra help (conversion) before it can \"do\" anything."},
+{q:"HIV belongs to which Baltimore group?", o:["Double-stranded DNA viruses","Positive-sense RNA viruses with DNA intermediate (Retroviruses)","Negative-sense RNA viruses","Double-stranded RNA viruses"], c:1, exp:"HIV is a retrovirus — its RNA is converted into DNA using reverse transcriptase, then that DNA integrates into host genome using integrase. This is why it's called \"Positive-sense RNA with DNA intermediate.\""},
+{q:"Hepatitis B virus belongs to which Baltimore group?", o:["Single-stranded DNA viruses","Double-stranded RNA viruses","Double-stranded DNA viruses with RNA intermediate","Negative-sense RNA viruses"], c:2, exp:"Hepatitis B's genome is DNA, but during replication it makes an RNA copy first, then reverse transcribes that RNA back into DNA. Opposite process of HIV (HIV: RNA→DNA; HepB: DNA→RNA→DNA)."},
+{q:"Adenovirus (common cold) has how many capsomeres in its capsid, and what shape does it have?", o:["158 capsomeres, helical","252 capsomeres, icosahedral","2,130 capsomeres, rod-shaped","162 capsomeres, spherical"], c:1, exp:"Adenovirus = 252 capsomeres, icosahedral shape. Compare: TMV has ~2,130 capsomeres arranged helically. High-yield fact — capsomere numbers are a favorite \"trick\" MCQ because students confuse TMV and Adenovirus numbers."},
+{q:"The arrangement of capsomeres in a helical virus like TMV gives it what shape?", o:["Spherical","Polyhedral","Rod-shaped","Tadpole-shaped"], c:2, exp:"In helical structure, capsomeres are arranged in a hollow coil, which creates a long rod shape. TMV is the textbook example — remember \"helical = hollow coil = rod.\""},
+{q:"Which of the following viruses is Non-enveloped (naked)?", o:["HIV","Influenza virus","Adenovirus","COVID-19 virus"], c:2, exp:"Non-enveloped (naked) viruses lack the outer lipid layer, making them more resistant to environment (drying, heat). Common examples: Adenovirus, Rhinovirus (common cold), Polio virus. Enveloped viruses (HIV, Influenza, COVID) are more fragile."},
+{q:"What is the correct first step of the lytic cycle?", o:["Biosynthesis","Attachment (Phage attachment)","Penetration","Maturation"], c:1, exp:"The phage must first attach to specific receptors on the bacterial surface — this step is reversible and highly specific to the host. Order to memorize: A-P-B-M-L (Attachment → Penetration → Biosynthesis → Maturation → Lysis)."},
+{q:"During the penetration step of the lytic cycle, what actually enters the bacterial cell?", o:["The whole phage (head, tail, and DNA)","Only the phage DNA","Only the capsid","The phage's tail fibres only"], c:1, exp:"Only the DNA is injected into the bacterium through the hollow tail tube. The empty capsid + tail remains outside — this leftover empty shell is called the \"ghost.\""},
+{q:"In which step does the phage genome take over the host's metabolic machinery to make new phage parts?", o:["Attachment","Penetration","Biosynthesis","Lysis"], c:2, exp:"Biosynthesis = the host cell's machinery is redirected by phage DNA to produce phage proteins and copies of phage genome. Think of it as \"the phage hijacking the host's factory.\""},
+{q:"What enzyme causes the bacterial cell wall to break open during lysis, releasing new phages?", o:["Reverse transcriptase","Integrase","Lysozyme","RNA polymerase"], c:2, exp:"Lysozyme breaks down the bacterial cell wall, causing it to burst (lyse) and release 100-200 new phage progeny into the surroundings. Memory: \"Lysozyme\" sounds like \"Lysis\" — the enzyme that causes lysis."},
+{q:"Approximately how many new phage progeny are released after lysis of one bacterial cell?", o:["10-20","50-70","100-200","500-1000"], c:2, exp:"Each infected bacterium can release 100-200 new phage particles, which then go on to infect more bacteria — this is why bacterial infections by phages spread exponentially fast."},
+{q:"What is the KEY difference between the lytic cycle and the lysogenic cycle?", o:["Lytic cycle doesn't involve DNA injection","Lysogenic cycle kills the host cell immediately","Lysogenic cycle does NOT kill the host cell; phage DNA integrates and replicates along with host DNA","Lytic cycle takes longer than lysogenic cycle"], c:2, exp:"This is the most important concept in this topic. Lytic = kills host immediately. Lysogenic = phage DNA (called prophage) hides inside host DNA, replicating peacefully with it — host survives, no immediate destruction."},
+{q:"In the lysogenic cycle, the integrated phage DNA within the host chromosome is called:", o:["Provirus","Prophage","Capsid","Ghost"], c:1, exp:"Prophage = phage DNA integrated into bacterial DNA (used specifically for bacteriophages). Note: The equivalent term for HIV/animal viruses is \"provirus\" — don't confuse the two terms, MDCAT loves this mix-up."},
+{q:"What can trigger a prophage to switch from the lysogenic cycle back into the lytic cycle?", o:["Cold temperature only","Environmental stress like radiation or chemicals","Excess nutrients","High humidity only"], c:1, exp:"Environmental stress (UV radiation, chemicals) can activate the dormant prophage, causing it to cut itself out of host DNA and begin the lytic cycle — producing new phages and destroying the host cell."},
+{q:"Which of the following bacteriophage structures is responsible for injecting DNA into the host through a contractile motion?", o:["Base plate","Tail sheath","Capsid head","Tail fibres"], c:1, exp:"The tail sheath contracts, driving the inner tail tube through the bacterial wall like a syringe — this creates the channel for DNA delivery. Tail fibres just help with attachment, not injection."},
+{q:"What is the function of tail fibres in a bacteriophage?", o:["Inject DNA into host","Provide strong attachment and recognize host cell receptors","Protect the capsid head","Store phage DNA"], c:1, exp:"Tail fibres (usually 6) recognize and bind to specific receptors on the bacterial surface — this is why bacteriophages are host-specific (a phage that attacks E. coli can't attack a random other bacterium)."},
+{q:"During bacterial division in the lysogenic cycle, what happens to the prophage?", o:["It gets destroyed","It replicates along with host DNA and passes to daughter cells","It immediately enters lytic cycle","It leaves the host cell"], c:1, exp:"As long as conditions stay favorable, the prophage just \"rides along\" — every time the bacterium divides, the prophage is copied too and passed to all daughter cells, silently spreading without harming anyone (yet)."},
+{q:"What is the first step in the HIV life cycle?", o:["Fusion","Binding (Attachment)","Reverse transcription","Integration"], c:1, exp:"HIV first binds to a glycoprotein receptor on the lymphocyte (T-helper cell) surface. Memory order: B-F-R-I-T-A-B → Binding → Fusion → Reverse transcription → Integration → Transcription → Assembly → Budding."},
+{q:"During which step does HIV inject its RNA into the host cell?", o:["Binding","Fusion","Reverse transcription","Assembly"], c:1, exp:"After binding, the virus fuses with the host cell membrane and releases its RNA (genetic material) into the cell. Binding = attach; Fusion = enter."},
+{q:"Which enzyme does HIV use to convert its RNA into DNA?", o:["RNA polymerase","Integrase","Reverse transcriptase","Protease"], c:2, exp:"Reverse transcriptase makes DNA from RNA — the reverse of the normal DNA→RNA process (hence the name). This is HIV's signature enzyme and one of the most commonly tested MCQ facts in this whole chapter."},
+{q:"The enzyme that helps HIV's DNA integrate into the host cell's chromosome is:", o:["Reverse transcriptase","Protease","Integrase","RNA polymerase"], c:2, exp:"Integrase = \"integrates\" viral DNA into host chromosome. Easy memory: the enzyme name literally tells you its job. Once integrated, this DNA is called the provirus."},
+{q:"What is the viral DNA called once it integrates into the host cell's chromosome and may stay inactive for years?", o:["Prophage","Provirus","Capsid","Nucleocapsid"], c:1, exp:"In HIV/animal viruses, integrated DNA = provirus (NOT prophage — that term is only for bacteriophages). This distinction is a classic MDCAT trap question."},
+{q:"Which enzyme does the host cell use (borrowed by HIV) to make copies of HIV genomic material as mRNA?", o:["Reverse transcriptase","RNA polymerase","Integrase","Protease"], c:1, exp:"After integration, the host's own RNA polymerase transcribes the provirus into mRNA, which directs the making of long chains of HIV proteins. This is the Transcription step."},
+{q:"During Assembly, which enzyme cuts long HIV protein chains into smaller functional fragments?", o:["Reverse transcriptase","Integrase","Protease","Lysozyme"], c:2, exp:"Protease = cuts (cleaves) proteins into smaller functional pieces needed to build new virus progeny. Memory: \"Prote-ase\" = works on proteins, just like \"Lys-ozyme\" works on lysis."},
+{q:"What is the final step of the HIV life cycle, where the new virus leaves the host cell?", o:["Assembly","Budding","Fusion","Integration"], c:1, exp:"In Budding, the new virus forms a projection from the infected cell's membrane and pinches off, taking some of the host's membrane (with glycoprotein spikes) as its own envelope."},
+{q:"HIV specifically targets and destroys which type of cell in the human immune system?", o:["B lymphocytes only","Red blood cells","Helper T lymphocytes","Neutrophils"], c:2, exp:"HIV destroys Helper T lymphocytes — these are the \"commander\" cells of the immune system that activate both B cells and cytotoxic T cells. Without them, the entire immune response collapses (this is why AIDS is fatal — it's not the virus itself that kills, but loss of all immune defense)."},
+{q:"Why does HIV specifically target Helper T cells and not other cells?", o:["T cells have no nucleus","T cells have specific receptors recognized by HIV's glycoprotein spikes (gp120)","T cells move fastest in the blood","T cells are the largest cells in the body"], c:1, exp:"HIV's gp120 glycoprotein spike binds in a \"lock and key\" manner to specific receptors on Helper T cells. This precise molecular matching is why HIV is host/cell-specific, not random."},
+{q:"In the early stage of HIV infection, symptoms typically appear for a short duration and include:", o:["Full-blown AIDS symptoms with cancer","Fever, flu, headache (lasting about six weeks)","Complete immune collapse","No symptoms at all, ever"], c:1, exp:"Early HIV = flu-like symptoms for about 6 weeks, then the virus can go dormant for up to 10 years with no symptoms while still being transmissible — this \"silent phase\" is why HIV spreads so easily undetected."},
+{q:"Which of the following is NOT a common mode of HIV transmission?", o:["Contaminated blood transfusion","Mosquito bite","Sharing unsterilized needles","Mother to child via placenta"], c:1, exp:"HIV is NOT transmitted by mosquitoes (a very common misconception/trick MCQ). It spreads through blood, sexual contact, unsterilized needles, and mother-to-child transmission — all involve direct bodily fluid exchange, not insect bites."},
+{q:"AIDS stands for:", o:["Acquired Immune Deficiency Syndrome","Automatic Immune Disease Syndrome","Advanced Infectious Disease System","Antibody Immune Defense Syndrome"], c:0, exp:"Acquired Immune Deficiency Syndrome — \"Acquired\" means you get it during life (not born with it), distinguishing it from genetic immune disorders."},
+{q:"What is the name of the treatment method used for AIDS that combines different antiviral drugs?", o:["Chemotherapy","Antiretroviral therapy (ART)","Radiotherapy","Immunosuppressive therapy"], c:1, exp:"ART (Antiretroviral Therapy) uses a combination of enzyme-inhibitor drugs (targeting reverse transcriptase, protease, integrase) to control HIV. It doesn't cure AIDS but keeps the virus suppressed. Drug names to remember: Rukobia, Descovy, Truvada."},
+{q:"Which test method is used to detect the presence of HIV in blood or saliva?", o:["X-ray","Nucleic Acid Tests (NATs) and antibody tests","MRI scan","Biopsy"], c:1, exp:"HIV diagnosis relies on antibody tests (detecting immune response) and NATs (detecting the actual viral genetic material directly) — NATs can detect infection earlier than antibody tests."},
+{q:"Hepatitis virus is primarily transmitted through:", o:["Air-borne droplets","Fecal-oral route, needle, blood, sexual activities","Mosquito bite","Direct skin contact only"], c:1, exp:"Hepatitis spreads through fecal-oral route (contaminated food/water) plus blood, needles, and sexual contact — multiple routes make it highly contagious. Key symptom to remember: jaundice (yellowing of skin/eyes) due to liver involvement."},
+{q:"Which virus causes fever blisters around the mouth and genital sores, transmitted through breaks in skin or sexual contact?", o:["Hepatitis virus","Herpes simplex virus","Polio virus","Corona virus"], c:1, exp:"Herpes simplex virus causes painful sores (mouth or genital region). It enters through breaks in skin, mucous membranes, or sexual contact. Memory: \"Herpes = Here's a sore\" (blisters)."},
+{q:"The major symptom of Polio virus infection is:", o:["Jaundice","Paralysis of lower limbs","Skin rashes","Loss of hearing"], c:1, exp:"Polio virus specifically attacks motor neurons, causing paralysis of lower limbs — this is the single most tested fact about polio. Transmitted via contaminated water/food (fecal-oral route), prevented by vaccination."},
+{q:"Cotton Leaf Curl disease in plants is caused by which virus, transmitted by white fly?", o:["TMV","Begomovirus","Cauliflower Mosaic Virus","Potato spindle tuber viroid"], c:1, exp:"Begomovirus causes leaf curling (upward/downward) and vein thickening in cotton plants, spread by the white fly insect vector. This is economically important — Pakistan loses billions of rupees yearly due to this disease (high-yield applied fact)."},
+{q:"Which mosquito is the vector for Dengue virus and Chikungunya virus?", o:["Anopheles","Culex","Aedes","Tsetse fly"], c:2, exp:"Aedes mosquito transmits both Dengue and Chikungunya. Key symptom pattern: pain behind the eyes, rashes, and severe joint/muscle pain — a classic MDCAT identifier for Dengue specifically."},
+{q:"Ebola virus is transmitted through:", o:["Air-borne droplets","Body fluids","Mosquito bite","Fecal-oral route"], c:1, exp:"Ebola spreads via body fluid contact (blood, saliva, etc.) from infected animals (bats, dogs) or humans. It causes hemorrhagic fever — severe bleeding, which is why Ebola outbreaks are so deadly and feared."},
+{q:"Which virus is a Negative-sense RNA virus, has a hemorrhagic fever symptom, and uses canid animals/bats as vectors?", o:["Dengue virus","Ebola virus","Hepatitis C virus","Measles virus"], c:1, exp:"Ebola = negative-sense RNA virus (needs conversion before translation) + hemorrhagic fever + bat/canid vector. This combo of facts (nucleic acid type + symptom + vector) is exactly how MDCAT likes to test disease tables."},
+{q:"Measles virus is transmitted through:", o:["Blood transfusion","Sneezing and coughing droplets from nose/throat","Mosquito bite","Sexual contact"], c:1, exp:"Measles spreads via airborne droplets from coughing/sneezing. Symptoms: fever, cough, runny nose, followed by a body rash — the rash appearing after respiratory symptoms is a key diagnostic clue."},
+{q:"Corona virus is best associated with which animal as its natural reservoir/vector?", o:["Aedes mosquito","Bats","Canid animals","Human blood only"], c:1, exp:"Corona virus's natural vector/host is bats. Transmission in humans occurs via airborne droplets, causing laboured breathing, chest pain, and low oxygen levels in severe cases."},
+{q:"Which of these viruses has a POSITIVE-sense single-stranded RNA genome AND is transmitted through blood?", o:["Measles virus","Ebola virus","Dengue virus","Corona virus"], c:2, exp:"Dengue = positive-sense ssRNA, transmitted through blood (via Aedes mosquito bite, which introduces the virus into bloodstream). Note: Chikungunya shares the same RNA type and vector — a common pairing MCQ."},
+{q:"Hepatitis C virus is mainly transmitted through:", o:["Airborne droplets","Blood transfusions","Mosquito bite","Fecal-oral route"], c:1, exp:"Unlike general Hepatitis (fecal-oral + blood + sexual), Hepatitis C specifically is most associated with blood transfusions. Symptoms overlap with other hepatitis types: fatigue, jaundice, muscle/joint pain."},
+{q:"Which of the following diseases is prevented mainly through proper sanitation and vaccination, and can lead to death if untreated?", o:["Herpes","Polio","Cotton Leaf Curl disease","Dengue"], c:1, exp:"Polio prevention = vaccination + sanitary conditions (since it spreads via contaminated water/food). Untreated polio can be fatal or cause permanent paralysis — this is why global polio eradication campaigns focus heavily on vaccination drives."},
+{q:"Pakistan ranks fourth in the world in area and production of which crop, which suffers major economic losses due to viral disease?", o:["Wheat","Rice","Cotton","Sugarcane"], c:2, exp:"Pakistan ranks 4th in world cotton production (9.36% of world cotton area). Cotton Leaf Curl Virus disease has caused Rs. 50-55 billion losses — a real-world applied economics fact MDCAT sometimes uses for \"reasoning-type\" questions."},
+{q:"Prions and viroids are collectively known as:", o:["Bacteriophages","Subviral particles","Retroviruses","Capsomeres"], c:1, exp:"Prions and viroids are more simplified and smaller than viruses, so they're called subviral particles — meaning \"below/smaller than viral\" level of complexity."},
+{q:"Who discovered prions and received the Nobel Prize in 1997?", o:["Theodor O. Diener","Stanley B. Prusiner","W.M. Stanley","Dmitri Ivanovsky"], c:1, exp:"Stanley B. Prusiner discovered prions and won the Nobel Prize in 1997. Memory: \"Prusiner discovered Prions\" — same starting letters."},
+{q:"What is a prion made of?", o:["DNA only","RNA only","Infectious protein only, without any nucleic acid","Both DNA and RNA"], c:2, exp:"Prions are unique — they're just infectious proteins, with no nucleic acid at all (no DNA or RNA). This is what makes them so unusual: they don't follow the normal \"genetic material causes disease\" rule."},
+{q:"Prions are known to cause which of the following diseases?", o:["AIDS","Alzheimer's disease, Mad cow disease","Polio","Hepatitis"], c:1, exp:"Prions can cause Alzheimer's-related conditions, sleeplessness (insomnia), and Mad Cow disease in cattle. They affect the brain and body tissues specifically."},
+{q:"Who discovered viroids, and in which year?", o:["Stanley Prusiner, 1997","Theodor O. Diener, 1971","W.M. Stanley, 1935","Charles Chamberland, 1884"], c:1, exp:"Theodor O. Diener discovered viroids in 1971, working with plant pathology. Memory: \"Diener discovered viroids\" — think of \"ener\" sounding close to plant \"energy\"/growth issues viroids cause."},
+{q:"What are viroids made of?", o:["Protein only","Non-enveloped single-stranded RNA with some double-stranded regions","Double-stranded DNA","Lipid envelope with RNA core"], c:1, exp:"Viroids = naked (non-enveloped) single-stranded RNA, with some double-stranded folded regions. Unlike viruses, they have no protein coat at all — just pure RNA."},
+{q:"Which of the following is TRUE about viroids?", o:["They interrupt protein synthesis directly","They only replicate and produce specific RNA molecules, without interrupting protein synthesis","They cause human diseases like AIDS","They have a capsid made of capsomeres"], c:1, exp:"Viroids don't interrupt protein synthesis — they simply replicate using the host's RNA polymerase and cause distorted growth in plants. Important: there is no evidence of viroids causing human disease — a common trick option."},
+{q:"Which is the first viroid ever identified?", o:["Peach latent mosaic viroid","Eggplant latent viroid","Potato spindle tuber viroid","Avocado sunblotch viroid"], c:2, exp:"Potato spindle tuber viroid was the first viroid identified, and it remains the \"textbook example\" whenever viroids are discussed."},
+{q:"Which type of virus generally has more endurance to temperature changes — DNA viruses or RNA viruses?", o:["RNA viruses have more endurance","DNA viruses have more endurance","Both are equally affected","Neither is affected by temperature"], c:1, exp:"DNA viruses generally endure temperature better than RNA viruses, since DNA is a more chemically stable molecule than RNA. However, extreme heat (60°C+) inactivates most viruses regardless of type."},
+{q:"Enveloped viruses (like Influenza, Corona) survive best at which relative humidity range?", o:["70-90%","50-60%","20-30%","0-10%"], c:2, exp:"Enveloped viruses (lipid-covered) survive best at lower humidity (20-30%) — this is part of why flu/corona spread more in dry winter conditions. Non-enveloped viruses (Adenovirus, Rhinovirus) tolerate higher humidity (70-90%) better."},
+{q:"What is the favorable pH range for viral survival and activation?", o:["2.0-4.0","6.5-8.0","9.0-11.0","1.0-3.0"], c:1, exp:"Viruses prefer a pH close to neutral, around 6.5-8.0. Very acidic (5.0-5.5) or very basic conditions can damage viral structure — this is part of why stomach acid and skin's natural acidity act as a defense barrier."},
+{q:"UV radiation primarily damages viruses by:", o:["Providing energy for replication","Causing viral decay by damaging nucleic acid","Increasing viral humidity tolerance","Helping viral attachment to host cells"], c:1, exp:"UV radiation is a major cause of viral decay — it damages the nucleic acid (genetic material), preventing successful replication. This is why UV light is used as a disinfection method."},
+{q:"Airborne viruses like Influenza and Corona use which substances as a protective cover during coughing/sneezing?", o:["Blood and lymph","Saliva and mucous","Skin cells","Stomach acid"], c:1, exp:"Viruses expelled via coughing/sneezing use saliva and mucous droplets as a protective barrier against the harsh external environment, helping them survive longer in air before infecting a new host."},
+];
+
+/* ═══════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════ */
+const state = {
+  answered : 0,
+  correct  : 0,
+  total    : questions.length,
+};
+
+/* ═══════════════════════════════════════════════
+   SHUFFLE
+   Randomises option order; tracks which option
+   is now correct after the shuffle.
+═══════════════════════════════════════════════ */
+function shuffleOptions(q) {
+  /* pair each option text with a flag marking the correct one */
+  const opts = q.o.map((text, i) => ({ text, isCorrect: i === q.c }));
+
+  /* Fisher-Yates shuffle */
+  for (let i = opts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [opts[i], opts[j]] = [opts[j], opts[i]];
+  }
+
+  return {
+    o : opts.map(x => x.text),
+    c : opts.findIndex(x => x.isCorrect),   /* new correct index */
+  };
+}
+
+/*
+  renderedQuestions[i] holds the shuffled copy of questions[i].
+  checkAnswer() reads from here so the correct-index is always
+  consistent with what the student actually sees on screen.
+*/
+let renderedQuestions = [];
+
+/* ═══════════════════════════════════════════════
+   WATERMARK
+═══════════════════════════════════════════════ */
+(function buildWatermarks(){
+  const overlay = document.getElementById('wmOverlay');
+  const text = 'Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057';
+  for(let r = 0; r < 7; r++){
+    for(let c = 0; c < 3; c++){
+      const span = document.createElement('span');
+      span.textContent = text;
+      span.style.left  = (c * 40 - 5) + '%';
+      span.style.top   = (r * 16 - 4) + '%';
+      overlay.appendChild(span);
+    }
+  }
+})();
+
+/* ═══════════════════════════════════════════════
+   BUILD QUIZ
+═══════════════════════════════════════════════ */
+function buildQuiz(){
+  const area = document.getElementById('quizArea');
+  area.innerHTML = '';
+  renderedQuestions = [];   /* clear previous shuffle on reset */
+
+  questions.forEach((q, i) => {
+    const labels = ['a','b','c','d'];
+
+    /* ── shuffle this question's options ── */
+    const shuffled  = shuffleOptions(q);
+    const displayQ  = { ...q, o: shuffled.o, c: shuffled.c };
+    renderedQuestions[i] = displayQ;   /* save so checkAnswer can read it */
+
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = 'card-' + i;
+
+    /* options HTML — built from the shuffled displayQ */
+    const optionsHTML = displayQ.o.map((opt, j) =>
+      `<div class="option" id="opt-${i}-${j}" onclick="selectOpt(${i},${j})">
+        <strong>${labels[j]})</strong> ${opt}
+      </div>`
+    ).join('');
+
+    const flagged = isFlagged(i);
+    if(flagged) card.classList.add('is-flagged');
+
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="q-num">Q ${i + 1}</span>
+        <div class="card-top-right">
+          <button class="flag-btn ${flagged ? 'flagged' : ''}" id="flagbtn-${i}" onclick="toggleFlag(${i})">
+            🚩 ${flagged ? 'Flagged' : 'Flag'}
+          </button>
+          <span class="q-tag">📖 MCQ</span>
+        </div>
+      </div>
+      <div class="q-text">${displayQ.q}</div>
+      <div class="options" id="opts-${i}">${optionsHTML}</div>
+      <button class="check-btn" id="check-${i}" onclick="checkAnswer(${i})" disabled>
+        ✔ Check Answer
+      </button>
+      <div class="feedback" id="fb-${i}"></div>
+      <div class="explanation-box" id="exp-${i}">
+        <span class="exp-label">💡 Explanation:</span>${displayQ.exp}
+      </div>`;
+
+    area.appendChild(card);
+  });
+
+  /* result placeholder */
+  const res = document.createElement('div');
+  res.id = 'resultCard';
+  area.appendChild(res);
+
+  updateStats();
+}
+
+/* ═══════════════════════════════════════════════
+   FLAGGING (persisted in localStorage on this device)
+═══════════════════════════════════════════════ */
+const FLAG_KEY = 'ssc_bio_ch1_flags';
+
+function loadFlags(){
+  try{
+    return new Set(JSON.parse(localStorage.getItem(FLAG_KEY) || '[]'));
+  }catch(e){ return new Set(); }
+}
+function saveFlags(set){
+  try{
+    localStorage.setItem(FLAG_KEY, JSON.stringify([...set]));
+  }catch(e){ /* storage unavailable — flags just won't persist */ }
+}
+let flaggedSet = loadFlags();
+
+function isFlagged(qi){ return flaggedSet.has(qi); }
+
+function toggleFlag(qi){
+  if(flaggedSet.has(qi)) flaggedSet.delete(qi);
+  else flaggedSet.add(qi);
+  saveFlags(flaggedSet);
+
+  const btn  = document.getElementById(`flagbtn-${qi}`);
+  const card = document.getElementById(`card-${qi}`);
+  const nowFlagged = flaggedSet.has(qi);
+  btn.classList.toggle('flagged', nowFlagged);
+  btn.textContent = '🚩 ' + (nowFlagged ? 'Flagged' : 'Flag');
+  card.classList.toggle('is-flagged', nowFlagged);
+
+  document.getElementById('statFlagged').textContent = flaggedSet.size;
+
+  if(flagFilterOn) applyFlagFilter();
+}
+
+let flagFilterOn = false;
+function toggleFlagFilter(){
+  flagFilterOn = !flagFilterOn;
+  document.getElementById('filterBtn').classList.toggle('active', flagFilterOn);
+  applyFlagFilter();
+}
+function applyFlagFilter(){
+  const area = document.getElementById('quizArea');
+  let visibleCount = 0;
+  questions.forEach((q, i) => {
+    const card = document.getElementById(`card-${i}`);
+    if(!card) return;
+    const show = !flagFilterOn || isFlagged(i);
+    card.style.display = show ? '' : 'none';
+    if(show) visibleCount++;
+  });
+  let msg = document.getElementById('noFlagsMsg');
+  if(flagFilterOn && visibleCount === 0){
+    if(!msg){
+      msg = document.createElement('div');
+      msg.id = 'noFlagsMsg';
+      msg.className = 'no-flags-msg';
+      msg.textContent = "You haven't flagged any questions yet. Tap 🚩 Flag on a question to save it for revision.";
+      area.appendChild(msg);
+    }
+    msg.style.display = '';
+  } else if(msg){
+    msg.style.display = 'none';
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   START GATE
+═══════════════════════════════════════════════ */
+let quizStarted = false;
+
+function startQuiz(){
+  if(quizStarted) return;
+  quizStarted = true;
+
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('quizArea').classList.remove('locked');
+  document.getElementById('toolbar').style.display = 'flex';
+
+  document.querySelectorAll('.check-btn').forEach(btn => btn.disabled = false);
+
+  startTimer();
+}
+
+/* ═══════════════════════════════════════════════
+   SUBMIT WITH CONFIRMATION
+═══════════════════════════════════════════════ */
+function requestSubmit(){
+  const remaining = state.total - state.answered;
+  if(remaining > 0){
+    const ok = confirm(`You still have ${remaining} MCQ${remaining === 1 ? '' : 's'} left unanswered.\n\nDo you want to submit anyway?`);
+    if(!ok) return;
+  }
+  showResult();
+}
+
+/* ═══════════════════════════════════════════════
+   INTERACTION
+═══════════════════════════════════════════════ */
+const userAnswers = {};   /* qi → {selected, checked} */
+
+function selectOpt(qi, oi){
+  if(!quizStarted) return;
+  if(userAnswers[qi]?.checked) return;
+  /* clear highlight */
+  document.querySelectorAll(`#opts-${qi} .option`).forEach(el => el.classList.remove('selected'));
+  document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
+  userAnswers[qi] = { selected: oi, checked: false };
+}
+
+function checkAnswer(qi){
+  if(!quizStarted) return;
+  const entry = userAnswers[qi];
+  if(!entry || entry.checked) return;
+
+  entry.checked = true;
+  /* ── use the shuffled version so correct-index matches what's on screen ── */
+  const q   = renderedQuestions[qi];
+  const ok  = entry.selected === q.c;
+
+  if(ok) state.correct++;
+  state.answered++;
+
+  /* colour options */
+  document.querySelectorAll(`#opts-${qi} .option`).forEach((el, i) => {
+    el.classList.add('disabled');
+    if(i === q.c)                      el.classList.add('correct');
+    else if(i === entry.selected && !ok) el.classList.add('wrong');
+  });
+
+  /* verdict */
+  const fb = document.getElementById(`fb-${qi}`);
+  if(ok){
+    fb.className = 'feedback show correct';
+    fb.textContent = '✓ Correct! Well done!';
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.textContent = `✗ Incorrect! The correct answer is: ${String.fromCharCode(97 + q.c)}) ${q.o[q.c]}`;
+  }
+
+  /* explanation */
+  if(q.exp){
+    document.getElementById(`exp-${qi}`).classList.add('show');
+  }
+
+  /* disable button */
+  document.getElementById(`check-${qi}`).disabled = true;
+
+  updateStats();
+
+  if(state.answered === state.total) showResult();
+}
+
+/* ═══════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════ */
+function updateStats(){
+  document.getElementById('statTotal').textContent    = state.total;
+  document.getElementById('statAnswered').textContent = state.answered;
+  document.getElementById('statCorrect').textContent  = state.correct;
+  const pct = state.total > 0 ? Math.round(state.correct / state.total * 100) : 0;
+  document.getElementById('statScore').textContent    = pct + '%';
+  document.getElementById('statFlagged').textContent  = flaggedSet.size;
+}
+
+/* ═══════════════════════════════════════════════
+   RESULT CARD
+═══════════════════════════════════════════════ */
+function showResult(){
+  const pct = Math.round(state.correct / state.total * 100);
+  let grade, msg, emoji;
+
+  if(pct >= 90){ grade='A+'; msg='Outstanding Performance!';  emoji='🌟'; }
+  else if(pct >= 80){ grade='A';  msg='Excellent Work!';           emoji='🎉'; }
+  else if(pct >= 70){ grade='B';  msg='Good Job!';                 emoji='👍'; }
+  else if(pct >= 60){ grade='C';  msg='Keep Practicing!';          emoji='📚'; }
+  else if(pct >= 50){ grade='D';  msg='More Effort Needed!';       emoji='💪'; }
+  else              { grade='F';  msg='Revise the Chapter Again!'; emoji='📖'; }
+
+  document.getElementById('resultCard').innerHTML = `
+    <div class="result-card">
+      <div class="grade-badge">${emoji}</div>
+      <h2>${msg}</h2>
+      <div class="result-grid">
+        <div class="result-stat">
+          <div class="result-stat-value">${state.correct} / ${state.total}</div>
+          <div class="result-stat-label">Correct Answers</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${pct}%</div>
+          <div class="result-stat-label">Score</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-value">${grade}</div>
+          <div class="result-stat-label">Grade</div>
+        </div>
+      </div>
+      <p style="opacity:.85;font-size:13px;margin-bottom:16px">
+        Ch.1 Stoichiometry &nbsp;|&nbsp; Smart Study Center &nbsp;|&nbsp; Sir Ahmer Javed
+      </p>
+      <button class="result-btn" onclick="resetQuiz()">🔄 Try Again</button>
+    </div>`;
+
+  document.getElementById('resultCard').scrollIntoView({ behavior:'smooth' });
+}
+
+/* ═══════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════ */
+function resetQuiz(){
+  state.answered = 0;
+  state.correct  = 0;
+  Object.keys(userAnswers).forEach(k => delete userAnswers[k]);
+
+  quizStarted = false;
+  flagFilterOn = false;
+  clearInterval(timerInterval);
+
+  buildQuiz();
+
+  document.getElementById('quizArea').classList.add('locked');
+  document.getElementById('toolbar').style.display = 'none';
+  document.getElementById('startScreen').style.display = 'flex';
+  timeLeft = 74 * 60;
+  timerDisplay.textContent = '74:00';
+  timerBox.classList.remove('danger');
+
+  window.scrollTo({ top: 0, behavior:'smooth' });
+}
+
+/* ── INIT ── */
+buildQuiz();
+
+// ── STICKY TIMER (starts only when the student presses Start) ──
+let timeLeft = 74 * 60;
+const timerDisplay = document.getElementById('timerDisplay');
+const timerBox = document.getElementById('timerBox');
+let timerInterval = null;
+
+function startTimer(){
+  if(timerInterval) return;
+  timerInterval = setInterval(() => {
+    const mins = Math.floor(timeLeft / 60);
+    const secs = timeLeft % 60;
+    timerDisplay.textContent =
+      String(mins).padStart(2,'0') + ':' +
+      String(secs).padStart(2,'0');
+    if(timeLeft <= 300){
+      timerBox.classList.add('danger');
+    }
+    if(timeLeft <= 0){
+      clearInterval(timerInterval);
+      timerDisplay.textContent = '⏰ TIME UP';
+      showResult();
+    }
+    timeLeft--;
+  }, 1000);
+}
+</script>
+</body>
+</html>
