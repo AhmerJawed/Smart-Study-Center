@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XII Accounting — Complete MCQs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#101d38;--navy2:#1c3868;--ledger:#8a1f2b;
+  --gold:#b3861f;--gold-lt:#e4c473;
+  --gn:#1d7a47;--gn-bg:#eaf6ef;
+  --rd:#a52a2a;--rd-bg:#fbebe9;
+  --paper:#faf7f0;--paper2:#f2ede0;
+  --line:#e2dac0;--bd:#ddd6c0;
+  --ink:#1c2233;--mt:#7a7562;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  font-size:14px;line-height:1.55;
+  background-image:repeating-linear-gradient(180deg,transparent,transparent 27px,var(--line) 28px);
+  background-attachment:local;
+}
+
+/* ---------- header ---------- */
+header{
+  position:relative;
+  background:linear-gradient(120deg,var(--navy) 0%,var(--navy2) 100%);
+  color:#f4f1e6;
+  padding:22px 26px 20px;
+  display:flex;align-items:center;gap:16px;
+  border-bottom:3px solid var(--gold);
+  box-shadow:0 1px 0 var(--gold-lt) inset;
+}
+header::after{
+  content:'';position:absolute;left:0;right:0;bottom:-7px;height:1px;background:var(--gold);opacity:.55;
+}
+.hi{
+  font-family:'Fraunces',serif;font-weight:800;font-size:1.35rem;
+  width:46px;height:46px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  border:1.5px solid var(--gold-lt);border-radius:50%;
+  color:var(--gold-lt);letter-spacing:-1px;
+  background:rgba(255,255,255,.03);
+}
+header h1{
+  font-family:'Fraunces',serif;font-size:1.32rem;font-weight:700;
+  letter-spacing:.2px;
+}
+header p{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;
+  opacity:.72;margin-top:6px;color:var(--gold-lt);
+}
+
+/* ---------- tabs ---------- */
+.trow{
+  position:sticky;top:0;z-index:50;
+  background:var(--navy);
+  display:flex;flex-wrap:wrap;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  box-shadow:0 3px 10px rgba(16,29,56,.18);
+  overflow-x:auto;
+}
+.trow::-webkit-scrollbar{height:3px;}
+.tb{
+  font-family:'Inter',sans-serif;
+  padding:11px 14px 9px;background:transparent;border:none;
+  color:rgba(244,241,230,.5);font-size:.72rem;font-weight:600;
+  letter-spacing:.01em;
+  cursor:pointer;white-space:nowrap;
+  border-bottom:3px solid transparent;margin-bottom:-1px;
+  transition:color .15s,background .15s;
+}
+.tb:hover{color:#fff;background:rgba(255,255,255,.04);}
+.tb.active{color:var(--navy);border-bottom-color:var(--gold);background:var(--paper);border-radius:6px 6px 0 0;font-weight:700;}
+
+/* ---------- panel & chapter head ---------- */
+.panel{display:none;padding:22px 16px 60px;max-width:860px;margin:0 auto;}
+.panel.active{display:block;animation:fadein .25s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+.chd{
+  display:flex;align-items:baseline;gap:10px;margin-bottom:18px;padding-bottom:12px;
+  border-bottom:1px solid var(--bd);position:relative;
+}
+.chd::after{content:'';position:absolute;left:0;bottom:-3px;width:64px;height:2px;background:var(--gold);}
+.chd h2{
+  font-family:'Fraunces',serif;font-size:1.15rem;color:var(--navy);font-weight:700;
+  letter-spacing:.1px;
+}
+.cct{
+  margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.03em;
+  color:var(--mt);background:var(--paper2);border:1px solid var(--bd);padding:3px 9px;border-radius:3px;
+}
+
+/* ---------- question card ---------- */
+.card{
+  background:#fffefb;border:1px solid var(--bd);border-left:3px solid var(--navy2);
+  border-radius:4px;margin-bottom:14px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(16,29,56,.05);
+  transition:box-shadow .15s;
+}
+.card:hover{box-shadow:0 3px 10px rgba(16,29,56,.09);}
+.card.star{border-left:3px solid var(--gold);}
+.ch{display:flex;align-items:center;gap:7px;padding:12px 14px 0;}
+.qn{
+  font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;
+  background:var(--navy);color:var(--gold-lt);padding:3px 8px;border-radius:3px;letter-spacing:.03em;
+}
+.sb{
+  font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;letter-spacing:.03em;
+  background:var(--gold);color:#fff;padding:3px 8px;border-radius:3px;text-transform:uppercase;
+}
+.qt{padding:9px 14px 10px;font-weight:600;font-size:.9rem;color:var(--ink);line-height:1.5;}
+
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:0 14px 14px;}
+@media(max-width:500px){.opts{grid-template-columns:1fr;}}
+.opt{
+  display:flex;align-items:flex-start;gap:8px;padding:8px 10px;
+  border:1.5px solid var(--bd);border-radius:4px;background:var(--paper2);
+  cursor:pointer;font-size:.82rem;text-align:left;color:var(--ink);
+  transition:border-color .15s,background .15s,transform .1s;line-height:1.4;
+}
+.opt:hover:not(:disabled){border-color:var(--navy2);background:#eef2f8;transform:translateY(-1px);}
+.opt:disabled{cursor:default;}
+.opt.correct{background:var(--gn-bg);border-color:var(--gn);color:var(--gn);font-weight:700;}
+.opt.wrong{background:var(--rd-bg);border-color:var(--rd);color:var(--rd);}
+.opt.sa{background:var(--gn-bg);border-color:var(--gn);color:var(--gn);font-weight:700;}
+.lb{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:19px;height:19px;border-radius:4px;
+  background:#fff;border:1.5px solid var(--bd);color:var(--navy2);
+  font-family:'JetBrains Mono',monospace;font-size:.63rem;font-weight:700;flex-shrink:0;margin-top:1px;
+  transition:background .15s,border-color .15s,color .15s;
+}
+.opt:hover:not(:disabled) .lb{border-color:var(--navy2);}
+.opt.correct .lb,.opt.sa .lb{background:var(--gn);border-color:var(--gn);color:#fff;}
+.opt.wrong .lb{background:var(--rd);border-color:var(--rd);color:#fff;}
+.an{
+  display:none;margin:0 14px 12px;padding:8px 11px;border-left:3px solid var(--gn);
+  background:var(--gn-bg);border-radius:0 4px 4px 0;font-size:.79rem;color:var(--gn);font-weight:700;
+}
+
+/* ---------- score badge ---------- */
+.sc{
+  position:fixed;bottom:16px;right:16px;
+  background:var(--navy);color:#f4f1e6;
+  padding:9px 16px;border-radius:24px;
+  font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;letter-spacing:.02em;
+  box-shadow:0 6px 20px rgba(16,29,56,.35);
+  border:1px solid var(--gold);
+  display:flex;align-items:center;gap:10px;z-index:100;
+}
+.rs{
+  background:rgba(255,255,255,.1);border:1px solid rgba(228,196,115,.4);color:var(--gold-lt);
+  font-size:.66rem;font-weight:600;padding:4px 9px;border-radius:14px;cursor:pointer;
+  transition:background .15s;
+}
+.rs:hover{background:rgba(255,255,255,.18);}
+</style>
+</head>
+<body>
+<header><div class="hi">§</div><div><h1>XII Accounting — Complete MCQs (All Chapters)</h1><p>Petiwala Book · 10 Chapters · 406 Questions · Verified Answer Keys</p></div></header>
+<div class="trow">
+<button class="tb active" data-p="c1">Chapter 1: Single Entry (50)</button>
+<button class="tb" data-p="c2">Chapter 02: Depreciation (50)</button>
+<button class="tb" data-p="c3">Ch. 03: Non-Profit Orgs (50)</button>
+<button class="tb" data-p="c4">Ch. 04: Partnership Formation (21)</button>
+<button class="tb" data-p="c5">Ch. 05: Admission (40)</button>
+<button class="tb" data-p="c6">Ch. 06: Partner Distribution (50)</button>
+<button class="tb" data-p="c7">Ch. 07: Partnership Retirement (25)</button>
+<button class="tb" data-p="c8">Ch. 08: Partnership Dissolution (40)</button>
+<button class="tb" data-p="c9">Ch. 09: Shares & Debentures (50)</button>
+<button class="tb" data-p="c10">Ch.10: Disposal of Net Income (30)</button>
+</div>
+<div class="panel active" id="c1"></div>
+<div class="panel" id="c2"></div>
+<div class="panel" id="c3"></div>
+<div class="panel" id="c4"></div>
+<div class="panel" id="c5"></div>
+<div class="panel" id="c6"></div>
+<div class="panel" id="c7"></div>
+<div class="panel" id="c8"></div>
+<div class="panel" id="c9"></div>
+<div class="panel" id="c10"></div>
+<div class="sc"><span id="sc">0 / 0</span><button class="rs" id="rb">Reset</button></div>
+<script>
+let cr=0,tt=0;
+const C=[
+{id:`c1`,title:`Chapter 1: Single Entry`,qs:[
+{q:`Single entry system is a system which shows;`,o:[`Double affect of a transaction`,`One affect of a transaction`],a:1},
+{q:`Another name of balance sheet is;`,o:[`Income statement`,`Statement of profit and loss`,`Statement of affairs`,`Statement of balances`],a:2},
+{q:`One of the following is correct form of accounting equation. Point out that one;`,o:[`Assets = Capital – Liabilities`,`Assets = Income + Expenses`,`Assets = Capital + Liabilities`,`Capital = Assets + Liabilities`],a:2},
+{q:`Which one of the following is the correct formula to find out capital;`,o:[`Capital = Assets + Liabilities`,`Capital = Assets + Expenses`,`Capital = Income + Liabilities`,`Capital = Assets - Liabilities`],a:3},
+{q:`Consider the following data; Cash 25,000 Account receivable 45,000 Note payable 15,000 Bank overdraft 20,000 Merchandise inventory 55,000 Furniture 20,000 Equipment 10,000. What is the amount of capital?`,o:[`Rs.120,000`,`Rs.134,000`,`Rs.143,000`,`Rs.102,000`],a:0},
+{q:`Consider the following data; Cash 50,000 Note receivable 65,000 Note payable 10,000 Salaries payable 8,000 Merchandise inventory 75,000 Loan to employees 12,000 Equipment 20,000. What is the amount of capital?`,o:[`Rs.198,000`,`Rs.203,000`,`Rs.204,000`,`Rs.208,000`],a:2},
+{q:`The following data is related to Mr.Taha, a sole trader; Cash ? Prepaid salaries 15,000 Office supplies 6,000 Rent payable 5,000 Merchandise inventory 65,000 Loan to employees 15,000 Account receivable 30,000 Account payable 11,000 Bank overdraft 14,000 Capital, Taha 150,000. That is the amount of Cash?`,o:[`Rs.54,000`,`Rs.49,000`,`Rs.65,000`,`Rs.72,000`],a:1},
+{q:`The following data is related to Mr. Hassan, a sole trader; Cash 55,000 Prepaid insurance 3,000 Office supplies 4,000 Salaries payable 10,000 Merchandise inventory ? Advance to suppliers 7,000 Account receivable 24,000 Account payable 13,000 Bank 25,000 Capital, Hassan 170,000. What is the amount of Merchandise inventory?`,o:[`Rs.65,000`,`Rs.76,000`,`Rs.63,000`,`Rs.75,000`],a:3},
+{q:`The given below information is related to Mr. Hamdan, a sole trader; Cash 70,000 Advance from customers 80,000 Note payable 12,000 Insurance payable 1,000 Merchandise inventory 45,000 Loan to employees 15,000 Equipment 33,000 Advance to suppliers 10,000. What is the amount of capital of Mr. Hamdan?`,o:[`Rs.89,000`,`Rs.80,000`,`Rs.78,000`,`Rs.96,000`],a:1},
+{q:`Following facts are related to Mr. Haris, a sole trader; Opening capital 120,000 Net profit of current year 25,000 Drawing during current year 6,000. What is the amount of ending capital?`,o:[`Rs.124,000`,`Rs.143,000`,`Rs.139,000`,`Rs.125,000`],a:2},
+{q:`Following facts are related to Mr. Kamran, a sole trader; Opening capital 150,000 Net profit of current year 55,000 Drawing during current year 12,000. What is the amount of ending capital?`,o:[`Rs.193,000`,`Rs.153,000`,`Rs.170,000`,`Rs.175,000`],a:0},
+{q:`Following data is related to Mr. Rehan, a sole trader; Opening capital 380,000 Net loss of current year 40,000 Drawing during current year 18,000. What is the amount of ending capital?`,o:[`Rs.294,000`,`Rs.373,000`,`Rs.139,000`,`Rs.322,000`],a:3},
+{q:`Following data is related to Mr. Rizwan, a sole trader; Opening capital 500,000 Net loss of current year 120,000 Drawing during current year 50,000. What is the amount of ending capital?`,o:[`Rs.324,000`,`Rs.330,000`,`Rs.279,000`,`Rs.320,000`],a:1},
+{q:`Following facts are related to Mr. Shah, a sole trader; Opening capital 240,000 Net profit of current year 75,000 Drawing during current year 15,000 Additional investment 80,000. What is the amount of ending capital?`,o:[`Rs.360,000`,`Rs.490,000`,`Rs.380,000`,`Rs.325,000`],a:2},
+{q:`Following facts are related to Mr. Faisal, a sole trader; Opening capital 680,000 Net profit of current year 245,000 Drawing during current year 50,000 Additional investment 120,000. What is the amount of ending capital?`,o:[`Rs.995,000`,`Rs.760,000`,`Rs.980,000`,`Rs.755,000`],a:0},
+{q:`Following facts are related to Mr. Ejaz, a sole trader; Opening capital 700,000 Net loss of current year 180,000 Drawing during current year 140,000 Additional investment 250,000. What is the amount of ending capital?`,o:[`Rs.650,000`,`Rs.620,000`,`Rs.630,000`,`Rs.655,000`],a:2},
+{q:`Following facts are related to Mr.Nasir, a sole trader; Opening capital 350,000 Net loss of current year 90,000 Drawing during current year 30,000 Additional investment 100,000. What is the amount of ending capital?`,o:[`Rs.290,000`,`Rs.330,000`,`Rs.260,000`,`Rs.340,000`],a:1},
+{q:`Following facts are related to Mr. Farooq, a sole trader; Ending capital 250,000 Net profit of current year 70,000 Drawing during the year 15,000. What is the amount of opening capital?`,o:[`Rs.145,000`,`Rs.160,000`,`Rs.154,000`,`Rs.195,000`],a:3},
+{q:`Following facts are related to Mr. Hassan; Ending capital 745,000 Net profit of current year 100,000 Opening capital 925,000. What is the amount of drawing?`,o:[`Rs.320,000`,`Rs.145,000`,`Rs.280,000`,`Rs.230,000`],a:2},
+{q:`Following data is related to Mrs. Baig, a sole trader; Ending capital 400,000 Net profit of current year 140,000 Drawing during the year 40,000. What is the amount of opening capital?`,o:[`Rs.255,000`,`Rs.320,000`,`Rs.300,000`,`Rs.285,000`],a:2},
+{q:`Following facts are related to Mr.Waqas, a sole trader; Ending capital 600,000 Net loss of current year 140,000 Drawing during the year 45,000. What is the amount of opening capital?`,o:[`Rs.785,000`,`Rs.760,000`,`Rs.800,000`,`Rs.825,000`],a:0},
+{q:`Consider the following information; Ending capital 645,000 Net profit of current year 97,000 Opening capital 876,000. What is the amount of drawing?`,o:[`Rs.332,000`,`Rs.237,000`,`Rs.328,000`,`Rs.330,000`],a:2},
+{q:`Following data is related to Mr.Shoaib; Ending capital 550,000 Net loss of current year 210,000 Drawing during the year 70,000. What is the amount of opening capital?`,o:[`Rs.800,000`,`Rs.790,000`,`Rs.820,000`,`Rs.830,000`],a:3},
+{q:`Following information is taken from the accounting records of a sole proprietor; On January 1, total assets amounted to Rs.460,000 and total liabilities were Rs.185,000. Upto December 31, total assets increased by Rs.140,000 and total liabilities decreased by Rs.35,000. What is the amount of ending capital?`,o:[`Rs.430,000`,`Rs.450,000`,`Rs.456,000`,`Rs.380,000`],a:1},
+{q:`Following data is related to Mrs. Kazmi, a sole trader; Ending capital 580,000 Opening capital 270,000 Drawing during the year 80,000. What is the amount of net profit of current year?`,o:[`Rs.390,000`,`Rs.370,000`,`Rs.360,000`,`Rs.295,000`],a:3},
+{q:`Following data is related to Mr. Shah, a sole trader; Ending capital 650,000 Opening capital 490,000 Drawing during the year 120,000. What is the amount of net profit of current year?`,o:[`Rs.310,000`,`Rs.380,000`,`Rs.260,000`,`Rs.280,000`],a:0},
+{q:`Consider the following information; Ending capital 432,000 Net loss of current year 63,000 Opening capital 567,000. What is the amount of drawing?`,o:[`Rs.72,000`,`Rs.78,000`,`Rs.89,000`,`Rs.60,000`],a:2},
+{q:`Following data is taken from the books of Mr. Shahid, a sole trader; Ending capital 350,000 Opening capital 500,000 Drawing during the year 20,000. What is the amount of net loss of current year?`,o:[`Rs.180,000`,`Rs.200,000`,`Rs.130,000`,`Rs.100,000`],a:0},
+{q:`Following information is taken from the accounting records of a sole proprietor; On January 1, total assets amounted to Rs.675,000 and total liabilities were Rs.360,000. Upto December 31, total assets increased by Rs.234,000 and total liabilities decreased by Rs.80,000. What is the amount of ending capital?`,o:[`Rs.629,000`,`Rs.580,000`,`Rs.639,000`,`Rs.656,000`],a:2},
+{q:`Following data is taken from the books of Mr. Shahid, a sole trader; Ending capital 480,000 Opening capital 630,000 Drawing during the year 50,000. What is the amount of net loss of current year?`,o:[`Rs.110,000`,`Rs.170,000`,`Rs.120,000`,`Rs.100,000`],a:3},
+{q:`Following facts are related to Mr.Habib; Ending capital 678,000 Net loss of current year 167,000 Drawing during the year 22,000. What is the amount of opening capital?`,o:[`Rs.867,000`,`Rs.700,000`,`Rs.533,000`,`Rs.654,000`],a:0},
+{q:`The following information is related to a sole ownership business; Ending capital 250,000 Net profit of current year 12,000 Opening capital 176,000 Drawing 8,000. What is the amount of additional investment?`,o:[`Rs.26,000`,`Rs.44,000`,`Rs.90,000`,`Rs.70,000`],a:3},
+{q:`The following information is related to business of a sole proprietor; Ending capital 530,000 Net profit of current year 110,000 Opening capital 657,000 Additional investment 50,000. What is the amount of drawing?`,o:[`Rs.255,000`,`Rs.190,000`,`Rs.287,000`,`Rs.257,000`],a:2},
+{q:`Following information is taken from the accounting records of a sole proprietor; On January 1, total assets amounted to Rs.777,000 and total liabilities were Rs.400,000. Upto December 31, total assets decreased by Rs.177,000 and total liabilities increased by Rs.100,000. What is the amount of ending capital?`,o:[`Rs.102,000`,`Rs.134,000`,`Rs.100,000`,`Rs.156,000`],a:2},
+{q:`The following information is related to a sole ownership business; Ending capital 830,000 Net profit of current year 87,000 Opening capital 634,000 Drawing 25,000. What is the amount of additional investment?`,o:[`Rs.120,000`,`Rs.134,000`,`Rs.200,000`,`Rs.143,000`],a:1},
+{q:`Consider the following information; Ending capital 354,000 Net loss of current year 26,000 Opening capital 600,000. What is the amount of drawing?`,o:[`Rs.198,000`,`Rs.178,000`,`Rs.220,000`,`Rs.245,000`],a:2},
+{q:`Find out the net profit or loss from the following information by using statement of affairs method; Opening capital Rs.240,000 Ending capital (Unadjusted) Rs.430,000 Additional investment Rs.25,000 Drawing Rs.10,000. Adjustment data: Depreciation expense for the year Rs.5,000 Bad debt expense for the year Rs.3,000 Rent accrued at year end Rs.1,000.`,o:[`Rs.166,000 Profit`,`Rs.166,000 Loss`,`Rs.180,000 Profit`,`Rs.180,000 Loss`],a:0},
+{q:`The following information is related to a sole ownership business; Ending capital 830,000 Net profit of current year 87,000 Opening capital 634,000 Drawing 25,000. What is the amount of additional investment?`,o:[`Rs.120,000`,`Rs.134,000`,`Rs.200,000`,`Rs.143,000`],a:1},
+{q:`Following information is taken from the accounting records of a sole proprietor; On January 1, total assets amounted to Rs.800,000 and total liabilities were Rs.320,000. Upto December 31, total assets increased to Rs.980,000 and total liabilities decreased to Rs.200,000. What is the amount of ending capital?`,o:[`Rs.556,000`,`Rs.765,000`,`Rs.634,000`,`Rs.780,000`],a:3},
+{q:`Point out which one of the following is correct;`,o:[`Capital increases with drawing of owner`,`Additional investment decreases capital`,`Net profit increases capital`,`Gross profit is always more than net profit`],a:2},
+{q:`Find out the net profit or loss from the following information by using statement of affairs method; Opening capital Rs.137,000 Ending capital (Unadjusted) Rs.378,000 Additional investment Rs.40,000 Drawing Rs.15,000. Adjustment data: Depreciation expense for the year Rs.8,000 Accrued salaries at year end Rs.5,000 Accrued insurance at year end Rs.800.`,o:[`Rs.178,200 Loss`,`Rs.180,000 Loss`,`Rs.205,800 Profit`,`Rs.202,200 Profit`],a:3},
+{q:`Consider the following information about a sole trader; Ending capital 480,000 Net loss of current year 85,000 Opening capital 660,000 Additional investment 90,000. What is the amount of drawing?`,o:[`Rs.185,000`,`Rs.143,000`,`Rs.98,000`,`Rs.111,000`],a:0},
+{q:`The following information is related to business of a sole proprietor; Ending capital 620,000 Net profit of current year 55,000 Opening capital 570,000 Additional investment 80,000. What is the amount of drawing?`,o:[`Rs.85,000`,`Rs.77,000`,`Rs.90,000`,`Rs.67,000`],a:2},
+{q:`Consider the following information; Ending capital 567,000 Net loss of current year 45,000 Opening capital 740,000 Additional investment 90,000. What is the amount of drawing?`,o:[`Rs.210,000`,`Rs.176,000`,`Rs.187,000`,`Rs.218,000`],a:0},
+{q:`Find out the net profit or loss from the following information by using statement of affairs method; Opening capital Rs.356,000 Ending capital (Unadjusted) Rs.267,000 Additional investment Rs.85,000 Drawing Rs.20,000. Adjustment data: Salaries expense for the year Rs.4,500 Accrued advertisement at year end Rs.2,200 Accrued rent at year end Rs.1,300.`,o:[`Rs.138,600 Loss`,`Rs.162,000 Loss`,`Rs.176,100 Profit`,`Rs.102,300 Profit`],a:2},
+{q:`Consider the following information; Ending capital 434,000 Net loss of current year 100,000 Opening capital 248,000 Drawing 22,000. What is the amount of additional investment?`,o:[`Rs.308,000`,`Rs.108,000`,`Rs.300,000`,`Rs.289,000`],a:3},
+{q:`The following information is related to business of a sole proprietor; Ending capital 876,000 Net profit of current year 123,000 Opening capital 889,000 Additional investment 60,000. What is the amount of drawing?`,o:[`Rs.167,000`,`Rs.156,000`,`Rs.196,000`,`Rs.134,000`],a:0},
+{q:`Consider the following information; Ending capital 368,000 Net loss of current year 34,000 Opening capital 178,000 Drawing 10,000. What is the amount of additional investment?`,o:[`Rs.248,000`,`Rs.234,000`,`Rs.351,000`,`Rs.370,000`],a:2},
+{q:`Following information is taken from the accounting records of a sole proprietor; On January 1, total assets amounted to Rs.750,000 and total liabilities were Rs.290,000. Upto December 31, total assets decreased to Rs.610,000 and total liabilities increased to Rs.350,000. What is the amount of ending capital?`,o:[`Rs.190,000`,`Rs.289,000`,`Rs.260,000`,`Rs.310,000`],a:1},
+{q:`Find out the net profit or loss from the following information by using statement of affairs method; Opening capital Rs.432,000 Ending capital (Unadjusted) Rs.322,000 Additional investment Rs.104,000 Drawing Rs.12,000. Adjustment data: Bad debt expense for the year Rs.3,000 Accrued interest on bank loan Rs.1,300 Accrued insurance at year end Rs.1,000.`,o:[`Rs.207,300 Loss`,`Rs.202,500 Loss`,`Rs.206,980 Profit`,`Rs.243,100 Profit`],a:2}
+]},
+{id:`c2`,title:`Chapter 02: Depreciation`,qs:[
+{q:`The systematic allocation of depreciable cost of a fixed asset to its useful life is termed as;`,o:[`Amortization`,`Depletion`,`Depreciation`,`None of these`],a:2},
+{q:`The estimated selling price of a fixed asset after its useful life is known as;`,o:[`Cost value`,`Salvage value`,`Depreciable cost`,`None of these`],a:1},
+{q:`The correct formula to find out depreciable cost of a fixed asset is;`,o:[`Cost – Salvage value`,`Cost + Salvage value`,`Cost – Market value`,`Cost – Accumulated depreciation`],a:0},
+{q:`Book value of a fixed asset can be calculated as;`,o:[`Cost + Current year depreciation only`,`Cost – Current year depreciation only`,`Cost + Accumulated depreciation`,`Cost – Accumulated depreciation`],a:3},
+{q:`Point out the correct formula to find out depreciation expense under straight line method;`,o:[`Cost – Accumulated dep. X Rate of dep`,`(Cost - Salvage value)/Useful life in years`,`(Cost + Salvage value)/Useful life in years`,`Cost – Salvage value X Dep. fraction`],a:1},
+{q:`Fixed Installment method is another name of;`,o:[`Reducing balance method`,`Sum of year's digit method`,`Straight line method`,`Working hours method`],a:2},
+{q:`On January 1,2010 Taha Industries purchased an equipment costing Rs.80,000 with salvage value of Rs.10,000. It is estimated to use the equipment for 5 years. What is the depr. charge under straight-line method for the year ended December 31,2010.`,o:[`Rs.14,000`,`Rs.16,000`,`Rs.10,000`,`Rs.70,000`],a:0},
+{q:`On July1,2010 Tasweeb & Brothers purchased a machine costing Rs.120,000 with salvage value of Rs.30,000. It is estimated to use the machine for 9 years. What is the depreciation charge under straight-line method for the year ended December 31,2010.`,o:[`Rs.10,000`,`Rs.12,000`,`Rs.5,000`,`Rs.14,000`],a:2},
+{q:`While calculating first year depreciation expense under reducing balance method, accumulated depreciation is always taken as;`,o:[`Equal to cost value`,`Equal to market value`,`Any value`,`Zero`],a:3},
+{q:`Which of the following method of calculating depreciation gives same depreciation over different years`,o:[`Straight line method`,`Reducing balance method`,`Sum of year's digit method`,`Working hours method`],a:0},
+{q:`Point out the correct formula to find out depreciation expense under sum of years digit method`,o:[`Cost – Accumulated dep. X Rate of dep`,`(Cost - Salvage value)/Useful life in years`,`(Cost + Salvage value)/Useful life in years`,`Cost – Salvage value X Dep. fraction`],a:3},
+{q:`Which one of the following may be another formula to calculate depreciation under straight line method;`,o:[`Cost – Accumulated depreciation X Rate of depreciation`,`(Cost + Salvage value)/Useful life in years`,`Depreciable cost/Useful life in years`,`Cost – Salvage value X Dep. fraction`],a:2},
+{q:`On March 18,2010 Kamran & Company purchased a vehicle costing Rs.250,000 with residual value of Rs.90,000. It is estimated to use the vehicle for 8 years. What is the depreciation charge under straight-line method for the year ended December 31,2010.`,o:[`Rs.20,000`,`Rs.15,000`,`Rs.16,667`,`Rs.15,000`],a:3},
+{q:`Under diminishing balance method, depreciation is always calculated on which one of the following value of fixed asset;`,o:[`Market value`,`Cost value`,`Book value`,`Salvage value`],a:2},
+{q:`The nature of allowance for depreciation is;`,o:[`Asset account`,`Contra asset account`,`Expense account`,`Liability account`],a:1},
+{q:`Fixed asset account always keeps;`,o:[`Debit balance`,`Credit balance`,`Zero balance`],a:0},
+{q:`Point out the correct adjusting entry to record depreciation expense;`,o:[`Depreciation expense Dr. / Allowance for dep. Cr`,`Allowance for dep. Dr. / Depreciation exp. Cr`,`Income Summary Dr. / Depreciation exp. Cr`,`Income Summary Dr. / Allowance for dep. Cr`],a:0},
+{q:`The allowance for depreciation account always keeps;`,o:[`Debit balance`,`Credit balance`,`Zero balance`],a:1},
+{q:`Under sum of year's digit method of depreciation, sum of year's digit can be calculated by using which one of the following formula;`,o:[`N(N+1)/2`,`N(N+2)/2`,`N(N+1)/2`,`N(N-1)/2`],a:2},
+{q:`Accumulated depreciation is deducted from the cost of fixed asset in;`,o:[`Balance sheet`,`Income statement`],a:0},
+{q:`On August 12,2009 Faisal Company purchased a machine costing Rs.48,000 with no residual value. It is estimated to use the machine for 4 years. What is the depreciation charge under straight-line method for the year ended December 31,2009`,o:[`Rs.12,000`,`Rs.5,000`,`Rs.4,000`,`Rs.6,000`],a:1},
+{q:`Depreciation expense for the current year;`,o:[`Get close at year end`,`Carry forward to next year`],a:0},
+{q:`Point out the correct formula to find out depreciation expense under reducing balance method`,o:[`Cost – Accumulated dep. X Rate of dep`,`(Cost - Salvage value)/Useful life in years`,`(Cost + Salvage value)/Useful life in years`,`Cost – Salvage value X Dep. fraction`],a:0},
+{q:`Which of the following methods of calculating depreciation are called accelerated method of depreciation; 1. Straight line method 2. Reducing balance method 3. Sum of year's digit method 4. Working hours method 5. Unit production method`,o:[`1 only`,`1 and 2 only`,`2 and 3 only`,`1,2 and 3 only`],a:2},
+{q:`All those expenses which bring improvement in present condition of fixed asset are called;`,o:[`Capital expenditures`,`Revenue expenditures`],a:0},
+{q:`Which one of the following account's balance is not carry forward to next year;`,o:[`Asset`,`Allowance for depreciation`,`Depreciation expense`],a:2},
+{q:`Payment of salaries to machine operator is an example of;`,o:[`Capital expenditures`,`Revenue expenditures`],a:1},
+{q:`Point out the correct closing entry for depreciation expense;`,o:[`Depreciation expense Debit / Allowance for dep. Credit`,`Allowance for dep. Debit / Depreciation exp. Credit`,`Income Summary Debit / Depreciation exp. Credit`,`Income Summary Debit / Allowance for dep. Credit`],a:0},
+{q:`Depreciation is an expense not a loss.`,o:[`True`,`False`],a:0},
+{q:`Which of the following is not a capital expenditure;`,o:[`Sales tax paid on purchase of machine`,`Cost of installation of air condition in office`,`Payment for repair expense of old office furniture`,`Custom duty paid on import of machine`],a:2},
+{q:`If Rs.25,000 is 3 months (quarterly) depreciation of a fixed asset. Then what will be the annual depreciation of the asset;`,o:[`Rs. 80,000`,`Rs. 75,000`,`Rs.100,000`,`Impossible to calculate`],a:2},
+{q:`Which of the following expenditures are shown in balance sheet of a business;`,o:[`Capital expenditures`,`Revenue expenditures`],a:0},
+{q:`If Rs.8,000 is 4 months depreciation of a fixed asset. Then what will be the annual depreciation of the asset;`,o:[`Rs.24,000`,`Rs.30,000`,`Rs.32,000`,`Impossible to calculate`],a:0},
+{q:`If Rs.6,000 is 8 months depreciation of a fixed asset. Then what will be the annual depreciation of that asset;`,o:[`Rs.12,000`,`Rs.15,000`,`Rs.10,000`,`Rs.9,000`],a:3},
+{q:`Consider the following data; Annual depreciation expense Rs.25,000 Cost of fixed asset Rs.250,000 Residual value Rs.50,000. The useful life of asset is:`,o:[`5 years`,`8 years`,`10 years`,`Can not be calculated`],a:1},
+{q:`Consider the following data; Annual depreciation expense Rs.40,000 Cost of fixed asset Rs.300,000 Residual value Rs.60,000. The useful life of asset is:`,o:[`6 years`,`4 years`,`3 years`,`Can not be calculated`],a:0},
+{q:`Annual depreciation of a machine is calculated under sum of year's digit method amounted to Rs.20,0000. The useful life of that machine is 5 years and this depreciation is calculated for second year of total life of machine. What is the depreciable cost of that machine?`,o:[`Rs.100,000`,`Rs.75,000`,`Rs.80,000`,`Rs.85,000`],a:1},
+{q:`Consider the following data; Quarterly depreciation expense Rs.10,000 Cost of fixed asset Rs.430,000 Residual value Rs.190,000. The useful life of asset is:`,o:[`4 years`,`3 years`,`6 years`,`Can not be calculated`],a:2},
+{q:`On January 1, 2007 Haris Ltd purchased a machine for Rs.80,000 with salvage value of Rs.20,000. The estimated useful life of machine is 5 years. If the company uses sum of year's digit method, then what will be the annual depreciation charge for the year ended December 31, 2009.`,o:[`Rs.12,000`,`Rs.20,000`,`Rs.16,000`,`Rs.8,000`],a:0},
+{q:`The following information is related to purchase of a machine; List price of machine Rs.150,000 Trade discount received 10% Cash discount received 5% Sales tax paid 8% Insurance in transit paid Rs.3,500 Installation and testing charges Rs.1,000. What is the invoice or bill price of machine?`,o:[`Rs.124,900`,`Rs.145,000`,`Rs.138,510`,`Rs.128,000`],a:2},
+{q:`Annual depreciation of a machine is calculated under sum of year's digit method amounted to Rs.45,0000. The useful life of that machine is 10 years and this depreciation is calculated for fourth year of total life of machine. What is the depreciable cost of that machine?`,o:[`Rs.340,000`,`Rs.256,789`,`Rs.345,768`,`Rs.353,571`],a:3},
+{q:`The following information is related to purchase of an equipment; List price of equipment Rs.70,000 Trade discount received 8% Cash discount received 2% Sales tax paid 8% Installation and testing charges Rs.500. What is the net cash price of equipment?`,o:[`Rs.65,000`,`Rs.55,400`,`Rs.60,100`,`Rs.63,112`],a:3},
+{q:`Annual depreciation of an equipment is calculated under sum of year's digit method amounted to Rs.42,000. The useful life of that machine is 6 years and this depreciation is calculated for first year of total life of machine. Salvage value of equipment is estimated Rs.25,000. What is the cost of that machine?`,o:[`Rs.154,000`,`Rs.176,500`,`Rs.172,000`,`Rs.132,000`],a:2},
+{q:`Which one of the following is not included in the cost of fixed asset;`,o:[`Insurance in transit`,`2 years fire insurance`,`Installation & Testing charges`,`Transportation in`],a:1},
+{q:`Book value plus accumulated depreciation is equal to;`,o:[`Salvage value`,`Scrap value`,`Market value`,`Cost value`],a:3},
+{q:`Under sum of year's digit method of depreciation, if depreciation of first 2 years are Rs.20,000 and Rs.16,000, then what will be the depreciation expense for 3rd year.`,o:[`Rs.12,000`,`Rs.8,000`,`Rs.24,000`,`Rs.18,000`],a:0},
+{q:`Under sum of year's digit method of depreciation, if depreciation of first 3 years are Rs.18,000, Rs.14,000 and Rs.10,000, then what will be the depreciation expense for 5th year.`,o:[`Rs.4,000`,`Rs.2,000`,`Rs.6,000`,`Rs.8,000`],a:1},
+{q:`Annual depreciation of an equipment is calculated under sum of year's digit method amounted to Rs.12,000. The useful life of that machine is 8 years and this depreciation is calculated for third year of total life of machine. What is the depreciable cost of that machine?`,o:[`Rs.72,000`,`Rs.65,400`,`Rs.54,600`,`Rs.70,000`],a:0},
+{q:`Annual depreciation of a machine is calculated under sum of year's digit method amounted to Rs.84,000. The useful life of that machine is 7 years and this depreciation is calculated for fifth year of total life of machine. Salvage value of machine is Rs.280,000. What is the cost of that machine?`,o:[`Rs.982,000`,`Rs.605,800`,`Rs.784,000`,`Rs.1,064,000`],a:3},
+{q:`Depreciable cost plus salvage value is equal to;`,o:[`Book value`,`Cost value`,`Market value`,`Scrap value`],a:1}
+]},
+{id:`c3`,title:`Ch. 03: Non-Profit Orgs`,qs:[
+{q:`An organisation which is not formed to earn profit is known as;`,o:[`Profit-motive organization`,`Non-profit organisation`,`Manufacturing organization`,`Trading organisation`],a:1},
+{q:`In non-profit organisation which one of the following is used in place of income statement;`,o:[`Balance sheet`,`Receipts and payments account`,`Income and expenditure account`,`Cash book`],a:2},
+{q:`In non-profit organisation which one of the following is used in place of cash book;`,o:[`Balance sheet`,`Receipts and payments account`,`Income and expenditure account`,`None of these`],a:1},
+{q:`In income and expenditure account of non-profit organisation, profit is represented by;`,o:[`Deficit`,`Net profit`,`Surplus`,`None of these`],a:2},
+{q:`In income and expenditure account of non-profit organisation, loss is represented by;`,o:[`Deficit`,`Net profit`,`Surplus`,`None of these`],a:0},
+{q:`If income and expenditure account has debit balance then it represents;`,o:[`Surplus`,`Deficit`],a:1},
+{q:`If income and expenditure account has credit balance then it represents;`,o:[`Surplus`,`Deficit`],a:0},
+{q:`Which one of the following has no beginning balance;`,o:[`Receipts and payments account`,`Income and expenditure account`],a:1},
+{q:`Which one of the following has begins with either debit or credit balance;`,o:[`Receipts and payments account`,`Income and expenditure account`],a:0},
+{q:`Subscription earned but not received should be shown in balance sheet as;`,o:[`Liability`,`Asset`,`Income`,`Expense`],a:1},
+{q:`Purchase of books for library will be shown on;`,o:[`Receipts side of receipts and payments account`,`Payment side of receipts and payment account`,`Income and expenditure account as an expense`],a:1},
+{q:`Deficit of a non-profit organisation is shown on _______ side of income and expenditure account;`,o:[`Debit`,`Credit`,`On either`],a:1},
+{q:`Surplus of a non-profit organisation is shown on _______ side of income and expenditure account;`,o:[`Debit`,`Credit`,`On either`],a:0},
+{q:`The value of books in library of a non-profit organisation will be shown in balance sheet as;`,o:[`Current asset`,`Current liability`,`Fixed asset`,`Current asset`],a:2},
+{q:`The following information is related to a sports club for the year ended December 31, 2008. Subscription earned during the year Rs.100,000 Subscription received in advance for 2009 Rs.20,000 Subscription received in arrears for 2007 Rs.10,000. What amount of subscription income should be included in the income and expenditure account for the year 2008?`,o:[`Rs.120,000`,`Rs.130,000`,`Rs.80,000`,`Rs.100,000`],a:3},
+{q:`Subscription received but not earned should be shown in balance sheet as;`,o:[`Liability`,`Asset`,`Income`,`Expense`],a:0},
+{q:`The following information is related to a sports club for the year ended December 31, 2009. Subscription earned during the year Rs.80,000 Subscription received in advance for 2010 Rs.30,000 Subscription received in arrears for 2008 Rs.12,000. What amount of subscription income should be included in the income and expenditure account for the year 2009?`,o:[`Rs.80,000`,`Rs.112,000`,`Rs.122,000`,`Rs.100,000`],a:0},
+{q:`Prepaid insurance should be;`,o:[`Added in insurance expense in income and expenditure account`,`Deducted from insurance expense in income and expenditure account`,`Shown in balance sheet as a current liability`,`None of these`],a:1},
+{q:`The following information is related to a social society for the year ended December 31, 2009. Subscription received during the year Rs.120,000 Subscription received in advance for 2010 Rs.20,000 Subscription received in arrears for 2008 Rs.15,000. What amount of subscription income should be included in the income and expenditure account for the year 2009?`,o:[`Rs.155,000`,`Rs.135,000`,`Rs.40,000`,`Rs.85,000`],a:3},
+{q:`Income and expenditure account begins with;`,o:[`Debit balance`,`Credit balance`,`No balance`],a:2},
+{q:`Sports goods purchased by a sports club should be shown in its; i. Receipts and payments account on receipts side. ii. Receipts and payments account on payment side. iii. Balance sheet as liability iv. Balance sheet as asset`,o:[`i only`,`ii and iii only`,`ii and iv only`,`i, ii, iii and iv`],a:2},
+{q:`The following information is related to a social society for the year ended December 31, 2009. Subscription received during the year Rs.160,000 Subscription received in advance for 2010 Rs.17,000 Subscription received in arrears for 2008 Rs.15,000. What amount of subscription income should be included in the income and expenditure account for the year 2009?`,o:[`Rs.177,000`,`Rs.128,000`,`Rs.182,000`,`Rs.160,000`],a:1},
+{q:`Taha Education Network has office supplies balance of Rs.2,000 at beginning of year. During the year it purchased office supplies of Rs.8,000 and at year end it has physical balance of office supplies of Rs.3,000. What amount of office supplies expense should be included in income and expenditure of current year.`,o:[`Rs.7,000`,`Rs.8,000`,`Rs.3,000`,`Rs.2,000`],a:0},
+{q:`Hassan Education Network has office supplies balance of Rs.5,000 at beginning of year. During the year it purchased office supplies of Rs.12,000 and at year end it has physical balance of office supplies of Rs.4,000. What amount of office supplies should be included in balance sheet prepared at year-end?`,o:[`Rs.5,000`,`Rs.12,000`,`Rs.13,000`,`Rs.4,000`],a:3},
+{q:`Kamran Education Network has office supplies balance of Rs.5,000 at beginning of year. During the year it purchased office supplies of Rs.12,000 and at year end it has physical balance of office supplies of Rs.6,000. What amount of office supplies should be included in balance sheet prepared at year-end?`,o:[`Rs.5,000`,`Rs.12,000`,`Rs.6,000`,`Rs.11,000`],a:2},
+{q:`Donation (To be capitalised) received Rs.100,000 during the year. Accumulated Fund (capital) at beginning of year was Rs.340,000. Surplus of current year amounted to Rs.45,000. What is the amount of final accumulated fund?`,o:[`Rs.512,000`,`Rs.485,000`,`Rs.487,000`,`Rs.467,000`],a:3},
+{q:`Donation (To be capitalised) received Rs.150,000 during the year. Accumulated Fund (capital) at beginning of year was Rs.410,000. Surplus of current year amounted to Rs.85,000. What is the amount of final accumulated fund?`,o:[`Rs.500,000`,`Rs.476,000`,`Rs.546,000`,`Rs.645,000`],a:1},
+{q:`Total assets of a non-profit organisation are Rs.540,000 while its total liabilities amounted to Rs.180,000. What is the amount of accumulated fund (capital) of the organisation?`,o:[`Rs.360,000`,`Rs.480,000`,`Rs.300,000`,`Rs.500,000`],a:2},
+{q:`Donation (To be capitalised) received Rs.130,000 during the year. Accumulated Fund (capital) at beginning of year was Rs.480,000. Deficit of current year amounted to Rs.90,000. What is the amount of final accumulated fund?`,o:[`Rs.651,000`,`Rs.580,000`,`Rs.520,000`,`Rs.501,000`],a:0},
+{q:`Total assets of a non-profit organisation are Rs.640,000 while its total liabilities amounted to Rs.123,000. What is the amount of accumulated fund (capital) of the organisation?`,o:[`Rs.500,000`,`Rs.389,000`,`Rs.412,000`,`Rs.517,000`],a:2},
+{q:`Donation (To be capitalised) received Rs.250,000 during the year. Accumulated Fund (capital) at beginning of year was Rs.760,000. Deficit of current year amounted to Rs.89,000. What is the amount of final accumulated fund?`,o:[`Rs.890,000`,`Rs.921,000`,`Rs.800,000`,`Rs.810,000`],a:1},
+{q:`Total assets of a non-profit organisation are Rs.720,000 while its total liabilities amounted to Rs.240,000. Accumulated fund (capital) at beginning of year amounted to Rs.295,000. What is the amount of surplus or deficit of current year?`,o:[`Rs.189,000 Deficit`,`Rs.134,000 Deficit`,`Rs.185,000 Surplus`,`Rs.203,000 Surplus`],a:2},
+{q:`Which of the following will be included in receipts and payments accounts; i. Sale of old furniture ii. Subscription earned but not received iii. Depreciation on fixed asset iv. Purchase of fixed assets`,o:[`i only`,`i and iii only`,`i, ii and iii only`,`i and iv only`],a:3},
+{q:`Total assets of a non-profit organisation are Rs.720,000 while its total liabilities amounted to Rs.240,000. Accumulated fund (capital) at beginning of year amounted to Rs.255,000. What is the amount of surplus or deficit of current year?`,o:[`Rs.225,000 Surplus`,`Rs.290,000 Deficit`,`Rs.210,000 Surplus`,`Rs.235,000 Deficit`],a:0},
+{q:`Total assets of a non-profit organisation are Rs.850,000 while its total liabilities amounted to Rs.300,000. Accumulated fund (capital) at beginning of year amounted to Rs.370,000. What is the amount of surplus or deficit of current year?`,o:[`Rs.175,000 Deficit`,`Rs.200,000 Surplus`,`Rs.150,000 Deficit`,`Rs.180,000 Surplus`],a:3},
+{q:`Which one of the following is shown in current liabilities of a sports club;`,o:[`Subscription income of current year`,`Subscription received related to last year`,`Subscription received in advance related to next year`],a:2},
+{q:`Total assets of a non-profit organisation are Rs.570,000 while its total liabilities amounted to Rs.243,000. Accumulated fund (capital) at beginning of year amounted to Rs.398,000. What is the amount of surplus or deficit of current year?`,o:[`Rs.71,000 Deficit`,`Rs.74,000 Surplus`,`Rs.67,000 Deficit`,`Rs.73,000 Surplus`],a:2},
+{q:`Which of the following is/are added in subscription received in order to find out subscription income of current year; i. Subscription received in advance. ii. Subscription received related to last year iii. Subscription outstanding`,o:[`i only`,`i and ii only`,`iii only`,`i, ii and iii only`],a:3},
+{q:`Total assets of a non-profit organisation are Rs.650,000 while its total liabilities amounted to Rs.200,000. Surplus of the current year amounted to Rs.150,000. What is the amount of accumulated fund (capital) at beginning of year?`,o:[`Rs.340,000`,`Rs.450,000`,`Rs.300,000`,`Rs.434,000`],a:3},
+{q:`Which of the following will be included in income and expenditure of a charitable hospital; i. Sale of investment ii. Purchase of surgical equipment iii. Large amount of donation received iv. Purchase of shares of a company`,o:[`i only`,`i and ii only`,`iii only`,`None of the above given items`],a:0},
+{q:`Total assets of a non-profit organisation are Rs.760,000 while its total liabilities amounted to Rs.356,000. Accumulated fund (capital) at beginning of year amounted to Rs.450,000. What is the amount of surplus or deficit of current year?`,o:[`Rs.46,000 Deficit`,`Rs.46,000 Surplus`,`Rs.34,000 Deficit`,`Rs.34,000 Surplus`],a:1},
+{q:`Total assets of a non-profit organisation are Rs.745,000 while its total liabilities amounted to Rs.334,000. Surplus of the current year amounted to Rs.125,000. What is the amount of accumulated fund (capital) at beginning of year?`,o:[`Rs.536,000`,`Rs.286,000`,`Rs.411,000`,`Rs.505,000`],a:3},
+{q:`Subscription receivable at beginning of year amounted to Rs.25,000 while subscription received during the year amounted to Rs.200,000. What amount of subscription should be included in income and expenditure account of current year?`,o:[`Rs.25,000`,`Rs.200,000`,`Rs.225,000`,`Rs.175,000`],a:2},
+{q:`Total assets of a non-profit organisation are Rs.965,000 while its total liabilities amounted to Rs.465,000. Deficit of the current year amounted to Rs.95,000. What is the amount of accumulated fund (capital) at beginning of year?`,o:[`Rs.523,000`,`Rs.405,000`,`Rs.595,000`,`Rs.500,000`],a:0},
+{q:`Subscription receivable at end of year amounted to Rs.40,000 while subscription received during the year amounted to Rs.170,000. What amount of subscription should be included in income and expenditure account of current year?`,o:[`Rs.130,000`,`Rs.170,000`,`Rs.210,000`,`Rs.40,000`],a:2},
+{q:`Total assets of a non-profit organisation are Rs.800,000 while its total liabilities amounted to Rs.327,000. Deficit of the current year amounted to Rs.125,000. What is the amount of accumulated fund (capital) at beginning of year?`,o:[`Rs.598,000`,`Rs.348,000`,`Rs.350,000`,`Rs.498,000`],a:0},
+{q:`What sort of items are included in income and expenditure account;`,o:[`Capital nature only`,`Revenue nature only`,`Either capital nature or revenue nature`],a:1},
+{q:`What sort of items are included in receipts and payments account;`,o:[`Capital nature only`,`Revenue nature only`,`Both capital nature and revenue nature`],a:2},
+{q:`Beginning cash balance is shown on _______ side of receipts and payments account;`,o:[`Receipts`,`Payments`],a:0},
+{q:`Ending cash balance is shown on _______ side of receipts and payments account;`,o:[`Receipts`,`Payments`],a:1}
+]},
+{id:`c4`,title:`Ch. 04: Partnership Formation`,qs:[
+{q:`There are minimum _______ partners in a partnership business.`,o:[`3`,`20`,`5`,`2`],a:3},
+{q:`There are maximum _______ partners in a partnership business.`,o:[`4`,`20`,`7`,`10`],a:1},
+{q:`In Pakistan, partnership business is carried out under?`,o:[`Companies Ord. 1984`,`Companies Act 1932`,`Partnership Act 1984`,`Partnership Act 1932`],a:3},
+{q:`Javaid and Younus were doing competing business. Latter on they decided to merge their individual business into a partnership business with following assets and liabilities; Javaid: Cash Rs.45,000, Account Receivable Rs.80,000, Bank overdraft Rs.15,000 and Account payable Rs.10,000. Younus: Cash Rs.55,000, Account Receivable Rs.48,000, Bank Rs.25,000, Note payable Rs.8,000 and Account payable Rs.10,000. What is the amount of capital of each partner? Javaid / Younus`,o:[`Rs.100,000 / Rs.98,000`,`Rs.97,000 / Rs.110,000`,`Rs.100,000 / Rs.110,000`,`Rs.110,000 / Rs.100,000`],a:2},
+{q:`The nature of allowance for bad debt is;`,o:[`Expense`,`Contra asset`,`Liability`,`Income`],a:1},
+{q:`Fareed and Saeed were doing competing business. Latter on they decided to merge their individual business into a partnership business with following assets and liabilities; Fareed: Cash Rs.65,000, Account Receivable Rs.30,000, Bank Rs.10,000, Rent payable Rs.7,000 and Account payable Rs.15,000. Saeed: Cash Rs.73,000, Account Receivable Rs.58,000, Bank overdraft Rs.15,000, Note payable Rs.4,000 and Account payable Rs.12,000. What is the amount of capital of each partner? Fareed / Saeed`,o:[`Rs.83,000 / Rs.100,000`,`Rs.90,000 / Rs.83,000`,`Rs.100,000 / Rs.83,000`,`Rs.102,000 / Rs.85,000`],a:0},
+{q:`Qasim and Asim were doing competing business. Latter on they decided to merge their individual business into a partnership business with following assets and liabilities; Qasim: Cash Rs.35,000, Furniture Rs.40,000, Bank Rs.18,000, Equipment Rs.15,000, Insurance payable Rs.2,000 and Note payable Rs.10,000. Asim: Cash Rs.93,000, Furniture Rs.56,000, Bank overdraft Rs.6,000, Equipment Rs.25,000, Note payable Rs.2,000 and Account payable Rs.8,000. It was further decided that capital of Qasim should be equal to that of Asim. What is the amount of further investment of Qasim?`,o:[`Rs.50,000`,`Rs.73,000`,`Rs.65,000`,`Rs.62,000`],a:3},
+{q:`Farooq and Naseer started partnership business. Farooq invested furniture costing Rs.55,000 and cash Rs.60,0000. Naseer invested equipment costing Rs.65,000 and cash Rs.35,000. The agreed values of furniture and equipment were Rs.40,000 and Rs.75,000 respectively. What is the total capital of partnership business?`,o:[`Rs.215,000`,`Rs.210,000`,`Rs.200,000`,`Rs.220,000`],a:1},
+{q:`Tariq and Waqar started a partnership business by merging their individual businesses. On date of formation, their account receivable showed the following position; Tariq: Account receivable Rs.80,000, Allowance for bad debt Rs.5,000. Waqar: Account receivable Rs.100,000, Allowance for bad debt Rs.12,000. Agreed values of account receivable: Tariq Rs.73,000, Waqar Rs.85,000. What is the total value of allowance for bad debt reported in balance sheet of partnership business after formation?`,o:[`Rs.17,000`,`Rs.18,000`,`Rs.20,000`,`Rs.22,000`],a:3},
+{q:`Aneela, Nabeela and Jameela started a partnership business. They agreed that the total capital of partnership will be Rs.660,000. They further agreed that their profit or loss sharing ratio will be 1:3:2 respectively. This ratio is determined on the basis of capital contribution. What is the amount of capital contributed by Nabeela?`,o:[`Rs.110,000`,`Rs.220,000`,`Rs.300,000`,`Rs.330,000`],a:3},
+{q:`The nature of allowance for depreciation is;`,o:[`Expense`,`Contra asset`,`Liability`,`Income`],a:1},
+{q:`Usman and Saeed were doing competing business. Latter on they decided to merge their individual business into a partnership business with following assets and liabilities; Usman: Cash Rs.80,000, Furniture Rs.70,000, Bank Rs.45,000, Machinery Rs.35,000, Rent payable Rs.6,000 and Account payable Rs.18,000. Saeed: Cash Rs.56,000, Furniture Rs.30,000, Bank overdraft Rs.10,000, Equipment Rs.28,000, Note payable Rs.8,000 and Account payable Rs.14,000. It was further decided that capital of Saeed should be equal to that of Usman. What is the amount of further investment of Saeed?`,o:[`Rs.126,000`,`Rs.124,000`,`Rs.154,000`,`Rs.167,000`],a:1},
+{q:`Which one of the following is non-depreciable fixed asset;`,o:[`Furniture`,`Building`,`Equipment`,`Land`],a:3},
+{q:`Kamran, Salman and Irfan started a partnership business. They agreed that the profit or loss sharing ratio will be determined on the basis of capital contribution of each partner. Their profit or loss sharing ratio was calculated 2:3:6 respectively. Irfan invested Rs.240,000 for his share. What is the total amount of capital of partnership business?`,o:[`Rs.475,000`,`Rs.356,000`,`Rs.440,000`,`Rs.520,000`],a:2},
+{q:`Noman and Kamran started a partnership business by merging their individual businesses. On date of formation, their account receivable showed the following position; Noman: Account receivable Rs.120,000, Allowance for bad debt Rs.13,000. Kamran: Account receivable Rs.138,000, Allowance for bad debt Rs.18,000. Agreed values of account receivable: Tariq Rs.100,000, Waqar Rs.125,000. What is the total value of allowance for bad debt reported in balance sheet of partnership business after formation?`,o:[`Rs.31,000`,`Rs.35,000`,`Rs.33,000`,`Rs.30,000`],a:2},
+{q:`Rehan and Salman started partnership business. Rehan invested land costing Rs.250,000 and cash Rs.100,0000. Salman invested machinery costing Rs.125,000 and cash Rs.85,000. The agreed values of land and machinery were Rs.300,000 and Rs.110,000 respectively. What is the total capital of partnership business?`,o:[`Rs.560,000`,`Rs.470,000`,`Rs.595,000`,`Rs.520,000`],a:2},
+{q:`Irfan, Farhan and Safeer started a partnership business. They agreed that the total capital of partnership will be Rs.500,000. They further agreed that their profit or loss sharing ratio will be 2:1:2 respectively. This ratio is determined on the basis of capital contribution. What is the amount of capital contributed by Farhan?`,o:[`Rs.300,000`,`Rs.100,000`,`Rs.200,000`,`Rs.240,000`],a:1},
+{q:`When the value of depreciable fixed asset is revalued in new partnership business, then its allowance for depreciation is _______ in the books of new business;`,o:[`Not taken`,`Taken`],a:0},
+{q:`Nadeem, Saleem and Faheem started a partnership business. They agreed that the profit or loss sharing ratio will be determined on the basis of capital contribution of each partner. Their profit or loss sharing ratio was calculated 3:1:2 respectively. Saleem invested Rs.180,000 for his share. What is the amount of investment of Nadeem?`,o:[`Rs.585,000`,`Rs.540,000`,`Rs.534,000`,`Rs.500,000`],a:1},
+{q:`Asif, Atif and Kashif started a partnership business. They agreed that the profit or loss sharing ratio will be determined on the basis of capital contribution of each partner. Their profit or loss sharing ratio was calculated 1:4:5 respectively. Atif invested Rs.150,000 for his share. What is the total amount of capital of partnership business?`,o:[`Rs.375,000`,`Rs.37,500`,`Rs.325,000`,`Rs.310,000`],a:0},
+{q:`Samina, Safina and Sakina started a partnership business. They agreed that the profit or loss sharing ratio will be determined on the basis of capital contribution of each partner. Their profit or loss sharing ratio was calculated 5:4:6 respectively. Samina invested Rs.108,000 for his share. What is the amount of investment of Safina?`,o:[`Rs.85,000`,`Rs.140,000`,`Rs.134,000`,`Rs.86,400`],a:3}
+]},
+{id:`c5`,title:`Ch. 05: Admission`,qs:[
+{q:`If capital of the firm increases by the investment of incoming partner, then this would be the case of;`,o:[`Sufficient cash method`,`Goodwill method`,`Bonus method`,`Revaluation method`],a:2},
+{q:`When capital of an incoming partner is credited with his or her entire investment, then this would be a situation of;`,o:[`Sufficient cash method`,`Goodwill method`,`Bonus method`,`Revaluation method`],a:1},
+{q:`If old partners are not willing to reduce their capital, then which one of the following method will be used;`,o:[`Sufficient cash method`,`Goodwill method`,`Bonus method`,`Revaluation method`],a:1},
+{q:`If old partners are not willing to reduce their capital, then goodwill goes to;`,o:[`New partner`,`Old partners`],a:0},
+{q:`On admission of a new partner, capital of a new partner is credited with his or her entire investment, then in this situation goodwill goes to;`,o:[`Old partners`,`New partner`],a:0},
+{q:`When a new partner is admitted in a partnership business and old partners are not willing to reduce their capital, then goodwill goes to;`,o:[`Old partners`,`New partner`],a:1},
+{q:`When a new partner is admitted in a partnership business and goodwill goes to old partners then this amount of goodwill is distributed to old partners in;`,o:[`Old sharing ratio`,`New sharing ratio`],a:0},
+{q:`If capital of new partner is credited with his full investment, then goodwill goes to;`,o:[`Old partners`,`New partner`],a:0},
+{q:`Taha and Hamdan were equal partners in a business. Latter on Hassan was admitted as a new partner for 1/4 share. What will be the combined sharing ratio of Taha and Hamdan after the admission of Hassan;`,o:[`2/5`,`1/3`,`2/4`,`3/4`],a:3},
+{q:`Tasweeb and Hareem were equal partners in a business. Latter on Lavish was admitted as a new partner for 1/3 share. What will be the combined sharing ratio of Tasweeb and Hareem after the admission of Lavish;`,o:[`1/3`,`2/3`,`3/4`,`1/4`],a:1},
+{q:`Zahid and Shahid were carrying on partnership business in 1:2 respectively. Their capital balances were Rs.345,000 and Rs.225,000 respectively. Faisal is admitted as a new partner for 2/5 share and he invested cash Rs.250,000. Old partners are not willing to reduce their capital. What is the total amount of capital of partnership firm after admission of Faisal?`,o:[`Rs.965,000`,`Rs.924,000`,`Rs.856,000`,`Rs.950,000`],a:3},
+{q:`Mr. A and Mr. B were equal partners in a business. Latter on Mr. C was admitted as an equal partner. What will be the individual sharing ratio of Mr. A and Mr. B after the admission of Mr. C;`,o:[`1/3`,`2/5`,`1/4`,`1/2`],a:0},
+{q:`Haris and Sajid were partners in a business with capital of Rs.140,000 and Rs.260,000. On May 15, 2010 Aslam was admitted as a new partner for 1/4 share. Aslam invested sufficient cash for his share. What is the amount of total capital of firm after the admission of Aslam?`,o:[`Rs.456,000`,`Rs.533,333`,`Rs.500,000`,`Rs.560,000`],a:1},
+{q:`When investment of new partner is not given but his or her sharing ratio is given then which one of the following method will be used in this case of admission;`,o:[`Sufficient cash method`,`Goodwill method`,`Bonus method`,`Revaluation method`],a:0},
+{q:`Waseem and Saleem were partners in a business with capital of Rs.470,000 and Rs.330,000. On August 18, 2010 Faisal was admitted as a new partner for 1/2 share. Faisal invested sufficient cash for his share. What is the amount of total capital of firm after the admission of Faisal?`,o:[`Rs.1,000,000`,`Rs.1,250,000`,`Rs.800,000`,`Rs.1,600,000`],a:3},
+{q:`Goodwill is a(n);`,o:[`Tangible fixed asset`,`Tangible current asset`,`Intangible fixed asset`,`Intangible current asset`],a:2},
+{q:`Tariq and Rehan were partners in a business with capital of Rs.80,000 and Rs.120,000. Tariq and Rehan were sharing profit and loss in 3:2. On April 1, 2010 Farooq was admitted as a new partner for 1/3 share. Farooq invested sufficient cash for his share. What is the amount of investment of Farooq?`,o:[`Rs.150,000`,`Rs.120,000`,`Rs.100,000`,`Rs.90,000`],a:2},
+{q:`Kamran and Imran were partners in a business with capital of Rs.230,000 and Rs.270,000. On June 1, 2010 Ejaz was admitted as a new partner for 1/5 share. Amjad invested sufficient cash for his share. What is the amount of investment of Ejaz?`,o:[`Rs.190,000`,`Rs.125,000`,`Rs.160,000`,`Rs.130,000`],a:1},
+{q:`Farhan and Faheem were partners in a partnership business with capital of Rs.230,000 and Rs.220,000 respectively. Then Bilal was admitted as a new partner for 2/5 share and he invested cash Rs.340,000. Capital of Bilal is credited with his entire investment. What is the total amount of goodwill to old partners?`,o:[`Rs.75,000`,`Rs.85,000`,`Rs.80,000`,`Rs.60,000`],a:3},
+{q:`Farhan and Safeer were partners with capital of Rs.530,000 and Rs.370,000 respectively. Shahzad was admitted as a new partner for 1/4 share and he invested Rs.450,000. Capital of the firm increases by the investment of Shahzad. What will be the amount of capital of Shahzad?`,o:[`Rs.450,000`,`Rs.425,000`,`Rs.390,000`,`Rs.337,500`],a:3},
+{q:`When capital of partnership business increases more than investment of new partner, then which of the following method is being used;`,o:[`Sufficient cash method`,`Goodwill method`,`Bonus method`,`Mixture of bonus and goodwill method`],a:3},
+{q:`Adeel and Rashid were partners with capital of Rs.140,000 and Rs.290,000 respectively. Nasir was admitted as a new partner for 1/3 share and he invested Rs.170,000. Capital of the firm increases by the investment of Nasir. What will be the amount of capital of Nasir?`,o:[`Rs.210,000`,`Rs.200,000`,`Rs.270,000`,`Rs.170,000`],a:1},
+{q:`Taimor and Kashif were partners with capital of Rs.650,000 and Rs.570,000 respectively. Fahad was admitted as a new partner for 2/5 share and he invested Rs.280,000. Capital of the firm increases by the investment of Fahad. Which one of the following is correct?`,o:[`Rs.320,000 bonus to old partners`,`Rs.340,000 bonus to Fahad`,`Rs.320,000 bonus to Fahad`,`Rs.340,000 bonus to old partners`],a:2},
+{q:`Saeed and Fareed were partners with capital of Rs.400,000 and Rs.500,000 respectively. Naveed was admitted as a new partner for 1/6 share and he invested Rs.300,000. Capital of the firm increases by the investment of Naveed. Which one of the following is correct?`,o:[`Rs.100,000 bonus to old partners`,`Rs.140,000 bonus to Naveed`,`Rs.160,000 bonus to old partners`,`Rs.180,000 bonus to Naveed`],a:0},
+{q:`Khalid and Wajid were equal partners with capital of Rs.586,000 and Rs.365,000 respectively. Zahid was admitted as an equal partner and he invested Rs.549,000. Capital of the firm increases by the investment of Zahid. What is the share of bonus of Khalid on admission of Zahid?`,o:[`Rs.25,000`,`Rs.30,000`,`Rs.24,500`,`Rs.23,500`],a:2},
+{q:`Afzal and Fazal were carrying on partnership business in 2:3 respectively. Their capital balances were Rs.240,000 and Rs.380,000 respectively. Asif is admitted as a new partner for 1/5 share and he invested cash Rs.110,000. Old partners are not willing to reduce their capital. What is the total amount of capital of partnership firm after admission of Asif?`,o:[`Rs.775,000`,`Rs.765,000`,`Rs.695,000`,`Rs.545,000`],a:0},
+{q:`Junaid and Jamshaid were partners in a business with capital of Rs.250,000 and Rs.350,000 respectively. On June 1 Javaid was admitted as a new partner for 1/4 share. Javaid invested sufficient capital for his share. He invested cash costing Rs.25,000 and equipment for the balance amount. What is the value of equipment invested by Javaid?`,o:[`Rs.175,000`,`Rs.150,000`,`Rs.100,000`,`Rs.180,000`],a:0},
+{q:`Hamid and Rashid were partners in a partnership business with capital of Rs.80,000 and Rs.100,000 respectively. Latter on Nasir was admitted as a new partner for 1/3 share and he invested cash Rs.120,000. Capital of Nasir is credited with his entire investment. What is the total amount of capital of the firm?`,o:[`Rs.325,000`,`Rs.260,000`,`Rs.360,000`,`Rs.280,000`],a:1},
+{q:`Habib and Asad were partners with capital of Rs.620,000 and Rs.590,000 respectively. They were sharing profit or loss in 7:3. Faheem was admitted for 2/7 share and he invested Rs.890,000. Capital of the firm increases by the investment of Faheem. What is the share of bonus of Habib on admission of Faheem?`,o:[`Rs.290,000`,`Rs.204,000`,`Rs.203,000`,`Rs.190,000`],a:2},
+{q:`If capital of the firm increases equal to investment of new partner, then in this case which of the following method is being used;`,o:[`Sufficient cash method`,`Goodwill method`,`Bonus method`,`Revaluation method`],a:2},
+{q:`Sadia and Nazia were partners with capital of Rs.350,000 and Rs.460,000 respectively. They were sharing profit or loss in 2:3. Razia was admitted for 1/3 share and she invested Rs.390,000. Capital of the firm increases by the investment of Razia. What is the amount of bonus contributed by Nazia on admission of Razia?`,o:[`Rs.6,000`,`Rs.4,000`,`Rs.10,000`,`Rs.5,000`],a:0},
+{q:`Akram and Wasim were carrying on partnership business. Their capital balances were Rs.350,000 and Rs.310,000 respectively. Noman is admitted as a new partner for 1/4 share and he invested cash Rs.200,000. Old partners are not willing to reduce their capital. What is the amount of goodwill to Noman?`,o:[`Rs.55,000`,`Rs.50,000`,`Rs.20,000`,`Rs.35,000`],a:2},
+{q:`Hassan and Taha were partners in a partnership business with capital of Rs.350,000 and Rs.300,000 respectively. Then Atta was admitted as a new partner for 3/7 share and he invested cash Rs.600,000. Capital of Atta is credited with his full investment. What is the total amount of goodwill to old partners?`,o:[`Rs.125,000`,`Rs.115,000`,`Rs.150,000`,`Rs.90,000`],a:2},
+{q:`Saleem and Jameel were equal partners in a business with capital of Rs.200,000 and Rs.300,000 respectively. After that Jibran was admitted as a new partner. After the admission of Jibran, total capital of the firm increases to Rs.1,050,000 and the amount of goodwill is calculated Rs.200,000. Capital of Jibran is credited with his full investment. What is the amount of investment of Jibran?`,o:[`Rs.305,000`,`Rs.350,000`,`Rs.300,000`,`Rs.295,000`],a:2},
+{q:`Mahmood and Saud were partners with capital of Rs.180,000 and Rs.90,000 respectively. They were sharing profit or loss in 4:1. Javaid was admitted for 1/4 share and he invested Rs.80,000. Capital of the firm increases by the investment of Javaid. What is the amount of bonus contributed by Mahmood on admission of Javaid?`,o:[`Rs.1,500`,`Rs.2,400`,`Rs.6,000`,`Rs.5,400`],a:2},
+{q:`Salman and Kamran were partners with capital of Rs.550,000 and Rs.400,000 respectively. They were sharing profit or loss equally. Zeeshan was admitted as an equal partner and he invested Rs.500,000. Capital of Zeeshan will be credited with his entire investment. Which one of the following is correct?`,o:[`Rs.50,000 goodwill goes to Zeeshan`,`Rs.50,000 goodwill goes to old partners`],a:1},
+{q:`Maqsood and Manzoor were partners in a business with capital of Rs.120,000 and Rs.180,000 respectively. On March 1 Shoaib was admitted as a new partner for 1/4 share. Shoaib invested sufficient capital for his share. He invested furniture costing Rs.80,000 and cash for the balance amount. What is the amount of cash invested by Shoaib?`,o:[`Rs.30,000`,`Rs.100,000`,`Rs.40,000`,`Rs.20,000`],a:3},
+{q:`Qaiser and Faisal were partners in a partnership business with capital of Rs.140,000 and Rs.160,000 respectively. Latter on Atif was admitted as a new partner for 1/4 share and he invested cash Rs.150,000. Capital of Nasir is credited with his entire investment. What is the total amount of capital of the firm?`,o:[`Rs.555,000`,`Rs.600,000`,`Rs.490,000`,`Rs.610,000`],a:1},
+{q:`Aslam and Javaid were equal partners in a business with capital of Rs.150,000 and Rs.250,000 respectively. After that Rasheed was admitted as a new partner. After the admission of Rasheed, total capital of the firm increases to Rs.960,000 and the amount of goodwill is calculated Rs.240,000. Capital of Rasheed is credited with his full investment. What is the amount of investment of Rasheed?`,o:[`Rs.302,000`,`Rs.298,000`,`Rs.320,000`,`Rs.340,000`],a:2},
+{q:`Rameez and Sheraz were carrying on partnership business in equal ratio. Their capital balances were Rs.210,000 and Rs.220,000 respectively. Zaheer is admitted as a new partner for 1/3 share and he invested cash Rs.170,000. Old partners are not willing to reduce their capital. What is the amount of goodwill to Zaheer?`,o:[`Rs.42,000`,`Rs.58,000`,`Rs.40,000`,`Rs.45,000`],a:3}
+]},
+{id:`c6`,title:`Ch. 06: Partner Distribution`,qs:[
+{q:`In which one of the method of capital maintenance, share of net profit/loss and drawing of partners are transferred to partners current accounts;`,o:[`Fixed capital method`,`Fluctuating capital account`],a:1},
+{q:`The nature of current account is;`,o:[`Assets`,`Liabilities`,`Income`,`Capital`],a:1},
+{q:`In case of fixed capital method, interest on capital of partners is given on amount of;`,o:[`Current account`,`Fixed capital account`],a:1},
+{q:`If fluctuating capital method is used, then the share of net profit of each partner is transferred to their;`,o:[`Current account`,`Capital account`],a:0},
+{q:`When fixed capital method is used, then the share of net profit of each partner is transferred to their;`,o:[`Current account`,`Capital account`],a:1},
+{q:`Which one of the following entry is correct to transfer share of profit of partners when fluctuating capital method is used;`,o:[`Income Summary Dr / Current A/c A Cr / Current A/c B Cr`,`Income Summary Dr / Capital A Cr / Capital B Cr`,`Capital A Dr / Capital B Dr / Income Summary Cr`,`Current A/c A Dr / Current A/c B Dr / Income Summary Cr`],a:0},
+{q:`Which one of the following entry is correct to transfer share of profit of partners when fixed capital method is used;`,o:[`Income Summary Dr / Current A/c A Cr / Current A/c B Cr`,`Income Summary Dr / Capital A Cr / Capital B Cr`,`Capital A Dr / Capital B Dr / Income Summary Cr`,`Current A/c A Dr / Current A/c B Dr / Income Summary Cr`],a:0},
+{q:`Which one of the following entry is correct to transfer share of loss of partners when fluctuating capital method is used;`,o:[`Income Summary Dr / Current A/c A Cr / Current A/c B Cr`,`Income Summary Dr / Capital A Cr / Capital B Cr`,`Capital A Dr / Capital B Dr / Income Summary Cr`,`Current A/c A Dr / Current A/c B Dr / Income Summary Cr`],a:2},
+{q:`Which one of the following entry is correct to transfer share of loss of partners when fixed capital method is used;`,o:[`Income Summary Dr / Current A/c A Cr / Current A/c B Cr`,`Income Summary Dr / Capital A Cr / Capital B Cr`,`Capital A Dr / Capital B Dr / Income Summary Cr`,`Current A/c A Dr / Current A/c B Dr / Income Summary Cr`],a:0},
+{q:`If there is no provision regarding sharing of profit or loss in partnership agreement, then the profit or loss will be divided among partners;`,o:[`Equally`,`According to capital ratio`],a:0},
+{q:`Rehan and Salman are partners in a business with capital of Rs.600,000 and Rs.400,000. There is no provision in partnership agreement regarding profit or loss sharing. The partnership business earned a net profit of Rs.150,000 during current financial year. What will be the share of profit of Salman?`,o:[`Rs.60,000`,`Rs.90,000`,`Rs.35,000`,`Rs.75,000`],a:3},
+{q:`Ali, Haris and Shafique are partners in a business with capital of Rs.100,000 and Rs.200,000 and Rs.300,000 respectively. There is no provision in partnership agreement regarding profit or loss sharing. The partnership business earned a net profit of Rs.180,000 during current financial year. What will be the share of profit of each partner?`,o:[`Rs.60,000`,`Rs.95,000`,`Rs.100,000`,`Rs.70,000`],a:0},
+{q:`Kamran and Imran are partners in a business. Their partnership agreement provides that; Salary to each partner Rs.2,000 per month. Remaining profit or loss will be shared 60% to Kamran and 40% to Imran. What is the share of profit of Imran when net income of partnership business is Rs.250,000.`,o:[`Rs.145,200`,`Rs.50,900`,`Rs.104,800`,`Rs.45,900`],a:1},
+{q:`Maqbool and Asif are partners in a business. Their partnership agreement provides that; Salary to each partner Rs.3,000 per month. Remaining profit or loss will be shared 2/3 to Maqbool and remaining to Asif. What is the share of profit of Asif when net income of partnership business is Rs.300,000.`,o:[`Rs.154,000`,`Rs.112,000`,`Rs.188,000`,`Rs.190,000`],a:2},
+{q:`Samina and Safina are partners in a business. Their partnership agreement provides that; Salary to each partner Rs.4,500 per month. Remaining profit or loss will be shared 1/3 to Samina and remaining to Safina. What is the share of profit or loss of Safina when net loss of partnership business is Rs.180,000.`,o:[`Rs.125,000 Loss`,`Rs.140,000 Profit`,`Rs.138,000 Loss`,`Rs.42,000 Profit`],a:2},
+{q:`Sadaf and Faiza are partners in a business. Their partnership agreement provides that; Salary to each partner Rs.4,000 per month. Bonus to Sadaf Rs.8,000. Remaining profit or loss will be shared 3/5 to Sadaf and remaining to Faiza. What is the share of profit or loss of Sadaf when net loss of partnership business is Rs.200,000.`,o:[`Rs.126,400`,`Rs.145,900`,`Rs.123,700`,`Rs.134,800`],a:2},
+{q:`Hameed, Saeed and Nasir are partners in a business. Their partnership agreement provided as under; Salary to each partner Rs.2,500 per month. Commission to Saeed Rs.10,000. Bonus to Nasir Rs.8,000. Remaining profit after the distribution of salaries and commission is Rs.90,000. What is the amount of net profit earned by the partnership business?`,o:[`Rs.178,000`,`Rs.168,000`,`Rs.190,000`,`Rs.210,000`],a:1},
+{q:`Tahir, Taha and Tasweeb are partners in a business. Their partnership agreement provided as under; Salary to each partner Rs.3,000 per month. Commission to Taha Rs.10,000. Interest on capital of each partner Rs.5,000, Rs.6,500 and Rs.7,000 respectively. Remaining profit after the distribution of salaries, commission and interest on capital is Rs.150,000. What is the amount of net profit earned by the partnership business.`,o:[`Rs.210,000`,`Rs.234,900`,`Rs.267,900`,`Rs.286,500`],a:3},
+{q:`Fahim, Faisal and Furqan are partners in a business. Their partnership agreement provided as under; Salary to each partner Rs.6,000 per month. Commission to Faisal Rs.14,000. Interest on capital of each partner Rs.7,000, Rs.8,500 and Rs.10,500 respectively. Remaining loss after the distribution of salaries, commission and interest on capital is Rs.50,000. What is the amount of net profit or loss earned by the partnership business?`,o:[`Rs.210,000`,`Rs.306,000`,`Rs.206,000`,`Rs.234,000`],a:2},
+{q:`Javaid, Junaid and Jaffer are partners in a business. Their partnership agreement provided as under; Salary to each partner Rs.5,000 per month. Commission to Junaid Rs.13,000. Interest on capital of each partner Rs.2,000, Rs.3,000 and Rs.4,000 respectively. Remaining loss after the distribution of salaries, commission and interest on capital is Rs.40,000. What is the amount of net profit or loss earned by the partnership business?`,o:[`Rs.162,000`,`Rs.198,000`,`Rs.202,000`,`Rs.242,000`],a:0},
+{q:`Shahid, Zahid and Farooq are equal partners in a business. Their partnership agreement provided as under; Annual salary to Shahid and Zahid Rs.35,000 and Rs.40,000 respectively. Commission to Farooq Rs.15,000. Interest on capital of each partner Rs.8,000, Rs.9,500 and Rs.7,500 respectively. If share of remaining profit of Shahid is Rs.70,000. What is the total amount of profit earned by the partnership business.`,o:[`Rs.410,000`,`Rs.389,000`,`Rs.325,000`,`Rs.350,000`],a:3},
+{q:`Aslam, Hamid and Asghar are equal partners in a business. Their partnership agreement provided as under; Annual salary to Aslam Rs.50,000. Commission to Asghar Rs.12,000. Interest on capital of each partner Rs.4,500, Rs.5,500 and Rs.7,000 respectively. If share of remaining profit of Hamid is Rs.80,000. What is the total amount of profit earned by the partnership business.`,o:[`Rs.319,000`,`Rs.356,000`,`Rs.320,000`,`Rs.340,000`],a:0},
+{q:`Saqib, Adil and Babar are partners in a business sharing profit and loss in 2:3:4 respectively. Their partnership agreement provided as under; Annual salary to Babar and Aadil Rs.60,000 and Rs.40,000 respectively. Commission to Saqib Rs.20,000. Interest on capital of each partner Rs.9,000, Rs.4,500 and Rs.3,500 respectively. If share of remaining profit of Saqib is Rs.40,000. What is the total amount of profit earned by the partnership business.`,o:[`Rs.423,000`,`Rs.324,000`,`Rs.317,000`,`Rs.400,000`],a:2},
+{q:`Faizan, Salman and Mazhar are partners in a business sharing profit and loss in 1:2:3 respectively. Their partnership agreement provided as under; Annual salary to each partner Rs.45,000. Commission to Salman Rs.10,000. Bonus to Mazhar Rs.15,000. Interest on capital of each partner Rs.2,000, Rs.2,500 and Rs.3,000 respectively. If share of remaining profit of Salman is Rs.25,000. What is the total amount of profit earned by the partnership business?`,o:[`Rs.245,800`,`Rs.242,500`,`Rs.250,900`,`Rs.243,700`],a:1},
+{q:`Qasim, Sajid and Rashid are equal partners in a business. Their partnership agreement provided as under; Annual salary to Qasim and Sajid Rs.50,000 and Rs.40,000 respectively. Commission to Rashid Rs.10,000. Interest on capital of each partner Rs.6,000, Rs.12,000 and Rs.5,000 respectively. If share of remaining loss of Qasim is Rs.30,000. What is the total amount of profit or loss earned by the partnership business?`,o:[`Rs.34,000 Profit`,`Rs.54,000 Loss`,`Rs.23,000 Profit`,`Rs.33,000 Profit`],a:3},
+{q:`Zaheer, Noman and Afzal are equal partners in a business. Their partnership agreement provided as under; Annual salary to Zaheer and Afzal Rs.70,000 and Rs.30,000 respectively. Commission to Noman Rs.20,000. Interest on capital of each partner Rs.1,000, Rs.2,000 and Rs.3,000 respectively. If share of remaining loss of Zaheer is Rs.50,000. What is the total amount of profit or loss earned by the partnership business?`,o:[`Rs.24,000 Loss`,`Rs.34,000 Profit`,`Rs.50,000 Loss`,`Rs.45,000 Profit`],a:0},
+{q:`Waqas, Waqar and Wasim are partners in a business sharing profit or loss in 3:2:5 respectively. Their partnership agreement provided as under; Annual salary to each partner Rs.40,000. Commission to Waqar Rs.15,000. Interest on capital of each partner Rs.3,000, Rs.4,000 and Rs.5,000 respectively. If share of remaining loss of Wasim is Rs.20,000. What is the total amount of profit or loss earned by the partnership business?`,o:[`Rs.145,900 Loss`,`Rs.187,000 Profit`,`Rs.107,000 Profit`,`Rs.123,000 Loss`],a:2},
+{q:`Ahsan, Amjad and Akram are partners in a business sharing profit or loss in 1:2:3 respectively. Their partnership agreement provided as under; Annual salary to each partner Rs.30,000. Commission to Amjad Rs.15,000. Bonus to Akram Rs.5,000. Interest on capital of each partner Rs.4,200, Rs.3,800 and Rs.2,000 respectively. If share of remaining loss of Amjad is Rs.25,000. What is the total amount of profit or loss earned by the partnership business?`,o:[`Rs.87,000 Profit`,`Rs.44,000 Loss`,`Rs.45,000 Profit`,`Rs.65,000 Loss`],a:2},
+{q:`The opening balance in current account of Habib was Rs.150,000, he withdrew cash Rs.25,000 for his personal use from partnership business and his share of profit of current year was Rs.75,000. What is the amount of balance in his current account at year end?`,o:[`Rs.200,000`,`Rs.190,000`,`Rs.220,000`,`Rs.180,000`],a:0},
+{q:`The opening balance in current account of Kamran was Rs.200,000, he withdrew cash Rs.40,000 for his personal use from partnership business and his share of profit of current year was Rs.80,000. What is the amount of balance in his current account at year-end?`,o:[`Rs.210,000`,`Rs.180,000`,`Rs.234,000`,`Rs.240,000`],a:3},
+{q:`The opening balance in current account of Waqar was Rs.140,000, he withdrew cash Rs.10,000 for his personal use from partnership business and his share of loss of current year was Rs.35,000. What is the amount of balance in his current account at year-end?`,o:[`Rs.100,000`,`Rs.95,000`,`Rs.170,000`,`Rs.140,000`],a:0},
+{q:`The opening balance in current account of Naeem was Rs.170,000, he withdrew cash Rs.15,000 and merchandise worth Rs.5,000 for his personal use from partnership business and his share of loss of current year was Rs.50,000. What is the amount of balance in his current account at year-end?`,o:[`Rs.97,000`,`Rs.110,000`,`Rs.100,000`,`Rs.120,000`],a:2},
+{q:`The correct formula to find out average capital is;`,o:[`(Opening capital - Ending capital)/2`,`((Opening capital + Ending capital)/2) X 100`,`(Opening capital + Ending capital)/2`,`(Opening capital + Additional investment + Ending capital)/3`],a:2},
+{q:`Taha and Ayan are partners; Capital Taha: Jan 1 Balance 140,000, Mar 31 Investment 50,000, July 10 Withdrawal 10,000. Capital Ayan: Jan 1 Balance 160,000, Apr 11 Investment 70,000, June 15 Withdrawal 30,000. Net profit earned during year ended Dec 31, 2009 amounted to Rs.100,000. What is the share of profit of Ayan when nothing is stated in partnership agreement regarding distribution of net profit?`,o:[`Rs.100,000`,`Rs.40,000`,`Rs.50,000`,`No share of profit will receive`],a:2},
+{q:`Using data from Q34, what will be the share of profit of Taha when profit is shared according to beginning capital ratio of partners;`,o:[`Rs.46,667`,`Rs.34,768`,`Rs.43,900`,`Rs.40,800`],a:0},
+{q:`Using data from Q34, what is the amount of ending capital of Ayan?`,o:[`Rs.197,000`,`Rs.210,000`,`Rs.200,000`,`Rs.234,000`],a:2},
+{q:`Using data from Q34, what will be the share of profit of Ayan when profit is shared according to ending capital ratio of partners;`,o:[`Rs.48,768`,`Rs.52,632`,`Rs.45,876`,`Rs.65,237`],a:1},
+{q:`Using data from Q34, what is the amount of average capital of Taha and Ayan? Taha / Ayan`,o:[`Rs.160,000 / Rs.180,000`,`Rs.180,000 / Rs.160,000`,`Rs.190,000 / Rs.170,000`,`Rs.140,000 / Rs.150,000`],a:0},
+{q:`Using data from Q34, what will be the share of profit of Taha when profit is shared according to average capital ratio of partners;`,o:[`Rs.40,980`,`Rs.56,879`,`Rs.45,876`,`Rs.47,059`],a:3},
+{q:`Current accounts of partners are used in which one of the capital maintenance method;`,o:[`Fixed capital method`,`Fluctuating capital method`],a:0},
+{q:`Hassan and Atta are partners; Capital Hassan: Jan 1 Balance 200,000, July 10 Investment 80,000, Apr 18 Withdrawal 30,000. Capital Atta: Jan 1 Balance 250,000, Apr 11 Investment 150,000, June 15 Withdrawal 50,000. Net profit earned during year ended Dec 31, 2009 amounted to Rs.140,000. What is the share of profit of Atta when nothing is stated in partnership agreement regarding distribution of net profit?`,o:[`Rs.0`,`Rs.65,000`,`Rs.70,000`,`Rs.45,000`],a:2},
+{q:`Using data from Q41, what will be the share of profit of Hassan when profit is shared according to beginning capital ratio of partners;`,o:[`Rs.70,000`,`Rs.100,000`,`Rs.88,000`,`Rs.112,000`],a:3},
+{q:`Using data from Q41, what is the amount of ending capital of Hassan and Atta? Hassan / Atta`,o:[`Rs.210,000 / Rs.350,000`,`Rs.250,000 / Rs.180,000`,`Rs.250,000 / Rs.350,000`,`Rs.200,000 / Rs.170,000`],a:2},
+{q:`Using data from Q41, what will be the share of profit of Atta when profit is shared according to ending capital ratio of partners;`,o:[`Rs.81,667`,`Rs.98,765`,`Rs.56,987`,`Rs.90,876`],a:0},
+{q:`Using data from Q41, what is the amount of average capital of Hassan and Atta? Hassan / Atta`,o:[`Rs.290,000 / Rs.300,000`,`Rs.225,000 / Rs.300,000`,`Rs.230,000 / Rs.360,000`,`Rs.300,000 / Rs.225,000`],a:1},
+{q:`Using data from Q41, what will be the share of profit of Hassan when profit is shared according to average capital ratio of partners;`,o:[`Rs.47,945`,`Rs.64,890`,`Rs.75,980`,`Rs.66,316`],a:3},
+{q:`Hamdan and Hareem are partners; Capital Hamdan: Jan 1 Balance 300,000, May 17 Investment 140,000, Aug 6 Investment 60,000, June 26 Withdrawal 70,000, July 18 Withdrawal 30,000. Capital Hareem: Jan 1 Balance 340,000, Mar 19 Investment 60,000, Apr 10 Withdrawal 45,000, May 12 Withdrawal 55,000. Net profit earned during year ended Dec 31, 2009 amounted to Rs.160,000. What will be the capital balance of Hamdan as on December 31, 2009 if the partners were sharing profit or loss in 2:3?`,o:[`Rs.398,000`,`Rs.450,000`,`Rs.464,000`,`Rs.509,000`],a:2},
+{q:`Using data from Q47, what will be the capital balance of Hareem as on December 31, 2009 after distribution of profit if the partners were sharing profit or loss in beginning capital ratio?`,o:[`Rs.385,000`,`Rs.345,000`,`Rs.390,000`,`Rs.410,000`],a:0},
+{q:`Using data from Q47, what will be the capital balance of Hamdan as on December 31, 2009 after distribution of profit if the partners were sharing profit or loss in beginning capital ratio?`,o:[`Rs.503,000`,`Rs.456,000`,`Rs.430,000`,`Rs.475,000`],a:3},
+{q:`Using data from Q47, what will be the capital balance of Hareem as on December 31, 2009 after distribution of profit if the partners were sharing profit or loss equally?`,o:[`Rs.390,000`,`Rs.380,000`,`Rs.423,000`,`Rs.398,000`],a:1}
+]},
+{id:`c7`,title:`Ch. 07: Partnership Retirement`,qs:[
+{q:`If there are more than two partners then on retirement of one partner, the partnership business will;`,o:[`Get dissolve`,`Not dissolve`],a:1},
+{q:`Faisal, Karim and Naeem were partners in a business with capital of Rs.140,000, Rs.180,000 and Rs.200,000. Karim retires from the firm and Faisal purchased his entire capital for Rs.190,000. What will be the journal entry to record retirement of Karim in this situation?`,o:[`Cash 180,000 / Capital, Karim 180,000`,`Capital, Karim 190,000 / Cash 190,000`,`Capital, Karim 190,000 / Capital, Faisal 190,000`,`Capital, Karim 180,000 / Capital, Faisal 180,000`],a:3},
+{q:`Ali, Raza and Shawaiz were equal partners in a business with capital of Rs.100,000, Rs.90,000 and Rs.80,000 respectively. Shawaiz retires from the business. He was paid cash Rs.90,000 on his retirement under goodwill method. What is the amount of goodwill of the partnership firm?`,o:[`Rs.40,000`,`Rs.10,000`,`Rs.30,000`,`Rs.50,000`],a:2},
+{q:`If there are only two partners then on retirement of one partner, the partnership business will;`,o:[`Get dissolve`,`Not dissolve`],a:0},
+{q:`Farhan, Kamarn and Imran were equal partners in a business with capital of Rs.150,000, Rs.180,000 and Rs.230,000 respectively. Kamran retires from the business. He was paid cash Rs.200,000 on his retirement under goodwill method. What is the amount of goodwill of the partnership firm?`,o:[`Rs.20,000`,`Rs.90,000`,`Rs.40,000`,`Rs.60,000`],a:3},
+{q:`Asif, Atif and Kashif were partners in a business with capital of Rs.240,000, Rs.270,000 and Rs.150,000 respectively. They were sharing profit or loss in 1:2:3. Kashif retires from the business. He was paid cash Rs.200,000 on his retirement under goodwill method. What is the amount of goodwill of the partnership firm?`,o:[`Rs.90,000`,`Rs.130,000`,`Rs.100,000`,`Rs.50,000`],a:2},
+{q:`Dawood, Daniyal and Haseeb were partners in a business with capital of Rs.100,000, Rs.200,000 and Rs.300,000. Partners were sharing profit or loss in their capital ratio. Dawood retires from the firm and Haseeb purchased his entire capital. What will the profit or loss sharing ratio between the remaining partners after the retirement of Dawood? Daniyal / Haseeb`,o:[`2 / 3`,`1 / 3`,`1 / 2`,`2 / 1`],a:2},
+{q:`Noman, Salman and Faizan were partners in a business with capital of Rs.100,000, Rs.90,000 and Rs.80,000 respectively. They were sharing profit or loss in 2:1:2. Noman retires from the business. He was paid cash Rs.140,000 on his retirement under goodwill method. What is the amount of goodwill of the partnership firm?`,o:[`Rs.40,000`,`Rs.100,000`,`Rs.200,000`,`Rs.80,000`],a:1},
+{q:`Habib, Kaleem and Faisal were partners in a business with capital of Rs.100,000, Rs.200,000 and Rs.300,000 respectively. They were sharing profit or loss in capital ratio. Habib retires from the business. He was paid cash Rs.120,000 on his retirement under goodwill method. What is the amount of goodwill of the partnership firm?`,o:[`Rs.125,000`,`Rs.100,000`,`Rs.20,000`,`Rs.120,000`],a:3},
+{q:`Goodwill of a firm created on retirement of a partner should be;`,o:[`Written off from books after retirement`,`Shown in balance sheet after retirement`],a:1},
+{q:`Tanveer, Umair and Wasim were partners in a business with capital of Rs.130,000, Rs.220,000 and Rs.350,000 respectively. They were sharing profit or loss in 1:4:7. Umair retires from the business. He was paid cash Rs.250,000 on his retirement under goodwill method. What is the amount of share of goodwill of Wasim?`,o:[`Rs.40,300`,`Rs.52,500`,`Rs.54,900`,`Rs.43,700`],a:1},
+{q:`Rashid, Aslam and Arshad were partners in a business with capital of Rs.450,000, Rs.300,000 and Rs.400,000. Aslam retires from the firm and he transferred his entire capital to his son Shahid. What will be the journal entry to record retirement of Aslam in this situation?`,o:[`Cash 300,000 / Capital, Shahid 300,000`,`Capital, Aslam 300,000 / Cash 300,000`,`Capital, Aslam 300,000 / Capital, Shahid 300,000`,`Capital, Shahid 300,000 / Capital, Aslam 300,000`],a:2},
+{q:`Nadeem, Saleem and Naeem were partners in a business with capital of Rs.180,000, Rs.300,000 and Rs.390,000 respectively. They were sharing profit or loss in 2:3:6. Naeem retires from the business. He was paid cash Rs.426,000 on his retirement under goodwill method. What is the amount of share of goodwill of Saleem?`,o:[`Rs.18,000`,`Rs.17,100`,`Rs.20,300`,`Rs.32,600`],a:0},
+{q:`Under which one of the following method, the value of assets and liabilities are revalued on retirement of a partner;`,o:[`Goodwill method`,`Bonus method`,`Revaluation method`,`None of above`],a:2},
+{q:`When a retiring partner is receiving the amount less than his invested capital then which one of the following method will not be used;`,o:[`Goodwill method`,`Bonus method`,`Revaluation method`,`None of above`],a:0},
+{q:`When a retiring partner is receiving the amount less than his invested capital then which one of the following method(s) may be used; 1. Goodwill method 2. Bonus method 3. Revaluation method`,o:[`1 only`,`2 only`,`2 and 3 only`,`1, 2 and 3`],a:2},
+{q:`Rashid, Sajid and Kamran were equal partners in a business with capital of Rs.75,000, Rs.100,000 and Rs.125,000. On April 1, 2009 Sajid retires from the firm and he was paid cash Rs.120,000 for his share and assets of the firm were revalued. What is the total amount of revaluation gain or loss on assets?`,o:[`Rs.60,000 Gain`,`Rs.50,000 Loss`,`Rs.45,000 Gain`,`Rs.70,000 Loss`],a:0},
+{q:`Ahmad, Javaid and Amjad were partners in a business with capital of Rs.200,000, Rs.250,000 and Rs.350,000. Partners were sharing profit or loss in their capital ratio. Javaid retires from the firm and Amjad purchased his entire capital. What will the profit or loss-sharing ratio between the remaining partners after the retirement of Javaid? Ahmad / Amjad`,o:[`2 / 5`,`3 / 4`,`1 / 2`,`1 / 3`],a:3},
+{q:`Faisal, Tahir and Kamran were equal partners in a business with capital of Rs.200,000, Rs.250,000 and Rs.345,000. On June 1, 2009 Kamran retires from the firm and he was paid cash Rs.360,000 for his share and assets of the firm were revalued. What is the total amount of revaluation gain or loss on assets?`,o:[`Rs.80,000 Gain`,`Rs.70,000 Loss`,`Rs.45,000 Gain`,`Rs.70,000 Loss`],a:2},
+{q:`Zahid, Fahim and Habib were partners in a business with capital of Rs.600,000, Rs.490,000 and Rs.550,000. Zahid retires from the firm and he transferred his entire capital to his son Waqar. What will be the journal entry to record retirement of Zahid in this situation?`,o:[`Capital, Zahid 600,000 / Capital, Waqar 600,000`,`Capital, Zahid 600,000 / Cash 600,000`,`Capital, Waqar 600,000 / Capital, Zahid 600,000`,`Capital, Waqar 600,000 / Cash 600,000`],a:0},
+{q:`Haris, Waris and Naeem were equal partners in a business with capital of Rs.150,000, Rs.230,000 and Rs.360,000. On May 1, 2009 Haris retires from the firm and he was paid cash Rs.120,000 for his share and assets of the firm were revalued. What is the total amount of revaluation gain or loss on assets?`,o:[`Rs.45,000 Gain`,`Rs.40,000 Loss`,`Rs.80,000 Gain`,`Rs.90,000 Loss`],a:3},
+{q:`Muhammad, Farooq and Javaid were partners in a business with capital of Rs.160,000, Rs.200,000 and Rs.210,000 with 2:3:1. On July 15, 2009 Javaid retires from the firm and he was paid cash Rs.200,000 for his share and assets of the firm were revalued. What is the total amount of revaluation gain or loss on assets?`,o:[`Rs.60,000 Loss`,`Rs.90,000 Loss`,`Rs.40,000 Gain`,`Rs.80,000 Loss`],a:0},
+{q:`Wajid, Sajid and Majid were partners in a business with capital of Rs.100,000, Rs.150,000 and Rs.250,000. Sajid retires from the firm and Wajid purchased his entire capital for Rs.120,000. What will be the journal entry to record retirement of Sajid in this situation;`,o:[`Cash 120,000 / Capital, Sajid 120,000`,`Capital, Sajid 150,000 / Cash 150,000`,`Capital, Sajid 150,000 / Capital, Wajid 150,000`,`Capital, Sajid 120,000 / Capital, Wajid 120,000`],a:2},
+{q:`If remaining partner(s) purchase capital of retiring partner then total capital of the firm;`,o:[`Increases`,`Remains constant`,`Decreases`],a:1},
+{q:`Tahir, Tariq and Tanveer were partners in a business with capital of Rs.500,000, Rs.300,000 and Rs.400,000. Partners were sharing profit or loss in their capital ratio. Tanveer retires from the firm and both the remaining partners purchase his capital equally. What will the profit or loss-sharing ratio between the remaining partners after the retirement of Tanveer? Tahir / Tariq`,o:[`7 / 5`,`3 / 7`,`2 / 7`,`3 / 4`],a:0}
+]},
+{id:`c8`,title:`Ch. 08: Partnership Dissolution`,qs:[
+{q:`The process of termination of partnership business is termed as;`,o:[`Formation of partnership business`,`Admission of a new partner`,`Retirement of a partner`,`Liquidation of partnership business`],a:3},
+{q:`If sales value of asset is more than its book value then this transaction results in;`,o:[`Loss`,`Gain`],a:1},
+{q:`Before liquidation of a partnership business, the value of other assets were Rs.80,000. On liquidation, these other assets were sold for Rs.100,000. What is value of gain or loss on sale of other assets?`,o:[`100,000 Gain`,`100,000 Loss`,`20,000 Loss`,`20,000 Gain`],a:3},
+{q:`If book value of asset is more than its sales value then this transaction results in;`,o:[`Loss`,`Gain`],a:0},
+{q:`Before liquidation of a partnership business, the value of other assets were Rs.120,000. On liquidation, these other assets were sold for Rs.90,000. What is value of gain or loss on sale of other assets?`,o:[`90,000 Gain`,`30,000 Loss`,`120,000 Loss`,`90,000 Loss`],a:1},
+{q:`Omer, Aslam and Javaid were equal partners in a business. Before liquidation their capital balances were Rs.150,000, Rs.200,000 and Rs.250,000 respectively. Other assets were sold on a gain of Rs.45,000. What is the final amount payable to Javaid on liquidation?`,o:[`Rs.265,000`,`Rs.165,000`,`Rs.215,000`,`Rs.235,000`],a:0},
+{q:`Which one of the following temporary account is used in liquidation process;`,o:[`Revaluation account`,`Income summary account`,`Realization account`,`Capital reduction account`],a:2},
+{q:`Haider, Qaiser and Yasir were equal partners in a business. Before liquidation their capital balances were Rs.180,000, Rs.230,000 and Rs.290,000 respectively. Other assets were sold on a gain of Rs.60,000. What is the final amount payable to Yasir on liquidation?`,o:[`Rs.285,000`,`Rs.300,000`,`Rs.310,000`,`Rs.270,000`],a:2},
+{q:`Faisal, Sajid and Ali were partners in a business sharing profit or loss in 2:4:5. Before liquidation their capital balances were Rs.260,000, Rs.340,000 and Rs.400,000 respectively. Other assets were sold on a gain of Rs.55,000. What is the final amount payable to Ali on liquidation?`,o:[`Rs.375,000`,`Rs.425,000`,`Rs.440,000`,`Rs.485,000`],a:1},
+{q:`Naeem, Saleem and Nadeem were equal partners in a business. Before liquidation their capital balances were Rs.100,000, Rs.350,000 and Rs.400,000 respectively. Other assets were sold on a loss of Rs.120,000. What is the final amount payable to Saleem on liquidation?`,o:[`Rs.310,000`,`Rs.390,000`,`Rs.400,000`,`Rs.320,000`],a:0},
+{q:`Fazal, Rehan and Salman were partners in a business sharing profit or loss in 1:2:3. Before liquidation their capital balances were Rs.170,000, Rs.265,000 and Rs.345,000 respectively. Other assets were sold on a loss of Rs.180,000. What is the final amount payable to Fazal on liquidation?`,o:[`Rs.165,000`,`Rs.150,000`,`Rs.140,000`,`Rs.200,000`],a:2},
+{q:`Rashid, Haris and Safeer were equal partners in a business. Before liquidation their capital balances were Rs.110,000, Rs.90,000 and Rs.50,000 respectively. Other assets were sold on a loss of Rs.210,000. What is the final amount payable or receivable from Safeer on liquidation?`,o:[`Rs.20,000 Receivable`,`Rs.20,000 Payable`,`Rs.120,000 Receivable`,`Rs.120,000 Payable`],a:0},
+{q:`Income summary loss of the firm at time of liquidation is transferred to;`,o:[`Creditors`,`Debtors`,`Partners`],a:2},
+{q:`Tariq, Naseer and Shoaib were equal partners in a business. Before liquidation their capital balances were Rs.240,000, Rs.70,000 and Rs.150,000 respectively. Other assets were sold on a loss of Rs.300,000. What is the final amount payable or receivable from Naseer on liquidation?`,o:[`Rs.170,000 Receivable`,`Rs.170,000 Payable`,`Rs.30,000 Receivable`,`Rs.30,000 Payable`],a:2},
+{q:`Before liquidation of partnership business of Qasim, Asim and Nazim capital of partners were Rs.410,000, Rs.480,000 and Rs.500,000 respectively. Then partnership business was liquidated and assets were sold out. Partners were sharing profit or loss equally. After sale of assets and distribution of profit or loss among partners, the final amount paid to Qasim was Rs.450,000. What was the final amount paid to Asim on liquidation?`,o:[`Rs.490,000`,`Rs.500,000`,`Rs.520,000`,`Rs.440,000`],a:2},
+{q:`Sabir, Mahmood and Kamran were partners in a business with profit or loss sharing of 6:3:2. Before liquidation their capital balances were Rs.50,000, Rs.120,000 and Rs.130,000 respectively. Other assets were sold on a loss of Rs.330,000. What is the final amount payable or receivable from Sabir on liquidation?`,o:[`Rs.230,000 Receivable`,`Rs.230,000 Payable`,`Rs.130,000 Payable`,`Rs.130,000 Receivable`],a:3},
+{q:`If a partner can contribute any amount towards his or her capital deficiency from personal resources, then this partner is termed;`,o:[`Solvent partner`,`Insolvent partner`],a:0},
+{q:`If a partner can not contribute any amount towards his or her capital deficiency from personal resources, then this partner is termed;`,o:[`Solvent partner`,`Insolvent partner`],a:1},
+{q:`In case of an insolvent partner, the loss of his capital deficiency will be born by;`,o:[`Other solvent partner`,`Creditors`,`Government`],a:0},
+{q:`Saeed, Arshad and Farooq were equal partners in a business. Before liquidation their capital balances were Rs.40,000, Rs.180,000 and Rs.160,000 respectively. Other assets were sold on a loss of Rs.150,000. Partners are insolvent and can not contribute any amount towards their deficiency. What is the final amount payable to Arshad on liquidation?`,o:[`Rs.165,000`,`Rs.170,000`,`Rs.185,000`,`Rs.120,000`],a:3},
+{q:`The amount of goodwill of the firm, at time of liquidation is distributed among partners as;`,o:[`Gain`,`Loss`],a:1},
+{q:`Before liquidation of partnership business of Tanveer, Tariq and Taimor, capitals of partners were Rs.200,000, Rs.300,000 and Rs.400,000 respectively. Then partnership business was liquidated and assets were sold out. Partners were sharing profit or loss in 2:4:3. After sale of assets and distribution of profit or loss among partners, the final amount paid to Tariq was Rs.210,000. What was the final amount paid to Taimor on liquidation?`,o:[`Rs.467,500`,`Rs.410,000`,`Rs.332,500`,`Rs.345,000`],a:2},
+{q:`Irfan, Faizan and Rehan were partners in a business with profit and loss sharing ratio of 5:3:1. Before liquidation their capital balances were Rs.90,000, Rs.250,000 and Rs.190,000 respectively. Other assets were sold on a loss of Rs.180,000. Partners are insolvent and can not contribute any amount towards their deficiency. What is the final amount payable to Faizan on liquidation?`,o:[`Rs.182,500`,`Rs.175,000`,`Rs.165,000`,`Rs.167,500`],a:0},
+{q:`On liquidation of a partnership business, after all assets (except cash) were sold and liabilities were paid off, the remaining cash on hand was Rs.250,000. On date of liquidation, total of partners capital accounts was Rs.280,000. What is the amount of gain or loss on sale of asset?`,o:[`Rs.30,000 gain`,`Rs.30,000 loss`,`Rs.50,000 loss`,`Rs.50,000 gain`],a:1},
+{q:`Aslam, Amjad and Akram were equal partners in a business. They liquidated their business and assets were sold at loss. Share of gain of Amjad amounted to Rs.40,000. What was the total amount of loss on sale of assets?`,o:[`Rs.120,000`,`Rs.145,000`,`Rs.160,000`,`Rs.176,000`],a:0},
+{q:`Before liquidation of partnership business of Amjad, Aslam and Kamran, capitals of partners were Rs.500,000, Rs.380,000 and Rs.470,000 respectively. Then partnership business was liquidated and assets were sold out. Partners were sharing profit or loss in 3:5:7 ratio respectively. After sale of assets and distribution of profit or loss among partners, the final amount paid to Kamran was Rs.491,000. What was the final amount paid to Amjad on liquidation?`,o:[`Rs.509,000`,`Rs.491,000`,`Rs.512,000`,`Rs.495,000`],a:0},
+{q:`On liquidation of a partnership business, after all assets (except cash) were sold and liabilities were paid off, the remaining cash on hand was Rs.230,000. On date of liquidation, total of partners capital accounts was Rs.180,000. What is the amount of gain or loss on sale of asset?`,o:[`Rs.50,000 gain`,`Rs.50,000 loss`,`Rs.35,000 loss`,`Rs.35,000 gain`],a:0},
+{q:`On liquidation of a partnership business, after all assets (except cash) were sold and liabilities were paid off, the remaining cash on hand was Rs.300,000. On date of liquidation, total of partners capital accounts was Rs.340,000. What is the amount of gain or loss on sale of asset?`,o:[`Rs.45,000 gain`,`Rs.45,000 loss`,`Rs.40,000 loss`,`Rs.40,000 gain`],a:2},
+{q:`Haris, Wasim and Naeem were equal partners in a business. They liquidated their business and assets were sold at gain. Share of gain of Haris amounted to Rs.25,000. What was the total amount of gain on sale of assets?`,o:[`Rs.95,000`,`Rs.85,000`,`Rs.100,000`,`Rs.75,000`],a:3},
+{q:`A partnership business liquidated and assets were sold at a gain of Rs.100,000 and the amount realized from sale of assets amounted to Rs.550,000. What was the book value of assets sold?`,o:[`Rs.450,000`,`Rs.650,000`,`Rs.550,000`,`Rs.350,000`],a:0},
+{q:`Before liquidation of partnership business of Faisal and Kashif, capital of partners were Rs.200,000 and Rs.300,000 respectively. Then partnership business was liquidated and assets were sold out. Partners were sharing profit or loss in capital ratio. After sale of assets and distribution of profit or loss between partners, the final amount paid to Faisal was Rs.250,000. What was the final amount paid to Kashif on liquidation?`,o:[`Rs.225,000`,`Rs.310,000`,`Rs.390,000`,`Rs.375,000`],a:3},
+{q:`Nasir, Noman and Najam were partners in a business with sharing ratio of 1:3:5 respectively. They liquidated their business and assets were sold at gain. Share of gain of Noman amounted to Rs.20,000. What was the total amount of gain on sale of assets?`,o:[`Rs.60,000`,`Rs.56,000`,`Rs.90,000`,`Rs.95,000`],a:0},
+{q:`Rehan, Waqar and Sajid were partners in a business with capital of Rs.250,000, Rs.300,000 and Rs.400,000. They were profit or loss in 3:2:1 ratio respectively. They liquidated their business and assets were sold at gain. Share of gain of Waqar amounted to Rs.48,000. What was the final amount paid on liquidation to Rehan?`,o:[`Rs.322,000`,`Rs.378,000`,`Rs.298,800`,`Rs.299,000`],a:0},
+{q:`A partnership business liquidated and assets were sold at a gain of Rs.180,000 and the amount realized from sale of assets amounted to Rs.670,000. What was the book value of assets sold?`,o:[`Rs.850,000`,`Rs.670,000`,`Rs.490,000`,`Rs.690,000`],a:2},
+{q:`Taha, Tahir and Talha were partners in a business with sharing ratio of 2:4:1 respectively. They liquidated their business and assets were sold at gain. Share of gain of Tahir amounted to Rs.28,000. What was the total amount of gain on sale of assets?`,o:[`Rs.50,000`,`Rs.65,000`,`Rs.49,000`,`Rs.57,000`],a:2},
+{q:`Before liquidation of partnership business of Saqib, Saeed and Shahid, capital of partners were Rs.130,000, Rs.190,000 and Rs.220,000 respectively. Then partnership business was liquidated and assets were sold out. Partners were sharing profit or loss 1:2:3. After sale of assets and distribution of profit or loss among partners, the final amount paid to Saqib was Rs.100,000. What was the final amount paid to Shahid on liquidation?`,o:[`Rs.310,000`,`Rs.130,000`,`Rs.250,000`,`Rs.200,000`],a:1},
+{q:`A partnership business liquidated and assets were sold at a loss of Rs.120,000 and the amount realized from sale of assets amounted to Rs.750,000. What was the book value of assets sold?`,o:[`Rs.630,000`,`Rs.800,000`,`Rs.720,000`,`Rs.870,000`],a:3},
+{q:`Salman, Kamran and Faizan were partners in a business with capital of Rs.180,000, Rs.220,000 and Rs.280,000. They were profit or loss in 4:3:2 ratio respectively. They liquidated their business and assets were sold at loss. Share of loss of Faizan amounted to Rs.72,000. What was the final amount paid on liquidation to Salman?`,o:[`Rs.324,000`,`Rs.280,000`,`Rs.36,000`,`Rs.190,000`],a:2},
+{q:`A partnership business liquidated and assets were sold at a loss of Rs.250,000 and the amount realized from sale of assets amounted to Rs.500,000. What was the book value of assets sold?`,o:[`Rs.750,000`,`Rs.250,000`,`Rs.340,000`,`Rs.690,000`],a:0},
+{q:`Before liquidation of partnership business of Zahid, Zaheer and Zeeshan, capitals of partners were Rs.550,000, Rs.360,000 and Rs.720,000 respectively. Then partnership business was liquidated and assets were sold out. Partners were sharing profit or loss in 2:3:5 respectively. After sale of assets and distribution of profit or loss among partners, the final amount paid to Zaheer was Rs.300,000. What was the final amount paid to Zeeshan on liquidation?`,o:[`Rs.700,000`,`Rs.600,000`,`Rs.820,000`,`Rs.620,000`],a:3}
+]},
+{id:`c9`,title:`Ch. 09: Shares & Debentures`,qs:[
+{q:`In Pakistan, limited companies are registered under;`,o:[`Companies Act 1913`,`Partnership Act 1932`,`Income Tax Ordinance 2001`,`Companies Ordinance 1984`],a:3},
+{q:`The term "Shares" refers to;`,o:[`Shares in liability of a company`,`Shares in expenses of a company`,`Shares in assets of company`,`Shares in management of company`],a:2},
+{q:`Share application account is;`,o:[`An asset account`,`A liability account`,`An expense account`,`A capital account`],a:1},
+{q:`When a company receives shares application money from public, then in the books of that company shares application account is;`,o:[`Credited`,`Debited`,`Closed`,`None of these`],a:0},
+{q:`When a company issues shares against shares application money, then in the books of the company, share application account is;`,o:[`Credited`,`Debited`],a:1},
+{q:`Shareholders are;`,o:[`Creditors of company`,`Customers of company`,`Suppliers of company`,`Owners of company`],a:3},
+{q:`When a company issues ordinary shares to public then;`,o:[`Its liability increases`,`Its income increases`,`Its capital increase`,`Its expense increases`],a:2},
+{q:`Debenture holders are;`,o:[`Creditors of company`,`Customers of company`,`Suppliers of company`,`Owners of company`],a:0},
+{q:`Share capital is always credited with;`,o:[`Market value of shares issued`,`Book value of shares issued`,`Par value of shares issued`],a:2},
+{q:`Profit received on shares is called;`,o:[`Interest`,`Dividend`,`Gross profit`,`Net profit`],a:1},
+{q:`The nature of share premium account is;`,o:[`Expense`,`Asset`,`Liability`,`Capital`],a:3},
+{q:`Preliminary expenses are shown in;`,o:[`Income statement`,`Balance sheet`],a:1},
+{q:`The amount of discount given on issue of shares is _______ in general journal;`,o:[`Debited`,`Credited`],a:0},
+{q:`The amount of debentures issued by a company to public is _______ for the company;`,o:[`An income`,`A capital`,`A liability`,`An expense`],a:2},
+{q:`When shares are issued against the purchase of fixed asset and the value of that asset is not given. Then what is the correct formula to find out the value of asset purchased;`,o:[`Number of shares issued X Par value of each share`,`Number of shares issued / Par value per share`,`Number of shares issued X Market price per share`,`Number of shares issued / Market price per share`],a:2},
+{q:`When shares are issued against the purchase of fixed asset and the value of that asset is given but numbers of shares issued are not given. Then what is the correct formula to find out the number of shares issued;`,o:[`Value of asset purchased X Market price per share`,`Value of asset purchased / Par value per share`,`Value of asset purchased X par value per share`,`Value of asset purchased / Market price per share`],a:3},
+{q:`The nature of retained earning account is;`,o:[`Expense`,`Asset`,`Liability`,`Capital`],a:3},
+{q:`The amount of premium received on issue of shares is _______ in general journal;`,o:[`Debited`,`Credited`],a:1},
+{q:`Profit received on debentures is called;`,o:[`Interest`,`Dividend`,`Gross profit`,`Net profit`],a:0},
+{q:`Rate of dividend is;`,o:[`Fixed`,`Variable`],a:1},
+{q:`Company issues dividend out of;`,o:[`Share capital`,`Share premium`,`Reserves`,`Retained earning`],a:3},
+{q:`Normally retained earning account has a;`,o:[`Debit balance`,`Credit balance`,`Zero balance`],a:1},
+{q:`Rate of interest is;`,o:[`Fixed`,`Variable`],a:0},
+{q:`When a company declares dividend then;`,o:[`Bank account is debited`,`Expense account is debited`,`Retained earning account is credited`,`Retained earning account is debited`],a:3},
+{q:`Debenture payable is always credited with its;`,o:[`Market value`,`Book value`,`Par value`],a:2},
+{q:`Debentures are issued by a company for;`,o:[`Limited time period`,`Unlimited time period`],a:0},
+{q:`Ordinary shares are issued by a company for;`,o:[`Limited time period`,`Unlimited time period`],a:1},
+{q:`Point out the correct entry to record declaration of cash dividend`,o:[`Retained earning Dr / Bank Cr`,`Bank Dr / Retained earning Cr`,`Retained earning Dr / Cash dividend payable Cr`,`Cash dividend payable Dr / Retained earning Cr`],a:2},
+{q:`A dividend paid by a company in the form of additional free or bonus shares is termed as;`,o:[`Cash dividend`,`Stock dividend`],a:1},
+{q:`Dividend is paid on the bases of;`,o:[`Share premium`,`Authorised capital`,`Paid up capital`],a:2},
+{q:`Point out the correct entry to record declaration of Stock dividend`,o:[`Retained earning Dr / Stock dividend payable Cr`,`Bank Dr / Retained earning Cr`,`Retained earning Dr / Cash dividend payable Cr`,`Stock dividend payable Dr / Retained earning Cr`],a:0},
+{q:`Share dividend is another name given to;`,o:[`Cash dividend`,`Stock dividend`],a:1},
+{q:`Ordinary shares discount is shown in;`,o:[`Income statement in operating expenses`,`Balance sheet under the heading of current assets`,`Balance sheet under the heading of non-current assets`,`Income statement as an income`],a:2},
+{q:`Point out which of the following would be called preliminary expenses; 1. Salaries paid to staff 2. Company registration charges 3. Commission of promoters 4. Payment of utilities expense`,o:[`1 and 2 only`,`1, 2 and 3 only`,`3 and 4 only`,`2 and 3 only`],a:3},
+{q:`Share premium account is reported on;`,o:[`Assets side of balance sheet`,`Equities side of balance sheet`],a:1},
+{q:`Commission paid to promoters is included in;`,o:[`Preliminary expenses`,`Operating expenses`],a:0},
+{q:`Taha Ltd purchased a building costing Rs.800,000 and issued sufficient number of ordinary shares of Rs.10 each. The market price per share is Rs.25. What is the number of shares issued against this purchase?`,o:[`80,000 shares`,`50,000 shares`,`40,000 shares`,`32,000 shares`],a:3},
+{q:`Tasweeb & Brothers Ltd purchase piece of land and issued 7,500 ordinary shares of Rs.10 each at the market value of Rs.26 per share. What is the value of land purchased?`,o:[`Rs.195,000`,`Rs.75,000`,`Rs.150,000`,`Rs.200,000`],a:0},
+{q:`Tughral Ltd issued 7,500 ordinary shares to public for cash. Share capital account is credited with Rs.75,000 while share premium account is credited with Rs.15,000 against this transaction. Find out the value at which each share was issued;`,o:[`Rs.10`,`Rs.14`,`Rs.12`,`Rs.20`],a:2},
+{q:`Atta Ltd issued 12,000 ordinary shares to public for cash. Share capital account is credited with Rs.120,000 while share premium account is credited with Rs.60,000 against this transaction. Find out the value at which each share was issued;`,o:[`Rs.15`,`Rs.13`,`Rs.16`,`Rs.18`],a:0},
+{q:`Fee paid to registrar of companies to register a company is included in;`,o:[`Preliminary expenses`,`Operating expenses`],a:0},
+{q:`Hassan Corporation issued 15,000 ordinary shares to public for cash. Share capital account is credited with Rs.150,000 while share discount account is debited with Rs.30,000 against this transaction. Find out the value at which each share was issued;`,o:[`Rs.9`,`Rs.11`,`Rs.7`,`Rs.8`],a:3},
+{q:`Hareem Corporation issued 20,000 ordinary shares to public for cash. Share capital account is credited with Rs.200,000 while share discount account is debited with Rs.20,000 against this transaction. Find out the value at which each share was issued;`,o:[`Rs.9`,`Rs.7`,`Rs.5`,`Rs.8`],a:0},
+{q:`The amount of authorised capital can never exceed the amount of paid up capital;`,o:[`True`,`False`],a:1},
+{q:`Lavish Ltd issued ordinary shares to public for cash. Bank account is debited with Rs.90,000 while share premium account is credited with Rs.10,000 against this transaction. Par value per share is Rs.10. Find out the number of shares issued against this transaction;`,o:[`9,000 shares`,`7,000 shares`,`10,000 shares`,`8,000 shares`],a:3},
+{q:`Hamdan Ltd issued ordinary shares to public for cash. Bank account is debited with Rs.130,000 while share discount account is debited with Rs.30,000 against this transaction. Par value per share is Rs.10. Find out the number of shares issued against this transaction;`,o:[`13,000 shares`,`16,000 shares`,`10,000 shares`,`12,000 shares`],a:1},
+{q:`HOPE Industry offered 75,000 shares to public @Rs.15 per share. The par value per share is Rs.10. The company received application for 80,000 shares. The company refunded the amount;`,o:[`Rs.50,000`,`Rs.75,000`,`Rs.65,000`,`Rs.80,000`],a:1},
+{q:`The amount of paid up capital can not be;`,o:[`More than authorised capital`,`Less than authorised capital`],a:0},
+{q:`Dividend declared but not yet paid by a company is shown in;`,o:[`Assets of that company`,`Capital of that company`,`Income of that company`,`Liabilities of that company`],a:3},
+{q:`Payment of stock dividend by a company increases its;`,o:[`Assets`,`Liabilities`,`Capital`,`Income`],a:2}
+]},
+{id:`c10`,title:`Ch.10: Disposal of Net Income`,qs:[
+{q:`Retained earning account is used in;`,o:[`Sole proprietorship business`,`Partnership business`,`Limited Liability Company`,`None of above`],a:2},
+{q:`Retained earning account shows;`,o:[`Only accumulated profit of limited liability company`,`Only accumulated loss of Limited Liability Company`,`Accumulated profit or loss of a partnership business`,`Accumulated profit or loss of a limited liability company`],a:3},
+{q:`The nature of retained earning account is;`,o:[`Asset`,`Capital/ownership`,`Liability`,`Expense`],a:1},
+{q:`If retained earning account shows accumulated profit of company then it will have;`,o:[`Credit balance`,`Debit balance`,`Zero balance`],a:0},
+{q:`If retained earning account has credit balance then it will be shown on;`,o:[`Asset side of balance sheet`,`Equities side of balance sheet`],a:1},
+{q:`If retained earning account shows accumulated loss of company then it will have;`,o:[`Credit balance`,`Debit balance`,`Zero balance`],a:1},
+{q:`If retained earning account has debit balance then it will be shown on;`,o:[`Asset side of balance sheet`,`Equities side of balance sheet`],a:0},
+{q:`Dividend is paid out of;`,o:[`Liabilities`,`Expenses`,`Capital`,`Retained earning`],a:3},
+{q:`When dividend is declared by a company, then retained earning is;`,o:[`Credited`,`Debited`,`Not changed`],a:1},
+{q:`Reserves are created out of;`,o:[`Liabilities`,`Expenses`,`Capital`,`Retained earning`],a:3},
+{q:`Reserves have always;`,o:[`Debit balance`,`Credit balance`,`Zero balance`],a:1},
+{q:`Taha Ltd: Retained earning (1-1-2009) Rs.580,000, Net profit for the year Rs.170,000, Cash dividend declared Rs.25,000, Stock dividend declared Rs.15,000. What is the balance of retained earning balance of Taha Ltd as on Dec. 31, 2009?`,o:[`Rs.710,000`,`Rs.650,000`,`Rs.810,000`,`Rs.724,000`],a:0},
+{q:`Tasweeb Ltd: Retained earning (1-1-2009) Rs.700,000, Net profit for the year Rs.250,000, Cash dividend declared Rs.40,000, Stock dividend declared Rs.45,000. What is the balance of retained earning balance of Tasweeb Ltd as on December 31, 2009?`,o:[`Rs.910,000`,`Rs.800,000`,`Rs.865,000`,`Rs.723,000`],a:1},
+{q:`Hassan Ltd: Retained earning (1-1-2009) Rs.680,000, Net profit for the year Rs.480,000, Cash dividend declared Rs.63,000, Stock dividend declared Rs.77,000, Created reserve for plant extension Rs.25,000, Created reserve for building expansion Rs.18,000. What is the balance of retained earning balance of Hassan Ltd as on December 31, 2009?`,o:[`Rs.980,000`,`Rs.977,000`,`Rs.612,000`,`Rs.934,000`],a:1},
+{q:`Kamran Ltd: Retained earning (1-1-2009) Debit Rs.100,000, Net profit for the year Rs.360,000, Cash dividend declared Rs.10,000, Stock dividend declared Rs.12,000, Created reserve for asset replacement Rs.8,000, Created reserve for building expansion Rs.23,000. What is the balance of retained earning balance of Kamran Ltd as on December 31, 2009?`,o:[`Rs.400,000`,`Rs.256,000`,`Rs.440,000`,`Rs.207,000`],a:3},
+{q:`Waqas Ltd: Retained earning (1-1-2009) Debit Rs.50,000, Net profit for the year Rs.150,000, Cash dividend declared Rs.20,000, Stock dividend declared Rs.17,000, Created general reserve Rs.3,000, Created reserve for plant extension Rs.9,000. What is the balance of retained earning balance of Waqas Ltd as on Dec. 31, 2009?`,o:[`Rs.51,000`,`Rs.120,000`,`Rs.98,000`,`Rs.59,000`],a:0},
+{q:`Hareem Ltd: Retained earning (1-1-2009) Rs.930,000, Net loss for the year Rs.300,000, Cash dividend declared Rs.80,000, Stock dividend declared Rs.75,000, Created reserve for contingencies Rs.55,000, Created general reserve Rs.25,000. What is the balance of retained earning balance of Harem Ltd as on December 31, 2009?`,o:[`Rs.467,000`,`Rs.395,000`,`Rs.345,000`,`Rs.512,000`],a:1},
+{q:`Atta Industries Ltd: Retained earning (1-1-2009) Rs.800,000, Net loss for the year Rs.278,000, Cash dividend declared Rs.90,000, Stock dividend declared Rs.65,000, Created reserve for debenture redemption Rs.20,000, Created general reserve Rs.18,000. What is the balance of retained earning balance of Atta Industries Ltd as on December 31, 2009?`,o:[`Rs.415,000`,`Rs.378,000`,`Rs.432,000`,`Rs.329,000`],a:3},
+{q:`Kashif Industries Ltd: Retained earning (31-12-2009) Rs.650,000, Net profit for the year Rs.340,000, Cash dividend declared Rs.67,000, Stock dividend declared Rs.35,000, Created reserve for machinery replacement Rs.15,000, Created reserve for plant extension Rs.22,000. What is the balance of retained earning balance of Kashif Industries Ltd as on January 1, 2009?`,o:[`Rs.449,000`,`Rs.356,000`,`Rs.512,000`,`Rs.440,000`],a:0},
+{q:`Hamdan Industries Ltd: Retained earning (31-12-2009) Rs.820,000, Net profit for the year Rs.267,000, Cash dividend declared Rs.84,000, Stock dividend declared Rs.25,000, Created reserve for plant replacement Rs.27,000, Created reserve for building expansion Rs.30,000. What is the balance of retained earning balance of Hamdan Industries Ltd as on January 1, 2009?`,o:[`Rs.678,000`,`Rs.814,000`,`Rs.719,000`,`Rs.765,000`],a:2},
+{q:`Talha Corporation Ltd: Retained earning (31-12-2009) Rs.945,000, Net loss for the year Rs.170,000, Cash dividend declared Rs.10,000, Stock dividend declared Rs.8,000, Created reserve for asset replacement Rs.12,000, Created reserve for sinking fund Rs.14,000. What is the balance of retained earning balance of Talha Corporation Ltd as on January 1, 2009?`,o:[`Rs.900,000`,`Rs.1,098,000`,`Rs.945,000`,`Rs.1,159,000`],a:3},
+{q:`Zaheer Corporation Ltd: Retained earning (31-12-2009) Rs.450,000, Net loss for the year Rs.90,000, Cash dividend declared Rs.15,000, Stock dividend declared Rs.13,000, Created reserve for debenture redemption Rs.5,000, Created general reserve Rs.7,000. What is the balance of retained earning balance of Zaheer Corporation Ltd as on January 1, 2009?`,o:[`Rs.580,000`,`Rs.643,000`,`Rs.723,000`,`Rs.510,000`],a:0},
+{q:`Khaiber Corporation Ltd as on January 1, 2010; Authorised Capital 100,000 ord. shares of Rs.10 each Rs.1,000,000. Paid up Capital 70,000 ord. shares of Rs.10 each Rs.700,000, Retained earning Rs.250,000, Ordinary shares premium Rs.50,000, Reserve for plant replacement Rs.30,000. Net profit for the year ended December 31, 2010 amounted to Rs.150,000. The board of directors: Cash dividend @Rs.0.50 per share. Reserve for plant replacement should be increased by Rs.10,000. Created a reserve for contingencies by Rs.25,000. What is the amount of retained earning balance at December 31, 2010?`,o:[`Rs.560,000`,`Rs.410,000`,`Rs.330,000`,`Rs.340,000`],a:2},
+{q:`Mehran Corporation Ltd as on January 1, 2010; Paid up Capital 90,000 ord. shares of Rs.10 each Rs.900,000, Retained earning Rs.870,000, Ordinary shares premium Rs.30,000, Reserve for plant extension Rs.50,000. Net profit for the year ended December 31, 2010 amounted to Rs.575,000. The board of directors: Cash dividend @Rs.1 per share. Reserve for plant extension should be increased by Rs.18,000. Created a reserve for building expansion by Rs.55,000. What is the amount of retained earning balance at December 31, 2010?`,o:[`Rs.890,000`,`Rs.1,282,000`,`Rs.760,000`,`Rs.700,000`],a:1},
+{q:`Rehan Ltd as on January 1, 2010; Paid up Capital 60,000 ord. shares of Rs.10 each Rs.600,000, Retained earning Rs.490,000, Ordinary shares premium Rs.50,000, General reserve Rs.45,000. Net profit for the year ended December 31, 2010 amounted to Rs.256,000. The board of directors: Cash dividend @5%. General Reserve should be increased to Rs.75,000. Created a reserve for bond redemption by Rs.34,000. What is the amount of retained earning balance at December 31, 2010?`,o:[`Rs.625,000`,`Rs.450,000`,`Rs.390,000`,`Rs.400,000`],a:0},
+{q:`Salman Ltd as on January 1, 2010; Paid up Capital 130,000 ord. shares of Rs.10 each Rs.1,300,000, Retained earning Rs.650,000, Ordinary shares premium Rs.90,000, Reserves for contingencies Rs.80,000. Net loss for the year ended December 31, 2010 amounted to Rs.145,000. The board of directors: Cash dividend @ Rs.2 per share. Reserve for contingencies should be increased to Rs.100,000. Created a reserve for plant extension by Rs.25,000. What is the amount of retained earning balance at December 31, 2010?`,o:[`Rs.389,000`,`Rs.410,000`,`Rs.200,000`,`Rs.400,000`],a:2},
+{q:`Tanveer Ltd as on January 1, 2010; Paid up Capital 140,000 ord. shares of Rs.10 each Rs.1,400,000, Retained earning Rs.750,000, Ordinary shares premium Rs.230,000, Reserve for asset replacement Rs.100,000. Net loss for the year ended December 31, 2010 amounted to Rs.200,000. The board of directors: Cash dividend @ Rs.2 per share and stock dividend @3%. Reserve for asset replacement should be increased to Rs.140,000. Created a general reserve by Rs.50,000. What is the amount of retained earning balance at December 31, 2010?`,o:[`Rs.356,000`,`Rs.440,000`,`Rs.387,000`,`Rs.138,000`],a:3},
+{q:`Abbas Ltd as on January 1, 2010; Paid up Capital 70,000 ord. shares of Rs.10 each Rs.700,000, Retained earning Rs.200,000, Ordinary shares premium Rs.50,000, General reserve Rs.20,000. Net profit for the year ended December 31, 2010 amounted to Rs.120,000. The board of directors: Cash dividend @ Rs.1.50 per share and stock dividend @1%. General reserve should be disposed off completely. What is the amount of retained earning balance at December 31, 2010?`,o:[`Rs.108,000`,`Rs.123,000`,`Rs.110,000`,`Rs.118,000`],a:0},
+{q:`Zaheer Ltd as on January 1, 2010; Paid up Capital 90,000 ord. shares of Rs.10 each Rs.900,000, Retained earning Rs.360,000, Ordinary shares premium Rs.70,000, Reserve for contingencies Rs.50,000. Net profit for the year ended December 31, 2010 amounted to Rs.180,000. The board of directors: Cash dividend @ Rs.2.75 per share and stock dividend @3%. Reserve for contingencies should be disposed off completely. What is the amount of retained earning balance at December 31, 2010?`,o:[`Rs.156,000`,`Rs.315,500`,`Rs.146,000`,`Rs.134,500`],a:3},
+{q:`A limited liability company as on January 1, 2010; Paid up Capital 145,000 ord. shares of Rs.10 each Rs.1,450,000, Retained earning Rs.400,000, Ordinary shares premium Rs.45,000, Reserve for asset replacement Rs.90,000. Net profit for the year ended December 31, 2010 amounted to Rs.200,000. The board of directors: Cash dividend @ Rs.2 per share and stock dividend @ Rs.1 per share. Reserve for asset replacement should be disposed off completely. Created a reserve for building expansion by Rs.25,000. What is the amount of retained earning balance at December 31, 2010?`,o:[`Rs.56,000`,`Rs.98,000`,`Rs.100,000`,`Rs.230,000`],a:1}
+]},
+];
+function build(){
+C.forEach(ch=>{
+const el=document.getElementById(ch.id);
+let h=`<div class="chd"><h2>${ch.title}</h2><span class="cct">${ch.qs.length} questions</span></div>`;
+ch.qs.forEach((q,i)=>{
+const cid=`${ch.id}_${i}`;
+const sb=q.s?`<span class="sb">⭐ Past Paper</span>`:``;
+const opts=q.o.map((o,j)=>`<button class="opt" data-i="${j}" onclick="pick(this,'${cid}',${q.a})"><span class="lb">${`abcd`[j]}</span>${o}</button>`).join(``);
+h+=`<div class="card${q.s?` star`:``}" id="cd_${cid}">
+<div class="ch"><span class="qn">Q${i+1}</span>${sb}</div>
+<p class="qt">${q.q}</p>
+<div class="opts">${opts}</div>
+<div class="an" id="an_${cid}">✓ Correct: ${'abcd'[q.a]}) ${q.o[q.a]}</div>
+</div>`;
+});
+el.innerHTML=h;
+});
+}
+
+function pick(btn,cid,ans){
+const card=document.getElementById(`cd_${cid}`);
+if(card.dataset.done)return;
+card.dataset.done=`1`;
+tt++;
+const all=card.querySelectorAll(`.opt`);
+all.forEach(b=>b.disabled=true);
+const chosen=parseInt(btn.dataset.i);
+if(chosen===ans){btn.classList.add(`correct`);cr++;}
+else{btn.classList.add(`wrong`);}
+all[ans].classList.add(chosen===ans?`correct`:`sa`);
+document.getElementById(`an_${cid}`).style.display=`block`;
+document.getElementById(`sc`).textContent=`${cr}/${tt}`;
+}
+
+document.querySelectorAll(`.tb`).forEach(b=>{
+b.addEventListener(`click`,()=>{
+document.querySelectorAll(`.tb`).forEach(x=>x.classList.remove(`active`));
+document.querySelectorAll(`.panel`).forEach(x=>x.classList.remove(`active`));
+b.classList.add(`active`);
+document.getElementById(b.dataset.p).classList.add(`active`);
+window.scrollTo({top:0,behavior:`smooth`});
+});
+});
+
+document.getElementById(`rb`).addEventListener(`click`,()=>{
+document.querySelectorAll(`.card`).forEach(c=>{
+delete c.dataset.done;
+c.querySelectorAll(`.opt`).forEach(b=>{b.classList.remove(`correct`,`wrong`,`sa`);b.disabled=false;});
+const n=c.querySelector(`.an`);if(n)n.style.display=`none`;
+});
+cr=0;tt=0;
+document.getElementById(`sc`).textContent=`0/0`;
+});
+
+build();
+</script>
+</body>
+</html>
