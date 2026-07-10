@@ -40,17 +40,6 @@ body{
   padding:20px 16px;
 }
 
-/* ── WATERMARK ── */
-.watermark-overlay{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  pointer-events:none;z-index:0;overflow:hidden;
-}
-.watermark-overlay span{
-  position:absolute;font-size:14px;font-weight:700;
-  color:rgba(15,37,68,0.05);white-space:nowrap;
-  transform:rotate(-35deg);letter-spacing:1px;text-transform:uppercase;
-}
-
 /* ── CONTAINER ── */
 .container{
   max-width:880px;margin:0 auto;background:#fffdf8;
@@ -232,10 +221,6 @@ body{
 </head>
 <body>
 
-<!-- WATERMARK -->
-<div class="watermark-overlay" id="wmOverlay"></div>
-
-<div class="container">
 
   <!-- CHAPTER HEADER -->
   <div class="chapter-header">
@@ -414,22 +399,6 @@ function shuffleOptions(q) {
 */
 let renderedQuestions = [];
 
-/* ═══════════════════════════════════════════════
-   WATERMARK
-═══════════════════════════════════════════════ */
-(function buildWatermarks(){
-  const overlay = document.getElementById('wmOverlay');
-  const text = 'Sir Ahmer Javed  |  Smart Study Center  |  0345-3090057';
-  for(let r = 0; r < 7; r++){
-    for(let c = 0; c < 3; c++){
-      const span = document.createElement('span');
-      span.textContent = text;
-      span.style.left  = (c * 40 - 5) + '%';
-      span.style.top   = (r * 16 - 4) + '%';
-      overlay.appendChild(span);
-    }
-  }
-})();
 
 /* ═══════════════════════════════════════════════
    BUILD QUIZ
