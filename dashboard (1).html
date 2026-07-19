@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Dashboard — Smart Study Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Source Sans 3','Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:#efe8d6;
+  background-image:
+    radial-gradient(circle at 15% 8%, rgba(15,37,68,0.05) 0, transparent 40%),
+    radial-gradient(circle at 85% 92%, rgba(201,146,43,0.08) 0, transparent 40%);
+  min-height:100vh;padding:20px 16px;
+}
+.container{max-width:880px;margin:0 auto}
+
+/* ── overlays (loading / login-required) ── */
+.state-card{
+  background:#fffdf8;border-radius:14px;box-shadow:0 20px 60px rgba(15,37,68,0.2);
+  border:1px solid #e7ddc4;padding:50px 24px;text-align:center;
+}
+.state-card h2{font-family:'Playfair Display',Georgia,serif;color:#0f2544;margin-bottom:10px;font-size:20px}
+.state-card p{color:#5c5240;font-size:14px;max-width:420px;margin:0 auto 18px;line-height:1.6}
+.state-card a.btn, .state-card button.btn{
+  display:inline-block;background:#0f2544;color:#f0c869;border:none;text-decoration:none;
+  padding:12px 28px;border-radius:8px;font-weight:800;font-size:14px;cursor:pointer;
+}
+
+/* ── header ── */
+.dash-header{
+  background:linear-gradient(135deg,#0f2544,#1b3a63);color:#fff;
+  border-radius:14px 14px 0 0;padding:24px;border-bottom:3px solid #c9922b;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+}
+.dash-header .label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.75;margin-bottom:6px}
+.dash-header h1{font-family:'Playfair Display',Georgia,serif;font-size:22px;color:#f0c869}
+.dash-header .sub{font-size:12px;opacity:.75;margin-top:4px}
+.signout-btn{background:rgba(255,255,255,.1);border:1px solid rgba(240,200,105,.4);color:#f0c869;padding:8px 16px;border-radius:8px;font-size:12.5px;font-weight:700;cursor:pointer}
+
+/* ── body panels ── */
+.panel{background:#fffdf8;border:1px solid #e7ddc4;border-top:none;padding:22px 24px}
+.panel:last-child{border-radius:0 0 14px 14px}
+.panel h2{font-family:'Playfair Display',Georgia,serif;font-size:16px;color:#0f2544;margin-bottom:14px}
+
+/* ── summary stat row ── */
+.summary-row{display:flex;gap:14px;flex-wrap:wrap}
+.summary-box{
+  flex:1;min-width:120px;background:#faf6ec;border:1px solid #ecdcb4;border-radius:10px;
+  padding:14px;text-align:center;
+}
+.summary-box .val{font-size:26px;font-weight:800;color:#0f2544}
+.summary-box .lab{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#8a6d2f;font-weight:700;margin-top:2px}
+
+/* ── chapter cards ── */
+.chapter-row{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:14px 16px;border:1px solid #ecdcb4;border-radius:10px;margin-bottom:10px;
+  flex-wrap:wrap;
+}
+.chapter-row.done{border-left:5px solid #2f6f4e}
+.chapter-row.todo{border-left:5px solid #c9922b;background:#faf6ec}
+.chapter-row .title{font-weight:700;color:#1a1a1a;font-size:14.5px}
+.chapter-row .meta{font-size:12px;color:#8a6d2f;margin-top:2px}
+.score-pill{
+  font-weight:800;font-size:15px;padding:6px 14px;border-radius:20px;
+  background:#e9f4ee;color:#1e4d34;
+}
+.score-pill.low{background:#fbeae6;color:#8c3323}
+.score-pill.mid{background:#fdf6e3;color:#8a5a15}
+.chapter-btn{
+  background:#0f2544;color:#f0c869;border:none;padding:8px 16px;border-radius:8px;
+  font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;
+}
+
+/* ── flagged list ── */
+.flag-item{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding:10px 14px;border:1px solid #f0d99a;background:#fdf6e3;border-radius:8px;margin-bottom:8px;
+  font-size:13.5px;color:#5d4a2c;
+}
+.flag-item a{color:#8a5a15;font-weight:700;text-decoration:none}
+.empty-note{color:#a08c5f;font-size:13px;text-align:center;padding:16px}
+</style>
+</head>
+<body>
+
+<div class="container" id="root">
+  <div class="state-card"><h2>Loading your dashboard...</h2></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════
+   CONFIG
+═══════════════════════════════════════════════ */
+const SUPABASE_URL = 'https://ouzsmcnnzudwluqyqpih.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91enNtY25uenVkd2x1cXlxcGloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0NjE3MjAsImV4cCI6MjEwMDAzNzcyMH0.eaBB-MdLBP5OperE68Npgjvebz9UM9CsxvpOBZ40rJ4';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const LOGIN_URL = 'https://smartstudycenter.online/login-2/';
+
+/* Master list of every chapter that exists on the site.
+   Add a new line here each time you publish a new chapter quiz. */
+const ALL_CHAPTERS = [
+  { id: 'unit-05-acellular-life', title: 'Unit 05: Acellular Life', url: 'https://smartstudycenter.online/unit-05-acellular-life/' },
+  // { id: 'unit-01-biological-molecules', title: 'Unit 01: Biological Molecules', url: 'https://smartstudycenter.online/unit-01-biological-molecules/' },
+];
+
+const root = document.getElementById('root');
+
+/* ═══════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════ */
+(async function init(){
+  const { data } = await sb.auth.getSession();
+
+  if(!data.session){
+    root.innerHTML = `
+      <div class="state-card">
+        <h2>Please log in to see your dashboard</h2>
+        <p>Your progress, scores, and flagged questions are tied to your account.</p>
+        <a class="btn" href="${LOGIN_URL}">🔐 Go to Login</a>
+      </div>`;
+    return;
+  }
+
+  const user = data.session.user;
+  const { data: results, error } = await sb
+    .from('quiz_results')
+    .select('*')
+    .eq('user_id', user.id);
+
+  if(error){
+    root.innerHTML = `
+      <div class="state-card">
+        <h2>Something went wrong</h2>
+        <p>${error.message}</p>
+      </div>`;
+    return;
+  }
+
+  renderDashboard(user, results || []);
+})();
+
+async function signOut(){
+  await sb.auth.signOut();
+  window.location.href = LOGIN_URL;
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER
+═══════════════════════════════════════════════ */
+function renderDashboard(user, results){
+  const attemptedIds = results.map(r => r.chapter_id);
+  const doneChapters  = ALL_CHAPTERS.filter(c => attemptedIds.includes(c.id));
+  const todoChapters  = ALL_CHAPTERS.filter(c => !attemptedIds.includes(c.id));
+
+  const avgScore = results.length
+    ? Math.round(results.reduce((s, r) => s + Number(r.score_pct), 0) / results.length)
+    : 0;
+
+  const totalFlagged = results.reduce((s, r) => s + (r.flagged_questions?.length || 0), 0);
+
+  const name = user.user_metadata?.full_name || user.email;
+
+  root.innerHTML = `
+    <div class="dash-header">
+      <div>
+        <div class="label">📊 Smart Study Center</div>
+        <h1>Welcome, ${name}</h1>
+        <div class="sub">${user.email}</div>
+      </div>
+      <button class="signout-btn" onclick="signOut()">Sign Out</button>
+    </div>
+
+    <div class="panel">
+      <h2>Overview</h2>
+      <div class="summary-row">
+        <div class="summary-box"><div class="val">${doneChapters.length} / ${ALL_CHAPTERS.length}</div><div class="lab">Chapters Attempted</div></div>
+        <div class="summary-box"><div class="val">${todoChapters.length}</div><div class="lab">Remaining Chapters</div></div>
+        <div class="summary-box"><div class="val">${avgScore}%</div><div class="lab">Average Score</div></div>
+        <div class="summary-box"><div class="val">${totalFlagged}</div><div class="lab">🚩 Flagged MCQs</div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Chapter Progress</h2>
+      ${doneChapters.length === 0 ? '<div class="empty-note">No chapters attempted yet — start your first quiz below.</div>' : ''}
+      ${doneChapters.map(c => {
+        const r = results.find(x => x.chapter_id === c.id);
+        const pct = Math.round(r.score_pct);
+        const pillClass = pct >= 70 ? '' : (pct >= 50 ? 'mid' : 'low');
+        const date = r.completed_at
+          ? new Date(r.completed_at).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })
+          : 'in progress';
+        const statusNote = r.is_complete
+          ? `Last attempt: ${date}`
+          : `⏳ In progress — Q${(r.current_index || 0) + 1} of ${r.total_questions}`;
+        return `
+        <div class="chapter-row done">
+          <div>
+            <div class="title">${c.title}</div>
+            <div class="meta">${r.correct} / ${r.answered} correct so far &nbsp;·&nbsp; ${statusNote} ${r.flagged_questions?.length ? `&nbsp;·&nbsp; 🚩 ${r.flagged_questions.length} flagged` : ''}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="score-pill ${pillClass}">${pct}%</span>
+            <a class="chapter-btn" href="${c.url}">${r.is_complete ? 'Retake' : 'Continue'}</a>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <div class="panel">
+      <h2>Remaining Chapters</h2>
+      ${todoChapters.length === 0 ? '<div class="empty-note">You have attempted every available chapter. 🎉</div>' : ''}
+      ${todoChapters.map(c => `
+        <div class="chapter-row todo">
+          <div class="title">${c.title}</div>
+          <a class="chapter-btn" href="${c.url}">Start →</a>
+        </div>`).join('')}
+    </div>
+
+    <div class="panel">
+      <h2>🚩 Flagged MCQs for Revision</h2>
+      ${totalFlagged === 0 ? '<div class="empty-note">No flagged questions yet. Flag any MCQ while practicing to revisit it here.</div>' : ''}
+      ${results.filter(r => r.flagged_questions?.length).map(r => {
+        const chapter = ALL_CHAPTERS.find(c => c.id === r.chapter_id);
+        return `
+        <div class="flag-item">
+          <span>${r.chapter_title} — ${r.flagged_questions.length} flagged question${r.flagged_questions.length === 1 ? '' : 's'}</span>
+          <a href="${chapter ? chapter.url : '#'}?flagged=1">Revise →</a>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+}
+</script>
+</body>
+</html>
