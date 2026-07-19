@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — Smart Study Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Source Sans 3','Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:#efe8d6;
+  background-image:
+    radial-gradient(circle at 15% 8%, rgba(15,37,68,0.05) 0, transparent 40%),
+    radial-gradient(circle at 85% 92%, rgba(201,146,43,0.08) 0, transparent 40%);
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px 16px;
+}
+
+.card{
+  width:100%;max-width:400px;background:#fffdf8;
+  border-radius:14px;box-shadow:0 20px 60px rgba(15,37,68,0.28);
+  border:1px solid #e7ddc4;overflow:hidden;
+}
+
+.card-header{
+  background:linear-gradient(135deg,#0f2544,#1b3a63);
+  color:#fff;padding:28px 24px 22px;text-align:center;
+  border-bottom:3px solid #c9922b;
+}
+.card-header .label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.75;margin-bottom:8px}
+.card-header h1{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:24px;font-weight:800;color:#f0c869;letter-spacing:.3px;
+}
+.card-header p{font-size:12px;opacity:.7;margin-top:6px}
+
+.card-body{padding:26px 24px 28px}
+
+.tabs{display:flex;border-bottom:2px solid #ecdcb4;margin-bottom:20px}
+.tab{
+  flex:1;text-align:center;padding:10px;font-weight:700;font-size:14px;
+  color:#a08c5f;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;
+  transition:all .2s;
+}
+.tab.active{color:#0f2544;border-color:#c9922b}
+
+.form{display:none;flex-direction:column;gap:14px}
+.form.active{display:flex}
+
+label{font-size:12.5px;font-weight:700;color:#5c5240;margin-bottom:5px;display:block}
+input{
+  width:100%;padding:11px 14px;border:2px solid #e3dbc6;border-radius:8px;
+  font-size:14px;font-family:inherit;color:#1a1a1a;transition:border-color .2s;
+}
+input:focus{outline:none;border-color:#0f2544}
+
+.submit-btn{
+  background:#0f2544;color:#f0c869;border:none;padding:12px;
+  border-radius:8px;font-size:15px;font-weight:800;cursor:pointer;
+  transition:all .25s;margin-top:4px;
+}
+.submit-btn:hover:not(:disabled){background:#1b3a63}
+.submit-btn:disabled{background:#cfc9b8;cursor:not-allowed}
+
+.msg{
+  font-size:13px;padding:10px 12px;border-radius:8px;display:none;
+  line-height:1.5;
+}
+.msg.show{display:block}
+.msg.error{background:#fbeae6;color:#8c3323;border:1px solid #d99181}
+.msg.success{background:#e9f4ee;color:#1e4d34;border:1px solid #5fa77f}
+
+.loggedin{display:none;text-align:center;flex-direction:column;gap:14px;align-items:center}
+.loggedin.active{display:flex}
+.loggedin .email{font-weight:700;color:#0f2544;font-size:15px}
+.loggedin .sub{color:#8a6d2f;font-size:12.5px}
+.go-btn{
+  width:100%;background:#c9922b;color:#fff;border:none;padding:12px;
+  border-radius:8px;font-size:15px;font-weight:800;cursor:pointer;
+}
+.signout-btn{
+  background:none;border:2px solid #e3dbc6;color:#5c5240;
+  padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;
+}
+
+.footer{text-align:center;padding:12px;font-size:11px;color:#a08c5f;background:#faf6ec;border-top:1px solid #ecdcb4}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-header">
+    <div class="label">📚 Smart Study Center</div>
+    <h1>Student Login</h1>
+    <p>MDCAT &amp; ECAT Preparation Portal</p>
+  </div>
+
+  <div class="card-body">
+
+    <!-- LOGGED-IN STATE -->
+    <div class="loggedin" id="loggedInView">
+      <div>
+        <div class="email" id="userEmail"></div>
+        <div class="sub">You're logged in</div>
+      </div>
+      <button class="go-btn" onclick="goToQuiz()">Go to Quiz →</button>
+      <button class="signout-btn" onclick="signOut()">Sign Out</button>
+    </div>
+
+    <!-- LOGIN / SIGNUP FORMS -->
+    <div id="authView">
+      <div class="tabs">
+        <div class="tab active" id="tabLogin" onclick="switchTab('login')">Log In</div>
+        <div class="tab" id="tabSignup" onclick="switchTab('signup')">Sign Up</div>
+      </div>
+
+      <div class="msg" id="msgBox"></div>
+
+      <form class="form active" id="loginForm" onsubmit="return handleLogin(event)">
+        <div>
+          <label>Email</label>
+          <input type="email" id="loginEmail" required placeholder="you@example.com">
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" id="loginPassword" required placeholder="••••••••">
+        </div>
+        <button class="submit-btn" type="submit" id="loginBtn">Log In</button>
+      </form>
+
+      <form class="form" id="signupForm" onsubmit="return handleSignup(event)">
+        <div>
+          <label>Full Name</label>
+          <input type="text" id="signupName" required placeholder="Your name">
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="email" id="signupEmail" required placeholder="you@example.com">
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" id="signupPassword" required minlength="6" placeholder="At least 6 characters">
+        </div>
+        <button class="submit-btn" type="submit" id="signupBtn">Create Account</button>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="footer">Smart Study Center &nbsp;·&nbsp; Sir Ahmer Javed</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ═══════════════════════════════════════════════
+   SUPABASE CONFIG
+═══════════════════════════════════════════════ */
+const SUPABASE_URL = 'https://ouzsmcnnzudwluqyqpih.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91enNtY25uenVkd2x1cXlxcGloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0NjE3MjAsImV4cCI6MjEwMDAzNzcyMH0.eaBB-MdLBP5OperE68Npgjvebz9UM9CsxvpOBZ40rJ4';
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* Where "Go to Quiz" should send a logged-in student.
+   Update this to your actual chapter-1 quiz page URL. */
+const QUIZ_URL = 'https://smartstudycenter.online/unit-01-acellular-life/';
+
+/* ═══════════════════════════════════════════════
+   UI HELPERS
+═══════════════════════════════════════════════ */
+function switchTab(which){
+  document.getElementById('tabLogin').classList.toggle('active', which === 'login');
+  document.getElementById('tabSignup').classList.toggle('active', which === 'signup');
+  document.getElementById('loginForm').classList.toggle('active', which === 'login');
+  document.getElementById('signupForm').classList.toggle('active', which === 'signup');
+  hideMsg();
+}
+
+function showMsg(text, type){
+  const box = document.getElementById('msgBox');
+  box.textContent = text;
+  box.className = `msg show ${type}`;
+}
+function hideMsg(){
+  document.getElementById('msgBox').className = 'msg';
+}
+
+function showLoggedInView(email){
+  document.getElementById('authView').style.display = 'none';
+  document.getElementById('loggedInView').classList.add('active');
+  document.getElementById('userEmail').textContent = email;
+}
+function showAuthView(){
+  document.getElementById('authView').style.display = 'block';
+  document.getElementById('loggedInView').classList.remove('active');
+}
+
+function goToQuiz(){
+  window.location.href = QUIZ_URL;
+}
+
+/* ═══════════════════════════════════════════════
+   AUTH ACTIONS
+═══════════════════════════════════════════════ */
+async function handleLogin(e){
+  e.preventDefault();
+  hideMsg();
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = true; btn.textContent = 'Logging in...';
+
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+
+  const { data, error } = await sb.auth.signInWithPassword({ email, password });
+
+  btn.disabled = false; btn.textContent = 'Log In';
+
+  if(error){
+    showMsg(error.message, 'error');
+    return false;
+  }
+  showLoggedInView(data.user.email);
+  return false;
+}
+
+async function handleSignup(e){
+  e.preventDefault();
+  hideMsg();
+  const btn = document.getElementById('signupBtn');
+  btn.disabled = true; btn.textContent = 'Creating account...';
+
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const password = document.getElementById('signupPassword').value;
+
+  const { data, error } = await sb.auth.signUp({
+    email,
+    password,
+    options: { data: { full_name: name } }
+  });
+
+  btn.disabled = false; btn.textContent = 'Create Account';
+
+  if(error){
+    showMsg(error.message, 'error');
+    return false;
+  }
+
+  if(data.session){
+    // email confirmation is off → logged in immediately
+    showLoggedInView(data.user.email);
+  } else {
+    showMsg('Account created! Please check your email to confirm, then log in.', 'success');
+    switchTab('login');
+  }
+  return false;
+}
+
+async function signOut(){
+  await sb.auth.signOut();
+  showAuthView();
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPassword').value = '';
+}
+
+/* ═══════════════════════════════════════════════
+   ON LOAD — restore existing session if any
+═══════════════════════════════════════════════ */
+(async function init(){
+  const { data } = await sb.auth.getSession();
+  if(data.session){
+    showLoggedInView(data.session.user.email);
+  }
+})();
+</script>
+</body>
+</html>
